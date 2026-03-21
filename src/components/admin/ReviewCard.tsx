@@ -12,6 +12,7 @@ interface Props {
 export default function ReviewCard({ question, categories, onUpdate }: Props) {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [fixing, setFixing] = useState(false);
   const [form, setForm] = useState({
     text_de: question.text_de,
     answer_de: question.answer_de,
@@ -46,6 +47,33 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
 
   const approve = () => save({ status: 'approved', verified: true });
   const reject = () => save({ status: 'rejected', verified: false });
+
+  const handleFix = async () => {
+    setFixing(true);
+    try {
+      const res = await fetch('/api/admin/questions/fix', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionId: question.id }),
+      });
+      if (!res.ok) throw new Error('Fix failed');
+      const fixed = await res.json();
+
+      setForm({
+        ...form,
+        text_de: fixed.text_de,
+        answer_de: fixed.answer_de,
+        fun_fact_de: fixed.fun_fact_de || '',
+        wrong_answers_de: fixed.wrong_answers_de?.length >= 3
+          ? fixed.wrong_answers_de
+          : [...(fixed.wrong_answers_de || []), '', '', ''].slice(0, 3),
+      });
+      setEditing(true);
+    } catch {
+      // silently fail
+    }
+    setFixing(false);
+  };
 
   const wrongAnswers = form.wrong_answers_de.length >= 3
     ? form.wrong_answers_de
@@ -195,7 +223,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
       )}
 
       {/* Actions */}
-      <div className="flex gap-2 pt-2 border-t border-[var(--dark-border)]">
+      <div className="flex flex-wrap gap-2 pt-2 border-t border-[var(--dark-border)]">
         <button
           onClick={approve}
           disabled={saving}
@@ -217,6 +245,15 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
             className="px-4 py-2 bg-[var(--gold)]/20 text-[var(--gold)] rounded-lg text-sm font-medium hover:bg-[var(--gold)]/30 transition-colors disabled:opacity-50"
           >
             💾 Speichern
+          </button>
+        )}
+        {question.status === 'flagged' && question.verification_note && !editing && (
+          <button
+            onClick={handleFix}
+            disabled={fixing}
+            className="px-4 py-2 bg-blue-600/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-600/30 transition-colors disabled:opacity-50"
+          >
+            {fixing ? '⏳ Korrigiere...' : '🔧 Korrektur übernehmen'}
           </button>
         )}
       </div>

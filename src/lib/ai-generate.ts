@@ -37,7 +37,9 @@ Schwierigkeitsgrade:
 1 = Die meisten Erwachsenen wissen die Antwort
 2 = Man muss kurz nachdenken, aber die meisten Teams kriegen es hin
 3 = Nur 30-40% der Teams werden es wissen — hier trennt sich die Spreu vom Weizen
-4 = Echte Expertenfrage — vielleicht weiß es ein Team im Raum`;
+4 = Echte Expertenfrage — vielleicht weiß es ein Team im Raum
+
+WICHTIG: Überprüfe jede Antwort durch eine Websuche BEVOR du sie in das JSON aufnimmst. Generiere keine Frage, wenn du dir bei der Antwort nicht 100% sicher bist. Qualität vor Quantität.`;
 
 export async function generateQuestions(params: GenerateParams): Promise<GeneratedQuestion[]> {
   const difficultyInstruction = params.difficulty === 'mixed'
@@ -72,9 +74,10 @@ Antworte ausschließlich mit dem JSON-Array, ohne Markdown-Formatierung oder and
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-20250514',
-    max_tokens: 8192,
+    max_tokens: 16384,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],
+    tools: [{ type: 'web_search_20250305' as const, name: 'web_search', max_uses: params.count * 2 }],
   });
 
   const text = response.content
@@ -339,4 +342,58 @@ function getWeekNumber(date: Date): number {
 export function getCurrentWeek(): string {
   const now = new Date();
   return `${now.getFullYear()}-W${String(getWeekNumber(now)).padStart(2, '0')}`;
+}
+
+export interface FixedQuestion {
+  text_de: string;
+  answer_de: string;
+  fun_fact_de: string;
+  wrong_answers_de: string[];
+}
+
+export async function fixQuestion(
+  question: { text_de: string; answer_de: string; fun_fact_de: string | null; wrong_answers_de: string[] | null },
+  verificationNote: string
+): Promise<FixedQuestion> {
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 2048,
+    system: 'Du bist ein Quizfragen-Editor. Korrigiere die Frage basierend auf dem gemeldeten Problem. Überprüfe die korrigierte Antwort durch eine Websuche. Antworte ausschließlich mit JSON.',
+    tools: [{ type: 'web_search_20250305' as const, name: 'web_search', max_uses: 3 }],
+    messages: [
+      {
+        role: 'user',
+        content: `Diese Quizfrage hat ein Problem:
+
+Frage: ${question.text_de}
+Antwort: ${question.answer_de}
+Falsche Antworten: ${(question.wrong_answers_de || []).join(', ')}
+Fun Fact: ${question.fun_fact_de || '—'}
+
+Problem: ${verificationNote}
+
+Korrigiere die Frage, Antwort, falsche Antworten und Fun Fact. Falls die Antwort falsch ist, finde die richtige. Falls die Frage mehrdeutig ist, formuliere sie eindeutig um.
+
+Antworte als JSON-Objekt: {"text_de": "...", "answer_de": "...", "fun_fact_de": "...", "wrong_answers_de": ["...", "...", "..."]}`,
+      },
+    ],
+  });
+
+  const text = response.content
+    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
+    .map((block) => block.text)
+    .join('');
+
+  try {
+    const parsed = JSON.parse(text);
+    if (parsed.text_de && parsed.answer_de) return parsed;
+  } catch {
+    const match = text.match(/\{[\s\S]*\}/);
+    if (match) {
+      const parsed = JSON.parse(match[0]);
+      if (parsed.text_de && parsed.answer_de) return parsed;
+    }
+  }
+
+  throw new Error('Failed to parse AI fix response');
 }
