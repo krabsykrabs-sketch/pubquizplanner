@@ -9,7 +9,7 @@ interface GenerateParams {
   specialInstructions?: string;
 }
 
-interface GeneratedQuestion {
+export interface GeneratedQuestion {
   text_de: string;
   answer_de: string;
   fun_fact_de: string;
@@ -196,6 +196,121 @@ function answersMatch(intended: string, claude: string): boolean {
 
   // If most key words match, consider it a match
   return overlap >= Math.min(wordsA.size, wordsB.size) * 0.6;
+}
+
+export interface WebSearchResult {
+  index: number;
+  correct: boolean;
+  issue: string | null;
+}
+
+export async function webSearchVerify(questions: GeneratedQuestion[]): Promise<WebSearchResult[]> {
+  const questionList = questions
+    .map((q, i) => `${i + 1}. Frage: ${q.text_de}\n   Antwort: ${q.answer_de}\n   Fun Fact: ${q.fun_fact_de || '—'}`)
+    .join('\n\n');
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 8192,
+    system: 'Du bist ein Faktenchecker für Quizfragen. Überprüfe jede Frage gründlich durch Websuchen. Antworte ausschließlich mit JSON.',
+    tools: [{ type: 'web_search_20250305' as const, name: 'web_search', max_uses: questions.length * 2 }],
+    messages: [
+      {
+        role: 'user',
+        content: `Hier sind Quizfragen mit Antworten. Überprüfe JEDE Antwort durch eine Websuche. Suche aktiv nach Gegenbeweisen. Ist die Antwort eindeutig korrekt? Ist die Frage eindeutig formuliert oder könnte sie missverstanden werden?
+
+Antworte als JSON-Array: {"index": number, "correct": boolean, "issue": string|null}
+
+Melde ein Problem wenn:
+- Die Antwort faktisch falsch ist
+- Die Frage mehrdeutig ist und mehrere gültige Antworten haben könnte
+- Die Frage leicht missverstanden werden kann
+- Der Fun Fact falsch oder irreführend ist
+
+FRAGEN:
+${questionList}
+
+Antworte ausschließlich mit dem JSON-Array.`,
+      },
+    ],
+  });
+
+  const text = response.content
+    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
+    .map((block) => block.text)
+    .join('');
+
+  try {
+    const parsed = JSON.parse(text);
+    if (Array.isArray(parsed)) return parsed;
+  } catch {
+    const match = text.match(/\[[\s\S]*\]/);
+    if (match) return JSON.parse(match[0]);
+  }
+
+  // If parsing fails, assume all correct
+  return questions.map((_, i) => ({ index: i, correct: true, issue: null }));
+}
+
+export interface DuplicateResult {
+  index: number;
+  is_duplicate: boolean;
+  duplicate_of: string | null;
+}
+
+export async function checkDuplicates(
+  newQuestions: GeneratedQuestion[],
+  existingQuestionTexts: string[]
+): Promise<DuplicateResult[]> {
+  if (existingQuestionTexts.length === 0) {
+    return newQuestions.map((_, i) => ({ index: i, is_duplicate: false, duplicate_of: null }));
+  }
+
+  const existingList = existingQuestionTexts
+    .map((q, i) => `B${i + 1}. ${q}`)
+    .join('\n');
+
+  const newList = newQuestions
+    .map((q, i) => `N${i + 1}. ${q.text_de}`)
+    .join('\n');
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 4096,
+    system: 'Du bist ein Experte für Duplikaterkennung bei Quiz-Fragen. Antworte ausschließlich mit JSON.',
+    messages: [
+      {
+        role: 'user',
+        content: `Hier sind bestehende Fragen in der Datenbank (B), gefolgt von neuen Fragen (N). Prüfe jede neue Frage: Gibt es eine bestehende Frage die dasselbe Wissen abfragt, auch wenn sie anders formuliert ist?
+
+Antworte als JSON-Array mit einem Objekt pro neuer Frage: {"index": number, "is_duplicate": boolean, "duplicate_of": string|null} wobei duplicate_of den Text der bestehenden Frage enthält falls es ein Duplikat ist.
+
+BESTEHENDE FRAGEN:
+${existingList}
+
+NEUE FRAGEN:
+${newList}
+
+Antworte ausschließlich mit dem JSON-Array.`,
+      },
+    ],
+  });
+
+  const text = response.content
+    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
+    .map((block) => block.text)
+    .join('');
+
+  try {
+    const parsed = JSON.parse(text);
+    if (Array.isArray(parsed)) return parsed;
+  } catch {
+    const match = text.match(/\[[\s\S]*\]/);
+    if (match) return JSON.parse(match[0]);
+  }
+
+  // If parsing fails, assume no duplicates
+  return newQuestions.map((_, i) => ({ index: i, is_duplicate: false, duplicate_of: null }));
 }
 
 function parseJsonResponse(text: string): GeneratedQuestion[] {
