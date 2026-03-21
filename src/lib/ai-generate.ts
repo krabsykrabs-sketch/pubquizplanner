@@ -18,12 +18,33 @@ interface GeneratedQuestion {
   wrong_answers_de: string[];
 }
 
+const SYSTEM_PROMPT = `Du bist ein erfahrener Quizmaster, der seit 20 Jahren Kneipenquiz-Abende in Deutschland leitet. Du schreibst Fragen, die am Tisch für Diskussion sorgen — nicht trockene Lexikon-Fragen, sondern solche, bei denen Teams gemeinsam grübeln und am Ende 'Ach, natürlich!' oder 'Das hätte ich nie gedacht!' rufen.
+
+Regeln für gute Fragen:
+- Jede Frage hat GENAU EINE richtige Antwort — keine Mehrdeutigkeit
+- Die Antwort sollte kurz sein (1-5 Wörter)
+- Fragen sollen neugierig machen, nicht einschüchtern
+- Vermeide reine Jahreszahl-Fragen ('In welchem Jahr...') — höchstens 10% davon
+- Bevorzuge 'Welcher/Welche/Welches' und 'Was/Wer/Wie' Fragen
+- Die besten Fragen verbinden zwei unerwartete Bereiche ('Welches Tier kann seinen Herzschlag willentlich stoppen?' → Antwort: Frosch)
+- Fun Facts sollen überraschend und unterhaltsam sein, nicht Wikipedia-Zusammenfassungen
+- Falsche Antworten müssen plausibel klingen — sie sollen Teams ins Zweifeln bringen
+- Falsche Antworten müssen vom gleichen Typ sein wie die richtige (Land→Länder, Person→Personen, Zahl→Zahlen)
+- Keine Fragen die man trivial googeln kann ('Wie hoch ist der Mount Everest?')
+- Bevorzuge Fragen mit überraschenden oder kontraintuitiven Antworten
+
+Schwierigkeitsgrade:
+1 = Die meisten Erwachsenen wissen die Antwort
+2 = Man muss kurz nachdenken, aber die meisten Teams kriegen es hin
+3 = Nur 30-40% der Teams werden es wissen — hier trennt sich die Spreu vom Weizen
+4 = Echte Expertenfrage — vielleicht weiß es ein Team im Raum`;
+
 export async function generateQuestions(params: GenerateParams): Promise<GeneratedQuestion[]> {
   const difficultyInstruction = params.difficulty === 'mixed'
     ? 'Verwende eine Mischung aus den Schwierigkeitsstufen 1-4.'
     : `Alle Fragen sollen Schwierigkeitsstufe ${params.difficulty} haben (1=sehr leicht, 2=mittel, 3=schwer, 4=sehr schwer).`;
 
-  const prompt = `Du bist ein erfahrener Pub-Quiz-Autor. Erstelle ${params.count} deutsche Pub-Quiz-Fragen für die Kategorie "${params.categoryName}".
+  const prompt = `Erstelle ${params.count} deutsche Pub-Quiz-Fragen für die Kategorie "${params.categoryName}".
 
 ${difficultyInstruction}
 
@@ -43,12 +64,16 @@ Wichtige Regeln:
 - Fun Facts sollen überraschend und unterhaltsam sein
 - Keine Duplikate oder zu ähnliche Fragen
 - Antworten kurz und prägnant halten
+- Vermeide Standardfragen die in jedem Quiz vorkommen (z.B. 'Hauptstadt von Frankreich', 'Wer malte die Mona Lisa')
+- Mindestens 30% der Fragen sollen einen DACH-Bezug haben (Deutschland, Österreich, Schweiz)
+- Jede Frage soll so formuliert sein, dass sie laut vorgelesen gut klingt
 
 Antworte ausschließlich mit dem JSON-Array, ohne Markdown-Formatierung oder andere Texte.`;
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-20250514',
     max_tokens: 8192,
+    system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],
   });
 
@@ -76,11 +101,22 @@ Antworte NUR mit einem JSON-Array. Jedes Element hat diese Felder:
 - tags: Array mit 2-4 relevanten Tags auf Deutsch
 - wrong_answers_de: Array mit genau 3 plausiblen aber falschen Antworten
 
+Wichtige Regeln:
+- Fragen müssen eindeutig beantwortbar sein
+- Falsche Antworten müssen plausibel klingen
+- Fun Facts sollen überraschend und unterhaltsam sein
+- Keine Duplikate oder zu ähnliche Fragen
+- Antworten kurz und prägnant halten
+- Vermeide Standardfragen die in jedem Quiz vorkommen
+- Mindestens 30% der Fragen sollen einen DACH-Bezug haben (Deutschland, Österreich, Schweiz)
+- Jede Frage soll so formuliert sein, dass sie laut vorgelesen gut klingt
+
 Antworte ausschließlich mit dem JSON-Array, ohne Markdown-Formatierung oder andere Texte.`;
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-20250514',
     max_tokens: 8192,
+    system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],
     tools: [{ type: 'web_search_20250305' as const, name: 'web_search', max_uses: 10 }],
   });
