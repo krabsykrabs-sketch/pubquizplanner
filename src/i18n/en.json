@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "PubQuizPlanner – Your Pub Quiz Generator",
+    "description": "Create professional pub quizzes with presentation and answer sheets. Free and easy."
+  },
+  "landing": {
+    "hero": "Your pub quiz, perfectly planned.",
+    "subtitle": "Create a complete pub quiz with presentation and answer sheet in minutes.",
+    "cta": "Create Quiz",
+    "step1Title": "Configure",
+    "step1Desc": "Choose categories, difficulty, and number of rounds.",
+    "step2Title": "Preview & Adjust",
+    "step2Desc": "Review questions and swap individual ones.",
+    "step3Title": "Download",
+    "step3Desc": "Download presentation and answer sheet as files."
+  },
+  "generator": {
+    "title": "Quiz Generator",
+    "step1": "Basic Setup",
+    "step2": "Configure Rounds",
+    "step3": "Preview & Adjust",
+    "step4": "Download",
+    "quizTitle": "Quiz Title",
+    "quizTitleDefault": "Quiz Night",
+    "date": "Date",
+    "venue": "Venue",
+    "numberOfRounds": "Number of Rounds",
+    "answerPlacement": "Show Answers",
+    "afterEach": "After Each Round",
+    "allAtEnd": "All at the End",
+    "next": "Next",
+    "back": "Back",
+    "category": "Category",
+    "difficulty": "Difficulty",
+    "mixed": "Mixed",
+    "questionsPerRound": "Questions per Round",
+    "roundType": "Round Type",
+    "standard": "Standard",
+    "multipleChoice": "Multiple Choice",
+    "round": "Round",
+    "preview": "Preview",
+    "swap": "Swap",
+    "swapsLeft": "swaps left",
+    "question": "Question",
+    "answer": "Answer",
+    "downloadPresentation": "Download Presentation",
+    "downloadAnswerSheet": "Download Answer Sheet",
+    "generating": "Generating...",
+    "exampleQuestions": "Example Questions",
+    "loading": "Loading..."
+  }
+}

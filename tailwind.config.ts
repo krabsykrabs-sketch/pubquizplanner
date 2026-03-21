@@ -11,6 +11,16 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        gold: "var(--gold)",
+        "gold-light": "var(--gold-light)",
+        muted: "var(--muted)",
+        "dark-card": "var(--dark-card)",
+        "dark-border": "var(--dark-border)",
+      },
+      fontFamily: {
+        display: ['"Playfair Display"', 'serif'],
+        sans: ['"DM Sans"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
     },
   },

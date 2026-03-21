@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "PubQuizPlanner – Dein Pub Quiz Generator",
+    "description": "Erstelle professionelle Pub Quizze mit Präsentation und Antwortbogen. Kostenlos und einfach."
+  },
+  "landing": {
+    "hero": "Dein Pub Quiz, perfekt geplant.",
+    "subtitle": "Erstelle in Minuten ein komplettes Pub Quiz mit Präsentation und Antwortbogen.",
+    "cta": "Quiz erstellen",
+    "step1Title": "Konfigurieren",
+    "step1Desc": "Wähle Kategorien, Schwierigkeit und Rundenanzahl.",
+    "step2Title": "Vorschau & Anpassen",
+    "step2Desc": "Schau dir die Fragen an und tausche einzelne aus.",
+    "step3Title": "Herunterladen",
+    "step3Desc": "Lade Präsentation und Antwortbogen als Dateien herunter."
+  },
+  "generator": {
+    "title": "Quiz Generator",
+    "step1": "Grundeinstellungen",
+    "step2": "Runden konfigurieren",
+    "step3": "Vorschau & Anpassen",
+    "step4": "Herunterladen",
+    "quizTitle": "Quiz-Titel",
+    "quizTitleDefault": "Quiz Abend",
+    "date": "Datum",
+    "venue": "Veranstaltungsort",
+    "numberOfRounds": "Anzahl Runden",
+    "answerPlacement": "Antworten zeigen",
+    "afterEach": "Nach jeder Runde",
+    "allAtEnd": "Alle am Ende",
+    "next": "Weiter",
+    "back": "Zurück",
+    "category": "Kategorie",
+    "difficulty": "Schwierigkeit",
+    "mixed": "Gemischt",
+    "questionsPerRound": "Fragen pro Runde",
+    "roundType": "Rundentyp",
+    "standard": "Standard",
+    "multipleChoice": "Multiple Choice",
+    "round": "Runde",
+    "preview": "Vorschau",
+    "swap": "Tauschen",
+    "swapsLeft": "Tausche übrig",
+    "question": "Frage",
+    "answer": "Antwort",
+    "downloadPresentation": "Präsentation herunterladen",
+    "downloadAnswerSheet": "Antwortbogen herunterladen",
+    "generating": "Wird erstellt...",
+    "exampleQuestions": "Beispielfragen",
+    "loading": "Laden..."
+  }
+}
