@@ -7,7 +7,6 @@ import QuestionCard from '@/components/QuestionCard';
 
 interface RoundQuestions {
   questions: QuizQuestion[];
-  swapsUsed: number;
   expanded: boolean;
 }
 
@@ -29,8 +28,6 @@ export default function StepPreview({
   const t = useTranslations('generator');
   const [loading, setLoading] = useState(false);
   const [swapping, setSwapping] = useState<string | null>(null);
-
-  const maxSwaps = 3;
 
   useEffect(() => {
     if (roundsData.length > 0 && roundsData.some((r) => r.questions.length > 0)) return;
@@ -57,7 +54,6 @@ export default function StepPreview({
             roundNumber: i + 1,
             questionNumber: j + 1,
           })),
-          swapsUsed: 0,
           expanded: true,
         }));
         setRoundsData(data);
@@ -68,8 +64,6 @@ export default function StepPreview({
 
   const handleSwap = async (roundIndex: number, questionIndex: number) => {
     const round = roundsData[roundIndex];
-    if (round.swapsUsed >= maxSwaps) return;
-
     const swapKey = `${roundIndex}-${questionIndex}`;
     setSwapping(swapKey);
 
@@ -100,7 +94,6 @@ export default function StepPreview({
         newData[roundIndex] = {
           ...round,
           questions: newQuestions,
-          swapsUsed: round.swapsUsed + 1,
         };
         setRoundsData(newData);
       }
@@ -150,14 +143,9 @@ export default function StepPreview({
                 ({round.questions.length} Fragen)
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-[var(--muted)] font-mono">
-                {maxSwaps - round.swapsUsed} {t('swapsLeft')}
-              </span>
-              <span className="text-[var(--muted)]">
-                {round.expanded ? '▼' : '▶'}
-              </span>
-            </div>
+            <span className="text-[var(--muted)]">
+              {round.expanded ? '▼' : '▶'}
+            </span>
           </button>
 
           {round.expanded && (
@@ -167,10 +155,7 @@ export default function StepPreview({
                   key={question.id}
                   question={question}
                   onSwap={() => handleSwap(roundIndex, qIndex)}
-                  swapDisabled={
-                    round.swapsUsed >= maxSwaps ||
-                    swapping === `${roundIndex}-${qIndex}`
-                  }
+                  swapDisabled={swapping === `${roundIndex}-${qIndex}`}
                 />
               ))}
             </div>

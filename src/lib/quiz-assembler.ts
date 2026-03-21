@@ -27,34 +27,45 @@ export async function assembleQuiz(config: QuizConfig): Promise<AssembledQuiz> {
 
 export async function fetchQuestionsForRound(
   categoryId: number,
-  difficulty: number | 'mixed',
+  difficulty: number[],
   count: number,
   roundType: string,
   excludeIds: number[]
 ): Promise<Question[]> {
-  let difficultyClause = '';
-  const params: unknown[] = [categoryId, roundType, count];
+  const params: unknown[] = [categoryId, count];
+  let paramIndex = 3;
 
-  if (difficulty !== 'mixed') {
-    difficultyClause = 'AND difficulty = $4';
-    params.push(difficulty);
+  // Difficulty filter — if all 4 selected, no filter needed
+  let difficultyClause = '';
+  if (difficulty.length > 0 && difficulty.length < 4) {
+    const placeholders = difficulty.map((_, i) => `$${paramIndex + i}`).join(', ');
+    difficultyClause = `AND difficulty IN (${placeholders})`;
+    params.push(...difficulty);
+    paramIndex += difficulty.length;
   }
 
+  // Multiple choice rounds require wrong_answers_de with 3 entries
+  let mcClause = '';
+  if (roundType === 'multiple_choice') {
+    mcClause = 'AND wrong_answers_de IS NOT NULL AND array_length(wrong_answers_de, 1) >= 3';
+  }
+
+  // Exclude IDs
   let excludeClause = '';
   if (excludeIds.length > 0) {
-    const placeholderStart = params.length + 1;
-    const placeholders = excludeIds.map((_, i) => `$${placeholderStart + i}`).join(', ');
+    const placeholders = excludeIds.map((_, i) => `$${paramIndex + i}`).join(', ');
     excludeClause = `AND id NOT IN (${placeholders})`;
     params.push(...excludeIds);
   }
 
   const rows = await query<Question>(
     `SELECT * FROM questions
-     WHERE category_id = $1 AND round_type = $2
+     WHERE category_id = $1
      ${difficultyClause}
+     ${mcClause}
      ${excludeClause}
      ORDER BY times_served ASC, RANDOM()
-     LIMIT $3`,
+     LIMIT $2`,
     params
   );
 
@@ -63,7 +74,7 @@ export async function fetchQuestionsForRound(
 
 export async function fetchSwapQuestion(
   categoryId: number,
-  difficulty: number | 'mixed',
+  difficulty: number[],
   roundType: string,
   excludeIds: number[]
 ): Promise<Question | null> {

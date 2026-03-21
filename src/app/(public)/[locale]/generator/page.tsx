@@ -10,7 +10,6 @@ import StepDownload from '@/components/quiz-builder/StepDownload';
 
 interface RoundQuestions {
   questions: QuizQuestion[];
-  swapsUsed: number;
   expanded: boolean;
 }
 
@@ -26,7 +25,7 @@ const defaultConfig: QuizConfig = {
     categorySlug: '',
     categoryName: '',
     categoryIcon: '',
-    difficulty: 'mixed' as const,
+    difficulty: [1, 2, 3, 4],
     questionsPerRound: 10,
     roundType: 'standard' as const,
   })),

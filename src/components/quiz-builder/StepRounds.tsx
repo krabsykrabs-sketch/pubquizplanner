@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import type { Category, QuizConfig, RoundConfig } from '@/types/quiz';
 import CategorySelector from '@/components/CategorySelector';
 import DifficultySelector from '@/components/DifficultySelector';
-import DifficultyPreview from '@/components/DifficultyPreview';
 
 interface Props {
   config: QuizConfig;
@@ -63,7 +62,6 @@ export default function StepRounds({ config, onChange, onNext, onBack }: Props) 
                 })
               }
             />
-            <DifficultyPreview categoryId={round.categoryId} />
           </div>
 
           {/* Difficulty */}

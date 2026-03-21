@@ -32,23 +32,13 @@ export interface Question {
   updated_at: string;
 }
 
-export interface ExampleQuestion {
-  id: number;
-  category_id: number;
-  difficulty: number;
-  text_de: string;
-  text_en: string | null;
-  answer_de: string;
-  answer_en: string | null;
-}
-
 export interface RoundConfig {
   roundNumber: number;
   categoryId: number;
   categorySlug: string;
   categoryName: string;
   categoryIcon: string;
-  difficulty: number | 'mixed';
+  difficulty: number[];
   questionsPerRound: number;
   roundType: 'standard' | 'multiple_choice';
 }

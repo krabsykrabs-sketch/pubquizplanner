@@ -71,7 +71,7 @@ export default function StepSetup({ config, onChange, onNext }: Props) {
               categorySlug: config.rounds[i]?.categorySlug || '',
               categoryName: config.rounds[i]?.categoryName || '',
               categoryIcon: config.rounds[i]?.categoryIcon || '',
-              difficulty: config.rounds[i]?.difficulty || ('mixed' as const),
+              difficulty: config.rounds[i]?.difficulty || [1, 2, 3, 4],
               questionsPerRound: config.rounds[i]?.questionsPerRound || 10,
               roundType: config.rounds[i]?.roundType || ('standard' as const),
             }));

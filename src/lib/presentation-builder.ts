@@ -47,7 +47,7 @@ export function buildPresentation(quiz: AssembledQuiz): string {
         <div class="round-number">Runde ${roundNum}</div>
         <div class="round-icon">${escapeHtml(round.config.categoryIcon)}</div>
         <h2>${escapeHtml(round.config.categoryName)}</h2>
-        <p class="round-info">${round.questions.length} Fragen${round.config.difficulty !== 'mixed' ? ` · Schwierigkeit ${'⭐'.repeat(round.config.difficulty as number)}` : ' · Gemischte Schwierigkeit'}</p>
+        <p class="round-info">${round.questions.length} Fragen${round.config.difficulty.length < 4 ? ` · Schwierigkeit ${round.config.difficulty.map((d: number) => '⭐'.repeat(d)).join(', ')}` : ''}</p>
       </div>
     `));
 

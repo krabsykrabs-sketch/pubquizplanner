@@ -6,7 +6,6 @@ import type { QuizConfig, QuizQuestion } from '@/types/quiz';
 
 interface RoundQuestions {
   questions: QuizQuestion[];
-  swapsUsed: number;
   expanded: boolean;
 }
 
