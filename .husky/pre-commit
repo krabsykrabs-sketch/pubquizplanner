@@ -1,0 +1,6 @@
+# If package.json is staged, run npm install to sync the lock file and stage it too
+if git diff --cached --name-only | grep -q '^package\.json$'; then
+  echo "package.json changed — running npm install to sync lock file..."
+  npm install
+  git add package-lock.json
+fi

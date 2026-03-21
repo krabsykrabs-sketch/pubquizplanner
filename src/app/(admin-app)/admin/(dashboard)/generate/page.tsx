@@ -10,8 +10,6 @@ interface GenerateResult {
   pending: number;
   flagged: number;
   duplicatesRejected: number;
-  retryRounds: number;
-  totalGenerated: number;
 }
 
 export default function GeneratePage() {
@@ -76,11 +74,8 @@ export default function GeneratePage() {
           <h2 className="font-bold text-lg text-[var(--foreground)]">Ergebnis</h2>
           <div className="space-y-1 text-sm">
             <p>
-              <span className="text-[var(--gold)] font-mono">{result.totalGenerated}</span>{' '}
+              <span className="text-[var(--gold)] font-mono">{result.inserted + result.duplicatesRejected}</span>{' '}
               Fragen generiert
-              {result.retryRounds > 1 && (
-                <span className="text-[var(--muted)]"> ({result.retryRounds} Runden)</span>
-              )}
             </p>
             <p>
               <span className="text-green-400 font-mono">{result.pending}</span>{' '}
