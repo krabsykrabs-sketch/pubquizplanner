@@ -1,4 +1,24 @@
-import type { AssembledQuiz } from '@/types/quiz';
+import type { AssembledQuiz, QuizQuestion } from '@/types/quiz';
+
+const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
+
+function shuffleOptions(question: QuizQuestion): { letter: string; text: string }[] {
+  const wrong = question.wrong_answers_de ?? [];
+  const options = [
+    question.answer_de,
+    ...wrong.slice(0, 3),
+  ];
+  // Fisher-Yates shuffle with a seeded-ish approach (deterministic per question id)
+  for (let i = options.length - 1; i > 0; i--) {
+    const j = ((question.id * 2654435761) >>> 0) % (i + 1);
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+  return options.map((text, i) => ({ letter: OPTION_LETTERS[i], text }));
+}
+
+function findCorrectLetter(options: { letter: string; text: string }[], answer: string): string {
+  return options.find((o) => o.text === answer)?.letter ?? '?';
+}
 
 export function buildPresentation(quiz: AssembledQuiz): string {
   const { config, rounds } = quiz;
@@ -32,25 +52,60 @@ export function buildPresentation(quiz: AssembledQuiz): string {
     `));
 
     // Question slides
-    round.questions.forEach((q, qIndex) => {
-      slides.push(buildSlide('question', `
-        <div class="question-slide">
-          <div class="question-meta">Runde ${roundNum} · Frage ${qIndex + 1}</div>
-          <h2 class="question-text">${escapeHtml(q.text_de)}</h2>
-          <div class="difficulty">${'⭐'.repeat(q.difficulty)}</div>
-        </div>
-      `));
+    const isMultipleChoice = round.config.roundType === 'multiple_choice';
 
-      // Answer slides (if showing after each round)
-      if (!allAnswersAtEnd) {
-        slides.push(buildSlide('answer', `
-          <div class="answer-slide">
-            <div class="question-meta">Runde ${roundNum} · Frage ${qIndex + 1}</div>
-            <p class="answer-question">${escapeHtml(q.text_de)}</p>
-            <div class="answer-text">${escapeHtml(q.answer_de)}</div>
-            ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
+    round.questions.forEach((q, qIndex) => {
+      const meta = `Runde ${roundNum} · Frage ${qIndex + 1}`;
+
+      if (isMultipleChoice && q.wrong_answers_de && q.wrong_answers_de.length >= 3) {
+        const options = shuffleOptions(q);
+        const correctLetter = findCorrectLetter(options, q.answer_de);
+
+        // MC question slide with options
+        slides.push(buildSlide('question', `
+          <div class="question-slide mc">
+            <div class="question-meta">${meta}</div>
+            <h2 class="question-text">${escapeHtml(q.text_de)}</h2>
+            <div class="mc-options">
+              ${options.map((o) => `<div class="mc-option"><span class="mc-letter">${o.letter}</span> ${escapeHtml(o.text)}</div>`).join('\n              ')}
+            </div>
           </div>
         `));
+
+        // MC answer slide highlighting correct letter
+        if (!allAnswersAtEnd) {
+          slides.push(buildSlide('answer', `
+            <div class="answer-slide mc">
+              <div class="question-meta">${meta}</div>
+              <p class="answer-question">${escapeHtml(q.text_de)}</p>
+              <div class="mc-options">
+                ${options.map((o) => `<div class="mc-option${o.letter === correctLetter ? ' mc-correct' : ' mc-wrong'}"><span class="mc-letter">${o.letter}</span> ${escapeHtml(o.text)}</div>`).join('\n                ')}
+              </div>
+              ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
+            </div>
+          `));
+        }
+      } else {
+        // Standard question slide
+        slides.push(buildSlide('question', `
+          <div class="question-slide">
+            <div class="question-meta">${meta}</div>
+            <h2 class="question-text">${escapeHtml(q.text_de)}</h2>
+            <div class="difficulty">${'⭐'.repeat(q.difficulty)}</div>
+          </div>
+        `));
+
+        // Standard answer slide (if showing after each round)
+        if (!allAnswersAtEnd) {
+          slides.push(buildSlide('answer', `
+            <div class="answer-slide">
+              <div class="question-meta">${meta}</div>
+              <p class="answer-question">${escapeHtml(q.text_de)}</p>
+              <div class="answer-text">${escapeHtml(q.answer_de)}</div>
+              ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
+            </div>
+          `));
+        }
       }
     });
 
@@ -86,15 +141,35 @@ export function buildPresentation(quiz: AssembledQuiz): string {
         </div>
       `));
 
+      const isMC = round.config.roundType === 'multiple_choice';
+
       round.questions.forEach((q, qIndex) => {
-        slides.push(buildSlide('answer', `
-          <div class="answer-slide">
-            <div class="question-meta">Runde ${roundNum} · Frage ${qIndex + 1}</div>
-            <p class="answer-question">${escapeHtml(q.text_de)}</p>
-            <div class="answer-text">${escapeHtml(q.answer_de)}</div>
-            ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
-          </div>
-        `));
+        const meta = `Runde ${roundNum} · Frage ${qIndex + 1}`;
+
+        if (isMC && q.wrong_answers_de && q.wrong_answers_de.length >= 3) {
+          const options = shuffleOptions(q);
+          const correctLetter = findCorrectLetter(options, q.answer_de);
+
+          slides.push(buildSlide('answer', `
+            <div class="answer-slide mc">
+              <div class="question-meta">${meta}</div>
+              <p class="answer-question">${escapeHtml(q.text_de)}</p>
+              <div class="mc-options">
+                ${options.map((o) => `<div class="mc-option${o.letter === correctLetter ? ' mc-correct' : ' mc-wrong'}"><span class="mc-letter">${o.letter}</span> ${escapeHtml(o.text)}</div>`).join('\n                ')}
+              </div>
+              ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
+            </div>
+          `));
+        } else {
+          slides.push(buildSlide('answer', `
+            <div class="answer-slide">
+              <div class="question-meta">${meta}</div>
+              <p class="answer-question">${escapeHtml(q.text_de)}</p>
+              <div class="answer-text">${escapeHtml(q.answer_de)}</div>
+              ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
+            </div>
+          `));
+        }
       });
     });
   }
@@ -203,6 +278,39 @@ h1, h2 {
   line-height: 1.5;
 }
 .answer-slide .fun-fact .fun-fact-label { font-weight: 700; color: #d4a843; }
+
+/* Multiple Choice options */
+.mc-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 800px;
+  margin: 30px auto 0;
+  text-align: left;
+}
+.mc-option {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 18px 24px;
+  font-size: 22px;
+  transition: all 0.3s ease;
+}
+.mc-option .mc-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: #d4a843;
+  margin-right: 12px;
+}
+.mc-correct {
+  background: rgba(74, 222, 128, 0.15) !important;
+  border-color: #4ade80 !important;
+  color: #4ade80;
+}
+.mc-correct .mc-letter { color: #4ade80; }
+.mc-wrong {
+  opacity: 0.35;
+}
 
 /* Halftime */
 .halftime-slide { text-align: center; }

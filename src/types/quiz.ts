@@ -17,6 +17,7 @@ export interface Question {
   fun_fact_de: string | null;
   fun_fact_en: string | null;
   difficulty: number;
+  wrong_answers_de: string[] | null;
   round_type: string;
   tags: string[];
   image_url: string | null;
@@ -24,6 +25,8 @@ export interface Question {
   is_current_event: boolean;
   current_event_week: string | null;
   verified: boolean;
+  status: string;
+  generation_batch_id: string | null;
   times_served: number;
   created_at: string;
   updated_at: string;

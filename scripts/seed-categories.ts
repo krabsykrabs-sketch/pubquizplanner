@@ -46,6 +46,7 @@ async function seed() {
       fun_fact_de TEXT,
       fun_fact_en TEXT,
       difficulty INTEGER NOT NULL CHECK (difficulty BETWEEN 1 AND 4),
+      wrong_answers_de TEXT[],
       round_type VARCHAR(30) DEFAULT 'standard',
       tags TEXT[],
       image_url TEXT,
@@ -53,6 +54,8 @@ async function seed() {
       is_current_event BOOLEAN DEFAULT FALSE,
       current_event_week VARCHAR(10),
       verified BOOLEAN DEFAULT FALSE,
+      status VARCHAR(20) DEFAULT 'approved',
+      generation_batch_id VARCHAR(50),
       times_served INTEGER DEFAULT 0,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()

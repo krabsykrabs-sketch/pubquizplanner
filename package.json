@@ -10,16 +10,20 @@
     "db:seed-categories": "npx tsx scripts/seed-categories.ts",
     "db:seed-examples": "npx tsx scripts/seed-example-questions.ts",
     "db:seed-questions": "npx tsx scripts/seed-questions.ts",
-    "db:seed": "npm run db:seed-categories && npm run db:seed-examples && npm run db:seed-questions"
+    "db:seed": "npm run db:seed-categories && npm run db:seed-examples && npm run db:seed-questions",
+    "db:migrate": "npx tsx scripts/migrate-add-status.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
     "@types/pg": "^8.20.0",
+    "dotenv": "^17.3.1",
     "jspdf": "^4.2.1",
     "next": "14.2.35",
     "next-intl": "^4.8.3",
     "pg": "^8.20.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^20",
