@@ -1,21 +1,20 @@
 import type { Metadata } from 'next';
-import '../../globals.css';
+import '../globals.css';
 
 export const metadata: Metadata = {
-  title: 'PQP Admin Login',
+  title: 'PQP Admin',
   robots: { index: false, follow: false },
 };
 
-export default function LoginLayout({
+export default function AdminRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="de">
-      <body className="antialiased min-h-screen flex items-center justify-center">
-        {children}
-      </body>
+      <head />
+      <body className="antialiased min-h-screen">{children}</body>
     </html>
   );
 }

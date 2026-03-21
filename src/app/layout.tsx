@@ -1,11 +1,4 @@
-import type { Metadata } from 'next';
-import './globals.css';
-
-export const metadata: Metadata = {
-  title: 'PubQuizPlanner',
-  description: 'Erstelle professionelle Pub Quizze',
-};
-
+// Root layout: bare pass-through. Each route group provides its own <html>.
 export default function RootLayout({
   children,
 }: {

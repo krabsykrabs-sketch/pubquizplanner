@@ -8,8 +8,15 @@ const intlMiddleware = createMiddleware(routing);
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Admin page routes (not login page)
-  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
+  // --- Admin routes: skip next-intl entirely ---
+
+  // Admin login page: no auth needed, just pass through
+  if (pathname === '/admin/login') {
+    return NextResponse.next();
+  }
+
+  // Admin pages: require auth cookie
+  if (pathname.startsWith('/admin')) {
     const token = getTokenFromCookies(request.cookies);
     if (!token || !verifyToken(token)) {
       return NextResponse.redirect(new URL('/admin/login', request.url));
@@ -17,8 +24,13 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Admin API routes (not login endpoint)
-  if (pathname.startsWith('/api/admin') && !pathname.startsWith('/api/admin/login')) {
+  // Admin API login endpoint: no auth needed
+  if (pathname === '/api/admin/login') {
+    return NextResponse.next();
+  }
+
+  // Admin API routes: require auth cookie
+  if (pathname.startsWith('/api/admin')) {
     const token = getTokenFromCookies(request.cookies);
     if (!token || !verifyToken(token)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -26,7 +38,7 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // All other routes: next-intl
+  // --- All other routes: next-intl locale routing ---
   return intlMiddleware(request);
 }
 
