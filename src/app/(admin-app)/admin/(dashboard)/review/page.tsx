@@ -28,7 +28,7 @@ function ReviewPageContent() {
 
   const fetchQuestions = useCallback(() => {
     setLoading(true);
-    const params = new URLSearchParams({ status: 'pending', limit: '200' });
+    const params = new URLSearchParams({ status: 'pending,flagged', limit: '200' });
     if (batchId) params.set('batchId', batchId);
     if (filterCategory) params.set('categoryId', filterCategory);
     if (filterDifficulty) params.set('difficulty', filterDifficulty);
@@ -76,8 +76,12 @@ function ReviewPageContent() {
         <div>
           <h1 className="text-2xl font-bold text-[var(--gold)]">Review Queue</h1>
           <p className="text-sm text-[var(--muted)]">
-            {questions.length} ausstehende Fragen
-            {batchId && ' (gefiltert nach Batch)'}
+            {questions.length} Fragen
+            {(() => {
+              const flaggedCount = questions.filter((q) => q.status === 'flagged').length;
+              return flaggedCount > 0 ? ` (${flaggedCount} markiert)` : '';
+            })()}
+            {batchId && ' · gefiltert nach Batch'}
           </p>
         </div>
         {questions.length > 0 && (

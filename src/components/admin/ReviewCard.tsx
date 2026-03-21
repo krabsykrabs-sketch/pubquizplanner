@@ -64,9 +64,10 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
           <span className={`px-2 py-0.5 rounded text-xs font-mono ${
             question.status === 'approved' ? 'bg-green-900/30 text-green-400' :
             question.status === 'rejected' ? 'bg-red-900/30 text-red-400' :
+            question.status === 'flagged' ? 'bg-orange-900/30 text-orange-400' :
             'bg-yellow-900/30 text-yellow-400'
           }`}>
-            {question.status}
+            {question.status === 'flagged' ? '⚠️ flagged' : question.status}
           </span>
         </div>
         <button
@@ -183,6 +184,12 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
           )}
           {question.fun_fact_de && (
             <p className="text-xs text-[var(--muted)] mt-1 italic">💡 {question.fun_fact_de}</p>
+          )}
+          {question.status === 'flagged' && question.verification_note && (
+            <div className="mt-3 bg-orange-900/15 border border-orange-500/30 rounded-lg px-3 py-2 text-sm text-orange-300">
+              <span className="font-medium">⚠️ Verifizierung fehlgeschlagen:</span>{' '}
+              {question.verification_note}
+            </div>
           )}
         </div>
       )}

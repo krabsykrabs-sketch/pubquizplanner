@@ -55,6 +55,7 @@ async function seed() {
       current_event_week VARCHAR(10),
       verified BOOLEAN DEFAULT FALSE,
       status VARCHAR(20) DEFAULT 'approved',
+      verification_note TEXT,
       generation_batch_id VARCHAR(50),
       times_served INTEGER DEFAULT 0,
       created_at TIMESTAMP DEFAULT NOW(),

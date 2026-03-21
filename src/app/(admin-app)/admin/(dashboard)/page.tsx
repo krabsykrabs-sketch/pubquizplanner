@@ -25,6 +25,7 @@ export default function AdminDashboard() {
   }
 
   const pending = stats.byStatus.find((s) => s.status === 'pending')?.count ?? 0;
+  const flagged = stats.byStatus.find((s) => s.status === 'flagged')?.count ?? 0;
   const approved = stats.byStatus.find((s) => s.status === 'approved')?.count ?? 0;
   const rejected = stats.byStatus.find((s) => s.status === 'rejected')?.count ?? 0;
 
@@ -33,9 +34,10 @@ export default function AdminDashboard() {
       <h1 className="text-2xl font-bold text-[var(--gold)]">Dashboard</h1>
 
       {/* Stats cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <StatCard label="Gesamt" value={stats.total} />
         <StatCard label="Ausstehend" value={pending} color="text-yellow-400" href="/admin/review" />
+        <StatCard label="Markiert" value={flagged} color="text-orange-400" href="/admin/review" />
         <StatCard label="Freigegeben" value={approved} color="text-green-400" />
         <StatCard label="Abgelehnt" value={rejected} color="text-red-400" />
       </div>
@@ -89,12 +91,13 @@ export default function AdminDashboard() {
         >
           🤖 Fragen generieren
         </Link>
-        {pending > 0 && (
+        {(pending + flagged) > 0 && (
           <Link
             href="/admin/review"
             className="px-5 py-3 border border-yellow-500/50 text-yellow-400 rounded-lg font-bold hover:bg-yellow-500/10 transition-colors"
           >
-            ✅ {pending} Fragen reviewen
+            ✅ {pending + flagged} Fragen reviewen
+            {flagged > 0 && <span className="text-orange-400 ml-1">({flagged} markiert)</span>}
           </Link>
         )}
       </div>

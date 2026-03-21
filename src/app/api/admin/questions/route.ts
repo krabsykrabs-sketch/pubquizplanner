@@ -33,8 +33,16 @@ export async function GET(request: NextRequest) {
     values.push(parseInt(difficulty));
   }
   if (status) {
-    conditions.push(`q.status = $${paramIndex++}`);
-    values.push(status);
+    const statuses = status.split(',').map((s) => s.trim()).filter(Boolean);
+    if (statuses.length === 1) {
+      conditions.push(`q.status = $${paramIndex++}`);
+      values.push(statuses[0]);
+    } else {
+      const placeholders = statuses.map((_, i) => `$${paramIndex + i}`).join(', ');
+      conditions.push(`q.status IN (${placeholders})`);
+      values.push(...statuses);
+      paramIndex += statuses.length;
+    }
   }
   if (verified) {
     conditions.push(`q.verified = $${paramIndex++}`);

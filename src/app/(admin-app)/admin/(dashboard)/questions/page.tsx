@@ -132,6 +132,7 @@ export default function QuestionsPage() {
         >
           <option value="">Status</option>
           <option value="pending">Ausstehend</option>
+          <option value="flagged">Markiert</option>
           <option value="approved">Freigegeben</option>
           <option value="rejected">Abgelehnt</option>
         </select>
@@ -220,6 +221,7 @@ export default function QuestionsPage() {
                     <span className={`px-1.5 py-0.5 rounded text-xs font-mono ${
                       q.status === 'approved' ? 'bg-green-900/30 text-green-400' :
                       q.status === 'rejected' ? 'bg-red-900/30 text-red-400' :
+                      q.status === 'flagged' ? 'bg-orange-900/30 text-orange-400' :
                       'bg-yellow-900/30 text-yellow-400'
                     }`}>
                       {q.status}

@@ -129,6 +129,75 @@ Antworte ausschließlich mit dem JSON-Array, ohne Markdown-Formatierung oder and
   return parseJsonResponse(text);
 }
 
+export interface VerificationResult {
+  questionIndex: number;
+  passed: boolean;
+  claudeAnswer: string;
+}
+
+export async function verifyQuestions(questions: GeneratedQuestion[]): Promise<VerificationResult[]> {
+  const numberedList = questions
+    .map((q, i) => `${i + 1}. ${q.text_de}`)
+    .join('\n');
+
+  const response = await client.messages.create({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 4096,
+    system: 'Du bist ein Quizteilnehmer. Beantworte jede Frage so kurz und präzise wie möglich. Gib NUR die Antwort, keine Erklärung.',
+    messages: [
+      {
+        role: 'user',
+        content: `Beantworte jede dieser Fragen mit einer kurzen Antwort. Antworte im Format "1. Antwort\\n2. Antwort\\n..." — eine Zeile pro Frage, nur die Nummer und die Antwort.\n\n${numberedList}`,
+      },
+    ],
+  });
+
+  const text = response.content
+    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
+    .map((block) => block.text)
+    .join('');
+
+  // Parse numbered answers: "1. Answer\n2. Answer\n..."
+  const answerLines = text.split('\n').filter((line) => /^\d+[\.\)]\s/.test(line.trim()));
+  const claudeAnswers: string[] = answerLines.map((line) =>
+    line.replace(/^\d+[\.\)]\s*/, '').trim()
+  );
+
+  return questions.map((q, i) => {
+    const claudeAnswer = claudeAnswers[i] || '';
+    const passed = answersMatch(q.answer_de, claudeAnswer);
+    return { questionIndex: i, passed, claudeAnswer };
+  });
+}
+
+function answersMatch(intended: string, claude: string): boolean {
+  const normalize = (s: string) =>
+    s.toLowerCase()
+      .replace(/[^a-zäöüß0-9]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+  const a = normalize(intended);
+  const b = normalize(claude);
+
+  // Exact match after normalization
+  if (a === b) return true;
+
+  // One contains the other (handles "Paris" matching "Paris, Frankreich")
+  if (a.includes(b) || b.includes(a)) return true;
+
+  // Check if the core words overlap significantly
+  const wordsA = new Set(a.split(' ').filter((w) => w.length > 2));
+  const wordsB = new Set(b.split(' ').filter((w) => w.length > 2));
+  if (wordsA.size === 0 || wordsB.size === 0) return false;
+
+  let overlap = 0;
+  wordsA.forEach((w) => { if (wordsB.has(w)) overlap++; });
+
+  // If most key words match, consider it a match
+  return overlap >= Math.min(wordsA.size, wordsB.size) * 0.6;
+}
+
 function parseJsonResponse(text: string): GeneratedQuestion[] {
   // Try direct parse first
   try {

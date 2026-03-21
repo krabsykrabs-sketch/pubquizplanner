@@ -26,6 +26,7 @@ export interface Question {
   current_event_week: string | null;
   verified: boolean;
   status: string;
+  verification_note: string | null;
   generation_batch_id: string | null;
   times_served: number;
   created_at: string;

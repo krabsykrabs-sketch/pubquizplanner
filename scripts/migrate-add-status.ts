@@ -22,6 +22,10 @@ async function migrate() {
     CREATE INDEX IF NOT EXISTS idx_questions_batch ON questions(generation_batch_id);
   `);
 
+  await pool.query(`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS verification_note TEXT;
+  `);
+
   console.log('Migration complete.');
   await pool.end();
 }
