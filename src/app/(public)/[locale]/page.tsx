@@ -48,10 +48,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-[var(--dark-border)] py-8 text-center text-sm text-[var(--muted)]">
-        <p>© 2026 PubQuizPlanner · Erstellt mit ❤️ für Quizmaster</p>
-      </footer>
     </main>
   );
 }

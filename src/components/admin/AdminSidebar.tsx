@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: '/admin/generate', label: 'Generieren', icon: '🤖' },
   { href: '/admin/review', label: 'Review', icon: '✅' },
   { href: '/admin/questions', label: 'Fragen', icon: '📋' },
+  { href: '/admin/import', label: 'Import', icon: '📥' },
   { href: '/admin/current-events', label: 'Aktuelles', icon: '📰' },
 ];
 
