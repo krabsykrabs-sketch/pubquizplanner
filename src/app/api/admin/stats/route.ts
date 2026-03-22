@@ -11,7 +11,7 @@ export async function GET() {
     ),
     query<{ name_de: string; icon: string; count: string }>(
       `SELECT c.name_de, c.icon, COUNT(q.id) as count
-       FROM categories c LEFT JOIN questions q ON c.id = q.category_id
+       FROM categories c LEFT JOIN questions q ON c.id = q.category_id AND q.status = 'approved'
        GROUP BY c.id, c.name_de, c.icon ORDER BY c.sort_order`
     ),
     query<{ id: number; text_de: string; answer_de: string; status: string; created_at: string }>(

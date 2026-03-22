@@ -46,7 +46,7 @@ export default function AdminDashboard() {
         {/* By category */}
         <div className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl p-5">
           <h2 className="text-sm font-bold text-[var(--muted)] uppercase tracking-wider mb-4">
-            Fragen pro Kategorie
+            Fragen pro Kategorie (nur freigegebene)
           </h2>
           <div className="space-y-2">
             {stats.byCategory.map((cat) => (
