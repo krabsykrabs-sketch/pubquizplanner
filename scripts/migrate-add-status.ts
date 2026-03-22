@@ -25,6 +25,9 @@ async function migrate() {
   await pool.query(`
     ALTER TABLE questions ADD COLUMN IF NOT EXISTS verification_note TEXT;
   `);
+  await pool.query(`
+    ALTER TABLE questions ADD COLUMN IF NOT EXISTS text_de_open TEXT;
+  `);
 
   console.log('Migration complete.');
   await pool.end();

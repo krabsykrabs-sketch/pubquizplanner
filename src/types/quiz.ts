@@ -11,6 +11,7 @@ export interface Question {
   id: number;
   category_id: number;
   text_de: string;
+  text_de_open: string | null;
   text_en: string | null;
   answer_de: string;
   answer_en: string | null;

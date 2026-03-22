@@ -18,6 +18,10 @@ export async function assembleQuiz(config: QuizConfig): Promise<AssembledQuiz> {
 
     const quizQuestions: QuizQuestion[] = questions.map((q, i) => ({
       ...q,
+      // For standard rounds, prefer the open-ended version of the question
+      text_de: roundConfig.roundType === 'standard' && q.text_de_open
+        ? q.text_de_open
+        : q.text_de,
       roundNumber: roundConfig.roundNumber,
       questionNumber: i + 1,
     }));

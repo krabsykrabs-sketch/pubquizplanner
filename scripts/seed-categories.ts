@@ -40,6 +40,7 @@ async function seed() {
       id SERIAL PRIMARY KEY,
       category_id INTEGER REFERENCES categories(id),
       text_de TEXT NOT NULL,
+      text_de_open TEXT,
       text_en TEXT,
       answer_de TEXT NOT NULL,
       answer_en TEXT,
