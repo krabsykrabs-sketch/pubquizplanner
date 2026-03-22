@@ -62,6 +62,19 @@ function ReviewPageContent() {
     fetchQuestions();
   };
 
+  const handleBulkReject = async () => {
+    if (!confirm(`Möchtest du wirklich alle ${questions.length} Fragen ablehnen?`)) return;
+    setBulkLoading(true);
+    const ids = questions.map((q) => q.id);
+    await fetch('/api/admin/questions/bulk', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'reject', ids }),
+    });
+    setBulkLoading(false);
+    fetchQuestions();
+  };
+
   // Group by category
   const grouped = questions.reduce<Record<string, QuestionWithCategory[]>>((acc, q) => {
     const key = q.category_name || 'Ohne Kategorie';
@@ -85,13 +98,22 @@ function ReviewPageContent() {
           </p>
         </div>
         {questions.length > 0 && (
-          <button
-            onClick={handleBulkApprove}
-            disabled={bulkLoading}
-            className="px-4 py-2 bg-green-600/20 text-green-400 rounded-lg text-sm font-bold hover:bg-green-600/30 transition-colors disabled:opacity-50"
-          >
-            {bulkLoading ? 'Wird freigegeben...' : `✅ Alle ${questions.length} freigeben`}
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={handleBulkReject}
+              disabled={bulkLoading}
+              className="px-4 py-2 bg-red-600/20 text-red-400 rounded-lg text-sm font-bold hover:bg-red-600/30 transition-colors disabled:opacity-50"
+            >
+              {bulkLoading ? 'Wird abgelehnt...' : `❌ Alle ${questions.length} ablehnen`}
+            </button>
+            <button
+              onClick={handleBulkApprove}
+              disabled={bulkLoading}
+              className="px-4 py-2 bg-green-600/20 text-green-400 rounded-lg text-sm font-bold hover:bg-green-600/30 transition-colors disabled:opacity-50"
+            >
+              {bulkLoading ? 'Wird freigegeben...' : `✅ Alle ${questions.length} freigeben`}
+            </button>
+          </div>
         )}
       </div>
 
