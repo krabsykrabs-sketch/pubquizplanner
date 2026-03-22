@@ -146,7 +146,7 @@ async function generateGeoCapitals(): Promise<WikidataQuestion[]> {
     entries.push({ country, capital, sitelinks });
   }
 
-  const uniqueCapitals = [...new Set(allCapitals)];
+  const uniqueCapitals = Array.from(new Set(allCapitals));
 
   return dedup(
     entries.map((e) => ({
@@ -1086,7 +1086,7 @@ async function generateDachBundeslaender(): Promise<WikidataQuestion[]> {
     entries.push({ state, capital, sitelinks });
   }
 
-  const uniqueCapitals = [...new Set(allCapitals)];
+  const uniqueCapitals = Array.from(new Set(allCapitals));
   const uniqueStates = [...new Set(allStates)];
   const questions: WikidataQuestion[] = [];
 
