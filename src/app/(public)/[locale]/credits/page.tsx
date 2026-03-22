@@ -67,6 +67,31 @@ export default function CreditsPage() {
           </div>
         </section>
 
+        {/* OpenTriviaQA */}
+        <section className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl p-6 space-y-4">
+          <h2 className="text-xl font-bold">OpenTriviaQA</h2>
+          <p className="text-[var(--muted)] text-sm leading-relaxed">
+            Teile unserer Fragendatenbank basieren auf dem{' '}
+            <a
+              href="https://github.com/uberspot/OpenTriviaQA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--gold)] underline hover:text-[var(--gold-light)] transition-colors"
+            >
+              OpenTriviaQA Projekt
+            </a>{' '}
+            (github.com/uberspot/OpenTriviaQA), lizenziert unter der{' '}
+            <a
+              href="https://creativecommons.org/licenses/by-sa/4.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--gold)] underline hover:text-[var(--gold-light)] transition-colors"
+            >
+              Creative Commons Attribution-ShareAlike 4.0 International License
+            </a>.
+          </p>
+        </section>
+
         {/* Back link */}
         <Link
           href="/de"
