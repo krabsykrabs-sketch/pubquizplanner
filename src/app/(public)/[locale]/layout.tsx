@@ -25,6 +25,13 @@ export default async function LocaleLayout({
             <p>© 2026 PubQuizPlanner · Erstellt mit ❤️ für Quizmaster</p>
             <p className="mt-3 text-xs space-x-2">
               <a
+                href={`/${locale}/fragen`}
+                className="underline hover:text-[var(--foreground)] transition-colors"
+              >
+                Quizfragen
+              </a>
+              <span>|</span>
+              <a
                 href={`/${locale}/impressum`}
                 className="underline hover:text-[var(--foreground)] transition-colors"
               >
