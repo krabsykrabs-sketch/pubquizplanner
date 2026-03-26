@@ -12,6 +12,7 @@
     "db:seed-questions": "npx tsx scripts/seed-questions.ts",
     "db:seed": "npm run db:seed-categories && npm run db:seed-examples && npm run db:seed-questions",
     "db:migrate": "npx tsx scripts/migrate-add-status.ts",
+    "db:migrate-highlight": "npx tsx scripts/migrate-add-highlight.ts",
     "prepare": "husky"
   },
   "dependencies": {

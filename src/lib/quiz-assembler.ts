@@ -54,15 +54,39 @@ async function fetchQuestionsDeduped(
     excludeIds
   );
 
+  // Pick at least 1 highlight per 5 questions
+  const highlightTarget = Math.max(1, Math.floor(count / 5));
+  const highlights = candidates.filter((q) => q.is_highlight);
+  const nonHighlights = candidates.filter((q) => !q.is_highlight);
+
   const selected: Question[] = [];
-  for (const q of candidates) {
-    if (selected.length >= count) break;
-
+  const addIfNew = (q: Question): boolean => {
     const normalizedAnswer = q.answer_de.toLowerCase().trim();
-    if (usedAnswers.has(normalizedAnswer)) continue;
-
+    if (usedAnswers.has(normalizedAnswer)) return false;
     selected.push(q);
     usedAnswers.add(normalizedAnswer);
+    return true;
+  };
+
+  // First, pick highlights
+  let highlightsPicked = 0;
+  for (const q of highlights) {
+    if (selected.length >= count || highlightsPicked >= highlightTarget) break;
+    if (addIfNew(q)) highlightsPicked++;
+  }
+
+  // Then fill remaining slots from non-highlights
+  for (const q of nonHighlights) {
+    if (selected.length >= count) break;
+    addIfNew(q);
+  }
+
+  // If still not enough, use remaining highlights
+  for (const q of highlights) {
+    if (selected.length >= count) break;
+    if (!selected.some((s) => s.id === q.id)) {
+      addIfNew(q);
+    }
   }
 
   // If we couldn't fill the quota without duplicates, allow them rather than return fewer
@@ -88,9 +112,9 @@ export async function fetchQuestionsForRound(
   const params: unknown[] = [categoryId, count];
   let paramIndex = 3;
 
-  // Difficulty filter — if all 4 selected, no filter needed
+  // Difficulty filter — if all 3 selected, no filter needed
   let difficultyClause = '';
-  if (difficulty.length > 0 && difficulty.length < 4) {
+  if (difficulty.length > 0 && difficulty.length < 3) {
     const placeholders = difficulty.map((_, i) => `$${paramIndex + i}`).join(', ');
     difficultyClause = `AND difficulty IN (${placeholders})`;
     params.push(...difficulty);

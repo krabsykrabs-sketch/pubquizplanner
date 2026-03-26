@@ -60,6 +60,10 @@ export async function GET(request: NextRequest) {
   if (currentEvents === 'true') {
     conditions.push('q.is_current_event = true');
   }
+  const highlight = params.get('highlight');
+  if (highlight === 'true') {
+    conditions.push('q.is_highlight = true');
+  }
 
   const whereClause = conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : '';
 
@@ -133,6 +137,7 @@ export async function PUT(request: NextRequest) {
       status = COALESCE($9, status),
       verified = COALESCE($10, verified),
       round_type = COALESCE($11, round_type),
+      is_highlight = COALESCE($12, is_highlight),
       updated_at = NOW()
      WHERE id = $1
      RETURNING *`,
@@ -148,6 +153,7 @@ export async function PUT(request: NextRequest) {
       body.status,
       body.verified,
       body.round_type,
+      body.is_highlight ?? null,
     ]
   );
 

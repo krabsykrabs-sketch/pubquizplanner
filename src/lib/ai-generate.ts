@@ -37,14 +37,13 @@ Schwierigkeitsgrade:
 1 = Die meisten Erwachsenen wissen die Antwort
 2 = Man muss kurz nachdenken, aber die meisten Teams kriegen es hin
 3 = Nur 30-40% der Teams werden es wissen — hier trennt sich die Spreu vom Weizen
-4 = Echte Expertenfrage — vielleicht weiß es ein Team im Raum
 
 WICHTIG: Überprüfe jede Antwort durch eine Websuche BEVOR du sie in das JSON aufnimmst. Generiere keine Frage, wenn du dir bei der Antwort nicht 100% sicher bist. Qualität vor Quantität.`;
 
 export async function generateQuestions(params: GenerateParams): Promise<GeneratedQuestion[]> {
   const difficultyInstruction = params.difficulty === 'mixed'
-    ? 'Verwende eine Mischung aus den Schwierigkeitsstufen 1-4.'
-    : `Alle Fragen sollen Schwierigkeitsstufe ${params.difficulty} haben (1=sehr leicht, 2=mittel, 3=schwer, 4=sehr schwer).`;
+    ? 'Verwende eine Mischung aus den Schwierigkeitsstufen 1-3.'
+    : `Alle Fragen sollen Schwierigkeitsstufe ${params.difficulty} haben (1=leicht, 2=mittel, 3=schwer).`;
 
   const prompt = `Erstelle ${params.count} deutsche Pub-Quiz-Fragen für die Kategorie "${params.categoryName}".
 
@@ -56,7 +55,7 @@ Antworte NUR mit einem JSON-Array. Jedes Element hat diese Felder:
 - text_de: Die Frage auf Deutsch
 - answer_de: Die korrekte Antwort
 - fun_fact_de: Ein interessanter Zusatzfakt zur Antwort (1-2 Sätze)
-- difficulty: Schwierigkeitsstufe (1-4)
+- difficulty: Schwierigkeitsstufe (1-3)
 - tags: Array mit 2-4 relevanten Tags auf Deutsch
 - wrong_answers_de: Array mit genau 3 plausiblen aber falschen Antworten
 
@@ -100,7 +99,7 @@ Antworte NUR mit einem JSON-Array. Jedes Element hat diese Felder:
 - text_de: Die Frage auf Deutsch
 - answer_de: Die korrekte Antwort
 - fun_fact_de: Ein interessanter Zusatzfakt (1-2 Sätze)
-- difficulty: Schwierigkeitsstufe (1-4, meist 2-3)
+- difficulty: Schwierigkeitsstufe (1-3, meist 2-3)
 - tags: Array mit 2-4 relevanten Tags auf Deutsch
 - wrong_answers_de: Array mit genau 3 plausiblen aber falschen Antworten
 

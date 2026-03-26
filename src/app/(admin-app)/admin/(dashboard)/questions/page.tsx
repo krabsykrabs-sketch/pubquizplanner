@@ -19,6 +19,7 @@ export default function QuestionsPage() {
   const [filterDifficulty, setFilterDifficulty] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [filterVerified, setFilterVerified] = useState('');
+  const [filterHighlight, setFilterHighlight] = useState(false);
   const [sortBy, setSortBy] = useState('created_at');
   const [sortOrder, setSortOrder] = useState('desc');
 
@@ -40,6 +41,7 @@ export default function QuestionsPage() {
     if (filterDifficulty) params.set('difficulty', filterDifficulty);
     if (filterStatus) params.set('status', filterStatus);
     if (filterVerified) params.set('verified', filterVerified);
+    if (filterHighlight) params.set('highlight', 'true');
 
     fetch(`/api/admin/questions?${params}`)
       .then((r) => r.json())
@@ -49,7 +51,7 @@ export default function QuestionsPage() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [page, search, filterCategory, filterDifficulty, filterStatus, filterVerified, sortBy, sortOrder]);
+  }, [page, search, filterCategory, filterDifficulty, filterStatus, filterVerified, filterHighlight, sortBy, sortOrder]);
 
   useEffect(() => {
     fetch('/api/admin/categories').then((r) => r.json()).then(setCategories);
@@ -62,7 +64,7 @@ export default function QuestionsPage() {
   // Reset page when filters change
   useEffect(() => {
     setPage(1);
-  }, [search, filterCategory, filterDifficulty, filterStatus, filterVerified]);
+  }, [search, filterCategory, filterDifficulty, filterStatus, filterVerified, filterHighlight]);
 
   const totalPages = Math.ceil(total / limit);
 
@@ -121,7 +123,7 @@ export default function QuestionsPage() {
           className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm focus:border-[var(--gold)] focus:outline-none"
         >
           <option value="">Schwierigkeit</option>
-          {[1, 2, 3, 4].map((d) => (
+          {[1, 2, 3].map((d) => (
             <option key={d} value={d}>{'⭐'.repeat(d)}</option>
           ))}
         </select>
@@ -145,6 +147,16 @@ export default function QuestionsPage() {
           <option value="true">Ja</option>
           <option value="false">Nein</option>
         </select>
+        <button
+          onClick={() => setFilterHighlight(!filterHighlight)}
+          className={`px-3 py-2 rounded-lg text-sm border transition-colors ${
+            filterHighlight
+              ? 'bg-yellow-600/20 border-yellow-500/50 text-yellow-400'
+              : 'bg-[var(--dark-card)] border-[var(--dark-border)] text-[var(--muted)] hover:border-[var(--gold)]'
+          }`}
+        >
+          ⭐ Nur Highlights
+        </button>
       </div>
 
       {/* Info bar */}
@@ -187,6 +199,7 @@ export default function QuestionsPage() {
                 <th className="py-2 px-2 cursor-pointer hover:text-[var(--foreground)]" onClick={() => handleSort('id')}>
                   ID{sortIndicator('id')}
                 </th>
+                <th className="py-2 px-2">⭐</th>
                 <th className="py-2 px-2">Kat.</th>
                 <th className="py-2 px-2">Frage</th>
                 <th className="py-2 px-2">Antwort</th>
@@ -213,6 +226,7 @@ export default function QuestionsPage() {
                   onClick={() => setEditingId(q.id)}
                 >
                   <td className="py-2 px-2 font-mono text-[var(--muted)]">{q.id}</td>
+                  <td className="py-2 px-2">{q.is_highlight ? '⭐' : ''}</td>
                   <td className="py-2 px-2">{q.category_icon}</td>
                   <td className="py-2 px-2 max-w-[300px] truncate">{q.text_de}</td>
                   <td className="py-2 px-2 max-w-[200px] truncate text-[var(--gold)]">{q.answer_de}</td>

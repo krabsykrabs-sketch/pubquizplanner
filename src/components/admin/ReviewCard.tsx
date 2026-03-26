@@ -13,6 +13,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [fixing, setFixing] = useState(false);
+  const [highlight, setHighlight] = useState(question.is_highlight ?? false);
   const [form, setForm] = useState({
     text_de: question.text_de,
     answer_de: question.answer_de,
@@ -88,6 +89,24 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
           <span className="text-[var(--muted)]">{question.category_name}</span>
           <span className="text-[var(--muted)]">·</span>
           <span className="text-[var(--muted)]">{'⭐'.repeat(question.difficulty)}</span>
+          <span className="text-[var(--muted)]">·</span>
+          <button
+            onClick={async (e) => {
+              e.stopPropagation();
+              const newVal = !highlight;
+              setHighlight(newVal);
+              await fetch('/api/admin/questions', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: question.id, is_highlight: newVal }),
+              });
+              onUpdate();
+            }}
+            title={highlight ? 'Highlight entfernen' : 'Als Highlight markieren'}
+            className={`text-lg leading-none transition-colors ${highlight ? 'text-yellow-400' : 'text-[var(--muted)] opacity-40 hover:opacity-70'}`}
+          >
+            ⭐
+          </button>
           <span className="text-[var(--muted)]">·</span>
           <span className={`px-2 py-0.5 rounded text-xs font-mono ${
             question.status === 'approved' ? 'bg-green-900/30 text-green-400' :
@@ -171,7 +190,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
                 onChange={(e) => setForm({ ...form, difficulty: parseInt(e.target.value) })}
                 className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm focus:border-[var(--gold)] focus:outline-none"
               >
-                {[1, 2, 3, 4].map((d) => (
+                {[1, 2, 3].map((d) => (
                   <option key={d} value={d}>{'⭐'.repeat(d)}</option>
                 ))}
               </select>

@@ -135,7 +135,7 @@ function ReviewPageContent() {
           className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm text-[var(--foreground)] focus:border-[var(--gold)] focus:outline-none"
         >
           <option value="">Alle Schwierigkeiten</option>
-          {[1, 2, 3, 4].map((d) => (
+          {[1, 2, 3].map((d) => (
             <option key={d} value={d}>{'⭐'.repeat(d)}</option>
           ))}
         </select>

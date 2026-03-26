@@ -29,6 +29,7 @@ export interface Question {
   status: string;
   verification_note: string | null;
   generation_batch_id: string | null;
+  is_highlight: boolean;
   times_served: number;
   created_at: string;
   updated_at: string;
