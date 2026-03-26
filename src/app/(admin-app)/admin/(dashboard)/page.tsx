@@ -84,14 +84,8 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick actions */}
-      <div className="flex gap-4">
-        <Link
-          href="/admin/generate"
-          className="px-5 py-3 bg-[var(--gold)] text-[var(--background)] rounded-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
-        >
-          🤖 Fragen generieren
-        </Link>
-        {(pending + flagged) > 0 && (
+      {(pending + flagged) > 0 && (
+        <div className="flex gap-4">
           <Link
             href="/admin/review"
             className="px-5 py-3 border border-yellow-500/50 text-yellow-400 rounded-lg font-bold hover:bg-yellow-500/10 transition-colors"
@@ -99,8 +93,8 @@ export default function AdminDashboard() {
             ✅ {pending + flagged} Fragen reviewen
             {flagged > 0 && <span className="text-orange-400 ml-1">({flagged} markiert)</span>}
           </Link>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

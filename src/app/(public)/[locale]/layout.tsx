@@ -23,22 +23,27 @@ export default async function LocaleLayout({
           <div className="flex-1">{children}</div>
           <footer className="border-t border-[var(--dark-border)] py-8 text-center text-sm text-[var(--muted)]">
             <p>© 2026 PubQuizPlanner · Erstellt mit ❤️ für Quizmaster</p>
-            <p className="mt-2 text-xs">
-              Einige Fragen basieren auf der{' '}
+            <p className="mt-3 text-xs space-x-2">
               <a
-                href="https://opentdb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/${locale}/impressum`}
                 className="underline hover:text-[var(--foreground)] transition-colors"
               >
-                Open Trivia Database
-              </a>{' '}
-              (<a
+                Impressum
+              </a>
+              <span>|</span>
+              <a
+                href={`/${locale}/datenschutz`}
+                className="underline hover:text-[var(--foreground)] transition-colors"
+              >
+                Datenschutz
+              </a>
+              <span>|</span>
+              <a
                 href={`/${locale}/credits`}
                 className="underline hover:text-[var(--foreground)] transition-colors"
               >
-                CC BY-SA 4.0
-              </a>)
+                Credits
+              </a>
             </p>
           </footer>
         </NextIntlClientProvider>
