@@ -60,9 +60,22 @@ export default async function FragenIndexPage({
         zum Kneipenquiz selber machen oder als Inspiration für deinen Quizabend.
       </p>
 
-      <p className="text-sm text-[var(--muted)] mb-12">
+      <p className="text-sm text-[var(--muted)] mb-6">
         {totalCount} Fragen in {categories.length} Kategorien
       </p>
+
+      {/* Category navigation */}
+      <nav className="flex gap-2 overflow-x-auto pb-2 mb-10 scrollbar-hide -mx-6 px-6" aria-label="Kategorien">
+        {categories.map((cat) => (
+          <Link
+            key={cat.slug}
+            href={`/${locale}/fragen/${cat.slug}`}
+            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium border bg-[var(--dark-card)] border-[var(--dark-border)] text-[var(--muted)] hover:border-[var(--gold)] hover:text-[var(--foreground)] transition-colors shrink-0"
+          >
+            {cat.icon} {cat.name_de}
+          </Link>
+        ))}
+      </nav>
 
       <div className="grid sm:grid-cols-2 gap-4 mb-16">
         {categories.map((cat) => (
