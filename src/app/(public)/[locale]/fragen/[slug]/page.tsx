@@ -65,16 +65,16 @@ async function getQuestions(categoryId: number): Promise<Question[]> {
   );
 }
 
-async function getRelatedCategories(currentSlug: string): Promise<CategoryWithCount[]> {
+async function getAllActiveCategories(): Promise<CategoryWithCount[]> {
   return query<CategoryWithCount>(
     `SELECT c.*, COUNT(q.id)::int as count
      FROM categories c
      JOIN questions q ON q.category_id = c.id
-     WHERE c.slug != $1 AND q.status = 'approved'
+     WHERE q.status = 'approved'
      GROUP BY c.id
-     HAVING COUNT(q.id) >= $2
+     HAVING COUNT(q.id) >= $1
      ORDER BY COUNT(q.id) DESC`,
-    [currentSlug, MIN_QUESTIONS]
+    [MIN_QUESTIONS]
   );
 }
 
@@ -108,9 +108,9 @@ export default async function CategoryQuestionsPage({
   const category = await getCategoryWithCount(slug);
   if (!category) notFound();
 
-  const [questions, relatedCategories] = await Promise.all([
+  const [questions, allCategories] = await Promise.all([
     getQuestions(category.id),
-    getRelatedCategories(slug),
+    getAllActiveCategories(),
   ]);
 
   const intro = CATEGORY_INTROS[slug] || `Entdecke ${category.count} ${category.name_de}-Quizfragen für dein nächstes Kneipenquiz. Mit Antworten und Fun Facts.`;
@@ -124,6 +124,27 @@ export default async function CategoryQuestionsPage({
       <p className="text-lg text-[var(--muted)] mb-6 leading-relaxed">
         {intro}
       </p>
+
+      {/* Category navigation */}
+      <nav className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide -mx-6 px-6" aria-label="Kategorien">
+        {allCategories.map((cat) => {
+          const isCurrent = cat.slug === slug;
+          return (
+            <Link
+              key={cat.slug}
+              href={`/${locale}/fragen/${cat.slug}`}
+              className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium border transition-colors shrink-0 ${
+                isCurrent
+                  ? 'bg-[var(--gold)] text-[var(--background)] border-[var(--gold)]'
+                  : 'bg-[var(--dark-card)] border-[var(--dark-border)] text-[var(--muted)] hover:border-[var(--gold)] hover:text-[var(--foreground)]'
+              }`}
+              aria-current={isCurrent ? 'page' : undefined}
+            >
+              {cat.icon} {cat.name_de}
+            </Link>
+          );
+        })}
+      </nav>
 
       <div className="inline-block bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-4 py-2 text-sm text-[var(--muted)] mb-8">
         {category.count} Fragen verfügbar
@@ -149,13 +170,13 @@ export default async function CategoryQuestionsPage({
       </section>
 
       {/* Related categories */}
-      {relatedCategories.length > 0 && (
+      {allCategories.filter((c) => c.slug !== slug).length > 0 && (
         <section className="mb-8">
           <h2 className="text-xl font-bold text-[var(--foreground)] mb-4">
             Weitere Quizfragen:
           </h2>
           <div className="flex flex-wrap gap-3">
-            {relatedCategories.map((cat) => (
+            {allCategories.filter((c) => c.slug !== slug).map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/${locale}/fragen/${cat.slug}`}
