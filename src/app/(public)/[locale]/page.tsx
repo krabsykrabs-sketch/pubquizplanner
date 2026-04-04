@@ -2,16 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { query } from '@/lib/db';
 
-const STRONG_CATEGORIES = [
-  'geschichte',
-  'wissenschaft',
-  'geographie',
-  'allgemeinwissen',
-  'film-tv',
-  'musik',
-  'sport',
-  'literatur',
-];
+const MIN_QUESTIONS = 30;
 
 interface CategoryChip {
   slug: string;
@@ -41,11 +32,10 @@ async function getLandingData() {
       `SELECT c.slug, c.name_de, c.name_en, c.icon
        FROM categories c
        JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
-       WHERE c.slug = ANY($1)
        GROUP BY c.id
-       HAVING COUNT(q.id) >= 30
+       HAVING COUNT(q.id) >= $1
        ORDER BY c.sort_order`,
-      [STRONG_CATEGORIES]
+      [MIN_QUESTIONS]
     ),
     query<SampleQuestion>(
       `SELECT q.text_de, q.text_en, q.answer_de, q.answer_en,
