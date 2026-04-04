@@ -79,9 +79,9 @@ async function getAllActiveCategories(): Promise<CategoryWithCount[]> {
 }
 
 export async function generateMetadata({
-  params: { slug },
+  params: { locale, slug },
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }): Promise<Metadata> {
   const category = await getCategoryWithCount(slug);
   if (!category) return {};
@@ -95,7 +95,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://pubquizplanner.com/de/fragen/${slug}`,
+      url: `https://pubquizplanner.com/${locale}/fragen/${slug}`,
     },
   };
 }

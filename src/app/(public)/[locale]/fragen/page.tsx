@@ -25,7 +25,11 @@ async function getActiveCategories(): Promise<CategoryWithCount[]> {
   );
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const categories = await getActiveCategories();
   const totalCount = categories.reduce((sum, c) => sum + c.count, 0);
 
@@ -35,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: `${totalCount}+ Kneipenquiz Fragen und Antworten | PubQuizPlanner`,
       description: `${totalCount}+ kostenlose Pub Quiz Fragen mit Antworten in ${categories.length} Kategorien. Perfekt zum Kneipenquiz selber machen.`,
-      url: 'https://pubquizplanner.com/de/fragen',
+      url: `https://pubquizplanner.com/${locale}/fragen`,
     },
   };
 }
