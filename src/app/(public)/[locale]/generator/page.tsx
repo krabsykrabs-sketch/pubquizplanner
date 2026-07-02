@@ -1,14 +1,9 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import type { QuizConfig, QuizQuestion } from '@/types/quiz';
-import {
-  MIXED_CATEGORY_ICON,
-  MIXED_CATEGORY_ID,
-  MIXED_CATEGORY_SLUG,
-} from '@/components/CategorySelector';
+import type { Category, QuizConfig, QuizQuestion } from '@/types/quiz';
 import StepRounds, { makeRound } from '@/components/quiz-builder/StepRounds';
 import StepPreview from '@/components/quiz-builder/StepPreview';
 import StepDownload from '@/components/quiz-builder/StepDownload';
@@ -19,8 +14,12 @@ interface RoundQuestions {
 }
 
 const DEFAULT_ROUNDS = 5;
+// "Überrasch mich": a small, snappy quiz from randomly picked real
+// categories. Going back to step 1 makes every part of it adjustable.
+const QUICK_ROUNDS = 3;
+const QUICK_QUESTIONS_PER_ROUND = 5;
 
-function makeConfig(mixed: boolean, locale: string, mixedName: string): QuizConfig {
+function makeConfig(locale: string): QuizConfig {
   return {
     title: '',
     date: '',
@@ -28,31 +27,48 @@ function makeConfig(mixed: boolean, locale: string, mixedName: string): QuizConf
     locale,
     numberOfRounds: DEFAULT_ROUNDS,
     answerPlacement: 'all_at_end',
-    rounds: Array.from({ length: DEFAULT_ROUNDS }, (_, i) => ({
-      ...makeRound(i + 1),
-      ...(mixed
-        ? {
-            categoryId: MIXED_CATEGORY_ID,
-            categorySlug: MIXED_CATEGORY_SLUG,
-            categoryName: mixedName,
-            categoryIcon: MIXED_CATEGORY_ICON,
-          }
-        : {}),
-    })),
+    rounds: Array.from({ length: DEFAULT_ROUNDS }, (_, i) => makeRound(i + 1)),
   };
 }
 
 function GeneratorFlow() {
   const t = useTranslations('generator');
   const locale = useLocale();
-  // ?quick=1 (the "Überrasch mich" path): start with 5 mixed rounds and jump
-  // straight to the preview — details can be filled in at the end.
+  // ?quick=1: pick QUICK_ROUNDS random real categories and jump straight to
+  // the preview — details can be filled in at the end.
   const quick = useSearchParams().get('quick') === '1';
   const [step, setStep] = useState(quick ? 2 : 1);
-  const [config, setConfig] = useState<QuizConfig>(() =>
-    makeConfig(quick, locale, t('mixedCategory'))
-  );
+  const [quickReady, setQuickReady] = useState(!quick);
+  const [config, setConfig] = useState<QuizConfig>(() => makeConfig(locale));
   const [roundsData, setRoundsData] = useState<RoundQuestions[]>([]);
+
+  useEffect(() => {
+    if (!quick) return;
+    fetch(`/api/questions/categories?locale=${locale}`)
+      .then((res) => res.json())
+      .then((cats: Category[]) => {
+        const picked = [...cats].sort(() => Math.random() - 0.5).slice(0, QUICK_ROUNDS);
+        if (picked.length === 0) throw new Error('no categories');
+        setConfig((c) => ({
+          ...c,
+          numberOfRounds: picked.length,
+          rounds: picked.map((cat, i) => ({
+            roundNumber: i + 1,
+            categoryId: cat.id,
+            categorySlug: cat.slug,
+            categoryName: cat.name_de,
+            categoryIcon: cat.icon || '',
+            questionsPerRound: QUICK_QUESTIONS_PER_ROUND,
+          })),
+        }));
+        setQuickReady(true);
+      })
+      .catch(() => {
+        // fall back to the manual flow
+        setStep(1);
+        setQuickReady(true);
+      });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const stepLabels = [t('step1'), t('step2'), t('step3')];
 
@@ -95,7 +111,13 @@ function GeneratorFlow() {
       </div>
 
       {/* Steps */}
-      {step === 1 && (
+      {!quickReady && (
+        <div className="text-center py-20">
+          <div className="text-4xl mb-4 animate-pulse">🎲</div>
+          <p className="text-[var(--muted)]">{t('loading')}</p>
+        </div>
+      )}
+      {quickReady && step === 1 && (
         <StepRounds
           config={config}
           onChange={setConfig}
@@ -105,7 +127,7 @@ function GeneratorFlow() {
           }}
         />
       )}
-      {step === 2 && (
+      {quickReady && step === 2 && (
         <StepPreview
           config={config}
           roundsData={roundsData}
@@ -114,7 +136,7 @@ function GeneratorFlow() {
           onBack={() => setStep(1)}
         />
       )}
-      {step === 3 && (
+      {quickReady && step === 3 && (
         <StepDownload
           config={config}
           onChange={setConfig}
