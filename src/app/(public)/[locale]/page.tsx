@@ -1,8 +1,33 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { query } from '@/lib/db';
 
 const MIN_QUESTIONS = 30;
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: 'meta' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { de: '/de', en: '/en', 'x-default': '/de' },
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: `/${locale}`,
+      siteName: 'PubQuizPlanner',
+      locale: locale === 'de' ? 'de_DE' : 'en_US',
+      type: 'website',
+    },
+  };
+}
 
 interface CategoryChip {
   slug: string;
@@ -43,9 +68,8 @@ async function getLandingData() {
               c.name_de as category_name_de, c.name_en as category_name_en, c.icon as category_icon
        FROM questions q
        JOIN categories c ON c.id = q.category_id
-       WHERE q.status = 'approved' AND q.is_highlight = true
-         AND q.fun_fact_de IS NOT NULL
-       ORDER BY RANDOM()
+       WHERE q.status = 'approved' AND q.fun_fact_de IS NOT NULL
+       ORDER BY q.is_highlight DESC, RANDOM()
        LIMIT 3`
     ),
   ]);

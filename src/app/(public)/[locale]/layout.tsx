@@ -1,9 +1,23 @@
 import '../../globals.css';
+import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 const locales = ['de', 'en'];
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: 'meta' });
+  return {
+    metadataBase: new URL('https://pubquizplanner.com'),
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -15,6 +29,7 @@ export default async function LocaleLayout({
   if (!locales.includes(locale)) notFound();
 
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: 'footer' });
 
   return (
     <html lang={locale}>
@@ -22,27 +37,27 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <div className="flex-1">{children}</div>
           <footer className="border-t border-[var(--dark-border)] py-8 text-center text-sm text-[var(--muted)]">
-            <p>© 2026 PubQuizPlanner · Erstellt mit ❤️ für Quizmaster</p>
+            <p>© {new Date().getFullYear()} PubQuizPlanner · {t('tagline')}</p>
             <p className="mt-3 text-xs space-x-2">
               <a
                 href={`/${locale}/fragen`}
                 className="underline hover:text-[var(--foreground)] transition-colors"
               >
-                Quizfragen
+                {t('questions')}
               </a>
               <span>|</span>
               <a
                 href={`/${locale}/impressum`}
                 className="underline hover:text-[var(--foreground)] transition-colors"
               >
-                Impressum
+                {t('impressum')}
               </a>
               <span>|</span>
               <a
                 href={`/${locale}/datenschutz`}
                 className="underline hover:text-[var(--foreground)] transition-colors"
               >
-                Datenschutz
+                {t('privacy')}
               </a>
               <span>|</span>
               <a

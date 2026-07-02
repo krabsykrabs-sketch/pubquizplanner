@@ -3,6 +3,12 @@
     "title": "PubQuizPlanner – Dein Pub Quiz Generator",
     "description": "Erstelle professionelle Pub Quizze mit Präsentation und Antwortbogen. Kostenlos und einfach."
   },
+  "footer": {
+    "tagline": "Erstellt mit ❤️ für Quizmaster",
+    "questions": "Quizfragen",
+    "impressum": "Impressum",
+    "privacy": "Datenschutz"
+  },
   "landing": {
     "hero": "Dein Pub Quiz, perfekt geplant.",
     "subtitle": "Erstelle in Minuten ein komplettes Pub Quiz mit Präsentation und Antwortbogen.",
