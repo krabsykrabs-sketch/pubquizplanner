@@ -50,6 +50,13 @@ export default function DatenschutzPage({
             von Nutzerdaten. Die ausgewählten Fragen werden direkt aus einer Datenbank abgerufen.
             Es werden dabei keine Informationen über Sie als Besucher gespeichert.
           </p>
+          <p className="mt-2">
+            Zur Verbesserung des Angebots erheben wir selbst gehostete, anonyme
+            Nutzungsstatistiken (aufgerufene Seiten, Anzahl erstellter Quizze und Downloads).
+            Dabei werden weder IP-Adressen noch Cookies noch sonstige personenbezogene Daten
+            gespeichert; eine Wiedererkennung über den einzelnen Besuch hinaus findet nicht
+            statt. Es kommen keine Analysedienste von Drittanbietern zum Einsatz.
+          </p>
         </section>
 
         <section>

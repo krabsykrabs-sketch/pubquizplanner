@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { getSessionId } from '@/lib/session-id';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
 
 interface RoundQuestions {
@@ -30,7 +31,10 @@ export default function StepDownload({ config, roundsData, onBack }: Props) {
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-quiz-session': getSessionId() ?? '',
+        },
         body: JSON.stringify({
           config,
           rounds: roundsData.map((r, i) => ({

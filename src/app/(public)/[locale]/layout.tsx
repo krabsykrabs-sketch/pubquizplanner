@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import TrackPageview from '@/components/TrackPageview';
 
 const locales = ['de'];
 
@@ -35,6 +36,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="antialiased min-h-screen flex flex-col">
         <NextIntlClientProvider messages={messages}>
+          <TrackPageview />
           <div className="flex-1">{children}</div>
           <footer className="border-t border-[var(--dark-border)] py-8 text-center text-sm text-[var(--muted)]">
             <p>© {new Date().getFullYear()} PubQuizPlanner · {t('tagline')}</p>

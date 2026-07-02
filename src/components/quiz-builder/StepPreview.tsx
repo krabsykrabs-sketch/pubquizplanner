@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { getSessionId } from '@/lib/session-id';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
 import QuestionCard from '@/components/QuestionCard';
 
@@ -43,7 +44,10 @@ export default function StepPreview({
           const round = config.rounds[i];
           const res = await fetch('/api/questions', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'x-quiz-session': getSessionId() ?? '',
+            },
             body: JSON.stringify({
               categoryId: round.categoryId,
               difficulty: round.difficulty,
