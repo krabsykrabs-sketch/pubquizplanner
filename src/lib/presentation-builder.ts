@@ -12,6 +12,7 @@ export function buildPresentation(quiz: AssembledQuiz): string {
       ${config.date ? `<p class="date">${escapeHtml(config.date)}</p>` : ''}
       ${config.venue ? `<p class="venue">${escapeHtml(config.venue)}</p>` : ''}
       <p class="subtitle">Viel Spaß und gutes Gelingen!</p>
+      <p class="keys-hint">Tasten: → / Leertaste weiter &nbsp;·&nbsp; ← zurück &nbsp;·&nbsp; T 30s-Timer &nbsp;·&nbsp; F Vollbild</p>
     </div>
   `));
 
@@ -157,6 +158,12 @@ h1, h2 {
 .title-slide .date { font-size: 24px; color: #a09888; margin-bottom: 8px; }
 .title-slide .venue { font-size: 24px; color: #a09888; margin-bottom: 30px; }
 .title-slide .subtitle { font-size: 20px; color: #706858; font-style: italic; }
+.title-slide .keys-hint {
+  margin-top: 50px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #504838;
+}
 
 /* Round title */
 .round-title-slide { text-align: center; }

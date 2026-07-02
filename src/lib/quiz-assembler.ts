@@ -38,6 +38,15 @@ export async function fetchQuestionsForRound(
     params
   );
 
+  // Rotate the pool: least-served questions are preferred above, so
+  // counting every serve spreads usage across the whole inventory.
+  if (rows.length > 0) {
+    await query(
+      'UPDATE questions SET times_served = times_served + 1 WHERE id = ANY($1)',
+      [rows.map((r) => r.id)]
+    ).catch(() => {});
+  }
+
   return rows;
 }
 

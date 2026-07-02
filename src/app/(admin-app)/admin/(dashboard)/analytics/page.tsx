@@ -20,6 +20,13 @@ interface Analytics {
     generatedSessions: number;
     downloadSessions: number;
   };
+  reportedQuestions: {
+    questionId: number;
+    reports: number;
+    lastReport: string;
+    text: string | null;
+    answer: string | null;
+  }[];
 }
 
 const RANGES = [
@@ -144,6 +151,19 @@ export default function AnalyticsPage() {
               )}
             </Section>
           </div>
+
+          <Section title="⚑ Gemeldete Fragen">
+            {data.reportedQuestions?.length ? (
+              <SimpleTable
+                rows={data.reportedQuestions.map((r) => [
+                  r.text ? `#${r.questionId} ${r.text} → ${r.answer ?? ''}` : `#${r.questionId} (Frage gelöscht)`,
+                  `${r.reports}× · zuletzt ${r.lastReport}`,
+                ])}
+              />
+            ) : (
+              <p className="text-sm text-[var(--muted)]">Keine Meldungen im Zeitraum. 🎉</p>
+            )}
+          </Section>
         </>
       ) : (
         <p className="text-[var(--muted)]">Keine Daten verfügbar.</p>

@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   // days = 0 → all time
   const since = days > 0 ? `NOW() - INTERVAL '${Math.min(days, 3650)} days'` : `'epoch'::timestamptz`;
 
-  const [totals, daily, topPages, entryPages, referrers, transitions, funnel] =
+  const [totals, daily, topPages, entryPages, referrers, transitions, funnel, reports] =
     await Promise.all([
       query<{
         pageviews: string;
@@ -81,6 +81,18 @@ export async function GET(request: NextRequest) {
          FROM events
          WHERE session_id IS NOT NULL AND created_at >= ${since}`
       ),
+      query<{ question_id: string; reports: string; last_report: string; text_de: string | null; answer_de: string | null }>(
+        `SELECT (e.meta->>'questionId')::int AS question_id,
+                count(*) AS reports,
+                to_char(max(e.created_at), 'YYYY-MM-DD') AS last_report,
+                q.text_de, q.answer_de
+         FROM events e
+         LEFT JOIN questions q ON q.id = (e.meta->>'questionId')::int
+         WHERE e.event_type = 'question_report' AND e.created_at >= ${since}
+         GROUP BY 1, q.text_de, q.answer_de
+         ORDER BY count(*) DESC, max(e.created_at) DESC
+         LIMIT 20`
+      ),
     ]);
 
   const n = (v: string | undefined) => parseInt(v ?? '0');
@@ -115,5 +127,12 @@ export async function GET(request: NextRequest) {
       generatedSessions: n(f?.generated_sessions),
       downloadSessions: n(f?.download_sessions),
     },
+    reportedQuestions: reports.map((r) => ({
+      questionId: n(r.question_id),
+      reports: n(r.reports),
+      lastReport: r.last_report,
+      text: r.text_de,
+      answer: r.answer_de,
+    })),
   });
 }
