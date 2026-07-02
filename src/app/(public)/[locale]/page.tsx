@@ -186,6 +186,12 @@ export default async function LandingPage({
               </Link>
             ))}
           </div>
+          <Link
+            href={`/${locale}/fragen`}
+            className="inline-block mt-6 text-sm text-[var(--gold)] hover:text-[var(--gold-light)] transition-colors"
+          >
+            {t('allQuestionsLink')} &rarr;
+          </Link>
         </section>
       )}
 

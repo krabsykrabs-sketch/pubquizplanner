@@ -220,7 +220,7 @@ export default async function CategoryQuestionsPage({
         href={`/${locale}/fragen`}
         className="inline-block text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
       >
-        &larr; {t('allCategories')}
+        &larr; {t('allQuestionsAnchor')}
       </Link>
     </main>
   );
