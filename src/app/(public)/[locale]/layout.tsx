@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-const locales = ['de', 'en'];
+const locales = ['de'];
 
 export async function generateMetadata({
   params: { locale },

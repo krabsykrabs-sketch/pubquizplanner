@@ -7,6 +7,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/en',
+        destination: '/de',
+        permanent: true,
+      },
+      {
+        source: '/en/:path*',
+        destination: '/de/:path*',
+        permanent: true,
+      },
+      {
         source: '/fragen/:slug*',
         destination: '/de/fragen/:slug*',
         permanent: true,
