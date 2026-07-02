@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import type { Category, QuizConfig, RoundConfig } from '@/types/quiz';
 import CategorySelector from '@/components/CategorySelector';
 
@@ -27,10 +27,11 @@ interface Props {
 
 export default function StepRounds({ config, onChange, onNext }: Props) {
   const t = useTranslations('generator');
+  const locale = useLocale();
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    fetch('/api/questions/categories')
+    fetch(`/api/questions/categories?locale=${locale}`)
       .then((res) => res.json())
       .then((cats: Category[]) => {
         setCategories(cats);

@@ -1,8 +1,9 @@
 export interface Category {
   id: number;
   slug: string;
+  // For non-German locales the serving queries alias the localized name
+  // onto name_de, so components can stay locale-agnostic.
   name_de: string;
-  name_en: string | null;
   icon: string | null;
   sort_order: number;
 }
@@ -10,12 +11,11 @@ export interface Category {
 export interface Question {
   id: number;
   category_id: number;
+  // For non-German locales the serving queries alias translated content
+  // onto the *_de fields (historical naming), so components stay unchanged.
   text_de: string;
-  text_en: string | null;
   answer_de: string;
-  answer_en: string | null;
   fun_fact_de: string | null;
-  fun_fact_en: string | null;
   difficulty: number;
   round_type: string;
   tags: string[];
@@ -47,6 +47,7 @@ export interface QuizConfig {
   title: string;
   date: string;
   venue: string;
+  locale: string;
   numberOfRounds: number;
   answerPlacement: 'after_each' | 'all_at_end';
   rounds: RoundConfig[];

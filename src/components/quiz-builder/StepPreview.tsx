@@ -52,6 +52,7 @@ export default function StepPreview({
               categoryId: round.categoryId,
               count: round.questionsPerRound,
               excludeIds,
+              locale: config.locale,
             }),
           });
           const questions: QuizQuestion[] = await res.json();
@@ -90,6 +91,7 @@ export default function StepPreview({
         body: JSON.stringify({
           categoryId: roundConfig.categoryId,
           excludeIds,
+          locale: config.locale,
         }),
       });
       const newQuestion = await res.json();

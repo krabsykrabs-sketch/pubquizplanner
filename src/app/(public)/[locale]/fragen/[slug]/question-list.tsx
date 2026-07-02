@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import type { Question } from '@/types/quiz';
 
 interface Props {
@@ -19,6 +20,7 @@ export function QuestionList({ questions, locale }: Props) {
 }
 
 function QuestionItem({ question: q, index, locale }: { question: Question; index: number; locale: string }) {
+  const t = useTranslations('fragen');
   // CTA box after every 10 questions
   const showCta = (index + 1) % 10 === 0;
 
@@ -48,13 +50,13 @@ function QuestionItem({ question: q, index, locale }: { question: Question; inde
       {showCta && (
         <div className="bg-[var(--gold)]/10 border border-[var(--gold)]/30 rounded-xl p-5 text-center my-4">
           <p className="text-sm text-[var(--foreground)] mb-2">
-            Diese Fragen als fertige Präsentation?
+            {t('inlineCtaText')}
           </p>
           <Link
             href={`/${locale}/generator`}
             className="inline-flex items-center gap-1 text-[var(--gold)] font-bold text-sm hover:text-[var(--gold-light)] transition-colors"
           >
-            Quiz erstellen &rarr;
+            {t('ctaButton')} &rarr;
           </Link>
         </div>
       )}

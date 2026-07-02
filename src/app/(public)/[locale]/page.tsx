@@ -16,13 +16,14 @@ export async function generateMetadata({
     description: t('description'),
     alternates: {
       canonical: `/${locale}`,
+      languages: { de: '/de', nl: '/nl', 'x-default': '/de' },
     },
     openGraph: {
       title: t('title'),
       description: t('description'),
       url: `/${locale}`,
       siteName: 'PubQuizPlanner',
-      locale: 'de_DE',
+      locale: locale === 'nl' ? 'nl_NL' : 'de_DE',
       type: 'website',
     },
   };
@@ -42,29 +43,66 @@ interface SampleQuestion {
   category_icon: string;
 }
 
-async function getLandingData() {
+async function getLandingData(locale: string) {
+  const translated = locale !== 'de';
+
   const [countResult, categories, sampleQuestions] = await Promise.all([
-    query<{ count: string }>(
-      "SELECT COUNT(*)::int as count FROM questions WHERE status = 'approved'"
-    ),
-    query<CategoryChip>(
-      `SELECT c.slug, c.name_de, c.icon
-       FROM categories c
-       JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
-       GROUP BY c.id
-       HAVING COUNT(q.id) >= $1
-       ORDER BY c.sort_order`,
-      [MIN_QUESTIONS]
-    ),
-    query<SampleQuestion>(
-      `SELECT q.text_de, q.answer_de, q.fun_fact_de,
-              c.name_de as category_name_de, c.icon as category_icon
-       FROM questions q
-       JOIN categories c ON c.id = q.category_id
-       WHERE q.status = 'approved' AND q.fun_fact_de IS NOT NULL
-       ORDER BY q.is_highlight DESC, RANDOM()
-       LIMIT 3`
-    ),
+    translated
+      ? query<{ count: string }>(
+          `SELECT COUNT(*)::int as count FROM questions q
+           JOIN question_translations t ON t.question_id = q.id
+             AND t.locale = $1 AND t.status IN ('machine', 'reviewed')
+           WHERE q.status = 'approved'`,
+          [locale]
+        )
+      : query<{ count: string }>(
+          "SELECT COUNT(*)::int as count FROM questions WHERE status = 'approved'"
+        ),
+    translated
+      ? query<CategoryChip>(
+          `SELECT c.slug, ct.name AS name_de, c.icon
+           FROM categories c
+           JOIN category_translations ct ON ct.category_id = c.id AND ct.locale = $2
+           JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
+           JOIN question_translations t ON t.question_id = q.id
+             AND t.locale = $2 AND t.status IN ('machine', 'reviewed')
+           GROUP BY c.id, ct.name
+           HAVING COUNT(q.id) >= $1
+           ORDER BY c.sort_order`,
+          [MIN_QUESTIONS, locale]
+        )
+      : query<CategoryChip>(
+          `SELECT c.slug, c.name_de, c.icon
+           FROM categories c
+           JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
+           GROUP BY c.id
+           HAVING COUNT(q.id) >= $1
+           ORDER BY c.sort_order`,
+          [MIN_QUESTIONS]
+        ),
+    translated
+      ? query<SampleQuestion>(
+          `SELECT t.text AS text_de, t.answer AS answer_de, t.fun_fact AS fun_fact_de,
+                  ct.name AS category_name_de, c.icon AS category_icon
+           FROM questions q
+           JOIN question_translations t ON t.question_id = q.id
+             AND t.locale = $1 AND t.status IN ('machine', 'reviewed')
+           JOIN categories c ON c.id = q.category_id
+           JOIN category_translations ct ON ct.category_id = c.id AND ct.locale = $1
+           WHERE q.status = 'approved' AND t.fun_fact IS NOT NULL
+           ORDER BY q.is_highlight DESC, RANDOM()
+           LIMIT 3`,
+          [locale]
+        )
+      : query<SampleQuestion>(
+          `SELECT q.text_de, q.answer_de, q.fun_fact_de,
+                  c.name_de as category_name_de, c.icon as category_icon
+           FROM questions q
+           JOIN categories c ON c.id = q.category_id
+           WHERE q.status = 'approved' AND q.fun_fact_de IS NOT NULL
+           ORDER BY q.is_highlight DESC, RANDOM()
+           LIMIT 3`
+        ),
   ]);
 
   const totalCount = parseInt(countResult[0]?.count ?? '0');
@@ -86,7 +124,7 @@ export default async function LandingPage({
   let sampleQuestions: SampleQuestion[] = [];
 
   try {
-    const data = await getLandingData();
+    const data = await getLandingData(locale);
     displayCount = data.displayCount || 950;
     categories = data.categories;
     sampleQuestions = data.sampleQuestions;

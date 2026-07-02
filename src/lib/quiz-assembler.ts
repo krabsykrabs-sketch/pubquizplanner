@@ -1,31 +1,49 @@
 import { query } from './db';
 import type { Question } from '@/types/quiz';
 
+// Locales that only serve translated questions. German serves the source
+// columns directly. For other locales the translated content is aliased
+// onto the *_de fields so all downstream code stays locale-agnostic.
+const SOURCE_LOCALE = 'de';
+
 // categoryId <= 0 means "Gemischt": draw from all categories.
 export async function fetchQuestionsForRound(
   categoryId: number,
   count: number,
-  excludeIds: number[]
+  excludeIds: number[],
+  locale: string = SOURCE_LOCALE
 ): Promise<Question[]> {
-  const conditions: string[] = [`status = 'approved'`];
+  const translated = locale !== SOURCE_LOCALE;
+  const conditions: string[] = [`q.status = 'approved'`];
   const params: unknown[] = [count];
   let paramIndex = 2;
 
+  let joinClause = '';
+  let selectClause = 'q.*';
+  if (translated) {
+    joinClause = `JOIN question_translations t
+      ON t.question_id = q.id AND t.locale = $${paramIndex++} AND t.status IN ('machine', 'reviewed')`;
+    params.push(locale);
+    // Aliases after q.* override the source columns in the result object.
+    selectClause = 'q.*, t.text AS text_de, t.answer AS answer_de, t.fun_fact AS fun_fact_de';
+  }
+
   if (categoryId > 0) {
-    conditions.push(`category_id = $${paramIndex++}`);
+    conditions.push(`q.category_id = $${paramIndex++}`);
     params.push(categoryId);
   }
 
   if (excludeIds.length > 0) {
     const placeholders = excludeIds.map(() => `$${paramIndex++}`).join(', ');
-    conditions.push(`id NOT IN (${placeholders})`);
+    conditions.push(`q.id NOT IN (${placeholders})`);
     params.push(...excludeIds);
   }
 
   const rows = await query<Question>(
-    `SELECT * FROM questions
+    `SELECT ${selectClause} FROM questions q
+     ${joinClause}
      WHERE ${conditions.join(' AND ')}
-     ORDER BY times_served ASC, RANDOM()
+     ORDER BY q.times_served ASC, RANDOM()
      LIMIT $1`,
     params
   );
@@ -44,8 +62,9 @@ export async function fetchQuestionsForRound(
 
 export async function fetchSwapQuestion(
   categoryId: number,
-  excludeIds: number[]
+  excludeIds: number[],
+  locale?: string
 ): Promise<Question | null> {
-  const questions = await fetchQuestionsForRound(categoryId, 1, excludeIds);
+  const questions = await fetchQuestionsForRound(categoryId, 1, excludeIds, locale);
   return questions[0] || null;
 }

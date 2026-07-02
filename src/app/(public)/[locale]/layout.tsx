@@ -5,7 +5,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import TrackPageview from '@/components/TrackPageview';
 
-const locales = ['de'];
+const locales = ['de', 'nl'];
 
 export async function generateMetadata({
   params: { locale },

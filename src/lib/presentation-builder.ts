@@ -1,7 +1,9 @@
+import { getOutputStrings } from './output-strings';
 import type { AssembledQuiz } from '@/types/quiz';
 
 export function buildPresentation(quiz: AssembledQuiz): string {
   const { config, rounds } = quiz;
+  const s = getOutputStrings(config.locale);
   const slides: string[] = [];
 
   // Title slide
@@ -11,8 +13,8 @@ export function buildPresentation(quiz: AssembledQuiz): string {
       <h1>${escapeHtml(config.title)}</h1>
       ${config.date ? `<p class="date">${escapeHtml(config.date)}</p>` : ''}
       ${config.venue ? `<p class="venue">${escapeHtml(config.venue)}</p>` : ''}
-      <p class="subtitle">Viel Spaß und gutes Gelingen!</p>
-      <p class="keys-hint">Tasten: → / Leertaste weiter &nbsp;·&nbsp; ← zurück &nbsp;·&nbsp; T 30s-Timer &nbsp;·&nbsp; F Vollbild</p>
+      <p class="subtitle">${s.goodLuck}</p>
+      <p class="keys-hint">${s.keysHint}</p>
     </div>
   `));
 
@@ -25,16 +27,16 @@ export function buildPresentation(quiz: AssembledQuiz): string {
     // Round title slide
     slides.push(buildSlide('round-title', `
       <div class="round-title-slide">
-        <div class="round-number">Runde ${roundNum}</div>
+        <div class="round-number">${s.round} ${roundNum}</div>
         <div class="round-icon">${escapeHtml(round.config.categoryIcon)}</div>
         <h2>${escapeHtml(round.config.categoryName)}</h2>
-        <p class="round-info">${round.questions.length} Fragen</p>
+        <p class="round-info">${round.questions.length} ${s.questions}</p>
       </div>
     `));
 
     // Question slides
     round.questions.forEach((q, qIndex) => {
-      const meta = `Runde ${roundNum} · Frage ${qIndex + 1}`;
+      const meta = `${s.round} ${roundNum} · ${s.question} ${qIndex + 1}`;
 
       slides.push(buildSlide('question', `
         <div class="question-slide">
@@ -50,7 +52,7 @@ export function buildPresentation(quiz: AssembledQuiz): string {
             <div class="question-meta">${meta}</div>
             <p class="answer-question">${escapeHtml(q.text_de)}</p>
             <div class="answer-text">${escapeHtml(q.answer_de)}</div>
-            ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
+            ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 ${s.didYouKnow}</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
           </div>
         `));
       }
@@ -61,8 +63,8 @@ export function buildPresentation(quiz: AssembledQuiz): string {
       slides.push(buildSlide('halftime', `
         <div class="halftime-slide">
           <div class="halftime-icon">🍺</div>
-          <h2>Halbzeit!</h2>
-          <p>Zeit für ein Getränk</p>
+          <h2>${s.halftime}</h2>
+          <p>${s.halftimeSub}</p>
         </div>
       `));
     }
@@ -72,8 +74,8 @@ export function buildPresentation(quiz: AssembledQuiz): string {
   if (allAnswersAtEnd) {
     slides.push(buildSlide('section-title', `
       <div class="section-title-slide">
-        <h2>Auflösung</h2>
-        <p>Jetzt wird's spannend!</p>
+        <h2>${s.resolution}</h2>
+        <p>${s.resolutionSub}</p>
       </div>
     `));
 
@@ -82,21 +84,21 @@ export function buildPresentation(quiz: AssembledQuiz): string {
 
       slides.push(buildSlide('round-title', `
         <div class="round-title-slide">
-          <div class="round-number">Antworten Runde ${roundNum}</div>
+          <div class="round-number">${s.answersRound} ${roundNum}</div>
           <div class="round-icon">${escapeHtml(round.config.categoryIcon)}</div>
           <h2>${escapeHtml(round.config.categoryName)}</h2>
         </div>
       `));
 
       round.questions.forEach((q, qIndex) => {
-        const meta = `Runde ${roundNum} · Frage ${qIndex + 1}`;
+        const meta = `${s.round} ${roundNum} · ${s.question} ${qIndex + 1}`;
 
         slides.push(buildSlide('answer', `
           <div class="answer-slide">
             <div class="question-meta">${meta}</div>
             <p class="answer-question">${escapeHtml(q.text_de)}</p>
             <div class="answer-text">${escapeHtml(q.answer_de)}</div>
-            ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 Wusstest du?</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
+            ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 ${s.didYouKnow}</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
           </div>
         `));
       });
@@ -107,14 +109,14 @@ export function buildPresentation(quiz: AssembledQuiz): string {
   slides.push(buildSlide('final', `
     <div class="final-slide">
       <div class="final-icon">🏆</div>
-      <h2>Das war's!</h2>
-      <p>Gebt eure Antwortbögen ab.</p>
-      <p class="branding">Erstellt mit pubquizplanner.com</p>
+      <h2>${s.finalTitle}</h2>
+      <p>${s.finalSub}</p>
+      <p class="branding">${s.madeWith}</p>
     </div>
   `));
 
   return `<!DOCTYPE html>
-<html lang="de">
+<html lang="${config.locale || 'de'}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

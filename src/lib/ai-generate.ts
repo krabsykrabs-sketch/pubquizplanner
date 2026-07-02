@@ -67,7 +67,7 @@ Wichtige Regeln:
 Antworte ausschließlich mit dem JSON-Array, ohne Markdown-Formatierung oder andere Texte.`;
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-5',
     max_tokens: 16384,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],
@@ -109,7 +109,7 @@ Wichtige Regeln:
 Antworte ausschließlich mit dem JSON-Array, ohne Markdown-Formatierung oder andere Texte.`;
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-5',
     max_tokens: 8192,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: prompt }],
@@ -136,7 +136,7 @@ export async function verifyQuestions(questions: GeneratedQuestion[]): Promise<V
     .join('\n');
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-5',
     max_tokens: 4096,
     system: 'Du bist ein Quizteilnehmer. Beantworte jede Frage so kurz und präzise wie möglich. Gib NUR die Antwort, keine Erklärung.',
     messages: [
@@ -205,7 +205,7 @@ export async function webSearchVerify(questions: GeneratedQuestion[]): Promise<W
     .join('\n\n');
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-5',
     max_tokens: 8192,
     system: 'Du bist ein Faktenchecker für Quizfragen. Überprüfe jede Frage gründlich durch Websuchen. Antworte ausschließlich mit JSON.',
     tools: [{ type: 'web_search_20250305' as const, name: 'web_search', max_uses: questions.length * 2 }],
@@ -270,7 +270,7 @@ export async function checkDuplicates(
     .join('\n');
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-5',
     max_tokens: 4096,
     system: 'Du bist ein Experte für Duplikaterkennung bei Quiz-Fragen. Antworte ausschließlich mit JSON.',
     messages: [
@@ -347,7 +347,7 @@ export async function fixQuestion(
   verificationNote: string
 ): Promise<FixedQuestion> {
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-5',
     max_tokens: 2048,
     system: 'Du bist ein Quizfragen-Editor. Korrigiere die Frage basierend auf dem gemeldeten Problem. Überprüfe die korrigierte Antwort durch eine Websuche. Antworte ausschließlich mit JSON.',
     tools: [{ type: 'web_search_20250305' as const, name: 'web_search', max_uses: 3 }],

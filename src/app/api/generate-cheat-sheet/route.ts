@@ -11,9 +11,18 @@ export async function POST(request: NextRequest) {
     meta: { rounds: quiz.rounds.length },
   });
 
-  const categories = await query<{ id: number; name_de: string }>(
-    'SELECT id, name_de FROM categories'
-  );
+  const locale = quiz.config?.locale || 'de';
+  const categories =
+    locale === 'de'
+      ? await query<{ id: number; name_de: string }>(
+          'SELECT id, name_de FROM categories'
+        )
+      : await query<{ id: number; name_de: string }>(
+          `SELECT c.id, COALESCE(ct.name, c.name_de) AS name_de
+           FROM categories c
+           LEFT JOIN category_translations ct ON ct.category_id = c.id AND ct.locale = $1`,
+          [locale]
+        );
   const categoryNames = Object.fromEntries(
     categories.map((c) => [c.id, c.name_de])
   );

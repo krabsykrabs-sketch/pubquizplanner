@@ -4,12 +4,13 @@ import { logEvent } from '@/lib/events';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { categoryId, count, excludeIds } = body;
+  const { categoryId, count, excludeIds, locale } = body;
 
   const questions = await fetchQuestionsForRound(
     categoryId,
     count || 10,
-    excludeIds || []
+    excludeIds || [],
+    locale || 'de'
   );
 
   // The first round of a preview has no exclusions yet — count that as one

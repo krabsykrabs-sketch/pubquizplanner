@@ -8,7 +8,13 @@ const GOLD = '#d4a843';
 const BG = '#0a0a0f';
 const MUTED = '#a09888';
 
-export default function OpengraphImage() {
+const TAGLINES: Record<string, string> = {
+  de: 'Dein Pub Quiz, perfekt geplant.',
+  nl: 'Jouw pubquiz, perfect gepland.',
+};
+
+export default function OpengraphImage({ params }: { params: { locale: string } }) {
+  const tagline = TAGLINES[params?.locale] ?? TAGLINES.de;
   return new ImageResponse(
     (
       <div
@@ -51,7 +57,7 @@ export default function OpengraphImage() {
           PubQuizPlanner
         </div>
         <div style={{ fontSize: 40, color: '#e8e4dc', marginTop: 24, display: 'flex' }}>
-          Dein Pub Quiz, perfekt geplant.
+          {tagline}
         </div>
         <div style={{ fontSize: 28, color: MUTED, marginTop: 40, display: 'flex' }}>
           Quizfragen · Präsentation · Antwortbogen · Spickzettel

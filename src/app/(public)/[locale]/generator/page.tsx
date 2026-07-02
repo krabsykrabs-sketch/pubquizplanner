@@ -2,9 +2,13 @@
 
 import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
-import { MIXED_CATEGORY } from '@/components/CategorySelector';
+import {
+  MIXED_CATEGORY_ICON,
+  MIXED_CATEGORY_ID,
+  MIXED_CATEGORY_SLUG,
+} from '@/components/CategorySelector';
 import StepRounds, { makeRound } from '@/components/quiz-builder/StepRounds';
 import StepPreview from '@/components/quiz-builder/StepPreview';
 import StepDownload from '@/components/quiz-builder/StepDownload';
@@ -16,21 +20,22 @@ interface RoundQuestions {
 
 const DEFAULT_ROUNDS = 5;
 
-function makeConfig(mixed: boolean): QuizConfig {
+function makeConfig(mixed: boolean, locale: string, mixedName: string): QuizConfig {
   return {
     title: '',
     date: '',
     venue: '',
+    locale,
     numberOfRounds: DEFAULT_ROUNDS,
     answerPlacement: 'all_at_end',
     rounds: Array.from({ length: DEFAULT_ROUNDS }, (_, i) => ({
       ...makeRound(i + 1),
       ...(mixed
         ? {
-            categoryId: MIXED_CATEGORY.id,
-            categorySlug: MIXED_CATEGORY.slug,
-            categoryName: MIXED_CATEGORY.name_de,
-            categoryIcon: MIXED_CATEGORY.icon || '',
+            categoryId: MIXED_CATEGORY_ID,
+            categorySlug: MIXED_CATEGORY_SLUG,
+            categoryName: mixedName,
+            categoryIcon: MIXED_CATEGORY_ICON,
           }
         : {}),
     })),
@@ -39,11 +44,14 @@ function makeConfig(mixed: boolean): QuizConfig {
 
 function GeneratorFlow() {
   const t = useTranslations('generator');
+  const locale = useLocale();
   // ?quick=1 (the "Überrasch mich" path): start with 5 mixed rounds and jump
   // straight to the preview — details can be filled in at the end.
   const quick = useSearchParams().get('quick') === '1';
   const [step, setStep] = useState(quick ? 2 : 1);
-  const [config, setConfig] = useState<QuizConfig>(() => makeConfig(quick));
+  const [config, setConfig] = useState<QuizConfig>(() =>
+    makeConfig(quick, locale, t('mixedCategory'))
+  );
   const [roundsData, setRoundsData] = useState<RoundQuestions[]>([]);
 
   const stepLabels = [t('step1'), t('step2'), t('step3')];

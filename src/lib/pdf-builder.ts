@@ -1,7 +1,9 @@
 import jsPDF from 'jspdf';
+import { getOutputStrings } from './output-strings';
 import type { AssembledQuiz } from '@/types/quiz';
 
 export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
+  const s = getOutputStrings(quiz.config.locale);
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
   const margin = 20;
@@ -26,7 +28,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   y += 5;
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(14);
-  doc.text('Teamname:', margin, y);
+  doc.text(s.teamName, margin, y);
   doc.setLineWidth(0.5);
   doc.line(margin + 30, y, margin + contentWidth, y);
   y += 15;
@@ -44,7 +46,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
     doc.text(
-      `Runde ${roundIndex + 1}: ${round.config.categoryName}`,
+      `${s.round} ${roundIndex + 1}: ${round.config.categoryName}`,
       margin,
       y
     );
@@ -71,7 +73,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
     y += 2;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-    const pointsText = 'Punkte:';
+    const pointsText = s.points;
     const pointsX = margin + contentWidth - 45;
     doc.text(pointsText, pointsX, y);
     doc.rect(pointsX + 22, y - 5, 23, 8);
@@ -89,7 +91,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   y += 10;
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
-  doc.text('Gesamtpunktzahl:', margin, y);
+  doc.text(s.totalScore, margin, y);
   doc.rect(margin + contentWidth - 35, y - 7, 35, 12);
 
   // Footer
@@ -97,7 +99,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   doc.text(
-    'Erstellt mit pubquizplanner.com',
+    s.madeWith,
     pageWidth / 2,
     doc.internal.pageSize.getHeight() - 10,
     { align: 'center' }
@@ -111,6 +113,7 @@ export function buildCheatSheet(
   quiz: AssembledQuiz,
   categoryNames: Record<number, string>
 ): Buffer {
+  const s = getOutputStrings(quiz.config.locale);
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -133,7 +136,7 @@ export function buildCheatSheet(
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
-  const info = ['Quizmaster-Spickzettel', quiz.config.date, quiz.config.venue]
+  const info = [s.cheatSheetSubtitle, quiz.config.date, quiz.config.venue]
     .filter(Boolean)
     .join(' · ');
   doc.text(info, margin, y);
@@ -149,7 +152,7 @@ export function buildCheatSheet(
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.text(
-      `Runde ${roundIndex + 1}: ${round.config.categoryName} (${round.questions.length} Fragen)`,
+      `${s.round} ${roundIndex + 1}: ${round.config.categoryName} (${round.questions.length} ${s.questions})`,
       margin + 2,
       y
     );
@@ -165,12 +168,12 @@ export function buildCheatSheet(
         contentWidth
       );
       const answerLines = doc.splitTextToSize(
-        `Antwort: ${q.answer_de}`,
+        `${s.answer}: ${q.answer_de}`,
         contentWidth - 55
       );
       doc.setFontSize(8.5);
       const funFactLines = q.fun_fact_de
-        ? doc.splitTextToSize(`Fun Fact: ${q.fun_fact_de}`, contentWidth - 5)
+        ? doc.splitTextToSize(`${s.funFact}: ${q.fun_fact_de}`, contentWidth - 5)
         : [];
 
       const blockHeight =
@@ -217,10 +220,10 @@ export function buildCheatSheet(
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text('Erstellt mit pubquizplanner.com', pageWidth / 2, pageHeight - 8, {
+    doc.text(s.madeWith, pageWidth / 2, pageHeight - 8, {
       align: 'center',
     });
-    doc.text(`Seite ${i}/${pageCount}`, pageWidth - margin, pageHeight - 8, {
+    doc.text(`${s.page} ${i}/${pageCount}`, pageWidth - margin, pageHeight - 8, {
       align: 'right',
     });
     doc.setTextColor(0, 0, 0);

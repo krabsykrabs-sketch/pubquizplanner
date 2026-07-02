@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { query } from '@/lib/db';
 
 const MIN_QUESTIONS = 30;
@@ -12,16 +13,32 @@ interface CategoryWithCount {
   count: number;
 }
 
-async function getActiveCategories(): Promise<CategoryWithCount[]> {
+// For non-German locales only translated questions count and the localized
+// category name is aliased onto name_de.
+async function getActiveCategories(locale: string): Promise<CategoryWithCount[]> {
+  if (locale === 'de') {
+    return query<CategoryWithCount>(
+      `SELECT c.id, c.slug, c.name_de, c.icon, COUNT(q.id)::int as count
+       FROM categories c
+       JOIN questions q ON q.category_id = c.id
+       WHERE q.status = 'approved'
+       GROUP BY c.id
+       HAVING COUNT(q.id) >= $1
+       ORDER BY COUNT(q.id) DESC`,
+      [MIN_QUESTIONS]
+    );
+  }
   return query<CategoryWithCount>(
-    `SELECT c.id, c.slug, c.name_de, c.icon, COUNT(q.id)::int as count
+    `SELECT c.id, c.slug, ct.name AS name_de, c.icon, COUNT(q.id)::int as count
      FROM categories c
-     JOIN questions q ON q.category_id = c.id
-     WHERE q.status = 'approved'
-     GROUP BY c.id
+     JOIN category_translations ct ON ct.category_id = c.id AND ct.locale = $2
+     JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
+     JOIN question_translations t ON t.question_id = q.id
+       AND t.locale = $2 AND t.status IN ('machine', 'reviewed')
+     GROUP BY c.id, ct.name
      HAVING COUNT(q.id) >= $1
      ORDER BY COUNT(q.id) DESC`,
-    [MIN_QUESTIONS]
+    [MIN_QUESTIONS, locale]
   );
 }
 
@@ -30,15 +47,22 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const categories = await getActiveCategories();
+  const t = await getTranslations({ locale, namespace: 'fragen' });
+  const categories = await getActiveCategories(locale);
   const totalCount = categories.reduce((sum, c) => sum + c.count, 0);
 
+  const title = t('indexMetaTitle', { count: totalCount });
+  const description = t('indexMetaDescription', {
+    count: totalCount,
+    categoryCount: categories.length,
+  });
+
   return {
-    title: `${totalCount}+ Kneipenquiz Fragen und Antworten | PubQuizPlanner`,
-    description: `${totalCount}+ kostenlose Pub Quiz Fragen mit Antworten in ${categories.length} Kategorien. Perfekt zum Kneipenquiz selber machen.`,
+    title,
+    description,
     openGraph: {
-      title: `${totalCount}+ Kneipenquiz Fragen und Antworten | PubQuizPlanner`,
-      description: `${totalCount}+ kostenlose Pub Quiz Fragen mit Antworten in ${categories.length} Kategorien. Perfekt zum Kneipenquiz selber machen.`,
+      title,
+      description,
       url: `https://pubquizplanner.com/${locale}/fragen`,
     },
   };
@@ -49,27 +73,29 @@ export default async function FragenIndexPage({
 }: {
   params: { locale: string };
 }) {
-  const categories = await getActiveCategories();
+  const t = await getTranslations({ locale, namespace: 'fragen' });
+  const categories = await getActiveCategories(locale);
   const totalCount = categories.reduce((sum, c) => sum + c.count, 0);
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-16">
       <h1 className="text-4xl md:text-5xl font-bold text-[var(--gold)] mb-6">
-        Kneipenquiz Fragen und Antworten
+        {t('indexTitle')}
       </h1>
 
       <p className="text-lg text-[var(--muted)] mb-4 leading-relaxed max-w-3xl">
-        Du suchst Quizfragen kostenlos? Hier findest du {totalCount}+ handverlesene
-        Pub Quiz Fragen mit Antworten und Fun Facts. Perfekt zum Kneipenquiz selber
-        machen oder als Inspiration für deinen Quizabend.
+        {t('indexIntro', { count: totalCount })}
       </p>
 
       <p className="text-sm text-[var(--muted)] mb-6">
-        {totalCount} Fragen in {categories.length} Kategorien
+        {t('countLine', { count: totalCount, categoryCount: categories.length })}
       </p>
 
       {/* Category navigation */}
-      <nav className="flex gap-2 overflow-x-auto pb-2 mb-10 scrollbar-hide -mx-6 px-6" aria-label="Kategorien">
+      <nav
+        className="flex gap-2 overflow-x-auto pb-2 mb-10 scrollbar-hide -mx-6 px-6"
+        aria-label={t('categoriesAria')}
+      >
         {categories.map((cat) => (
           <Link
             key={cat.slug}
@@ -93,7 +119,9 @@ export default async function FragenIndexPage({
               <h2 className="text-lg font-bold group-hover:text-[var(--gold)] transition-colors">
                 {cat.name_de}
               </h2>
-              <p className="text-sm text-[var(--muted)]">{cat.count} Fragen</p>
+              <p className="text-sm text-[var(--muted)]">
+                {t('questionsLabel', { count: cat.count })}
+              </p>
             </div>
             <span className="text-[var(--muted)] group-hover:text-[var(--gold)] transition-colors">
               &rarr;
@@ -104,17 +132,16 @@ export default async function FragenIndexPage({
 
       <section className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl p-8 text-center">
         <h2 className="text-2xl font-bold text-[var(--gold)] mb-3">
-          Erstelle dein eigenes Kneipenquiz
+          {t('ctaTitleIndex')}
         </h2>
         <p className="text-[var(--muted)] mb-6 max-w-xl mx-auto">
-          Wähle Kategorien, Schwierigkeit und Rundenanzahl &mdash; und lade dir dein
-          komplettes Quiz als HTML-Präsentation herunter. Kostenlos.
+          {t('ctaTextIndex')}
         </p>
         <Link
           href={`/${locale}/generator`}
           className="inline-flex items-center gap-2 bg-[var(--gold)] text-[var(--background)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
         >
-          Quiz erstellen &rarr;
+          {t('ctaButton')} &rarr;
         </Link>
       </section>
     </main>
