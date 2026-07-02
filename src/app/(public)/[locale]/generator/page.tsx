@@ -27,7 +27,6 @@ const defaultConfig: QuizConfig = {
     categoryIcon: '',
     difficulty: [1, 2, 3],
     questionsPerRound: 10,
-    roundType: 'standard' as const,
   })),
 };
 

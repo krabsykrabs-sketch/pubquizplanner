@@ -95,24 +95,6 @@ export default function StepRounds({ config, onChange, onNext, onBack }: Props) 
             </select>
           </div>
 
-          {/* Round Type */}
-          <div>
-            <label className="block text-sm text-[var(--muted)] mb-1">
-              {t('roundType')}
-            </label>
-            <select
-              value={round.roundType}
-              onChange={(e) =>
-                updateRound(i, {
-                  roundType: e.target.value as 'standard' | 'multiple_choice',
-                })
-              }
-              className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-4 py-2 text-[var(--foreground)] focus:border-[var(--gold)] focus:outline-none"
-            >
-              <option value="standard">{t('standard')}</option>
-              <option value="multiple_choice">{t('multipleChoice')}</option>
-            </select>
-          </div>
         </div>
       ))}
 

@@ -17,7 +17,6 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
   const [form, setForm] = useState({
     text_de: question.text_de,
     answer_de: question.answer_de,
-    wrong_answers_de: question.wrong_answers_de || ['', '', ''],
     fun_fact_de: question.fun_fact_de || '',
     difficulty: question.difficulty,
     category_id: question.category_id,
@@ -33,7 +32,6 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
         id: question.id,
         text_de: form.text_de,
         answer_de: form.answer_de,
-        wrong_answers_de: form.wrong_answers_de.filter(Boolean),
         fun_fact_de: form.fun_fact_de || null,
         difficulty: form.difficulty,
         category_id: form.category_id,
@@ -65,9 +63,6 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
         text_de: fixed.text_de,
         answer_de: fixed.answer_de,
         fun_fact_de: fixed.fun_fact_de || '',
-        wrong_answers_de: fixed.wrong_answers_de?.length >= 3
-          ? fixed.wrong_answers_de
-          : [...(fixed.wrong_answers_de || []), '', '', ''].slice(0, 3),
       });
       setEditing(true);
     } catch {
@@ -75,10 +70,6 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
     }
     setFixing(false);
   };
-
-  const wrongAnswers = form.wrong_answers_de.length >= 3
-    ? form.wrong_answers_de
-    : [...form.wrong_answers_de, '', '', ''].slice(0, 3);
 
   return (
     <div className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl p-5 space-y-4">
@@ -100,7 +91,6 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: question.id, is_highlight: newVal }),
               });
-              onUpdate();
             }}
             title={highlight ? 'Highlight entfernen' : 'Als Highlight markieren'}
             className={`text-lg leading-none transition-colors ${highlight ? 'text-yellow-400' : 'text-[var(--muted)] opacity-40 hover:opacity-70'}`}
@@ -147,27 +137,6 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
               onChange={(e) => setForm({ ...form, answer_de: e.target.value })}
               className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm focus:border-[var(--gold)] focus:outline-none"
             />
-          </div>
-
-          {/* Wrong answers */}
-          <div>
-            <label className="block text-xs text-[var(--muted)] mb-1">Falsche Antworten</label>
-            <div className="grid grid-cols-3 gap-2">
-              {wrongAnswers.map((wa, i) => (
-                <input
-                  key={i}
-                  type="text"
-                  value={wa}
-                  placeholder={`Falsch ${i + 1}`}
-                  onChange={(e) => {
-                    const updated = [...wrongAnswers];
-                    updated[i] = e.target.value;
-                    setForm({ ...form, wrong_answers_de: updated });
-                  }}
-                  className="bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm focus:border-[var(--gold)] focus:outline-none"
-                />
-              ))}
-            </div>
           </div>
 
           {/* Fun fact */}
@@ -219,18 +188,26 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
               className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm focus:border-[var(--gold)] focus:outline-none"
             />
           </div>
+
+          {/* Source (read-only) */}
+          {question.source && (
+            <div>
+              <label className="block text-xs text-[var(--muted)] mb-1">Quelle</label>
+              <p className="text-sm text-[var(--muted)] bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-2">
+                {question.source}
+              </p>
+            </div>
+          )}
         </div>
       ) : (
         <div>
           <p className="text-[var(--foreground)] mb-2">{question.text_de}</p>
           <p className="text-sm text-[var(--gold)]">→ {question.answer_de}</p>
-          {question.wrong_answers_de && question.wrong_answers_de.length > 0 && (
-            <p className="text-xs text-[var(--muted)] mt-1">
-              Falsch: {question.wrong_answers_de.join(' | ')}
-            </p>
-          )}
           {question.fun_fact_de && (
             <p className="text-xs text-[var(--muted)] mt-1 italic">💡 {question.fun_fact_de}</p>
+          )}
+          {question.source && (
+            <p className="text-xs text-[var(--muted)] mt-1">📎 {question.source}</p>
           )}
           {question.status === 'flagged' && question.verification_note && (
             <div className="mt-3 bg-orange-900/15 border border-orange-500/30 rounded-lg px-3 py-2 text-sm text-orange-300">

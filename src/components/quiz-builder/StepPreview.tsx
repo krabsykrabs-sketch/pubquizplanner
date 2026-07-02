@@ -48,7 +48,6 @@ export default function StepPreview({
               categoryId: round.categoryId,
               difficulty: round.difficulty,
               count: round.questionsPerRound,
-              roundType: round.roundType,
               excludeIds,
             }),
           });
@@ -88,7 +87,6 @@ export default function StepPreview({
         body: JSON.stringify({
           categoryId: roundConfig.categoryId,
           difficulty: roundConfig.difficulty,
-          roundType: roundConfig.roundType,
           excludeIds,
         }),
       });

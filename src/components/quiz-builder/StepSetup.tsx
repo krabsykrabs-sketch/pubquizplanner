@@ -73,7 +73,6 @@ export default function StepSetup({ config, onChange, onNext }: Props) {
               categoryIcon: config.rounds[i]?.categoryIcon || '',
               difficulty: config.rounds[i]?.difficulty || [1, 2, 3],
               questionsPerRound: config.rounds[i]?.questionsPerRound || 10,
-              roundType: config.rounds[i]?.roundType || ('standard' as const),
             }));
             onChange({ ...config, numberOfRounds: num, rounds });
           }}

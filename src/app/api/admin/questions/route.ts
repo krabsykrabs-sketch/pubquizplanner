@@ -99,8 +99,8 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const result = await query<Question>(
     `INSERT INTO questions
-     (category_id, text_de, answer_de, fun_fact_de, difficulty, wrong_answers_de, tags, round_type, status, verified)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     (category_id, text_de, answer_de, fun_fact_de, difficulty, tags, status, verified)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
      RETURNING *`,
     [
       body.category_id,
@@ -108,9 +108,7 @@ export async function POST(request: NextRequest) {
       body.answer_de,
       body.fun_fact_de || null,
       body.difficulty,
-      body.wrong_answers_de?.length ? body.wrong_answers_de : null,
       body.tags?.length ? body.tags : null,
-      body.round_type || 'standard',
       body.status || 'approved',
       body.verified ?? true,
     ]
@@ -125,18 +123,19 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: 'Missing question id' }, { status: 400 });
   }
 
+  // fun_fact_de and tags are only written when present in the request body,
+  // so partial updates (e.g. the highlight toggle) don't wipe them; sending
+  // an explicit null/empty value still clears them.
   const result = await queryOne<Question>(
     `UPDATE questions SET
       category_id = COALESCE($2, category_id),
       text_de = COALESCE($3, text_de),
       answer_de = COALESCE($4, answer_de),
-      fun_fact_de = $5,
-      difficulty = COALESCE($6, difficulty),
-      wrong_answers_de = $7,
-      tags = $8,
-      status = COALESCE($9, status),
-      verified = COALESCE($10, verified),
-      round_type = COALESCE($11, round_type),
+      fun_fact_de = CASE WHEN $5 THEN $6::text ELSE fun_fact_de END,
+      difficulty = COALESCE($7, difficulty),
+      tags = CASE WHEN $8 THEN $9::text[] ELSE tags END,
+      status = COALESCE($10, status),
+      verified = COALESCE($11, verified),
       is_highlight = COALESCE($12, is_highlight),
       updated_at = NOW()
      WHERE id = $1
@@ -146,13 +145,13 @@ export async function PUT(request: NextRequest) {
       body.category_id,
       body.text_de,
       body.answer_de,
+      'fun_fact_de' in body,
       body.fun_fact_de ?? null,
       body.difficulty,
-      body.wrong_answers_de?.length ? body.wrong_answers_de : null,
+      'tags' in body,
       body.tags?.length ? body.tags : null,
       body.status,
       body.verified,
-      body.round_type,
       body.is_highlight ?? null,
     ]
   );

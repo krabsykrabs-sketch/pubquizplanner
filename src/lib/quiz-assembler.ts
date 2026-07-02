@@ -1,112 +1,10 @@
 import { query } from './db';
-import type { Question, QuizConfig, QuizQuestion, AssembledQuiz } from '@/types/quiz';
-
-export async function assembleQuiz(config: QuizConfig): Promise<AssembledQuiz> {
-  // Track used answers across all rounds to prevent duplicates
-  const usedAnswers = new Set<string>();
-
-  const rounds = [];
-  for (const roundConfig of config.rounds) {
-    const questions = await fetchQuestionsDeduped(
-      roundConfig.categoryId,
-      roundConfig.difficulty,
-      roundConfig.questionsPerRound,
-      roundConfig.roundType,
-      [],
-      usedAnswers
-    );
-
-    const quizQuestions: QuizQuestion[] = questions.map((q, i) => ({
-      ...q,
-      // For standard rounds, prefer the open-ended version of the question
-      text_de: roundConfig.roundType === 'standard' && q.text_de_open
-        ? q.text_de_open
-        : q.text_de,
-      roundNumber: roundConfig.roundNumber,
-      questionNumber: i + 1,
-    }));
-
-    rounds.push({ config: roundConfig, questions: quizQuestions });
-  }
-
-  return { config, rounds };
-}
-
-/**
- * Fetch questions while ensuring no answer_de duplicates with already-used answers.
- * Fetches extra candidates and filters, falling back to allow duplicates if not enough.
- */
-async function fetchQuestionsDeduped(
-  categoryId: number,
-  difficulty: number[],
-  count: number,
-  roundType: string,
-  excludeIds: number[],
-  usedAnswers: Set<string>
-): Promise<Question[]> {
-  // Fetch more than needed so we can filter out answer duplicates
-  const overFetchCount = Math.min(count * 3, count + 20);
-  const candidates = await fetchQuestionsForRound(
-    categoryId,
-    difficulty,
-    overFetchCount,
-    roundType,
-    excludeIds
-  );
-
-  // Pick at least 1 highlight per 5 questions
-  const highlightTarget = Math.max(1, Math.floor(count / 5));
-  const highlights = candidates.filter((q) => q.is_highlight);
-  const nonHighlights = candidates.filter((q) => !q.is_highlight);
-
-  const selected: Question[] = [];
-  const addIfNew = (q: Question): boolean => {
-    const normalizedAnswer = q.answer_de.toLowerCase().trim();
-    if (usedAnswers.has(normalizedAnswer)) return false;
-    selected.push(q);
-    usedAnswers.add(normalizedAnswer);
-    return true;
-  };
-
-  // First, pick highlights
-  let highlightsPicked = 0;
-  for (const q of highlights) {
-    if (selected.length >= count || highlightsPicked >= highlightTarget) break;
-    if (addIfNew(q)) highlightsPicked++;
-  }
-
-  // Then fill remaining slots from non-highlights
-  for (const q of nonHighlights) {
-    if (selected.length >= count) break;
-    addIfNew(q);
-  }
-
-  // If still not enough, use remaining highlights
-  for (const q of highlights) {
-    if (selected.length >= count) break;
-    if (!selected.some((s) => s.id === q.id)) {
-      addIfNew(q);
-    }
-  }
-
-  // If we couldn't fill the quota without duplicates, allow them rather than return fewer
-  if (selected.length < count) {
-    for (const q of candidates) {
-      if (selected.length >= count) break;
-      if (!selected.some((s) => s.id === q.id)) {
-        selected.push(q);
-      }
-    }
-  }
-
-  return selected;
-}
+import type { Question } from '@/types/quiz';
 
 export async function fetchQuestionsForRound(
   categoryId: number,
   difficulty: number[],
   count: number,
-  roundType: string,
   excludeIds: number[]
 ): Promise<Question[]> {
   const params: unknown[] = [categoryId, count];
@@ -119,12 +17,6 @@ export async function fetchQuestionsForRound(
     difficultyClause = `AND difficulty IN (${placeholders})`;
     params.push(...difficulty);
     paramIndex += difficulty.length;
-  }
-
-  // Multiple choice rounds require wrong_answers_de with 3 entries
-  let mcClause = '';
-  if (roundType === 'multiple_choice') {
-    mcClause = 'AND wrong_answers_de IS NOT NULL AND array_length(wrong_answers_de, 1) >= 3';
   }
 
   // Exclude IDs
@@ -140,7 +32,6 @@ export async function fetchQuestionsForRound(
      WHERE category_id = $1
      AND status = 'approved'
      ${difficultyClause}
-     ${mcClause}
      ${excludeClause}
      ORDER BY times_served ASC, RANDOM()
      LIMIT $2`,
@@ -153,14 +44,12 @@ export async function fetchQuestionsForRound(
 export async function fetchSwapQuestion(
   categoryId: number,
   difficulty: number[],
-  roundType: string,
   excludeIds: number[]
 ): Promise<Question | null> {
   const questions = await fetchQuestionsForRound(
     categoryId,
     difficulty,
     1,
-    roundType,
     excludeIds
   );
   return questions[0] || null;

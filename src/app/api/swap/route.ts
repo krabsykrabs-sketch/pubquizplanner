@@ -3,12 +3,11 @@ import { fetchSwapQuestion } from '@/lib/quiz-assembler';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { categoryId, difficulty, roundType, excludeIds } = body;
+  const { categoryId, difficulty, excludeIds } = body;
 
   const question = await fetchSwapQuestion(
     categoryId,
     difficulty,
-    roundType || 'standard',
     excludeIds || []
   );
 

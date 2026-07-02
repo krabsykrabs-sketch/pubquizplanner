@@ -29,7 +29,6 @@ export async function POST(request: NextRequest) {
         text_de: question.text_de,
         answer_de: question.answer_de,
         fun_fact_de: question.fun_fact_de,
-        wrong_answers_de: question.wrong_answers_de,
       },
       question.verification_note
     );

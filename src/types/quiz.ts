@@ -11,14 +11,12 @@ export interface Question {
   id: number;
   category_id: number;
   text_de: string;
-  text_de_open: string | null;
   text_en: string | null;
   answer_de: string;
   answer_en: string | null;
   fun_fact_de: string | null;
   fun_fact_en: string | null;
   difficulty: number;
-  wrong_answers_de: string[] | null;
   round_type: string;
   tags: string[];
   image_url: string | null;
@@ -28,6 +26,7 @@ export interface Question {
   verified: boolean;
   status: string;
   verification_note: string | null;
+  source: string | null;
   generation_batch_id: string | null;
   is_highlight: boolean;
   times_served: number;
@@ -43,7 +42,6 @@ export interface RoundConfig {
   categoryIcon: string;
   difficulty: number[];
   questionsPerRound: number;
-  roundType: 'standard' | 'multiple_choice';
 }
 
 export interface QuizConfig {

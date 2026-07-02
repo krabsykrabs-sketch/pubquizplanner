@@ -5,10 +5,10 @@ import type { Category } from '@/types/quiz';
 interface ImportQuestion {
   text_de: string;
   answer_de: string;
-  wrong_answers_de?: string[];
   fun_fact_de?: string;
   difficulty?: number;
   tags?: string[];
+  source?: string;
   skip?: boolean;
 }
 
@@ -50,22 +50,21 @@ export async function POST(request: NextRequest) {
       continue;
     }
 
-    const tags = [...(q.tags || [])];
-    if (!tags.includes('opentdb')) tags.push('opentdb');
+    const tags = q.tags?.length ? q.tags : null;
 
     await query(
       `INSERT INTO questions
-       (category_id, text_de, answer_de, wrong_answers_de, fun_fact_de, difficulty,
-        tags, round_type, status, generation_batch_id, verified)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, 'standard', 'pending', $8, false)`,
+       (category_id, text_de, answer_de, fun_fact_de, difficulty,
+        tags, source, status, generation_batch_id, verified)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, 'pending', $8, false)`,
       [
         categoryId,
         q.text_de,
         q.answer_de,
-        q.wrong_answers_de?.length ? q.wrong_answers_de : null,
         q.fun_fact_de || null,
         q.difficulty || 2,
         tags,
+        q.source || null,
         batchId,
       ]
     );

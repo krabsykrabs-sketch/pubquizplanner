@@ -15,7 +15,6 @@ export interface GeneratedQuestion {
   fun_fact_de: string;
   difficulty: number;
   tags: string[];
-  wrong_answers_de: string[];
 }
 
 const SYSTEM_PROMPT = `Du bist ein erfahrener Quizmaster, der seit 20 Jahren Kneipenquiz-Abende in Deutschland leitet. Du schreibst Fragen, die am Tisch für Diskussion sorgen — nicht trockene Lexikon-Fragen, sondern solche, bei denen Teams gemeinsam grübeln und am Ende 'Ach, natürlich!' oder 'Das hätte ich nie gedacht!' rufen.
@@ -28,8 +27,6 @@ Regeln für gute Fragen:
 - Bevorzuge 'Welcher/Welche/Welches' und 'Was/Wer/Wie' Fragen
 - Die besten Fragen verbinden zwei unerwartete Bereiche ('Welches Tier kann seinen Herzschlag willentlich stoppen?' → Antwort: Frosch)
 - Fun Facts sollen überraschend und unterhaltsam sein, nicht Wikipedia-Zusammenfassungen
-- Falsche Antworten müssen plausibel klingen — sie sollen Teams ins Zweifeln bringen
-- Falsche Antworten müssen vom gleichen Typ sein wie die richtige (Land→Länder, Person→Personen, Zahl→Zahlen)
 - Keine Fragen die man trivial googeln kann ('Wie hoch ist der Mount Everest?')
 - Bevorzuge Fragen mit überraschenden oder kontraintuitiven Antworten
 
@@ -57,11 +54,9 @@ Antworte NUR mit einem JSON-Array. Jedes Element hat diese Felder:
 - fun_fact_de: Ein interessanter Zusatzfakt zur Antwort (1-2 Sätze)
 - difficulty: Schwierigkeitsstufe (1-3)
 - tags: Array mit 2-4 relevanten Tags auf Deutsch
-- wrong_answers_de: Array mit genau 3 plausiblen aber falschen Antworten
 
 Wichtige Regeln:
 - Fragen müssen eindeutig beantwortbar sein
-- Falsche Antworten müssen plausibel klingen
 - Fun Facts sollen überraschend und unterhaltsam sein
 - Keine Duplikate oder zu ähnliche Fragen
 - Antworten kurz und prägnant halten
@@ -101,11 +96,9 @@ Antworte NUR mit einem JSON-Array. Jedes Element hat diese Felder:
 - fun_fact_de: Ein interessanter Zusatzfakt (1-2 Sätze)
 - difficulty: Schwierigkeitsstufe (1-3, meist 2-3)
 - tags: Array mit 2-4 relevanten Tags auf Deutsch
-- wrong_answers_de: Array mit genau 3 plausiblen aber falschen Antworten
 
 Wichtige Regeln:
 - Fragen müssen eindeutig beantwortbar sein
-- Falsche Antworten müssen plausibel klingen
 - Fun Facts sollen überraschend und unterhaltsam sein
 - Keine Duplikate oder zu ähnliche Fragen
 - Antworten kurz und prägnant halten
@@ -347,11 +340,10 @@ export interface FixedQuestion {
   text_de: string;
   answer_de: string;
   fun_fact_de: string;
-  wrong_answers_de: string[];
 }
 
 export async function fixQuestion(
-  question: { text_de: string; answer_de: string; fun_fact_de: string | null; wrong_answers_de: string[] | null },
+  question: { text_de: string; answer_de: string; fun_fact_de: string | null },
   verificationNote: string
 ): Promise<FixedQuestion> {
   const response = await client.messages.create({
@@ -366,14 +358,13 @@ export async function fixQuestion(
 
 Frage: ${question.text_de}
 Antwort: ${question.answer_de}
-Falsche Antworten: ${(question.wrong_answers_de || []).join(', ')}
 Fun Fact: ${question.fun_fact_de || '—'}
 
 Problem: ${verificationNote}
 
-Korrigiere die Frage, Antwort, falsche Antworten und Fun Fact. Falls die Antwort falsch ist, finde die richtige. Falls die Frage mehrdeutig ist, formuliere sie eindeutig um.
+Korrigiere die Frage, Antwort und Fun Fact. Falls die Antwort falsch ist, finde die richtige. Falls die Frage mehrdeutig ist, formuliere sie eindeutig um.
 
-Antworte als JSON-Objekt: {"text_de": "...", "answer_de": "...", "fun_fact_de": "...", "wrong_answers_de": ["...", "...", "..."]}`,
+Antworte als JSON-Objekt: {"text_de": "...", "answer_de": "...", "fun_fact_de": "..."}`,
       },
     ],
   });
