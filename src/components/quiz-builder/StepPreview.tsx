@@ -33,33 +33,42 @@ export default function StepPreview({
     if (roundsData.length > 0 && roundsData.some((r) => r.questions.length > 0)) return;
 
     setLoading(true);
-    const fetchAll = config.rounds.map((round) =>
-      fetch('/api/questions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          categoryId: round.categoryId,
-          difficulty: round.difficulty,
-          count: round.questionsPerRound,
-          roundType: round.roundType,
-        }),
-      }).then((res) => res.json())
-    );
-
-    Promise.all(fetchAll)
-      .then((results) => {
-        const data: RoundQuestions[] = results.map((questions, i) => ({
-          questions: questions.map((q: QuizQuestion, j: number) => ({
-            ...q,
-            roundNumber: i + 1,
-            questionNumber: j + 1,
-          })),
-          expanded: true,
-        }));
+    // Fetch rounds sequentially so each round can exclude the questions
+    // already picked for earlier rounds — no duplicates within one quiz.
+    (async () => {
+      try {
+        const data: RoundQuestions[] = [];
+        const excludeIds: number[] = [];
+        for (let i = 0; i < config.rounds.length; i++) {
+          const round = config.rounds[i];
+          const res = await fetch('/api/questions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              categoryId: round.categoryId,
+              difficulty: round.difficulty,
+              count: round.questionsPerRound,
+              roundType: round.roundType,
+              excludeIds,
+            }),
+          });
+          const questions: QuizQuestion[] = await res.json();
+          excludeIds.push(...questions.map((q) => q.id));
+          data.push({
+            questions: questions.map((q, j) => ({
+              ...q,
+              roundNumber: i + 1,
+              questionNumber: j + 1,
+            })),
+            expanded: true,
+          });
+        }
         setRoundsData(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      } catch {
+        // keep whatever loaded
+      }
+      setLoading(false);
+    })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSwap = async (roundIndex: number, questionIndex: number) => {
@@ -67,7 +76,9 @@ export default function StepPreview({
     const swapKey = `${roundIndex}-${questionIndex}`;
     setSwapping(swapKey);
 
-    const excludeIds = round.questions.map((q) => q.id);
+    // Exclude every question already in the quiz (all rounds), so a swap
+    // can never introduce a duplicate.
+    const excludeIds = roundsData.flatMap((r) => r.questions.map((q) => q.id));
     const roundConfig = config.rounds[roundIndex];
 
     try {
