@@ -50,7 +50,6 @@ export default function StepPreview({
             },
             body: JSON.stringify({
               categoryId: round.categoryId,
-              difficulty: round.difficulty,
               count: round.questionsPerRound,
               excludeIds,
             }),
@@ -90,7 +89,6 @@ export default function StepPreview({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           categoryId: roundConfig.categoryId,
-          difficulty: roundConfig.difficulty,
           excludeIds,
         }),
       });

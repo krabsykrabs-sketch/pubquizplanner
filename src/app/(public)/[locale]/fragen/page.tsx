@@ -60,8 +60,8 @@ export default async function FragenIndexPage({
 
       <p className="text-lg text-[var(--muted)] mb-4 leading-relaxed max-w-3xl">
         Du suchst Quizfragen kostenlos? Hier findest du {totalCount}+ handverlesene
-        Pub Quiz Fragen mit Antworten, Fun Facts und Schwierigkeitsangabe. Perfekt
-        zum Kneipenquiz selber machen oder als Inspiration für deinen Quizabend.
+        Pub Quiz Fragen mit Antworten und Fun Facts. Perfekt zum Kneipenquiz selber
+        machen oder als Inspiration für deinen Quizabend.
       </p>
 
       <p className="text-sm text-[var(--muted)] mb-6">

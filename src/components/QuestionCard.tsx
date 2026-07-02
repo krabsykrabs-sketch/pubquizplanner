@@ -36,7 +36,6 @@ export default function QuestionCard({ question, onSwap, swapDisabled }: Props) 
         <p className="text-[var(--foreground)] mb-1">{question.text_de}</p>
         <p className="text-sm text-[var(--gold)]">→ {question.answer_de}</p>
         <div className="flex items-center gap-3 text-xs text-[var(--muted)] mt-1">
-          <span>{'⭐'.repeat(question.difficulty)}</span>
           <button
             onClick={report}
             disabled={reported}

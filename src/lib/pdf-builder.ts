@@ -157,7 +157,7 @@ export function buildCheatSheet(
 
     round.questions.forEach((q, qIndex) => {
       const categoryName = categoryNames[q.category_id] || round.config.categoryName;
-      const meta = `${categoryName} · Schwierigkeit ${q.difficulty}`;
+      const meta = categoryName;
 
       doc.setFontSize(10.5);
       const questionLines = doc.splitTextToSize(

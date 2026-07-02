@@ -60,7 +60,7 @@ async function getQuestions(categoryId: number): Promise<Question[]> {
   return query<Question>(
     `SELECT * FROM questions
      WHERE category_id = $1 AND status = 'approved'
-     ORDER BY difficulty ASC, id ASC`,
+     ORDER BY id ASC`,
     [categoryId]
   );
 }
@@ -87,7 +87,7 @@ export async function generateMetadata({
   if (!category) return {};
 
   const title = `${category.count} ${category.name_de}-Quizfragen mit Antworten | PubQuizPlanner`;
-  const description = `Teste dein Wissen mit ${category.count} ${category.name_de} Fragen für dein nächstes Kneipenquiz. Mit Antworten, Fun Facts und Schwierigkeitsangabe.`;
+  const description = `Teste dein Wissen mit ${category.count} ${category.name_de} Fragen für dein nächstes Kneipenquiz. Mit Antworten und Fun Facts.`;
 
   return {
     title,

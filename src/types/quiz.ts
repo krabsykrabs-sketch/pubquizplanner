@@ -40,7 +40,6 @@ export interface RoundConfig {
   categorySlug: string;
   categoryName: string;
   categoryIcon: string;
-  difficulty: number[];
   questionsPerRound: number;
 }
 

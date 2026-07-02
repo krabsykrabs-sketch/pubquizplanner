@@ -4,7 +4,6 @@ import type { Question } from '@/types/quiz';
 // categoryId <= 0 means "Gemischt": draw from all categories.
 export async function fetchQuestionsForRound(
   categoryId: number,
-  difficulty: number[],
   count: number,
   excludeIds: number[]
 ): Promise<Question[]> {
@@ -15,13 +14,6 @@ export async function fetchQuestionsForRound(
   if (categoryId > 0) {
     conditions.push(`category_id = $${paramIndex++}`);
     params.push(categoryId);
-  }
-
-  // Difficulty filter — if all 3 selected, no filter needed
-  if (difficulty.length > 0 && difficulty.length < 3) {
-    const placeholders = difficulty.map(() => `$${paramIndex++}`).join(', ');
-    conditions.push(`difficulty IN (${placeholders})`);
-    params.push(...difficulty);
   }
 
   if (excludeIds.length > 0) {
@@ -52,14 +44,8 @@ export async function fetchQuestionsForRound(
 
 export async function fetchSwapQuestion(
   categoryId: number,
-  difficulty: number[],
   excludeIds: number[]
 ): Promise<Question | null> {
-  const questions = await fetchQuestionsForRound(
-    categoryId,
-    difficulty,
-    1,
-    excludeIds
-  );
+  const questions = await fetchQuestionsForRound(categoryId, 1, excludeIds);
   return questions[0] || null;
 }

@@ -28,7 +28,7 @@ export function buildPresentation(quiz: AssembledQuiz): string {
         <div class="round-number">Runde ${roundNum}</div>
         <div class="round-icon">${escapeHtml(round.config.categoryIcon)}</div>
         <h2>${escapeHtml(round.config.categoryName)}</h2>
-        <p class="round-info">${round.questions.length} Fragen${round.config.difficulty.length < 3 ? ` · Schwierigkeit ${round.config.difficulty.map((d: number) => '⭐'.repeat(d)).join(', ')}` : ''}</p>
+        <p class="round-info">${round.questions.length} Fragen</p>
       </div>
     `));
 
@@ -40,7 +40,6 @@ export function buildPresentation(quiz: AssembledQuiz): string {
         <div class="question-slide">
           <div class="question-meta">${meta}</div>
           <h2 class="question-text">${escapeHtml(q.text_de)}</h2>
-          <div class="difficulty">${'⭐'.repeat(q.difficulty)}</div>
         </div>
       `));
 
@@ -188,8 +187,7 @@ h1, h2 {
   letter-spacing: 2px;
   margin-bottom: 40px;
 }
-.question-slide .question-text { font-size: 44px; line-height: 1.3; margin-bottom: 30px; color: #e8e4dc; }
-.question-slide .difficulty { font-size: 24px; }
+.question-slide .question-text { font-size: 44px; line-height: 1.3; color: #e8e4dc; }
 
 /* Answer */
 .answer-slide { text-align: center; max-width: 900px; }

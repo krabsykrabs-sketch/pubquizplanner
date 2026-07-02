@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import type { Question } from '@/types/quiz';
 
@@ -9,57 +8,13 @@ interface Props {
   locale: string;
 }
 
-const DIFFICULTY_LABELS: Record<number, string> = {
-  1: 'Leicht',
-  2: 'Mittel',
-  3: 'Schwer',
-};
-
 export function QuestionList({ questions, locale }: Props) {
-  const [filter, setFilter] = useState<number | null>(null);
-
-  const filtered = filter ? questions.filter((q) => q.difficulty === filter) : questions;
-
   return (
-    <>
-      {/* Difficulty filter */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        <button
-          onClick={() => setFilter(null)}
-          className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-            filter === null
-              ? 'bg-[var(--gold)] text-[var(--background)] border-[var(--gold)]'
-              : 'bg-[var(--dark-card)] border-[var(--dark-border)] text-[var(--muted)] hover:border-[var(--gold)]'
-          }`}
-        >
-          Alle ({questions.length})
-        </button>
-        {[1, 2, 3].map((d) => {
-          const count = questions.filter((q) => q.difficulty === d).length;
-          if (count === 0) return null;
-          return (
-            <button
-              key={d}
-              onClick={() => setFilter(d)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-                filter === d
-                  ? 'bg-[var(--gold)] text-[var(--background)] border-[var(--gold)]'
-                  : 'bg-[var(--dark-card)] border-[var(--dark-border)] text-[var(--muted)] hover:border-[var(--gold)]'
-              }`}
-            >
-              {'⭐'.repeat(d)} {DIFFICULTY_LABELS[d]} ({count})
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Questions */}
-      <div className="space-y-3">
-        {filtered.map((q, index) => (
-          <QuestionItem key={q.id} question={q} index={index} locale={locale} />
-        ))}
-      </div>
-    </>
+    <div className="space-y-3">
+      {questions.map((q, index) => (
+        <QuestionItem key={q.id} question={q} index={index} locale={locale} />
+      ))}
+    </div>
   );
 }
 
@@ -74,13 +29,8 @@ function QuestionItem({ question: q, index, locale }: { question: Question; inde
           <span className="flex-1">
             <span className="text-[var(--foreground)]">{q.text_de}</span>
           </span>
-          <span className="shrink-0 flex items-center gap-2">
-            <span className="text-xs text-[var(--muted)]" title={DIFFICULTY_LABELS[q.difficulty]}>
-              {'⭐'.repeat(q.difficulty)}
-            </span>
-            <span className="text-[var(--muted)] group-open:rotate-180 transition-transform text-xs">
-              ▼
-            </span>
+          <span className="shrink-0 text-[var(--muted)] group-open:rotate-180 transition-transform text-xs">
+            ▼
           </span>
         </summary>
         <div className="px-4 pb-4 pt-1 border-t border-[var(--dark-border)]">

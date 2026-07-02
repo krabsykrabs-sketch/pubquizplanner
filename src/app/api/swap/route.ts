@@ -3,13 +3,9 @@ import { fetchSwapQuestion } from '@/lib/quiz-assembler';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { categoryId, difficulty, excludeIds } = body;
+  const { categoryId, excludeIds } = body;
 
-  const question = await fetchSwapQuestion(
-    categoryId,
-    difficulty,
-    excludeIds || []
-  );
+  const question = await fetchSwapQuestion(categoryId, excludeIds || []);
 
   if (!question) {
     return NextResponse.json(null, { status: 404 });

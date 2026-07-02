@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { Category, QuizConfig, RoundConfig } from '@/types/quiz';
 import CategorySelector from '@/components/CategorySelector';
-import DifficultySelector from '@/components/DifficultySelector';
 
 const MIN_ROUNDS = 3;
 const MAX_ROUNDS = 8;
@@ -16,7 +15,6 @@ export function makeRound(roundNumber: number): RoundConfig {
     categorySlug: '',
     categoryName: '',
     categoryIcon: '',
-    difficulty: [1, 2, 3],
     questionsPerRound: 10,
   };
 }
@@ -117,17 +115,6 @@ export default function StepRounds({ config, onChange, onNext }: Props) {
                   categoryIcon: cat.icon || '',
                 })
               }
-            />
-          </div>
-
-          {/* Difficulty */}
-          <div>
-            <label className="block text-sm text-[var(--muted)] mb-1">
-              {t('difficulty')}
-            </label>
-            <DifficultySelector
-              value={round.difficulty}
-              onChange={(val) => updateRound(i, { difficulty: val })}
             />
           </div>
 
