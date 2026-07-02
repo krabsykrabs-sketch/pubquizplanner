@@ -4,8 +4,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import type { Category, QuizConfig, QuizQuestion } from '@/types/quiz';
-import StepRounds, { makeRound } from '@/components/quiz-builder/StepRounds';
-import StepPreview from '@/components/quiz-builder/StepPreview';
+import StepBuild, { makeRound } from '@/components/quiz-builder/StepBuild';
 import StepDownload from '@/components/quiz-builder/StepDownload';
 
 interface RoundQuestions {
@@ -15,7 +14,7 @@ interface RoundQuestions {
 
 const DEFAULT_ROUNDS = 5;
 // "Überrasch mich": a small, snappy quiz from randomly picked real
-// categories. Going back to step 1 makes every part of it adjustable.
+// categories — same screen as the normal flow, just different defaults.
 const QUICK_ROUNDS = 3;
 const QUICK_QUESTIONS_PER_ROUND = 5;
 
@@ -34,10 +33,8 @@ function makeConfig(locale: string): QuizConfig {
 function GeneratorFlow() {
   const t = useTranslations('generator');
   const locale = useLocale();
-  // ?quick=1: pick QUICK_ROUNDS random real categories and jump straight to
-  // the preview — details can be filled in at the end.
   const quick = useSearchParams().get('quick') === '1';
-  const [step, setStep] = useState(quick ? 2 : 1);
+  const [step, setStep] = useState(1);
   const [quickReady, setQuickReady] = useState(!quick);
   const [config, setConfig] = useState<QuizConfig>(() => makeConfig(locale));
   const [roundsData, setRoundsData] = useState<RoundQuestions[]>([]);
@@ -63,14 +60,11 @@ function GeneratorFlow() {
         }));
         setQuickReady(true);
       })
-      .catch(() => {
-        // fall back to the manual flow
-        setStep(1);
-        setQuickReady(true);
-      });
+      .catch(() => setQuickReady(true)); // fall back to default rounds
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const stepLabels = [t('step1'), t('step2'), t('step3')];
+  const stepLabels = [t('step1'), t('step2')];
+  const hasQuiz = roundsData.length > 0 && roundsData.some((r) => r.questions.length > 0);
 
   return (
     <main className="min-h-screen py-8 px-4">
@@ -78,35 +72,47 @@ function GeneratorFlow() {
       <div className="max-w-3xl mx-auto mb-8">
         <h1 className="text-2xl font-bold text-center mb-6">{t('title')}</h1>
 
-        {/* Step indicator */}
+        {/* Clickable step indicator */}
         <div className="flex items-center justify-center gap-2">
-          {stepLabels.map((label, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-mono ${
-                  step === i + 1
-                    ? 'bg-[var(--gold)] text-[var(--background)]'
-                    : step > i + 1
-                    ? 'bg-[var(--gold)] bg-opacity-30 text-[var(--gold)]'
-                    : 'bg-[var(--dark-card)] text-[var(--muted)]'
-                }`}
-              >
-                {i + 1}
+          {stepLabels.map((label, i) => {
+            const target = i + 1;
+            const clickable = target === 1 || hasQuiz;
+            return (
+              <div key={i} className="flex items-center gap-2">
+                <button
+                  onClick={() => clickable && setStep(target)}
+                  disabled={!clickable}
+                  className={`flex items-center gap-2 ${clickable ? 'cursor-pointer' : 'cursor-default'}`}
+                >
+                  <span
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-mono ${
+                      step === target
+                        ? 'bg-[var(--gold)] text-[var(--background)]'
+                        : step > target || (clickable && target !== step)
+                        ? 'bg-[var(--gold)] bg-opacity-30 text-[var(--gold)]'
+                        : 'bg-[var(--dark-card)] text-[var(--muted)]'
+                    }`}
+                  >
+                    {target}
+                  </span>
+                  <span
+                    className={`text-sm hidden sm:inline ${
+                      step === target
+                        ? 'text-[var(--foreground)]'
+                        : clickable
+                        ? 'text-[var(--muted)] hover:text-[var(--foreground)]'
+                        : 'text-[var(--muted)]'
+                    }`}
+                  >
+                    {label}
+                  </span>
+                </button>
+                {i < stepLabels.length - 1 && (
+                  <div className="w-8 h-px bg-[var(--dark-border)]" />
+                )}
               </div>
-              <span
-                className={`text-sm hidden sm:inline ${
-                  step === i + 1
-                    ? 'text-[var(--foreground)]'
-                    : 'text-[var(--muted)]'
-                }`}
-              >
-                {label}
-              </span>
-              {i < stepLabels.length - 1 && (
-                <div className="w-8 h-px bg-[var(--dark-border)]" />
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -118,30 +124,20 @@ function GeneratorFlow() {
         </div>
       )}
       {quickReady && step === 1 && (
-        <StepRounds
+        <StepBuild
           config={config}
           onChange={setConfig}
-          onNext={() => {
-            setRoundsData([]);
-            setStep(2);
-          }}
+          roundsData={roundsData}
+          setRoundsData={setRoundsData}
+          onNext={() => setStep(2)}
         />
       )}
       {quickReady && step === 2 && (
-        <StepPreview
-          config={config}
-          roundsData={roundsData}
-          setRoundsData={setRoundsData}
-          onNext={() => setStep(3)}
-          onBack={() => setStep(1)}
-        />
-      )}
-      {quickReady && step === 3 && (
         <StepDownload
           config={config}
           onChange={setConfig}
           roundsData={roundsData}
-          onBack={() => setStep(2)}
+          onBack={() => setStep(1)}
         />
       )}
     </main>

@@ -71,7 +71,7 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
 
   return (
     <div className="max-w-xl mx-auto space-y-8">
-      <h2 className="text-3xl font-bold text-[var(--gold)]">{t('step3')}</h2>
+      <h2 className="text-3xl font-bold text-[var(--gold)]">{t('step2')}</h2>
 
       {/* Event details — only needed for the generated files */}
       <div className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl p-6 space-y-4">
