@@ -3,12 +3,15 @@
 // and data/new-questions/manual-fable.json (object keyed by category slug).
 // Skips questions whose exact text already exists. Never approves anything.
 //
-// Usage: DATABASE_URL=... node scripts/insert-pending-questions.mjs [--dry-run]
+// Usage: DATABASE_URL=... node scripts/insert-pending-questions.mjs [--dry-run] [--dir=data/new-questions] [--batch=<id>]
 import pg from 'pg';
 import { readFileSync, existsSync } from 'fs';
 
 const DRY = process.argv.includes('--dry-run');
-const BATCH_ID = 'fable5-authoring-2026-07-02';
+const argValue = (name, fallback) =>
+  process.argv.find((a) => a.startsWith(`--${name}=`))?.split('=')[1] ?? fallback;
+const DIR = argValue('dir', 'data/new-questions');
+const BATCH_ID = argValue('batch', 'fable5-authoring-2026-07-02');
 const SOURCE = 'claude-fable-5';
 const SLUGS = ['sprache', 'kunst-kultur', 'logik-mathe', 'technik', 'popkultur', 'sport'];
 
@@ -22,10 +25,10 @@ const catBySlug = Object.fromEntries(cats.map((c) => [c.slug, c.id]));
 const bySlug = {};
 for (const slug of SLUGS) {
   bySlug[slug] = [];
-  const file = `data/new-questions/${slug}.json`;
+  const file = `${DIR}/${slug}.json`;
   if (existsSync(file)) bySlug[slug].push(...JSON.parse(readFileSync(file, 'utf8')));
 }
-const manualFile = 'data/new-questions/manual-fable.json';
+const manualFile = `${DIR}/manual-fable.json`;
 if (existsSync(manualFile)) {
   const manual = JSON.parse(readFileSync(manualFile, 'utf8'));
   for (const [slug, qs] of Object.entries(manual)) {

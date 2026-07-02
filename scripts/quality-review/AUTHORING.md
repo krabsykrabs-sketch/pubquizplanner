@@ -11,6 +11,25 @@ survive the review rubric (RUBRIC.md) — write to that bar from the start.
   Lösungsweg versteckt in sich (herleitbar statt nur wissbar).
 - Ein guter Fun Fact ist eine zweite Pointe, keine Wikipedia-Zusammenfassung.
 
+## Die Richtung der Frage (Owner-Feedback, wichtig!)
+
+**Die Pointe gehört in die ANTWORT, nicht in die Frage.** Wenn der spannende
+Twist schon im Fragetext steht und nur noch ein Name abgefragt wird, ist die
+Frage langweilig — Namen sind selten der Spaß.
+
+- ❌ "Welcher Rennfahrer wurde 1970 als einziger posthum Formel-1-Weltmeister?"
+  (Twist verschenkt, Name unwissbar)
+- ✅ "Was ist das Besondere am Formel-1-Weltmeistertitel von 1970?"
+  → "Er wurde posthum verliehen" (die Antwort IST die Überraschung)
+
+Faustregel: Frag nach dem überraschenden WAS/WARUM/WIE, nicht nach dem WER —
+außer der Name selbst ist die Pointe.
+
+Außerdem abgelehnt wird der berühmte Kanon: Rätselbuch-Klassiker
+(17 Schafe, Geburtstagsparadoxon, Äquator-Seil) und tausendmal gehörte
+Anekdoten (Hand Gottes, Barfuß-Marathon, Mona-Lisa-Diebstahl als Namensfrage).
+Frisches Material schlägt berühmtes Material.
+
 ## Hard rules
 
 1. GENAU EINE richtige Antwort — keine Mehrdeutigkeit, keine "je nach
