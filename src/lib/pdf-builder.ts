@@ -106,3 +106,126 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   const arrayBuffer = doc.output('arraybuffer');
   return Buffer.from(arrayBuffer);
 }
+
+export function buildCheatSheet(
+  quiz: AssembledQuiz,
+  categoryNames: Record<number, string>
+): Buffer {
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 15;
+  const contentWidth = pageWidth - margin * 2;
+  let y = margin;
+
+  const ensureSpace = (needed: number) => {
+    if (y + needed > pageHeight - margin) {
+      doc.addPage();
+      y = margin;
+    }
+  };
+
+  // Header
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(18);
+  doc.text(quiz.config.title, margin, y);
+  y += 7;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  const info = ['Quizmaster-Spickzettel', quiz.config.date, quiz.config.venue]
+    .filter(Boolean)
+    .join(' · ');
+  doc.text(info, margin, y);
+  doc.setTextColor(0, 0, 0);
+  y += 8;
+
+  quiz.rounds.forEach((round, roundIndex) => {
+    // Round header
+    ensureSpace(20);
+    y += 4;
+    doc.setFillColor(235, 235, 235);
+    doc.rect(margin, y - 5, contentWidth, 8, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text(
+      `Runde ${roundIndex + 1}: ${round.config.categoryName} (${round.questions.length} Fragen)`,
+      margin + 2,
+      y
+    );
+    y += 8;
+
+    round.questions.forEach((q, qIndex) => {
+      const categoryName = categoryNames[q.category_id] || round.config.categoryName;
+      const meta = `${categoryName} · Schwierigkeit ${q.difficulty}`;
+
+      doc.setFontSize(10.5);
+      const questionLines = doc.splitTextToSize(
+        `${qIndex + 1}. ${q.text_de}`,
+        contentWidth
+      );
+      const answerLines = doc.splitTextToSize(
+        `Antwort: ${q.answer_de}`,
+        contentWidth - 55
+      );
+      doc.setFontSize(8.5);
+      const funFactLines = q.fun_fact_de
+        ? doc.splitTextToSize(`Fun Fact: ${q.fun_fact_de}`, contentWidth - 5)
+        : [];
+
+      const blockHeight =
+        questionLines.length * 4.5 +
+        answerLines.length * 4.5 +
+        funFactLines.length * 3.8 +
+        5;
+      ensureSpace(blockHeight);
+
+      // Question
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10.5);
+      doc.text(questionLines, margin, y);
+      y += questionLines.length * 4.5;
+
+      // Answer (bold) with per-question meta right-aligned
+      doc.setFont('helvetica', 'bold');
+      doc.text(answerLines, margin + 3, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(120, 120, 120);
+      doc.text(meta, margin + contentWidth, y, { align: 'right' });
+      doc.setTextColor(0, 0, 0);
+      y += answerLines.length * 4.5;
+
+      // Fun fact
+      if (funFactLines.length > 0) {
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(8.5);
+        doc.setTextColor(90, 90, 90);
+        doc.text(funFactLines, margin + 3, y);
+        doc.setTextColor(0, 0, 0);
+        y += funFactLines.length * 3.8;
+      }
+
+      y += 3;
+    });
+  });
+
+  // Footer on every page
+  const pageCount = doc.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(150, 150, 150);
+    doc.text('Erstellt mit pubquizplanner.com', pageWidth / 2, pageHeight - 8, {
+      align: 'center',
+    });
+    doc.text(`Seite ${i}/${pageCount}`, pageWidth - margin, pageHeight - 8, {
+      align: 'right',
+    });
+    doc.setTextColor(0, 0, 0);
+  }
+
+  const arrayBuffer = doc.output('arraybuffer');
+  return Buffer.from(arrayBuffer);
+}

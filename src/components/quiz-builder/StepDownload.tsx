@@ -19,11 +19,16 @@ export default function StepDownload({ config, roundsData, onBack }: Props) {
   const t = useTranslations('generator');
   const [generatingPres, setGeneratingPres] = useState(false);
   const [generatingPdf, setGeneratingPdf] = useState(false);
+  const [generatingCheat, setGeneratingCheat] = useState(false);
 
-  const handleDownloadPresentation = async () => {
-    setGeneratingPres(true);
+  const download = async (
+    endpoint: string,
+    fileSuffix: string,
+    setGenerating: (v: boolean) => void
+  ) => {
+    setGenerating(true);
     try {
-      const res = await fetch('/api/generate-presentation', {
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -38,41 +43,21 @@ export default function StepDownload({ config, roundsData, onBack }: Props) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${config.title.replace(/\s+/g, '_')}_Praesentation.html`;
+      a.download = `${config.title.replace(/\s+/g, '_')}_${fileSuffix}`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
     }
-    setGeneratingPres(false);
+    setGenerating(false);
   };
 
-  const handleDownloadAnswerSheet = async () => {
-    setGeneratingPdf(true);
-    try {
-      const res = await fetch('/api/generate-answer-sheet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          config,
-          rounds: roundsData.map((r, i) => ({
-            config: config.rounds[i],
-            questions: r.questions,
-          })),
-        }),
-      });
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${config.title.replace(/\s+/g, '_')}_Antwortbogen.pdf`;
-      a.click();
-      URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error(err);
-    }
-    setGeneratingPdf(false);
-  };
+  const handleDownloadPresentation = () =>
+    download('/api/generate-presentation', 'Praesentation.html', setGeneratingPres);
+  const handleDownloadAnswerSheet = () =>
+    download('/api/generate-answer-sheet', 'Antwortbogen.pdf', setGeneratingPdf);
+  const handleDownloadCheatSheet = () =>
+    download('/api/generate-cheat-sheet', 'Spickzettel.pdf', setGeneratingCheat);
 
   const totalQuestions = roundsData.reduce(
     (sum, r) => sum + r.questions.length,
@@ -133,6 +118,18 @@ export default function StepDownload({ config, roundsData, onBack }: Props) {
             <>⏳ {t('generating')}</>
           ) : (
             <>📄 {t('downloadAnswerSheet')}</>
+          )}
+        </button>
+
+        <button
+          onClick={handleDownloadCheatSheet}
+          disabled={generatingCheat}
+          className="w-full border-2 border-[var(--gold)] text-[var(--gold)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+        >
+          {generatingCheat ? (
+            <>⏳ {t('generating')}</>
+          ) : (
+            <>🗒️ {t('downloadCheatSheet')}</>
           )}
         </button>
       </div>
