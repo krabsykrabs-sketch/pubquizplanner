@@ -27,7 +27,7 @@ export default function QuestionCard({ question, onSwap, swapDisabled }: Props) 
         className="flex-shrink-0 px-3 py-2 rounded-lg text-sm border border-[var(--dark-border)] hover:border-[var(--gold)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
         title="Frage tauschen"
       >
-        🔄
+        🔄 <span className="hidden sm:inline">Tauschen</span>
       </button>
     </div>
   );

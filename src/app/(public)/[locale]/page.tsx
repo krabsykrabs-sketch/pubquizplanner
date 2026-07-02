@@ -111,12 +111,20 @@ export default async function LandingPage({
         <p className="text-xl md:text-2xl text-[var(--muted)] mb-10 max-w-2xl">
           {t('subtitle')}
         </p>
-        <Link
-          href={`/${locale}/generator`}
-          className="inline-flex items-center gap-3 bg-[var(--gold)] text-[var(--background)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
-        >
-          {t('cta')} →
-        </Link>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <Link
+            href={`/${locale}/generator`}
+            className="inline-flex items-center gap-3 bg-[var(--gold)] text-[var(--background)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
+          >
+            {t('cta')} →
+          </Link>
+          <Link
+            href={`/${locale}/generator?quick=1`}
+            className="inline-flex items-center gap-3 border-2 border-[var(--gold)] text-[var(--gold)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors"
+          >
+            🎲 {t('quickStart')}
+          </Link>
+        </div>
       </section>
 
       {/* Categories */}

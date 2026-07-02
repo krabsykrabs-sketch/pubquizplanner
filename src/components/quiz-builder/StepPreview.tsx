@@ -133,7 +133,7 @@ export default function StepPreview({
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <h2 className="text-3xl font-bold text-[var(--gold)]">{t('step3')}</h2>
+      <h2 className="text-3xl font-bold text-[var(--gold)]">{t('step2')}</h2>
 
       {roundsData.map((round, roundIndex) => (
         <div

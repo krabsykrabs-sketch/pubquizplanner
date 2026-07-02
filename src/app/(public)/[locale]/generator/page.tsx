@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
-import StepSetup from '@/components/quiz-builder/StepSetup';
-import StepRounds from '@/components/quiz-builder/StepRounds';
+import { MIXED_CATEGORY } from '@/components/CategorySelector';
+import StepRounds, { makeRound } from '@/components/quiz-builder/StepRounds';
 import StepPreview from '@/components/quiz-builder/StepPreview';
 import StepDownload from '@/components/quiz-builder/StepDownload';
 
@@ -13,30 +14,39 @@ interface RoundQuestions {
   expanded: boolean;
 }
 
-const defaultConfig: QuizConfig = {
-  title: 'Quiz Abend',
-  date: '',
-  venue: '',
-  numberOfRounds: 5,
-  answerPlacement: 'all_at_end',
-  rounds: Array.from({ length: 5 }, (_, i) => ({
-    roundNumber: i + 1,
-    categoryId: 0,
-    categorySlug: '',
-    categoryName: '',
-    categoryIcon: '',
-    difficulty: [1, 2, 3],
-    questionsPerRound: 10,
-  })),
-};
+const DEFAULT_ROUNDS = 5;
 
-export default function GeneratorPage() {
+function makeConfig(mixed: boolean): QuizConfig {
+  return {
+    title: '',
+    date: '',
+    venue: '',
+    numberOfRounds: DEFAULT_ROUNDS,
+    answerPlacement: 'all_at_end',
+    rounds: Array.from({ length: DEFAULT_ROUNDS }, (_, i) => ({
+      ...makeRound(i + 1),
+      ...(mixed
+        ? {
+            categoryId: MIXED_CATEGORY.id,
+            categorySlug: MIXED_CATEGORY.slug,
+            categoryName: MIXED_CATEGORY.name_de,
+            categoryIcon: MIXED_CATEGORY.icon || '',
+          }
+        : {}),
+    })),
+  };
+}
+
+function GeneratorFlow() {
   const t = useTranslations('generator');
-  const [step, setStep] = useState(1);
-  const [config, setConfig] = useState<QuizConfig>(defaultConfig);
+  // ?quick=1 (the "Überrasch mich" path): start with 5 mixed rounds and jump
+  // straight to the preview — details can be filled in at the end.
+  const quick = useSearchParams().get('quick') === '1';
+  const [step, setStep] = useState(quick ? 2 : 1);
+  const [config, setConfig] = useState<QuizConfig>(() => makeConfig(quick));
   const [roundsData, setRoundsData] = useState<RoundQuestions[]>([]);
 
-  const stepLabels = [t('step1'), t('step2'), t('step3'), t('step4')];
+  const stepLabels = [t('step1'), t('step2'), t('step3')];
 
   return (
     <main className="min-h-screen py-8 px-4">
@@ -68,7 +78,7 @@ export default function GeneratorPage() {
               >
                 {label}
               </span>
-              {i < 3 && (
+              {i < stepLabels.length - 1 && (
                 <div className="w-8 h-px bg-[var(--dark-border)]" />
               )}
             </div>
@@ -78,36 +88,40 @@ export default function GeneratorPage() {
 
       {/* Steps */}
       {step === 1 && (
-        <StepSetup
-          config={config}
-          onChange={setConfig}
-          onNext={() => setStep(2)}
-        />
-      )}
-      {step === 2 && (
         <StepRounds
           config={config}
           onChange={setConfig}
+          onNext={() => {
+            setRoundsData([]);
+            setStep(2);
+          }}
+        />
+      )}
+      {step === 2 && (
+        <StepPreview
+          config={config}
+          roundsData={roundsData}
+          setRoundsData={setRoundsData}
           onNext={() => setStep(3)}
           onBack={() => setStep(1)}
         />
       )}
       {step === 3 && (
-        <StepPreview
+        <StepDownload
           config={config}
+          onChange={setConfig}
           roundsData={roundsData}
-          setRoundsData={setRoundsData}
-          onNext={() => setStep(4)}
           onBack={() => setStep(2)}
         />
       )}
-      {step === 4 && (
-        <StepDownload
-          config={config}
-          roundsData={roundsData}
-          onBack={() => setStep(3)}
-        />
-      )}
     </main>
+  );
+}
+
+export default function GeneratorPage() {
+  return (
+    <Suspense>
+      <GeneratorFlow />
+    </Suspense>
   );
 }

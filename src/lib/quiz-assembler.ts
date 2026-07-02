@@ -1,40 +1,40 @@
 import { query } from './db';
 import type { Question } from '@/types/quiz';
 
+// categoryId <= 0 means "Gemischt": draw from all categories.
 export async function fetchQuestionsForRound(
   categoryId: number,
   difficulty: number[],
   count: number,
   excludeIds: number[]
 ): Promise<Question[]> {
-  const params: unknown[] = [categoryId, count];
-  let paramIndex = 3;
+  const conditions: string[] = [`status = 'approved'`];
+  const params: unknown[] = [count];
+  let paramIndex = 2;
 
-  // Difficulty filter — if all 3 selected, no filter needed
-  let difficultyClause = '';
-  if (difficulty.length > 0 && difficulty.length < 3) {
-    const placeholders = difficulty.map((_, i) => `$${paramIndex + i}`).join(', ');
-    difficultyClause = `AND difficulty IN (${placeholders})`;
-    params.push(...difficulty);
-    paramIndex += difficulty.length;
+  if (categoryId > 0) {
+    conditions.push(`category_id = $${paramIndex++}`);
+    params.push(categoryId);
   }
 
-  // Exclude IDs
-  let excludeClause = '';
+  // Difficulty filter — if all 3 selected, no filter needed
+  if (difficulty.length > 0 && difficulty.length < 3) {
+    const placeholders = difficulty.map(() => `$${paramIndex++}`).join(', ');
+    conditions.push(`difficulty IN (${placeholders})`);
+    params.push(...difficulty);
+  }
+
   if (excludeIds.length > 0) {
-    const placeholders = excludeIds.map((_, i) => `$${paramIndex + i}`).join(', ');
-    excludeClause = `AND id NOT IN (${placeholders})`;
+    const placeholders = excludeIds.map(() => `$${paramIndex++}`).join(', ');
+    conditions.push(`id NOT IN (${placeholders})`);
     params.push(...excludeIds);
   }
 
   const rows = await query<Question>(
     `SELECT * FROM questions
-     WHERE category_id = $1
-     AND status = 'approved'
-     ${difficultyClause}
-     ${excludeClause}
+     WHERE ${conditions.join(' AND ')}
      ORDER BY times_served ASC, RANDOM()
-     LIMIT $2`,
+     LIMIT $1`,
     params
   );
 
