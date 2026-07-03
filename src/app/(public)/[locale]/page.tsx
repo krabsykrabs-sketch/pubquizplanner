@@ -2,8 +2,13 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { query } from '@/lib/db';
-
-const MIN_QUESTIONS = 30;
+import {
+  SOURCE_LOCALE,
+  OG_LOCALE,
+  localeAlternates,
+  MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
+  type Locale,
+} from '@/config/locales';
 
 export async function generateMetadata({
   params: { locale },
@@ -16,14 +21,14 @@ export async function generateMetadata({
     description: t('description'),
     alternates: {
       canonical: `/${locale}`,
-      languages: { de: '/de', nl: '/nl', 'x-default': '/de' },
+      languages: localeAlternates(''),
     },
     openGraph: {
       title: t('title'),
       description: t('description'),
       url: `/${locale}`,
       siteName: 'PubQuizPlanner',
-      locale: locale === 'nl' ? 'nl_NL' : 'de_DE',
+      locale: OG_LOCALE[locale as Locale] ?? OG_LOCALE[SOURCE_LOCALE],
       type: 'website',
     },
   };
@@ -44,7 +49,7 @@ interface SampleQuestion {
 }
 
 async function getLandingData(locale: string) {
-  const translated = locale !== 'de';
+  const translated = locale !== SOURCE_LOCALE;
 
   const [countResult, categories, sampleQuestions] = await Promise.all([
     translated

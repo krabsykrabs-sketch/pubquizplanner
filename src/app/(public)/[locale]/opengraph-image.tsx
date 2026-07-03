@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { SOURCE_LOCALE, type Locale } from '@/config/locales';
 
 export const alt = 'PubQuizPlanner – Dein Pub Quiz Generator';
 export const size = { width: 1200, height: 630 };
@@ -8,13 +9,13 @@ const GOLD = '#d4a843';
 const BG = '#0a0a0f';
 const MUTED = '#a09888';
 
-const TAGLINES: Record<string, string> = {
+const TAGLINES: Partial<Record<Locale, string>> = {
   de: 'Dein Pub Quiz, perfekt geplant.',
   nl: 'Jouw pubquiz, perfect gepland.',
 };
 
 export default function OpengraphImage({ params }: { params: { locale: string } }) {
-  const tagline = TAGLINES[params?.locale] ?? TAGLINES.de;
+  const tagline = TAGLINES[params?.locale as Locale] ?? TAGLINES[SOURCE_LOCALE];
   return new ImageResponse(
     (
       <div

@@ -1,3 +1,5 @@
+import { SOURCE_LOCALE, type Locale } from '@/config/locales';
+
 // Localized strings for the generated files (HTML presentation, answer
 // sheet PDF, quizmaster cheat sheet). Unknown locales fall back to German.
 export interface OutputStrings {
@@ -24,7 +26,7 @@ export interface OutputStrings {
   page: string;
 }
 
-const STRINGS: Record<string, OutputStrings> = {
+const STRINGS: Partial<Record<Locale, OutputStrings>> = {
   de: {
     round: 'Runde',
     question: 'Frage',
@@ -76,5 +78,6 @@ const STRINGS: Record<string, OutputStrings> = {
 };
 
 export function getOutputStrings(locale: string | undefined): OutputStrings {
-  return STRINGS[locale ?? 'de'] ?? STRINGS.de;
+  // SOURCE_LOCALE is always defined in STRINGS, so it is a guaranteed fallback.
+  return STRINGS[locale as Locale] ?? STRINGS[SOURCE_LOCALE]!;
 }

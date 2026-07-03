@@ -3,17 +3,16 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 import type { Category } from '@/types/quiz';
-
-const MIN_QUESTIONS = 30;
+import { SOURCE_LOCALE, MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS } from '@/config/locales';
 
 // Only categories with enough approved (and, for non-German locales,
 // translated) questions to fill a round. The localized name is aliased
 // onto name_de so clients stay locale-agnostic.
 export async function GET(request: NextRequest) {
-  const locale = request.nextUrl.searchParams.get('locale') || 'de';
+  const locale = request.nextUrl.searchParams.get('locale') || SOURCE_LOCALE;
 
   const categories =
-    locale === 'de'
+    locale === SOURCE_LOCALE
       ? await query<Category & { question_count: number }>(
           `SELECT c.*, COUNT(q.id)::int AS question_count
            FROM categories c

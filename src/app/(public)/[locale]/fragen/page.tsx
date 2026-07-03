@@ -2,10 +2,14 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { query } from '@/lib/db';
+import {
+  SOURCE_LOCALE,
+  localeAlternates,
+  MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
+} from '@/config/locales';
 
 export const dynamic = 'force-dynamic';
 
-const MIN_QUESTIONS = 30;
 const SAMPLES_PER_CATEGORY = 3;
 const BASE_URL = 'https://pubquizplanner.com';
 
@@ -26,7 +30,7 @@ interface SampleQuestion {
 // For non-German locales only translated questions count and the localized
 // category name is aliased onto name_de.
 async function getActiveCategories(locale: string): Promise<CategoryWithCount[]> {
-  if (locale === 'de') {
+  if (locale === SOURCE_LOCALE) {
     return query<CategoryWithCount>(
       `SELECT c.id, c.slug, c.name_de, c.icon, COUNT(q.id)::int as count
        FROM categories c
@@ -59,7 +63,7 @@ async function getSampleQuestions(
   locale: string
 ): Promise<SampleQuestion[]> {
   if (categoryIds.length === 0) return [];
-  if (locale === 'de') {
+  if (locale === SOURCE_LOCALE) {
     return query<SampleQuestion>(
       `SELECT c.slug AS category_slug, s.text_de, s.answer_de
        FROM categories c
@@ -111,7 +115,10 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { canonical: `/${locale}/fragen` },
+    alternates: {
+      canonical: `/${locale}/fragen`,
+      languages: localeAlternates('/fragen'),
+    },
     openGraph: {
       title,
       description,

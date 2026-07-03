@@ -43,5 +43,14 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(de|nl)/:path*', '/admin/:path*', '/api/admin/:path*'],
+  // Next.js requires `matcher` to be a static literal, so it can't be derived
+  // from the locale config. Instead of enumerating locale prefixes, we match all
+  // public paths (excluding Next internals, files with an extension, and the
+  // separately-handled admin/api routes) — so adding a locale needs no edit here.
+  matcher: [
+    '/',
+    '/((?!api|_next|_vercel|admin|.*\\..*).*)',
+    '/admin/:path*',
+    '/api/admin/:path*',
+  ],
 };

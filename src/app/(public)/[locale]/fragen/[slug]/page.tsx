@@ -4,12 +4,17 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { query, queryOne } from '@/lib/db';
 import { getCategoryIntro } from '@/lib/category-intros';
+import {
+  SOURCE_LOCALE,
+  LOCALES,
+  localeAlternates,
+  MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
+  type Locale,
+} from '@/config/locales';
 import type { Category, Question } from '@/types/quiz';
 import { QuestionList } from './question-list';
 
 export const dynamic = 'force-dynamic';
-
-const MIN_QUESTIONS = 30;
 
 interface CategoryWithCount extends Category {
   count: number;
@@ -21,7 +26,7 @@ async function getCategoryWithCount(
   slug: string,
   locale: string
 ): Promise<CategoryWithCount | null> {
-  if (locale === 'de') {
+  if (locale === SOURCE_LOCALE) {
     return queryOne<CategoryWithCount>(
       `SELECT c.*, COUNT(q.id)::int as count
        FROM categories c
@@ -48,7 +53,7 @@ async function getCategoryWithCount(
 }
 
 async function getQuestions(categoryId: number, locale: string): Promise<Question[]> {
-  if (locale === 'de') {
+  if (locale === SOURCE_LOCALE) {
     return query<Question>(
       `SELECT * FROM questions
        WHERE category_id = $1 AND status = 'approved'
@@ -67,8 +72,33 @@ async function getQuestions(categoryId: number, locale: string): Promise<Questio
   );
 }
 
+// Which configured locales serve this category (i.e. clear the threshold) — for
+// hreflang alternates, so we never advertise a category URL that 404s.
+async function getCategoryLocales(slug: string): Promise<Locale[]> {
+  const rows = await query<{ locale: string }>(
+    `SELECT loc AS locale FROM (
+       SELECT $2::text AS loc, COUNT(q.id) AS c
+       FROM categories c
+       JOIN questions q ON q.category_id = c.id
+       WHERE c.slug = $1 AND q.status = 'approved'
+       GROUP BY c.id
+       UNION ALL
+       SELECT t.locale AS loc, COUNT(q.id) AS c
+       FROM categories c
+       JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
+       JOIN question_translations t ON t.question_id = q.id
+         AND t.status IN ('machine', 'reviewed')
+       WHERE c.slug = $1
+       GROUP BY c.id, t.locale
+     ) s WHERE s.c >= $3`,
+    [slug, SOURCE_LOCALE, MIN_QUESTIONS]
+  );
+  const available = new Set(rows.map((r) => r.locale));
+  return LOCALES.filter((l) => available.has(l));
+}
+
 async function getAllActiveCategories(locale: string): Promise<CategoryWithCount[]> {
-  if (locale === 'de') {
+  if (locale === SOURCE_LOCALE) {
     return query<CategoryWithCount>(
       `SELECT c.*, COUNT(q.id)::int as count
        FROM categories c
@@ -100,7 +130,10 @@ export async function generateMetadata({
 }: {
   params: { locale: string; slug: string };
 }): Promise<Metadata> {
-  const category = await getCategoryWithCount(slug, locale);
+  const [category, availableLocales] = await Promise.all([
+    getCategoryWithCount(slug, locale),
+    getCategoryLocales(slug),
+  ]);
   if (!category) return {};
   const t = await getTranslations({ locale, namespace: 'fragen' });
 
@@ -113,6 +146,10 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: {
+      canonical: `/${locale}/fragen/${slug}`,
+      languages: localeAlternates(`/fragen/${slug}`, availableLocales),
+    },
     openGraph: {
       title,
       description,

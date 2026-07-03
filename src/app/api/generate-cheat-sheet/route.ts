@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { buildCheatSheet } from '@/lib/pdf-builder';
 import { query } from '@/lib/db';
 import { logEvent } from '@/lib/events';
+import { SOURCE_LOCALE } from '@/config/locales';
 import type { AssembledQuiz } from '@/types/quiz';
 
 export async function POST(request: NextRequest) {
@@ -11,9 +12,9 @@ export async function POST(request: NextRequest) {
     meta: { rounds: quiz.rounds.length },
   });
 
-  const locale = quiz.config?.locale || 'de';
+  const locale = quiz.config?.locale || SOURCE_LOCALE;
   const categories =
-    locale === 'de'
+    locale === SOURCE_LOCALE
       ? await query<{ id: number; name_de: string }>(
           'SELECT id, name_de FROM categories'
         )

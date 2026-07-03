@@ -1,7 +1,9 @@
-// SEO intro paragraphs for the category pages, per locale. Categories
-// without an entry fall back to the templated fragen.categoryFallbackIntro
-// message.
-export const CATEGORY_INTROS: Record<string, Record<string, string>> = {
+import type { Locale } from '@/config/locales';
+
+// SEO intro paragraphs for the category pages, per locale. Optional per locale:
+// a locale (or a single category) without an entry falls back to the templated
+// fragen.categoryFallbackIntro message.
+export const CATEGORY_INTROS: Partial<Record<Locale, Record<string, string>>> = {
   de: {
     wissenschaft:
       'Von Physik über Biologie bis Chemie — diese Wissenschafts-Quizfragen bringen garantiert Diskussionen an den Kneipentisch. Perfekt für jedes Pub Quiz, bei dem auch die Nerds im Team glänzen dürfen.',
@@ -65,5 +67,5 @@ export const CATEGORY_INTROS: Record<string, Record<string, string>> = {
 };
 
 export function getCategoryIntro(locale: string, slug: string): string | null {
-  return CATEGORY_INTROS[locale]?.[slug] ?? null;
+  return CATEGORY_INTROS[locale as Locale]?.[slug] ?? null;
 }

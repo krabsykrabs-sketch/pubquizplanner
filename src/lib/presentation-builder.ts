@@ -1,4 +1,5 @@
 import { getOutputStrings } from './output-strings';
+import { SOURCE_LOCALE } from '@/config/locales';
 import type { AssembledQuiz } from '@/types/quiz';
 
 export function buildPresentation(quiz: AssembledQuiz): string {
@@ -116,7 +117,7 @@ export function buildPresentation(quiz: AssembledQuiz): string {
   `));
 
   return `<!DOCTYPE html>
-<html lang="${config.locale || 'de'}">
+<html lang="${config.locale || SOURCE_LOCALE}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

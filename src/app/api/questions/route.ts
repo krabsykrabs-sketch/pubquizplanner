@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchQuestionsForRound } from '@/lib/quiz-assembler';
 import { logEvent } from '@/lib/events';
+import { SOURCE_LOCALE } from '@/config/locales';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -10,7 +11,7 @@ export async function POST(request: NextRequest) {
     categoryId,
     count || 10,
     excludeIds || [],
-    locale || 'de'
+    locale || SOURCE_LOCALE
   );
 
   // The first round of a preview has no exclusions yet — count that as one

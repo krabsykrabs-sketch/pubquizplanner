@@ -1,10 +1,10 @@
 import { query } from './db';
 import type { Question } from '@/types/quiz';
+import { SOURCE_LOCALE } from '@/config/locales';
 
-// Locales that only serve translated questions. German serves the source
-// columns directly. For other locales the translated content is aliased
-// onto the *_de fields so all downstream code stays locale-agnostic.
-const SOURCE_LOCALE = 'de';
+// German serves the source columns directly. For other locales the translated
+// content is aliased onto the *_de fields so all downstream code stays
+// locale-agnostic.
 
 // categoryId <= 0 means "Gemischt": draw from all categories.
 export async function fetchQuestionsForRound(

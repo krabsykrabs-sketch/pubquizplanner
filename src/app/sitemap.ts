@@ -1,21 +1,23 @@
 import { MetadataRoute } from 'next';
 import { query } from '@/lib/db';
+import {
+  SOURCE_LOCALE,
+  EXTRA_LOCALES,
+  MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
+} from '@/config/locales';
 
 export const dynamic = 'force-dynamic';
 
 const BASE_URL = 'https://pubquizplanner.com';
-const MIN_QUESTIONS = 30;
-// Non-German locales appear in the sitemap once they have translated content.
-const EXTRA_LOCALES = ['nl'];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/de`, changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${BASE_URL}/de/generator`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/de/fragen`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/de/impressum`, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/de/datenschutz`, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/de/credits`, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/${SOURCE_LOCALE}`, changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE_URL}/${SOURCE_LOCALE}/generator`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/${SOURCE_LOCALE}/fragen`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/${SOURCE_LOCALE}/impressum`, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/${SOURCE_LOCALE}/datenschutz`, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/${SOURCE_LOCALE}/credits`, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   try {

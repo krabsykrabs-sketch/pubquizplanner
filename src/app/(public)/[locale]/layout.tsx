@@ -4,8 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import TrackPageview from '@/components/TrackPageview';
-
-const locales = ['de', 'nl'];
+import { isLocale } from '@/config/locales';
 
 export async function generateMetadata({
   params: { locale },
@@ -27,7 +26,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  if (!locales.includes(locale)) notFound();
+  if (!isLocale(locale)) notFound();
 
   const messages = await getMessages();
   const t = await getTranslations({ locale, namespace: 'footer' });
