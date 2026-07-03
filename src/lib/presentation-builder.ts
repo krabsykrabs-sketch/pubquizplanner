@@ -1,8 +1,12 @@
 import { getOutputStrings } from './output-strings';
 import { SOURCE_LOCALE } from '@/config/locales';
+import { defaultSlideTheme, renderThemeCss, type SlideTheme } from './slide-theme';
 import type { AssembledQuiz } from '@/types/quiz';
 
-export function buildPresentation(quiz: AssembledQuiz): string {
+export function buildPresentation(
+  quiz: AssembledQuiz,
+  theme: SlideTheme = defaultSlideTheme
+): string {
   const { config, rounds } = quiz;
   const s = getOutputStrings(config.locale);
   const slides: string[] = [];
@@ -128,14 +132,14 @@ export function buildPresentation(quiz: AssembledQuiz): string {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${escapeHtml(config.title)}</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+${renderThemeCss(theme)}
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: #0a0a0f;
-  color: #e8e4dc;
-  font-family: 'DM Sans', sans-serif;
+  background: var(--slide-bg);
+  color: var(--slide-text);
+  font-family: var(--slide-font-body);
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
@@ -154,104 +158,104 @@ body {
 .slide.active { display: flex; }
 
 h1, h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--slide-font-display);
   font-weight: 900;
 }
 
 /* Title slide */
 .title-slide { text-align: center; }
 .title-slide .title-icon { font-size: 72px; margin-bottom: 30px; }
-.title-slide h1 { font-size: 72px; color: #d4a843; margin-bottom: 20px; line-height: 1.1; }
-.title-slide .date { font-size: 24px; color: #a09888; margin-bottom: 8px; }
-.title-slide .venue { font-size: 24px; color: #a09888; margin-bottom: 30px; }
-.title-slide .subtitle { font-size: 20px; color: #706858; font-style: italic; }
+.title-slide h1 { font-size: 72px; color: var(--slide-accent); margin-bottom: 20px; line-height: 1.1; }
+.title-slide .date { font-size: 24px; color: var(--slide-muted); margin-bottom: 8px; }
+.title-slide .venue { font-size: 24px; color: var(--slide-muted); margin-bottom: 30px; }
+.title-slide .subtitle { font-size: 20px; color: var(--slide-subtle); font-style: italic; }
 .title-slide .keys-hint {
   margin-top: 50px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 14px;
-  color: #504838;
+  color: var(--slide-faint);
 }
 
 /* Round title */
 .round-title-slide { text-align: center; }
 .round-title-slide .round-number {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 18px;
-  color: #d4a843;
+  color: var(--slide-accent);
   text-transform: uppercase;
   letter-spacing: 4px;
   margin-bottom: 20px;
 }
 .round-title-slide .round-icon { font-size: 80px; margin-bottom: 20px; }
-.round-title-slide h2 { font-size: 56px; color: #e8e4dc; margin-bottom: 15px; }
-.round-title-slide .round-info { font-size: 20px; color: #a09888; }
+.round-title-slide h2 { font-size: 56px; color: var(--slide-text); margin-bottom: 15px; }
+.round-title-slide .round-info { font-size: 20px; color: var(--slide-muted); }
 
 /* Question */
 .question-slide { text-align: center; max-width: 900px; }
 .question-slide .question-meta {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 14px;
-  color: #d4a843;
+  color: var(--slide-accent);
   letter-spacing: 2px;
   margin-bottom: 40px;
 }
-.question-slide .question-text { font-size: 44px; line-height: 1.3; color: #e8e4dc; }
+.question-slide .question-text { font-size: 44px; line-height: 1.3; color: var(--slide-text); }
 .question-slide .estimation-badge {
   margin-top: 40px;
   display: inline-block;
-  background: rgba(212, 168, 67, 0.12);
-  border: 1px solid rgba(212, 168, 67, 0.4);
+  background: var(--slide-panel-bg);
+  border: 1px solid var(--slide-panel-border);
   border-radius: 999px;
   padding: 10px 24px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 18px;
-  color: #d4a843;
+  color: var(--slide-accent);
 }
 
 /* Answer */
 .answer-slide { text-align: center; max-width: 900px; }
 .answer-slide .question-meta {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 14px;
-  color: #d4a843;
+  color: var(--slide-accent);
   letter-spacing: 2px;
   margin-bottom: 30px;
 }
-.answer-slide .answer-question { font-size: 24px; color: #a09888; margin-bottom: 30px; font-style: italic; }
-.answer-slide .answer-text { font-size: 52px; color: #4ade80; font-family: 'Playfair Display', serif; font-weight: 700; margin-bottom: 30px; }
+.answer-slide .answer-question { font-size: 24px; color: var(--slide-muted); margin-bottom: 30px; font-style: italic; }
+.answer-slide .answer-text { font-size: 52px; color: var(--slide-correct); font-family: var(--slide-font-display); font-weight: 700; margin-bottom: 30px; }
 .answer-slide .fun-fact {
-  background: rgba(212, 168, 67, 0.1);
-  border: 1px solid rgba(212, 168, 67, 0.3);
+  background: var(--slide-panel-bg);
+  border: 1px solid var(--slide-panel-border);
   border-radius: 12px;
   padding: 20px 30px;
   font-size: 18px;
-  color: #c8b888;
+  color: var(--slide-panel-text);
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.5;
 }
-.answer-slide .fun-fact .fun-fact-label { font-weight: 700; color: #d4a843; }
+.answer-slide .fun-fact .fun-fact-label { font-weight: 700; color: var(--slide-accent); }
 
 /* Halftime */
 .halftime-slide { text-align: center; }
 .halftime-slide .halftime-icon { font-size: 100px; margin-bottom: 30px; }
-.halftime-slide h2 { font-size: 64px; color: #d4a843; margin-bottom: 15px; }
-.halftime-slide p { font-size: 28px; color: #a09888; }
+.halftime-slide h2 { font-size: 64px; color: var(--slide-accent); margin-bottom: 15px; }
+.halftime-slide p { font-size: 28px; color: var(--slide-muted); }
 
 /* Section title */
 .section-title-slide { text-align: center; }
-.section-title-slide h2 { font-size: 64px; color: #d4a843; margin-bottom: 15px; }
-.section-title-slide p { font-size: 24px; color: #a09888; }
+.section-title-slide h2 { font-size: 64px; color: var(--slide-accent); margin-bottom: 15px; }
+.section-title-slide p { font-size: 24px; color: var(--slide-muted); }
 
 /* Final */
 .final-slide { text-align: center; }
 .final-slide .final-icon { font-size: 100px; margin-bottom: 30px; }
-.final-slide h2 { font-size: 64px; color: #d4a843; margin-bottom: 15px; }
-.final-slide p { font-size: 28px; color: #a09888; margin-bottom: 10px; }
+.final-slide h2 { font-size: 64px; color: var(--slide-accent); margin-bottom: 15px; }
+.final-slide p { font-size: 28px; color: var(--slide-muted); margin-bottom: 10px; }
 .final-slide .branding {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 14px;
-  color: #504838;
+  color: var(--slide-faint);
   margin-top: 40px;
 }
 
@@ -261,7 +265,7 @@ h1, h2 {
   bottom: 0;
   left: 0;
   height: 4px;
-  background: linear-gradient(90deg, #d4a843, #e8c468);
+  background: linear-gradient(90deg, var(--slide-accent), var(--slide-accent-light));
   transition: width 0.3s ease;
   z-index: 100;
 }
@@ -271,9 +275,9 @@ h1, h2 {
   position: fixed;
   bottom: 20px;
   right: 30px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 14px;
-  color: #504838;
+  color: var(--slide-faint);
   z-index: 100;
 }
 
@@ -283,12 +287,12 @@ h1, h2 {
   position: fixed;
   top: 30px;
   right: 30px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--slide-font-mono);
   font-size: 48px;
-  color: #d4a843;
+  color: var(--slide-accent);
   z-index: 100;
 }
-#timer.warning { color: #ef4444; }
+#timer.warning { color: var(--slide-warning); }
 #timer.active { display: block; }
 </style>
 </head>
