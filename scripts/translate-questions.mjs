@@ -13,6 +13,7 @@ const LANGUAGES = {
   nl: 'Niederländisch (Nederlands)',
   es: 'Spanisch (Español)',
   pl: 'Polnisch (Polski)',
+  sv: 'Schwedisch (Svenska)',
   it: 'Italienisch (Italiano)',
   fr: 'Französisch (Français)',
   en: 'Englisch (English)',

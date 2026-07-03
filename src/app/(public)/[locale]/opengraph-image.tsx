@@ -12,6 +12,8 @@ const MUTED = '#a09888';
 const TAGLINES: Partial<Record<Locale, string>> = {
   de: 'Dein Pub Quiz, perfekt geplant.',
   nl: 'Jouw pubquiz, perfect gepland.',
+  pl: 'Twój pub quiz, perfekcyjnie zaplanowany.',
+  sv: 'Ditt pubquiz, perfekt planerat.',
 };
 
 export default function OpengraphImage({ params }: { params: { locale: string } }) {

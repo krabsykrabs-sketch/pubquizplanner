@@ -1,23 +1,25 @@
 import jsPDF from 'jspdf';
 import { getOutputStrings } from './output-strings';
+import { registerPdfFont } from './pdf-fonts';
 import type { AssembledQuiz } from '@/types/quiz';
 
 export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   const s = getOutputStrings(quiz.config.locale);
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const FONT = registerPdfFont(doc, quiz.config.locale);
   const pageWidth = doc.internal.pageSize.getWidth();
   const margin = 20;
   const contentWidth = pageWidth - margin * 2;
   let y = margin;
 
   // Title
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(FONT, 'bold');
   doc.setFontSize(22);
   doc.text(quiz.config.title, pageWidth / 2, y, { align: 'center' });
   y += 10;
 
   if (quiz.config.date || quiz.config.venue) {
-    doc.setFont('helvetica', 'normal');
+    doc.setFont(FONT, 'normal');
     doc.setFontSize(12);
     const info = [quiz.config.date, quiz.config.venue].filter(Boolean).join(' · ');
     doc.text(info, pageWidth / 2, y, { align: 'center' });
@@ -26,7 +28,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
 
   // Team name field
   y += 5;
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(FONT, 'bold');
   doc.setFontSize(14);
   doc.text(s.teamName, margin, y);
   doc.setLineWidth(0.5);
@@ -43,7 +45,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
     }
 
     // Round header
-    doc.setFont('helvetica', 'bold');
+    doc.setFont(FONT, 'bold');
     doc.setFontSize(14);
     doc.text(
       `${s.round} ${roundIndex + 1}: ${round.config.categoryName}`,
@@ -56,7 +58,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
     y += 8;
 
     // Answer lines
-    doc.setFont('helvetica', 'normal');
+    doc.setFont(FONT, 'normal');
     doc.setFontSize(11);
     round.questions.forEach((q, i) => {
       if (y > doc.internal.pageSize.getHeight() - margin - 10) {
@@ -68,12 +70,12 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
       doc.line(margin + 8, y, margin + contentWidth - 30, y);
       // Mark estimation questions so teams know to write a number.
       if (q.question_type === 'estimation') {
-        doc.setFont('helvetica', 'italic');
+        doc.setFont(FONT, 'italic');
         doc.setFontSize(8);
         doc.setTextColor(130, 130, 130);
         doc.text(`(${s.estimationLabel})`, margin + contentWidth - 28, y);
         doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'normal');
+        doc.setFont(FONT, 'normal');
         doc.setFontSize(11);
       }
       y += 9;
@@ -81,7 +83,7 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
 
     // Points box
     y += 2;
-    doc.setFont('helvetica', 'bold');
+    doc.setFont(FONT, 'bold');
     doc.setFontSize(11);
     const pointsText = s.points;
     const pointsX = margin + contentWidth - 45;
@@ -99,13 +101,13 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   doc.setLineWidth(0.5);
   doc.line(margin, y, margin + contentWidth, y);
   y += 10;
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(FONT, 'bold');
   doc.setFontSize(16);
   doc.text(s.totalScore, margin, y);
   doc.rect(margin + contentWidth - 35, y - 7, 35, 12);
 
   // Footer
-  doc.setFont('helvetica', 'normal');
+  doc.setFont(FONT, 'normal');
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   doc.text(
@@ -125,6 +127,7 @@ export function buildCheatSheet(
 ): Buffer {
   const s = getOutputStrings(quiz.config.locale);
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const FONT = registerPdfFont(doc, quiz.config.locale);
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   const margin = 15;
@@ -139,11 +142,11 @@ export function buildCheatSheet(
   };
 
   // Header
-  doc.setFont('helvetica', 'bold');
+  doc.setFont(FONT, 'bold');
   doc.setFontSize(18);
   doc.text(quiz.config.title, margin, y);
   y += 7;
-  doc.setFont('helvetica', 'normal');
+  doc.setFont(FONT, 'normal');
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
   const info = [s.cheatSheetSubtitle, quiz.config.date, quiz.config.venue]
@@ -159,7 +162,7 @@ export function buildCheatSheet(
     y += 4;
     doc.setFillColor(235, 235, 235);
     doc.rect(margin, y - 5, contentWidth, 8, 'F');
-    doc.setFont('helvetica', 'bold');
+    doc.setFont(FONT, 'bold');
     doc.setFontSize(12);
     doc.text(
       `${s.round} ${roundIndex + 1}: ${round.config.categoryName} (${round.questions.length} ${s.questions})`,
@@ -196,15 +199,15 @@ export function buildCheatSheet(
       ensureSpace(blockHeight);
 
       // Question
-      doc.setFont('helvetica', 'normal');
+      doc.setFont(FONT, 'normal');
       doc.setFontSize(10.5);
       doc.text(questionLines, margin, y);
       y += questionLines.length * 4.5;
 
       // Answer (bold) with per-question meta right-aligned
-      doc.setFont('helvetica', 'bold');
+      doc.setFont(FONT, 'bold');
       doc.text(answerLines, margin + 3, y);
-      doc.setFont('helvetica', 'normal');
+      doc.setFont(FONT, 'normal');
       doc.setFontSize(8);
       doc.setTextColor(120, 120, 120);
       doc.text(meta, margin + contentWidth, y, { align: 'right' });
@@ -213,7 +216,7 @@ export function buildCheatSheet(
 
       // Estimation scoring note for the host
       if (isEstimation) {
-        doc.setFont('helvetica', 'italic');
+        doc.setFont(FONT, 'italic');
         doc.setFontSize(8.5);
         doc.setTextColor(150, 120, 40);
         doc.text(s.estimationHint, margin + 3, y);
@@ -223,7 +226,7 @@ export function buildCheatSheet(
 
       // Fun fact
       if (funFactLines.length > 0) {
-        doc.setFont('helvetica', 'italic');
+        doc.setFont(FONT, 'italic');
         doc.setFontSize(8.5);
         doc.setTextColor(90, 90, 90);
         doc.text(funFactLines, margin + 3, y);
@@ -239,7 +242,7 @@ export function buildCheatSheet(
   const pageCount = doc.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont(FONT, 'normal');
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text(s.madeWith, pageWidth / 2, pageHeight - 8, {
