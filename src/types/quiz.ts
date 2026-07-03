@@ -19,6 +19,10 @@ export interface Question {
   // null / 'standard' = normal open-answer question; 'estimation' = Schätzfrage
   // (numeric answer in answer_de, scored closest-wins by the host).
   question_type: string | null;
+  // Locale allow-list: which languages this question may appear in.
+  // null = all locales (default, translate freely); a non-null array restricts
+  // it (e.g. ['de'] = German-only, never translated). See translate-questions.mjs.
+  locales: string[] | null;
   difficulty: number;
   round_type: string;
   tags: string[];

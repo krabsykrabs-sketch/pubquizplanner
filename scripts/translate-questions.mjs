@@ -36,14 +36,37 @@ await client.connect();
 const anthropic = new Anthropic();
 
 const { rows: pending } = await client.query(
-  `SELECT q.id, q.text_de, q.answer_de, q.fun_fact_de, t.source_hash AS existing_hash
+  `SELECT q.id, q.text_de, q.answer_de, q.fun_fact_de, q.locales,
+          t.source_hash AS existing_hash, t.status AS existing_status
    FROM questions q
    LEFT JOIN question_translations t ON t.question_id = q.id AND t.locale = $1
    WHERE q.status = 'approved'
    ORDER BY q.id`,
   [locale]
 );
-const work = pending.filter((q) => q.existing_hash !== sourceHash(q));
+
+// A question is available in this locale unless it has a non-null `locales`
+// allow-list that excludes it (e.g. ['de'] = German-only).
+const isAllowed = (q) => !q.locales || q.locales.includes(locale);
+
+// Questions excluded from this locale but still carrying a live (machine/
+// reviewed) translation: demote them to 'skipped' so they stop being served.
+const toSkip = pending.filter(
+  (q) => !isAllowed(q) && (q.existing_status === 'machine' || q.existing_status === 'reviewed')
+);
+for (const q of toSkip) {
+  await client.query(
+    `UPDATE question_translations
+       SET text = '', answer = '', fun_fact = $3, status = 'skipped', source_hash = $4, updated_at = NOW()
+     WHERE question_id = $1 AND locale = $2`,
+    [q.id, locale, 'excluded by locales allow-list', sourceHash(q)]
+  );
+}
+if (toSkip.length > 0) {
+  console.log(`${locale}: demoted ${toSkip.length} now-excluded translation(s) to skipped`);
+}
+
+const work = pending.filter((q) => isAllowed(q) && q.existing_hash !== sourceHash(q));
 
 console.log(`${locale}: ${pending.length} approved questions, ${work.length} need translation (missing or stale)`);
 if (work.length === 0) {

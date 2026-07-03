@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { Category, Question } from '@/types/quiz';
+import { LOCALES, LOCALE_LABELS } from '@/config/locales';
 
 interface Props {
   question: Question & { category_name?: string; category_icon?: string };
@@ -23,6 +24,16 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
     tags: (question.tags || []).join(', '),
     question_type: question.question_type === 'estimation' ? 'estimation' : 'standard',
   });
+  // Locale allow-list: null = all languages; a restricted array limits where the
+  // question may appear / be translated (e.g. ['de'] = German-only).
+  const [restrictLocales, setRestrictLocales] = useState(Array.isArray(question.locales));
+  const [allowedLocales, setAllowedLocales] = useState<string[]>(
+    question.locales ?? [...LOCALES]
+  );
+  const toggleLocale = (loc: string) =>
+    setAllowedLocales((prev) =>
+      prev.includes(loc) ? prev.filter((l) => l !== loc) : [...prev, loc]
+    );
 
   const save = async (extraFields: Record<string, unknown> = {}) => {
     setSaving(true);
@@ -38,6 +49,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
         category_id: form.category_id,
         tags: form.tags ? form.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
         question_type: form.question_type === 'estimation' ? 'estimation' : null,
+        locales: restrictLocales ? allowedLocales : null,
         ...extraFields,
       }),
     });
@@ -209,6 +221,36 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
             )}
           </div>
 
+          {/* Translation availability (locale allow-list) */}
+          <div>
+            <label className="block text-xs text-[var(--muted)] mb-1">Übersetzung</label>
+            <label className="flex items-center gap-2 text-sm mb-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={restrictLocales}
+                onChange={(e) => setRestrictLocales(e.target.checked)}
+              />
+              <span>Nur in bestimmten Sprachen anzeigen (sonst: alle Sprachen)</span>
+            </label>
+            {restrictLocales && (
+              <div className="flex flex-wrap gap-3 pl-6">
+                {LOCALES.map((loc) => (
+                  <label key={loc} className="flex items-center gap-1.5 text-sm cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={allowedLocales.includes(loc)}
+                      onChange={() => toggleLocale(loc)}
+                    />
+                    <span>{LOCALE_LABELS[loc] ?? loc} ({loc})</span>
+                  </label>
+                ))}
+                <span className="text-xs text-[var(--muted)] w-full">
+                  Tipp: nur „Deutsch" angehakt = deutschspezifische Frage, wird nie übersetzt.
+                </span>
+              </div>
+            )}
+          </div>
+
           {/* Source (read-only) */}
           {question.source && (
             <div>
@@ -225,6 +267,11 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
           <p className="text-sm text-[var(--gold)]">→ {question.answer_de}</p>
           {question.question_type === 'estimation' && (
             <p className="text-xs text-[var(--gold-light)] mt-1">📊 Schätzfrage</p>
+          )}
+          {Array.isArray(question.locales) && (
+            <p className="text-xs text-[var(--muted)] mt-1">
+              🌐 nur: {question.locales.join(', ')}
+            </p>
           )}
           {question.fun_fact_de && (
             <p className="text-xs text-[var(--muted)] mt-1 italic">💡 {question.fun_fact_de}</p>
