@@ -58,16 +58,26 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
     // Answer lines
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(11);
-    for (let i = 1; i <= round.questions.length; i++) {
+    round.questions.forEach((q, i) => {
       if (y > doc.internal.pageSize.getHeight() - margin - 10) {
         doc.addPage();
         y = margin;
       }
-      doc.text(`${i}.`, margin, y);
+      doc.text(`${i + 1}.`, margin, y);
       doc.setLineWidth(0.2);
       doc.line(margin + 8, y, margin + contentWidth - 30, y);
+      // Mark estimation questions so teams know to write a number.
+      if (q.question_type === 'estimation') {
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(8);
+        doc.setTextColor(130, 130, 130);
+        doc.text(`(${s.estimationLabel})`, margin + contentWidth - 28, y);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(11);
+      }
       y += 9;
-    }
+    });
 
     // Points box
     y += 2;
@@ -161,6 +171,7 @@ export function buildCheatSheet(
     round.questions.forEach((q, qIndex) => {
       const categoryName = categoryNames[q.category_id] || round.config.categoryName;
       const meta = categoryName;
+      const isEstimation = q.question_type === 'estimation';
 
       doc.setFontSize(10.5);
       const questionLines = doc.splitTextToSize(
@@ -179,6 +190,7 @@ export function buildCheatSheet(
       const blockHeight =
         questionLines.length * 4.5 +
         answerLines.length * 4.5 +
+        (isEstimation ? 4.5 : 0) +
         funFactLines.length * 3.8 +
         5;
       ensureSpace(blockHeight);
@@ -198,6 +210,16 @@ export function buildCheatSheet(
       doc.text(meta, margin + contentWidth, y, { align: 'right' });
       doc.setTextColor(0, 0, 0);
       y += answerLines.length * 4.5;
+
+      // Estimation scoring note for the host
+      if (isEstimation) {
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(8.5);
+        doc.setTextColor(150, 120, 40);
+        doc.text(s.estimationHint, margin + 3, y);
+        doc.setTextColor(0, 0, 0);
+        y += 4.5;
+      }
 
       // Fun fact
       if (funFactLines.length > 0) {

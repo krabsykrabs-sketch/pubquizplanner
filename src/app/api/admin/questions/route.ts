@@ -99,8 +99,8 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const result = await query<Question>(
     `INSERT INTO questions
-     (category_id, text_de, answer_de, fun_fact_de, difficulty, tags, status, verified)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+     (category_id, text_de, answer_de, fun_fact_de, difficulty, tags, status, verified, question_type)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
      RETURNING *`,
     [
       body.category_id,
@@ -111,6 +111,7 @@ export async function POST(request: NextRequest) {
       body.tags?.length ? body.tags : null,
       body.status || 'approved',
       body.verified ?? true,
+      body.question_type || null,
     ]
   );
   return NextResponse.json(result[0], { status: 201 });
@@ -137,6 +138,7 @@ export async function PUT(request: NextRequest) {
       status = COALESCE($10, status),
       verified = COALESCE($11, verified),
       is_highlight = COALESCE($12, is_highlight),
+      question_type = CASE WHEN $13 THEN $14::varchar ELSE question_type END,
       updated_at = NOW()
      WHERE id = $1
      RETURNING *`,
@@ -153,6 +155,8 @@ export async function PUT(request: NextRequest) {
       body.status,
       body.verified,
       body.is_highlight ?? null,
+      'question_type' in body,
+      body.question_type ?? null,
     ]
   );
 

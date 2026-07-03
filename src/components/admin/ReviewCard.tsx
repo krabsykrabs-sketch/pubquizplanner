@@ -21,6 +21,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
     difficulty: question.difficulty,
     category_id: question.category_id,
     tags: (question.tags || []).join(', '),
+    question_type: question.question_type === 'estimation' ? 'estimation' : 'standard',
   });
 
   const save = async (extraFields: Record<string, unknown> = {}) => {
@@ -36,6 +37,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
         difficulty: form.difficulty,
         category_id: form.category_id,
         tags: form.tags ? form.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
+        question_type: form.question_type === 'estimation' ? 'estimation' : null,
         ...extraFields,
       }),
     });
@@ -189,6 +191,24 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
             />
           </div>
 
+          {/* Question type */}
+          <div>
+            <label className="block text-xs text-[var(--muted)] mb-1">Fragetyp</label>
+            <select
+              value={form.question_type}
+              onChange={(e) => setForm({ ...form, question_type: e.target.value })}
+              className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm focus:border-[var(--gold)] focus:outline-none"
+            >
+              <option value="standard">Standard (offene Antwort)</option>
+              <option value="estimation">📊 Schätzfrage (nächste Schätzung gewinnt)</option>
+            </select>
+            {form.question_type === 'estimation' && (
+              <p className="mt-1 text-xs text-[var(--muted)]">
+                Antwort als Zahl eintragen (z.&nbsp;B. „206“ oder „206 Knochen“).
+              </p>
+            )}
+          </div>
+
           {/* Source (read-only) */}
           {question.source && (
             <div>
@@ -203,6 +223,9 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
         <div>
           <p className="text-[var(--foreground)] mb-2">{question.text_de}</p>
           <p className="text-sm text-[var(--gold)]">→ {question.answer_de}</p>
+          {question.question_type === 'estimation' && (
+            <p className="text-xs text-[var(--gold-light)] mt-1">📊 Schätzfrage</p>
+          )}
           {question.fun_fact_de && (
             <p className="text-xs text-[var(--muted)] mt-1 italic">💡 {question.fun_fact_de}</p>
           )}

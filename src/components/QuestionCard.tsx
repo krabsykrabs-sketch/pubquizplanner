@@ -35,6 +35,9 @@ export default function QuestionCard({ question, onSwap, swapDisabled }: Props) 
       <div className="flex-1 min-w-0">
         <p className="text-[var(--foreground)] mb-1">{question.text_de}</p>
         <p className="text-sm text-[var(--gold)]">→ {question.answer_de}</p>
+        {question.question_type === 'estimation' && (
+          <p className="text-xs text-[var(--gold-light)] mt-1">📊 Schätzfrage</p>
+        )}
         <div className="flex items-center gap-3 text-xs text-[var(--muted)] mt-1">
           <button
             onClick={report}

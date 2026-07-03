@@ -24,6 +24,9 @@ export interface OutputStrings {
   answer: string;
   funFact: string;
   page: string;
+  // Estimation questions (Schätzfragen): full scoring hint + short line label.
+  estimationHint: string;
+  estimationLabel: string;
 }
 
 const STRINGS: Partial<Record<Locale, OutputStrings>> = {
@@ -50,6 +53,8 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     answer: 'Antwort',
     funFact: 'Fun Fact',
     page: 'Seite',
+    estimationHint: 'Schätzfrage – die nächste Schätzung gewinnt',
+    estimationLabel: 'Schätzfrage',
   },
   nl: {
     round: 'Ronde',
@@ -74,6 +79,8 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     answer: 'Antwoord',
     funFact: 'Fun fact',
     page: 'Pagina',
+    estimationHint: 'Schattingsvraag – de dichtste schatting wint',
+    estimationLabel: 'Schattingsvraag',
   },
 };
 

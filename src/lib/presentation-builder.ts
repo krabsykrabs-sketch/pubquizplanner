@@ -38,11 +38,16 @@ export function buildPresentation(quiz: AssembledQuiz): string {
     // Question slides
     round.questions.forEach((q, qIndex) => {
       const meta = `${s.round} ${roundNum} · ${s.question} ${qIndex + 1}`;
+      const isEstimation = q.question_type === 'estimation';
+      const estimationBadge = isEstimation
+        ? `<div class="estimation-badge">📊 ${s.estimationHint}</div>`
+        : '';
 
       slides.push(buildSlide('question', `
         <div class="question-slide">
           <div class="question-meta">${meta}</div>
           <h2 class="question-text">${escapeHtml(q.text_de)}</h2>
+          ${estimationBadge}
         </div>
       `));
 
@@ -191,6 +196,17 @@ h1, h2 {
   margin-bottom: 40px;
 }
 .question-slide .question-text { font-size: 44px; line-height: 1.3; color: #e8e4dc; }
+.question-slide .estimation-badge {
+  margin-top: 40px;
+  display: inline-block;
+  background: rgba(212, 168, 67, 0.12);
+  border: 1px solid rgba(212, 168, 67, 0.4);
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #d4a843;
+}
 
 /* Answer */
 .answer-slide { text-align: center; max-width: 900px; }
