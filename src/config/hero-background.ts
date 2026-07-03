@@ -6,4 +6,4 @@
 // '/hero-background.jpg'. Relative to /public is fine here (unlike the slide
 // deck's category backgrounds) — the landing page always renders from the
 // live site, never as a standalone offline file.
-export const HERO_BACKGROUND_IMAGE: string | null = null;
+export const HERO_BACKGROUND_IMAGE: string | null = '/hero-background.jpg';
