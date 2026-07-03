@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 import { query } from '@/lib/db';
 import {
   SOURCE_LOCALE,
@@ -9,6 +8,11 @@ import {
   MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
   type Locale,
 } from '@/config/locales';
+import LandingHero from '@/components/landing/LandingHero';
+import CategorySection from '@/components/landing/CategorySection';
+import SampleQuestions from '@/components/landing/SampleQuestions';
+import HowItWorks from '@/components/landing/HowItWorks';
+import type { CategoryChip, SampleQuestion } from '@/components/landing/types';
 
 export async function generateMetadata({
   params: { locale },
@@ -32,20 +36,6 @@ export async function generateMetadata({
       type: 'website',
     },
   };
-}
-
-interface CategoryChip {
-  slug: string;
-  name_de: string;
-  icon: string;
-}
-
-interface SampleQuestion {
-  text_de: string;
-  answer_de: string;
-  fun_fact_de: string | null;
-  category_name_de: string;
-  category_icon: string;
 }
 
 async function getLandingData(locale: string) {
@@ -122,8 +112,6 @@ export default async function LandingPage({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations('landing');
-
   let displayCount = 950;
   let categories: CategoryChip[] = [];
   let sampleQuestions: SampleQuestion[] = [];
@@ -137,130 +125,16 @@ export default async function LandingPage({
     // Fallback to hardcoded values if DB is unavailable
   }
 
-  const steps = [
-    { num: '1', icon: '⚙️', title: t('step1Title'), desc: t('step1Desc') },
-    { num: '2', icon: '👀', title: t('step2Title'), desc: t('step2Desc') },
-    { num: '3', icon: '📥', title: t('step3Title'), desc: t('step3Desc') },
-  ];
-
   return (
     <main className="min-h-screen">
-      {/* Hero */}
-      <section className="flex flex-col items-center justify-center min-h-[60vh] px-6 text-center">
-        <div className="text-6xl mb-8">🧠</div>
-        <h1 className="text-5xl md:text-7xl font-black text-[var(--gold)] mb-6 text-balance">
-          {t('hero')}
-        </h1>
-        <p className="text-xl md:text-2xl text-[var(--muted)] mb-10 max-w-2xl">
-          {t('subtitle')}
-        </p>
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <Link
-            href={`/${locale}/generator`}
-            className="inline-flex items-center gap-3 bg-[var(--gold)] text-[var(--background)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
-          >
-            {t('cta')} →
-          </Link>
-          <Link
-            href={`/${locale}/generator?quick=1`}
-            className="inline-flex items-center gap-3 border-2 border-[var(--gold)] text-[var(--gold)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors"
-          >
-            🎲 {t('quickStart')}
-          </Link>
-        </div>
-      </section>
-
-      {/* Categories */}
-      {categories.length > 0 && (
-        <section className="max-w-4xl mx-auto px-6 pb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-2">
-            {t('categoriesHeadline', { count: displayCount })}
-          </h2>
-          <p className="text-lg text-[var(--muted)] mb-8">
-            {t('categoriesSubtitle', { categoryCount: categories.length })}
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/${locale}/fragen/${cat.slug}`}
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium border border-[var(--dark-border)] bg-[var(--dark-card)] text-[var(--muted)] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
-              >
-                <span>{cat.icon}</span>
-                <span>{cat.name_de}</span>
-              </Link>
-            ))}
-          </div>
-          <Link
-            href={`/${locale}/fragen`}
-            className="inline-block mt-6 text-sm text-[var(--gold)] hover:text-[var(--gold-light)] transition-colors"
-          >
-            {t('allQuestionsLink')} &rarr;
-          </Link>
-        </section>
-      )}
-
-      {/* Sample Questions */}
-      {sampleQuestions.length > 0 && (
-        <section className="max-w-4xl mx-auto px-6 pb-16">
-          <h3 className="text-center text-lg font-medium text-[var(--muted)] mb-6">
-            {t('sampleQuestionsHeadline')}
-          </h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            {sampleQuestions.map((q, i) => {
-              const question = q.text_de;
-              const answer = q.answer_de;
-              const funFact = q.fun_fact_de;
-              const catName = q.category_name_de;
-
-              return (
-                <div
-                  key={i}
-                  className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl p-5 text-left"
-                >
-                  <div className="flex items-center gap-2 text-xs text-[var(--muted)] mb-3">
-                    <span>{q.category_icon}</span>
-                    <span>{catName}</span>
-                  </div>
-                  <p className="text-sm font-medium text-[var(--foreground)] mb-2 leading-snug">
-                    {question}
-                  </p>
-                  <p className="text-sm text-[var(--gold)] font-semibold mb-2">
-                    {answer}
-                  </p>
-                  {funFact && (
-                    <p className="text-xs text-[var(--muted)] leading-relaxed border-t border-[var(--dark-border)] pt-2 mt-2">
-                      <span className="text-[var(--gold-light)] font-medium">
-                        {t('funFact')}:
-                      </span>{' '}
-                      {funFact}
-                    </p>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* Steps */}
-      <section className="max-w-5xl mx-auto px-6 pb-24">
-        <div className="grid md:grid-cols-3 gap-8">
-          {steps.map((step) => (
-            <div
-              key={step.num}
-              className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl p-8 text-center"
-            >
-              <div className="text-4xl mb-4">{step.icon}</div>
-              <div className="font-mono text-sm text-[var(--gold)] mb-2">
-                {t('step')} {step.num}
-              </div>
-              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-              <p className="text-[var(--muted)]">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <LandingHero locale={locale} />
+      <CategorySection
+        locale={locale}
+        categories={categories}
+        displayCount={displayCount}
+      />
+      <SampleQuestions questions={sampleQuestions} />
+      <HowItWorks />
     </main>
   );
 }
