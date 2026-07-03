@@ -245,7 +245,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
                   </label>
                 ))}
                 <span className="text-xs text-[var(--muted)] w-full">
-                  Tipp: nur „Deutsch" angehakt = deutschspezifische Frage, wird nie übersetzt.
+                  Tipp: nur „Deutsch&rdquo; angehakt = deutschspezifische Frage, wird nie übersetzt.
                 </span>
               </div>
             )}
