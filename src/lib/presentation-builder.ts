@@ -1,7 +1,12 @@
 import { getOutputStrings } from './output-strings';
 import { SOURCE_LOCALE } from '@/config/locales';
 import { defaultSlideTheme, renderThemeCss, type SlideTheme } from './slide-theme';
+import { CATEGORY_BACKGROUNDS } from './category-backgrounds';
 import type { AssembledQuiz } from '@/types/quiz';
+
+// The generated deck is a standalone HTML file that may be opened offline or
+// on another machine, so background images need an absolute URL.
+const BASE_URL = 'https://pubquizplanner.com';
 
 export function buildPresentation(
   quiz: AssembledQuiz,
@@ -28,6 +33,7 @@ export function buildPresentation(
 
   rounds.forEach((round, roundIndex) => {
     const roundNum = roundIndex + 1;
+    const catClass = categoryClass(round.config.categorySlug);
 
     // Round title slide
     slides.push(buildSlide('round-title', `
@@ -37,7 +43,7 @@ export function buildPresentation(
         <h2>${escapeHtml(round.config.categoryName)}</h2>
         <p class="round-info">${round.questions.length} ${s.questions}</p>
       </div>
-    `));
+    `, catClass));
 
     // Question slides
     round.questions.forEach((q, qIndex) => {
@@ -53,7 +59,7 @@ export function buildPresentation(
           <h2 class="question-text">${escapeHtml(q.text_de)}</h2>
           ${estimationBadge}
         </div>
-      `));
+      `, catClass));
 
       // Answer slide (if showing after each round)
       if (!allAnswersAtEnd) {
@@ -64,7 +70,7 @@ export function buildPresentation(
             <div class="answer-text">${escapeHtml(q.answer_de)}</div>
             ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 ${s.didYouKnow}</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
           </div>
-        `));
+        `, catClass));
       }
     });
 
@@ -91,6 +97,7 @@ export function buildPresentation(
 
     rounds.forEach((round, roundIndex) => {
       const roundNum = roundIndex + 1;
+      const catClass = categoryClass(round.config.categorySlug);
 
       slides.push(buildSlide('round-title', `
         <div class="round-title-slide">
@@ -98,7 +105,7 @@ export function buildPresentation(
           <div class="round-icon">${escapeHtml(round.config.categoryIcon)}</div>
           <h2>${escapeHtml(round.config.categoryName)}</h2>
         </div>
-      `));
+      `, catClass));
 
       round.questions.forEach((q, qIndex) => {
         const meta = `${s.round} ${roundNum} · ${s.question} ${qIndex + 1}`;
@@ -110,7 +117,7 @@ export function buildPresentation(
             <div class="answer-text">${escapeHtml(q.answer_de)}</div>
             ${q.fun_fact_de ? `<div class="fun-fact"><span class="fun-fact-label">💡 ${s.didYouKnow}</span> ${escapeHtml(q.fun_fact_de)}</div>` : ''}
           </div>
-        `));
+        `, catClass));
       });
     });
   }
@@ -156,6 +163,9 @@ body {
 }
 
 .slide.active { display: flex; }
+
+/* Category background artwork (see src/lib/category-backgrounds.ts) */
+${renderCategoryBackgroundCss()}
 
 h1, h2 {
   font-family: var(--slide-font-display);
@@ -377,8 +387,30 @@ ${slides.join('\n')}
 </html>`;
 }
 
-function buildSlide(type: string, content: string): string {
-  return `<div class="slide ${type}">${content}</div>`;
+function buildSlide(type: string, content: string, extraClass?: string): string {
+  const cls = extraClass ? `${type} ${extraClass}` : type;
+  return `<div class="slide ${cls}">${content}</div>`;
+}
+
+// Returns a 'cat-<slug>' class for round-scoped slides. The class is always
+// applied (cheap, harmless); only slugs present in CATEGORY_BACKGROUNDS get a
+// matching CSS rule, so this is a no-op until artwork exists for that category.
+function categoryClass(slug: string): string {
+  return `cat-${slug}`;
+}
+
+// Emits one CSS rule per registered category background: the artwork plus a
+// dark overlay for legibility (so the source images don't need to guarantee
+// contrast themselves — see SLIDE_DESIGN_PROMPTS.md).
+function renderCategoryBackgroundCss(): string {
+  return Object.entries(CATEGORY_BACKGROUNDS)
+    .filter((entry): entry is [string, string] => Boolean(entry[1]))
+    .map(
+      ([slug, path]) => `.slide.cat-${slug} {
+  background: linear-gradient(rgba(6, 6, 10, 0.72), rgba(6, 6, 10, 0.72)), url('${BASE_URL}${path}') center/cover no-repeat;
+}`
+    )
+    .join('\n');
 }
 
 function escapeHtml(text: string): string {
