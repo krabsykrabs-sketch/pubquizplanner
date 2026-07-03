@@ -16,5 +16,9 @@ export const CATEGORY_BACKGROUNDS: Partial<Record<string, string>> = {
   'essen-trinken': '/category-backgrounds/essen-trinken.jpg',
   literatur: '/category-backgrounds/literatur.jpg',
   geschichte: '/category-backgrounds/geschichte.jpg',
-  // Still pending from ChatGPT: kunst-kultur, technik, popkultur, sprache, logik-mathe.
+  'kunst-kultur': '/category-backgrounds/kunst-kultur.jpg',
+  technik: '/category-backgrounds/technik.jpg',
+  popkultur: '/category-backgrounds/popkultur.jpg',
+  sprache: '/category-backgrounds/sprache.jpg',
+  'logik-mathe': '/category-backgrounds/logik-mathe.jpg',
 };
