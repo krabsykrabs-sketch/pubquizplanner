@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: '/admin/analytics', label: 'Analytics', icon: '📈' },
   { href: '/admin/review', label: 'Review', icon: '✅' },
   { href: '/admin/questions', label: 'Fragen', icon: '📋' },
+  { href: '/admin/demo', label: 'Demo', icon: '🎬' },
   { href: '/admin/import', label: 'Import', icon: '📥' },
 ];
 

@@ -43,9 +43,6 @@
     "date": "Datum",
     "venue": "Veranstaltungsort",
     "numberOfRounds": "Anzahl Runden",
-    "answerPlacement": "Antworten zeigen",
-    "afterEach": "Nach jeder Runde",
-    "allAtEnd": "Alle am Ende",
     "next": "Weiter",
     "back": "Zurück",
     "category": "Kategorie",
@@ -63,7 +60,16 @@
     "downloadAnswerSheet": "Antwortbogen herunterladen",
     "downloadCheatSheet": "Spickzettel für den Quizmaster",
     "generating": "Wird erstellt...",
-    "loading": "Laden..."
+    "loading": "Laden...",
+    "modeLabel": "Quiz-Modus",
+    "modePubQuiz": "Kneipenquiz",
+    "modePubQuizHelp": "Fragen erst, Antworten am Ende. Für Quizabende mit Punktewertung.",
+    "modeFast": "Schnelles Quiz",
+    "modeFastHelp": "Antwort direkt nach jeder Frage. Für lockere Runden mit Freunden.",
+    "modeHelpAria": "Was bedeuten die Modi?",
+    "modeHelpTitle": "Die beiden Modi",
+    "modeHelpPubQuiz": "Kneipenquiz: Erst kommen alle Fragen, die Antworten folgen gesammelt am Ende. Ideal für echte Quizabende, bei denen Teams Punkte sammeln und der Antwortbogen ausgewertet wird.",
+    "modeHelpFast": "Schnelles Quiz: Nach jeder Frage erscheint sofort die Antwort. Perfekt für lockere Runden ohne Wertung – ein Antwortbogen wird nicht gebraucht."
   },
   "fragen": {
     "indexTitle": "Pub Quiz Fragen und Antworten – kostenlos",
@@ -92,6 +98,17 @@
     "ctaButton": "Quiz erstellen",
     "moreCategories": "Weitere Quizfragen:",
     "allCategories": "Alle Kategorien",
-    "inlineCtaText": "Diese Fragen als fertige Präsentation?"
+    "inlineCtaText": "Diese Fragen als fertige Präsentation?",
+    "breadcrumbHome": "Startseite",
+    "breadcrumbQuestions": "Quizfragen"
+  },
+  "demo": {
+    "badge": "Live-Demo",
+    "sectionHeading": "Lust auf einen Vorgeschmack?",
+    "sectionText": "Spiel ein fertiges Beispiel-Quiz direkt im Browser – dieselbe Präsentation, die auch der Generator erstellt. Kein Download, keine Anmeldung.",
+    "playButton": "Demo-Quiz starten",
+    "close": "Schließen",
+    "deckTitle": "Demo-Quiz",
+    "unavailable": "Das Demo-Quiz ist gerade nicht verfügbar."
   }
 }

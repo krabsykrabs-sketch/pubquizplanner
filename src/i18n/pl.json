@@ -43,9 +43,6 @@
     "date": "Data",
     "venue": "Miejsce",
     "numberOfRounds": "Liczba rund",
-    "answerPlacement": "Pokazywanie odpowiedzi",
-    "afterEach": "Po każdej rundzie",
-    "allAtEnd": "Wszystkie na końcu",
     "next": "Dalej",
     "back": "Wstecz",
     "category": "Kategoria",
@@ -63,7 +60,16 @@
     "downloadAnswerSheet": "Pobierz kartę odpowiedzi",
     "downloadCheatSheet": "Ściąga dla quizmastera",
     "generating": "Tworzenie...",
-    "loading": "Ładowanie..."
+    "loading": "Ładowanie...",
+    "modeLabel": "Tryb quizu",
+    "modePubQuiz": "Quiz pubowy",
+    "modePubQuizHelp": "Najpierw pytania, odpowiedzi na końcu. Na wieczory quizowe z punktacją.",
+    "modeFast": "Szybki quiz",
+    "modeFastHelp": "Odpowiedź od razu po każdym pytaniu. Na luźne rundy ze znajomymi.",
+    "modeHelpAria": "Co oznaczają tryby?",
+    "modeHelpTitle": "Dwa tryby",
+    "modeHelpPubQuiz": "Quiz pubowy: najpierw pojawiają się wszystkie pytania, a odpowiedzi zebrane na końcu. Idealny na prawdziwe wieczory quizowe, gdzie drużyny zbierają punkty, a karta odpowiedzi jest sprawdzana.",
+    "modeHelpFast": "Szybki quiz: po każdym pytaniu od razu pojawia się odpowiedź. Idealny na luźne rundy bez punktacji – karta odpowiedzi nie jest potrzebna."
   },
   "fragen": {
     "indexTitle": "Pytania i odpowiedzi do pub quizu – za darmo",
@@ -92,6 +98,17 @@
     "ctaButton": "Stwórz quiz",
     "moreCategories": "Więcej pytań quizowych:",
     "allCategories": "Wszystkie kategorie",
-    "inlineCtaText": "Chcesz te pytania jako gotową prezentację?"
+    "inlineCtaText": "Chcesz te pytania jako gotową prezentację?",
+    "breadcrumbHome": "Strona główna",
+    "breadcrumbQuestions": "Pytania quizowe"
+  },
+  "demo": {
+    "badge": "Demo na żywo",
+    "sectionHeading": "Masz ochotę na przedsmak?",
+    "sectionText": "Zagraj w gotowy przykładowy quiz bezpośrednio w przeglądarce – ta sama prezentacja, którą tworzy generator. Bez pobierania, bez rejestracji.",
+    "playButton": "Uruchom quiz demo",
+    "close": "Zamknij",
+    "deckTitle": "Quiz demo",
+    "unavailable": "Quiz demo jest obecnie niedostępny."
   }
 }

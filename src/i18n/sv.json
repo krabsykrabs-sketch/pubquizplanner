@@ -43,9 +43,6 @@
     "date": "Datum",
     "venue": "Plats",
     "numberOfRounds": "Antal rundor",
-    "answerPlacement": "Visa svaren",
-    "afterEach": "Efter varje runda",
-    "allAtEnd": "Alla i slutet",
     "next": "Nästa",
     "back": "Tillbaka",
     "category": "Kategori",
@@ -63,7 +60,16 @@
     "downloadAnswerSheet": "Ladda ner svarsblankett",
     "downloadCheatSheet": "Fusklapp för quizmastern",
     "generating": "Skapas...",
-    "loading": "Laddar..."
+    "loading": "Laddar...",
+    "modeLabel": "Quizläge",
+    "modePubQuiz": "Pubquiz",
+    "modePubQuizHelp": "Frågor först, svar på slutet. För quizkvällar med poäng.",
+    "modeFast": "Snabbt quiz",
+    "modeFastHelp": "Svar direkt efter varje fråga. För avslappnade rundor med vänner.",
+    "modeHelpAria": "Vad betyder lägena?",
+    "modeHelpTitle": "De två lägena",
+    "modeHelpPubQuiz": "Pubquiz: först kommer alla frågor, svaren följer samlat på slutet. Perfekt för riktiga quizkvällar där lagen samlar poäng och svarsbladet rättas.",
+    "modeHelpFast": "Snabbt quiz: efter varje fråga visas svaret direkt. Perfekt för avslappnade rundor utan poäng – inget svarsblad behövs."
   },
   "fragen": {
     "indexTitle": "Pubquizfrågor och svar – gratis",
@@ -92,6 +98,17 @@
     "ctaButton": "Skapa quiz",
     "moreCategories": "Fler quizfrågor:",
     "allCategories": "Alla kategorier",
-    "inlineCtaText": "Vill du ha de här frågorna som färdig presentation?"
+    "inlineCtaText": "Vill du ha de här frågorna som färdig presentation?",
+    "breadcrumbHome": "Startsida",
+    "breadcrumbQuestions": "Quizfrågor"
+  },
+  "demo": {
+    "badge": "Livedemo",
+    "sectionHeading": "Sugen på en försmak?",
+    "sectionText": "Spela ett färdigt exempelquiz direkt i webbläsaren – samma presentation som generatorn skapar. Ingen nedladdning, ingen registrering.",
+    "playButton": "Starta demoquiz",
+    "close": "Stäng",
+    "deckTitle": "Demoquiz",
+    "unavailable": "Demoquizet är för närvarande inte tillgängligt."
   }
 }

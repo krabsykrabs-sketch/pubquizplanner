@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getSessionId } from '@/lib/session-id';
+import { getQuizMode, DEFAULT_QUIZ_MODE } from '@/lib/quiz-modes';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
+import ModeSelector from './ModeSelector';
 
 interface RoundQuestions {
   questions: QuizQuestion[];
@@ -69,6 +71,9 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
     0
   );
 
+  // Which outputs the chosen mode offers (e.g. fast mode hides the answer sheet).
+  const outputs = getQuizMode(config.mode ?? DEFAULT_QUIZ_MODE).outputs;
+
   return (
     <div className="max-w-xl mx-auto space-y-8">
       <h2 className="text-3xl font-bold text-[var(--gold)]">{t('step2')}</h2>
@@ -112,31 +117,10 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
             />
           </div>
         </div>
-        <div>
-          <label className="block text-sm text-[var(--muted)] mb-2">
-            {t('answerPlacement')}
-          </label>
-          <div className="flex gap-4">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="answerPlacement"
-                checked={config.answerPlacement === 'after_each'}
-                onChange={() => onChange({ ...config, answerPlacement: 'after_each' })}
-              />
-              <span className="text-sm">{t('afterEach')}</span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="radio"
-                name="answerPlacement"
-                checked={config.answerPlacement === 'all_at_end'}
-                onChange={() => onChange({ ...config, answerPlacement: 'all_at_end' })}
-              />
-              <span className="text-sm">{t('allAtEnd')}</span>
-            </label>
-          </div>
-        </div>
+        <ModeSelector
+          value={config.mode ?? DEFAULT_QUIZ_MODE}
+          onChange={(mode) => onChange({ ...config, mode })}
+        />
       </div>
 
       {/* Summary */}
@@ -168,41 +152,47 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
 
       {/* Download buttons */}
       <div className="space-y-4">
-        <button
-          onClick={handleDownloadPresentation}
-          disabled={generatingPres}
-          className="w-full bg-[var(--gold)] text-[var(--background)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold-light)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
-        >
-          {generatingPres ? (
-            <>⏳ {t('generating')}</>
-          ) : (
-            <>🖥️ {t('downloadPresentation')}</>
-          )}
-        </button>
+        {outputs.presentation && (
+          <button
+            onClick={handleDownloadPresentation}
+            disabled={generatingPres}
+            className="w-full bg-[var(--gold)] text-[var(--background)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold-light)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+          >
+            {generatingPres ? (
+              <>⏳ {t('generating')}</>
+            ) : (
+              <>🖥️ {t('downloadPresentation')}</>
+            )}
+          </button>
+        )}
 
-        <button
-          onClick={handleDownloadAnswerSheet}
-          disabled={generatingPdf}
-          className="w-full border-2 border-[var(--gold)] text-[var(--gold)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
-        >
-          {generatingPdf ? (
-            <>⏳ {t('generating')}</>
-          ) : (
-            <>📄 {t('downloadAnswerSheet')}</>
-          )}
-        </button>
+        {outputs.answerSheet && (
+          <button
+            onClick={handleDownloadAnswerSheet}
+            disabled={generatingPdf}
+            className="w-full border-2 border-[var(--gold)] text-[var(--gold)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+          >
+            {generatingPdf ? (
+              <>⏳ {t('generating')}</>
+            ) : (
+              <>📄 {t('downloadAnswerSheet')}</>
+            )}
+          </button>
+        )}
 
-        <button
-          onClick={handleDownloadCheatSheet}
-          disabled={generatingCheat}
-          className="w-full border-2 border-[var(--gold)] text-[var(--gold)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
-        >
-          {generatingCheat ? (
-            <>⏳ {t('generating')}</>
-          ) : (
-            <>🗒️ {t('downloadCheatSheet')}</>
-          )}
-        </button>
+        {outputs.cheatSheet && (
+          <button
+            onClick={handleDownloadCheatSheet}
+            disabled={generatingCheat}
+            className="w-full border-2 border-[var(--gold)] text-[var(--gold)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+          >
+            {generatingCheat ? (
+              <>⏳ {t('generating')}</>
+            ) : (
+              <>🗒️ {t('downloadCheatSheet')}</>
+            )}
+          </button>
+        )}
       </div>
 
       <button

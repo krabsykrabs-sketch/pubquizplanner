@@ -12,6 +12,13 @@ import {
   type Locale,
 } from '@/config/locales';
 import type { Category, Question } from '@/types/quiz';
+import {
+  BASE_URL,
+  JsonLd,
+  breadcrumbSchema,
+  itemListSchema,
+  faqPageSchema,
+} from '@/lib/structured-data';
 import { QuestionList } from './question-list';
 
 export const dynamic = 'force-dynamic';
@@ -176,8 +183,25 @@ export default async function CategoryQuestionsPage({
     getCategoryIntro(locale, slug) ||
     t('categoryFallbackIntro', { count: category.count, name: category.name_de });
 
+  const categoryUrl = `${BASE_URL}/${locale}/fragen/${slug}`;
+
+  // Mark up exactly the Q&A pairs rendered below (QuestionList shows every
+  // question with its answer in an expandable panel) — nothing off-page.
+  const breadcrumb = breadcrumbSchema([
+    { name: t('breadcrumbHome'), url: `${BASE_URL}/${locale}` },
+    { name: t('breadcrumbQuestions'), url: `${BASE_URL}/${locale}/fragen` },
+    { name: category.name_de, url: categoryUrl },
+  ]);
+  const questionItemList = itemListSchema(
+    questions.map((q) => ({ name: q.text_de, url: categoryUrl }))
+  );
+  const faqPage = faqPageSchema(
+    questions.map((q) => ({ question: q.text_de, answer: q.answer_de }))
+  );
+
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
+      <JsonLd data={[breadcrumb, questionItemList, faqPage]} />
       <h1 className="text-4xl md:text-5xl font-bold text-[var(--gold)] mb-6">
         {category.icon} {t('categoryTitle', { name: category.name_de })}
       </h1>

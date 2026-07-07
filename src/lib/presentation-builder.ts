@@ -1,4 +1,5 @@
 import { getOutputStrings } from './output-strings';
+import { getQuizMode } from './quiz-modes';
 import { SOURCE_LOCALE } from '@/config/locales';
 import { defaultSlideTheme, renderThemeCss, type SlideTheme } from './slide-theme';
 import { CATEGORY_BACKGROUNDS } from './category-backgrounds';
@@ -29,7 +30,7 @@ export function buildPresentation(
   `));
 
   const halfwayRound = Math.ceil(rounds.length / 2);
-  const allAnswersAtEnd = config.answerPlacement === 'all_at_end';
+  const allAnswersAtEnd = getQuizMode(config.mode).answerPlacement === 'all_at_end';
 
   rounds.forEach((round, roundIndex) => {
     const roundNum = roundIndex + 1;

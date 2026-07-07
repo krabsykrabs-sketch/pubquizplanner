@@ -1,3 +1,5 @@
+import type { QuizMode } from '@/lib/quiz-modes';
+
 export interface Category {
   id: number;
   slug: string;
@@ -56,7 +58,10 @@ export interface QuizConfig {
   venue: string;
   locale: string;
   numberOfRounds: number;
-  answerPlacement: 'after_each' | 'all_at_end';
+  // User-facing quiz mode. Drives slide sequencing and which outputs are
+  // offered — see src/lib/quiz-modes.ts. Optional so decks built before this
+  // field (or without an explicit mode) fall back to the default.
+  mode?: QuizMode;
   rounds: RoundConfig[];
 }
 

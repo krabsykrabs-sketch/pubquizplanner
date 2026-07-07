@@ -7,11 +7,16 @@ import {
   localeAlternates,
   MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
 } from '@/config/locales';
+import {
+  BASE_URL,
+  JsonLd,
+  breadcrumbSchema,
+  itemListSchema,
+} from '@/lib/structured-data';
 
 export const dynamic = 'force-dynamic';
 
 const SAMPLES_PER_CATEGORY = 3;
-const BASE_URL = 'https://pubquizplanner.com';
 
 interface CategoryWithCount {
   id: number;
@@ -147,8 +152,7 @@ export default async function FragenIndexPage({
     samplesByCategory.set(s.category_slug, list);
   }
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
+  const collectionPage = {
     '@type': 'CollectionPage',
     name: t('indexMetaTitle'),
     description: t('indexMetaDescription', {
@@ -157,29 +161,24 @@ export default async function FragenIndexPage({
     }),
     url: `${BASE_URL}/${locale}/fragen`,
     inLanguage: locale,
-    isPartOf: {
-      '@type': 'WebSite',
-      name: 'PubQuizPlanner',
-      url: BASE_URL,
-    },
-    mainEntity: {
-      '@type': 'ItemList',
-      numberOfItems: categories.length,
-      itemListElement: categories.map((cat, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
+    isPartOf: { '@id': `${BASE_URL}/#website` },
+    mainEntity: itemListSchema(
+      categories.map((cat) => ({
         name: cat.name_de,
         url: `${BASE_URL}/${locale}/fragen/${cat.slug}`,
-      })),
-    },
+        numberOfItems: cat.count,
+      }))
+    ),
   };
+
+  const breadcrumb = breadcrumbSchema([
+    { name: t('breadcrumbHome'), url: `${BASE_URL}/${locale}` },
+    { name: t('breadcrumbQuestions'), url: `${BASE_URL}/${locale}/fragen` },
+  ]);
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-16">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={[breadcrumb, collectionPage]} />
 
       <h1 className="text-4xl md:text-5xl font-bold text-[var(--gold)] mb-6">
         {t('indexTitle')}

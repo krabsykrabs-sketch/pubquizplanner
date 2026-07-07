@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import type { Category, QuizConfig, QuizQuestion } from '@/types/quiz';
+import { DEFAULT_QUIZ_MODE } from '@/lib/quiz-modes';
 import StepBuild, { makeRound } from '@/components/quiz-builder/StepBuild';
 import StepDownload from '@/components/quiz-builder/StepDownload';
 
@@ -25,7 +26,7 @@ function makeConfig(locale: string): QuizConfig {
     venue: '',
     locale,
     numberOfRounds: DEFAULT_ROUNDS,
-    answerPlacement: 'all_at_end',
+    mode: DEFAULT_QUIZ_MODE,
     rounds: Array.from({ length: DEFAULT_ROUNDS }, (_, i) => makeRound(i + 1)),
   };
 }

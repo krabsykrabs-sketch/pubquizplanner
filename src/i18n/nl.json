@@ -43,9 +43,6 @@
     "date": "Datum",
     "venue": "Locatie",
     "numberOfRounds": "Aantal rondes",
-    "answerPlacement": "Antwoorden tonen",
-    "afterEach": "Na elke ronde",
-    "allAtEnd": "Alles aan het einde",
     "next": "Verder",
     "back": "Terug",
     "category": "Categorie",
@@ -63,7 +60,16 @@
     "downloadAnswerSheet": "Antwoordformulier downloaden",
     "downloadCheatSheet": "Spiekbriefje voor de quizmaster",
     "generating": "Wordt gemaakt...",
-    "loading": "Laden..."
+    "loading": "Laden...",
+    "modeLabel": "Quizmodus",
+    "modePubQuiz": "Kroegquiz",
+    "modePubQuizHelp": "Eerst de vragen, antwoorden aan het einde. Voor quizavonden met puntentelling.",
+    "modeFast": "Snelle quiz",
+    "modeFastHelp": "Antwoord direct na elke vraag. Voor gezellige rondes met vrienden.",
+    "modeHelpAria": "Wat betekenen de modi?",
+    "modeHelpTitle": "De twee modi",
+    "modeHelpPubQuiz": "Kroegquiz: eerst komen alle vragen, de antwoorden volgen gebundeld aan het einde. Ideaal voor echte quizavonden waarbij teams punten verzamelen en het antwoordblad wordt nagekeken.",
+    "modeHelpFast": "Snelle quiz: na elke vraag verschijnt meteen het antwoord. Perfect voor gezellige rondes zonder telling – een antwoordblad is niet nodig."
   },
   "fragen": {
     "indexTitle": "Pubquiz vragen en antwoorden – gratis",
@@ -92,6 +98,17 @@
     "ctaButton": "Quiz maken",
     "moreCategories": "Meer quizvragen:",
     "allCategories": "Alle categorieën",
-    "inlineCtaText": "Deze vragen als kant-en-klare presentatie?"
+    "inlineCtaText": "Deze vragen als kant-en-klare presentatie?",
+    "breadcrumbHome": "Home",
+    "breadcrumbQuestions": "Quizvragen"
+  },
+  "demo": {
+    "badge": "Live-demo",
+    "sectionHeading": "Zin in een voorproefje?",
+    "sectionText": "Speel een kant-en-klare voorbeeldquiz direct in je browser – dezelfde presentatie die de generator maakt. Geen download, geen registratie.",
+    "playButton": "Demoquiz starten",
+    "close": "Sluiten",
+    "deckTitle": "Demoquiz",
+    "unavailable": "De demoquiz is momenteel niet beschikbaar."
   }
 }

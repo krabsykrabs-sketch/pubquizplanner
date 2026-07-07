@@ -12,6 +12,8 @@ import LandingHero from '@/components/landing/LandingHero';
 import CategorySection from '@/components/landing/CategorySection';
 import SampleQuestions from '@/components/landing/SampleQuestions';
 import HowItWorks from '@/components/landing/HowItWorks';
+import DemoQuiz from '@/components/landing/DemoQuiz';
+import { isDemoStorageReady } from '@/lib/demo-deck';
 import type { CategoryChip, SampleQuestion } from '@/components/landing/types';
 
 export async function generateMetadata({
@@ -125,9 +127,14 @@ export default async function LandingPage({
     // Fallback to hardcoded values if DB is unavailable
   }
 
+  // Only surface the demo once its storage exists (migration applied) — keeps
+  // the homepage unbroken before then. Never throws.
+  const demoReady = await isDemoStorageReady().catch(() => false);
+
   return (
     <main className="min-h-screen">
       <LandingHero locale={locale} />
+      {demoReady && <DemoQuiz locale={locale} />}
       <CategorySection
         locale={locale}
         categories={categories}

@@ -5,6 +5,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import TrackPageview from '@/components/TrackPageview';
 import { isLocale } from '@/config/locales';
+import { JsonLd, organizationSchema, websiteSchema } from '@/lib/structured-data';
 
 export async function generateMetadata({
   params: { locale },
@@ -34,6 +35,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className="antialiased min-h-screen flex flex-col">
+        {/* Site-wide entities — emitted on every public page */}
+        <JsonLd data={[organizationSchema(), websiteSchema(locale)]} />
         <NextIntlClientProvider messages={messages}>
           <TrackPageview />
           <div className="flex-1">{children}</div>
