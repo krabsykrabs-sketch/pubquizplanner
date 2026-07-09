@@ -35,6 +35,10 @@ export interface Question {
   verified: boolean;
   status: string;
   verification_note: string | null;
+  // Free-text guidance the owner leaves during review on how the question
+  // should change. Drives the "Mit KI überarbeiten" revision flow and is kept
+  // as a note. Distinct from verification_note (auto fact-check output).
+  review_comment: string | null;
   source: string | null;
   generation_batch_id: string | null;
   is_highlight: boolean;

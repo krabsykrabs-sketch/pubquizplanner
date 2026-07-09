@@ -141,6 +141,7 @@ export async function PUT(request: NextRequest) {
       is_highlight = COALESCE($12, is_highlight),
       question_type = CASE WHEN $13 THEN $14::varchar ELSE question_type END,
       locales = CASE WHEN $15 THEN $16::text[] ELSE locales END,
+      review_comment = CASE WHEN $17 THEN $18::text ELSE review_comment END,
       updated_at = NOW()
      WHERE id = $1
      RETURNING *`,
@@ -161,6 +162,8 @@ export async function PUT(request: NextRequest) {
       body.question_type ?? null,
       'locales' in body,
       body.locales?.length ? body.locales : null,
+      'review_comment' in body,
+      body.review_comment ?? null,
     ]
   );
 

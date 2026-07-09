@@ -14,6 +14,8 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [fixing, setFixing] = useState(false);
+  const [revising, setRevising] = useState(false);
+  const [reviseError, setReviseError] = useState('');
   const [highlight, setHighlight] = useState(question.is_highlight ?? false);
   const [form, setForm] = useState({
     text_de: question.text_de,
@@ -23,6 +25,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
     category_id: question.category_id,
     tags: (question.tags || []).join(', '),
     question_type: question.question_type === 'estimation' ? 'estimation' : 'standard',
+    review_comment: question.review_comment || '',
   });
   // Locale allow-list: null = all languages; a restricted array limits where the
   // question may appear / be translated (e.g. ['de'] = German-only).
@@ -50,6 +53,7 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
         tags: form.tags ? form.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
         question_type: form.question_type === 'estimation' ? 'estimation' : null,
         locales: restrictLocales ? allowedLocales : null,
+        review_comment: form.review_comment.trim() || null,
         ...extraFields,
       }),
     });
@@ -64,6 +68,34 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
   // pool instead of rejecting it outright. Its fact is great as an MC question
   // even when it's unfair as an open question. Collectible via status filter.
   const markMcCandidate = () => save({ status: 'mc_candidate' });
+
+  // Send the owner's comment + the question to the AI, which returns a revised
+  // draft. The endpoint also persists the comment. We populate the edit form
+  // with the draft so the owner reviews and saves it deliberately.
+  const handleRevise = async () => {
+    if (!form.review_comment.trim()) return;
+    setRevising(true);
+    setReviseError('');
+    try {
+      const res = await fetch('/api/admin/questions/revise', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionId: question.id, comment: form.review_comment }),
+      });
+      if (!res.ok) throw new Error('Revise failed');
+      const revised = await res.json();
+      setForm((f) => ({
+        ...f,
+        text_de: revised.text_de,
+        answer_de: revised.answer_de,
+        fun_fact_de: revised.fun_fact_de || '',
+      }));
+      setEditing(true);
+    } catch {
+      setReviseError('Überarbeitung fehlgeschlagen. Bitte erneut versuchen.');
+    }
+    setRevising(false);
+  };
 
   const handleFix = async () => {
     setFixing(true);
@@ -257,6 +289,34 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
             )}
           </div>
 
+          {/* Review comment + AI revision */}
+          <div>
+            <label className="block text-xs text-[var(--muted)] mb-1">
+              Kommentar für die KI (wie soll sich die Frage ändern?)
+            </label>
+            <textarea
+              value={form.review_comment}
+              onChange={(e) => setForm({ ...form, review_comment: e.target.value })}
+              rows={2}
+              placeholder="z. B. „Antwort ist zu speziell — erratbarer machen&ldquo; oder „Pointe in die Antwort verlegen&ldquo;"
+              className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-2 text-sm focus:border-[var(--gold)] focus:outline-none resize-none"
+            />
+            <button
+              type="button"
+              onClick={handleRevise}
+              disabled={revising || !form.review_comment.trim()}
+              className="mt-2 px-3 py-1.5 bg-blue-600/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-600/30 transition-colors disabled:opacity-40"
+            >
+              {revising ? '⏳ KI überarbeitet…' : '🔄 Mit KI überarbeiten'}
+            </button>
+            {reviseError && (
+              <p className="mt-1 text-xs text-red-400">{reviseError}</p>
+            )}
+            <p className="mt-1 text-xs text-[var(--muted)]">
+              Der Vorschlag der KI erscheint oben zum Prüfen — erst „Speichern&ldquo; übernimmt ihn.
+            </p>
+          </div>
+
           {/* Source (read-only) */}
           {question.source && (
             <div>
@@ -284,6 +344,9 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
           )}
           {question.source && (
             <p className="text-xs text-[var(--muted)] mt-1">📎 {question.source}</p>
+          )}
+          {question.review_comment && (
+            <p className="text-xs text-blue-300/80 mt-1">📝 Kommentar: {question.review_comment}</p>
           )}
           {question.status === 'flagged' && question.verification_note && (
             <div className="mt-3 bg-orange-900/15 border border-orange-500/30 rounded-lg px-3 py-2 text-sm text-orange-300">

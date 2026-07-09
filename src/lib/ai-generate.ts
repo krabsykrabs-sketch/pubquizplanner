@@ -342,6 +342,69 @@ export interface FixedQuestion {
   fun_fact_de: string;
 }
 
+// Revise a question from the owner's free-text guidance left during review.
+// Unlike fixQuestion (which reacts to an automated fact-check note), this acts
+// on a human instruction like "answer is too obscure, make it guessable" or
+// "move the twist into the answer". Returns a revised draft the owner reviews.
+export async function reviseQuestion(
+  question: {
+    text_de: string;
+    answer_de: string;
+    fun_fact_de: string | null;
+    category_name?: string | null;
+  },
+  comment: string
+): Promise<FixedQuestion> {
+  const response = await client.messages.create({
+    model: 'claude-sonnet-5',
+    max_tokens: 2048,
+    system: `Du bist ein erfahrener Pub-Quiz-Redakteur und überarbeitest eine bestehende Frage anhand der Anweisung des Chefredakteurs.
+
+Hausregeln für eine gute Frage:
+- GENAU EINE eindeutige, kurze Antwort (1-5 Wörter, außer die Anweisung verlangt etwas anderes).
+- Die Pointe gehört in die ANTWORT, nicht in die Frage — frag nach dem überraschenden WAS/WARUM/WIE, nicht nach einem unwissbaren Namen.
+- ABER die Antwort muss trotzdem FAIR sein: Eine normale Vierergruppe am Tisch muss eine echte Chance haben (durch Erinnerung, Mitraten oder einen 'Ach ja!'-Moment). Keine obskuren Detail-/Produktions-/Statistik-Fakten, die nur durch gezielte Recherche auffindbar sind.
+- Natürliches, vorlesbares Deutsch. Ein überraschender, unterhaltsamer Fun Fact.
+
+Die Anweisung des Chefredakteurs hat oberste Priorität. Überprüfe die überarbeitete Antwort durch eine Websuche. Antworte ausschließlich mit JSON.`,
+    tools: [{ type: 'web_search_20250305' as const, name: 'web_search', max_uses: 3 }],
+    messages: [
+      {
+        role: 'user',
+        content: `Überarbeite diese Quizfrage${
+          question.category_name ? ` (Kategorie: ${question.category_name})` : ''
+        } gemäß der Anweisung.
+
+Frage: ${question.text_de}
+Antwort: ${question.answer_de}
+Fun Fact: ${question.fun_fact_de || '—'}
+
+Anweisung des Chefredakteurs: ${comment}
+
+Setze die Anweisung um und behalte dabei die Hausregeln im Blick. Antworte als JSON-Objekt: {"text_de": "...", "answer_de": "...", "fun_fact_de": "..."}`,
+      },
+    ],
+  });
+
+  const text = response.content
+    .filter((block): block is Anthropic.TextBlock => block.type === 'text')
+    .map((block) => block.text)
+    .join('');
+
+  try {
+    const parsed = JSON.parse(text);
+    if (parsed.text_de && parsed.answer_de) return parsed;
+  } catch {
+    const match = text.match(/\{[\s\S]*\}/);
+    if (match) {
+      const parsed = JSON.parse(match[0]);
+      if (parsed.text_de && parsed.answer_de) return parsed;
+    }
+  }
+
+  throw new Error('Failed to parse AI revise response');
+}
+
 export async function fixQuestion(
   question: { text_de: string; answer_de: string; fun_fact_de: string | null },
   verificationNote: string
