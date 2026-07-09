@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { query, queryOne } from '@/lib/db';
 import { getCategoryIntro } from '@/lib/category-intros';
+import { getCategorySeoName } from '@/lib/category-seo';
 import {
   SOURCE_LOCALE,
   LOCALES,
@@ -144,10 +145,12 @@ export async function generateMetadata({
   if (!category) return {};
   const t = await getTranslations({ locale, namespace: 'fragen' });
 
-  const title = t('categoryMetaTitle', { count: category.count, name: category.name_de });
+  // SEO-only name (keyword-matched to search terms); falls back to name_de.
+  const seoName = getCategorySeoName(locale, slug, category.name_de);
+  const title = t('categoryMetaTitle', { count: category.count, name: seoName });
   const description = t('categoryMetaDescription', {
     count: category.count,
-    name: category.name_de,
+    name: seoName,
   });
 
   return {

@@ -72,9 +72,9 @@
     "modeHelpFast": "Schnelles Quiz: Nach jeder Frage erscheint sofort die Antwort. Perfekt für lockere Runden ohne Wertung – ein Antwortbogen wird nicht gebraucht."
   },
   "fragen": {
-    "indexTitle": "Pub Quiz Fragen und Antworten – kostenlos",
-    "indexMetaTitle": "Pub Quiz Fragen und Antworten kostenlos | Kneipenquiz | PubQuizPlanner",
-    "indexMetaDescription": "Über {count} kostenlose Pub Quiz Fragen mit Antworten in {categoryCount} Kategorien — handverlesen für dein Kneipenquiz. Stöbern, kopieren oder direkt ein eigenes Quiz erstellen.",
+    "indexTitle": "Quizfragen mit Antworten & Lösungen – kostenlos",
+    "indexMetaTitle": "Quizfragen mit Antworten & Lösungen – kostenlos | Pub Quiz & Kneipenquiz | PubQuizPlanner",
+    "indexMetaDescription": "Über {count} kostenlose Quizfragen mit Antworten & Lösungen in {categoryCount} Kategorien — Musik, Geographie, Allgemeinwissen und mehr. Handverlesen für dein Pub Quiz oder Kneipenquiz.",
     "indexIntro1": "Du planst ein Pub Quiz oder Kneipenquiz und suchst gute Fragen? Hier bist du richtig: PubQuizPlanner sammelt über {count} kostenlose Pub Quiz Fragen mit Antworten — handverlesen, auf Deutsch und für echte Quizabende gemacht. Jede Frage ist redaktionell geprüft, und viele bringen einen Fun Fact mit, den du als Quizmaster nach der Auflösung erzählen kannst.",
     "indexIntro2": "Die Sammlung deckt {categoryCount} Kategorien ab — von Allgemeinwissen über Geschichte, Geographie und Wissenschaft bis Film, Musik und Popkultur. Jede Kategorie zeigt die aktuelle Anzahl verfügbarer Fragen, und die Sammlung wächst laufend weiter. Ob du ein komplettes Kneipenquiz für deine Stammkneipe zusammenstellst, einen Quizabend mit Freunden oder Kollegen planst oder einfach Inspiration suchst: Alle Fragen und Antworten kannst du frei durchstöbern und für dein eigenes Quiz verwenden.",
     "indexIntro3": "Und wenn du es dir leicht machen willst: Unser Generator baut dir in wenigen Minuten ein fertiges Pub Quiz — inklusive Präsentation, Antwortbogen und Spickzettel für den Quizmaster. Kostenlos und ohne Anmeldung.",
@@ -88,8 +88,8 @@
     "countLine": "{count} Fragen in {categoryCount} Kategorien",
     "questionsLabel": "{count} Fragen",
     "categoryTitle": "{name} Quizfragen",
-    "categoryMetaTitle": "{count} {name}-Quizfragen mit Antworten | PubQuizPlanner",
-    "categoryMetaDescription": "Teste dein Wissen mit {count} {name} Fragen für dein nächstes Kneipenquiz. Mit Antworten und Fun Facts.",
+    "categoryMetaTitle": "{count} {name}-Quizfragen mit Antworten & Lösungen | PubQuizPlanner",
+    "categoryMetaDescription": "Über {count} kostenlose {name}-Quizfragen mit Antworten & Lösungen — handverlesen für dein Pub Quiz oder Kneipenquiz. Inklusive Fun Facts.",
     "categoryFallbackIntro": "Entdecke {count} {name}-Quizfragen für dein nächstes Kneipenquiz. Mit Antworten und Fun Facts.",
     "questionsAvailable": "{count} Fragen verfügbar",
     "categoriesAria": "Kategorien",
