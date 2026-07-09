@@ -51,6 +51,23 @@ export function setAdminCookie(response: NextResponse): NextResponse {
   return response;
 }
 
+// Analytics opt-out for the admin's own browser. Set on every successful
+// admin login and deliberately long-lived (1 year) and NOT httpOnly, so both
+// the /api/track endpoint and the client-side tracker can see it long after
+// the 24h admin session expired.
+export const NOTRACK_COOKIE = 'pqp_notrack';
+
+export function setNoTrackCookie(response: NextResponse): NextResponse {
+  response.cookies.set(NOTRACK_COOKIE, '1', {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 365,
+  });
+  return response;
+}
+
 export function clearAdminCookie(response: NextResponse): NextResponse {
   response.cookies.set(COOKIE_NAME, '', {
     httpOnly: true,

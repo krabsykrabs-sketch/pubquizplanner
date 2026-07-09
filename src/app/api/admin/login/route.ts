@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { setAdminCookie } from '@/lib/admin-auth';
+import { setAdminCookie, setNoTrackCookie } from '@/lib/admin-auth';
 
 export async function POST(request: NextRequest) {
   const { password } = await request.json();
@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
   }
 
+  // Admin's own browser: auth for 24h, analytics opt-out for a year.
   const response = NextResponse.json({ success: true });
-  return setAdminCookie(response);
+  return setNoTrackCookie(setAdminCookie(response));
 }

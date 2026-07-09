@@ -6,9 +6,16 @@ import { query } from '@/lib/db';
 // Aggregated analytics for the admin dashboard. Protected by the admin
 // middleware (all /api/admin routes require the auth cookie).
 export async function GET(request: NextRequest) {
-  const days = parseInt(request.nextUrl.searchParams.get('days') || '30');
-  // days = 0 → all time
-  const since = days > 0 ? `NOW() - INTERVAL '${Math.min(days, 3650)} days'` : `'epoch'::timestamptz`;
+  const rawDays = parseInt(request.nextUrl.searchParams.get('days') || '30');
+  // days = 0 → all time; anything malformed falls back to 30.
+  const days = Number.isFinite(rawDays) && rawDays >= 0 ? Math.min(rawDays, 3650) : 30;
+  const since = days > 0 ? `NOW() - INTERVAL '${days} days'` : `'epoch'::timestamptz`;
+  // Continuous day axis for the chart: from the range start (or the first
+  // event ever, for all-time) through today, so quiet days appear as zeroes.
+  const seriesStart =
+    days > 0
+      ? `date_trunc('day', ${since})`
+      : `date_trunc('day', (SELECT coalesce(min(created_at), now()) FROM events))`;
 
   const [totals, daily, topPages, entryPages, referrers, transitions, funnel, reports] =
     await Promise.all([
@@ -19,6 +26,7 @@ export async function GET(request: NextRequest) {
         dl_slides: string;
         dl_sheet: string;
         dl_cheat: string;
+        dl_category: string;
       }>(
         `SELECT
            count(*) FILTER (WHERE event_type = 'page_view') AS pageviews,
@@ -26,17 +34,28 @@ export async function GET(request: NextRequest) {
            count(*) FILTER (WHERE event_type = 'quiz_generated') AS generated,
            count(*) FILTER (WHERE event_type = 'download_slides') AS dl_slides,
            count(*) FILTER (WHERE event_type = 'download_answer_sheet') AS dl_sheet,
-           count(*) FILTER (WHERE event_type = 'download_cheat_sheet') AS dl_cheat
+           count(*) FILTER (WHERE event_type = 'download_cheat_sheet') AS dl_cheat,
+           count(*) FILTER (WHERE event_type = 'download_category_pdf') AS dl_category
          FROM events WHERE created_at >= ${since}`
       ),
       query<{ day: string; pageviews: string; sessions: string; generated: string; downloads: string }>(
-        `SELECT to_char(date_trunc('day', created_at), 'YYYY-MM-DD') AS day,
-                count(*) FILTER (WHERE event_type = 'page_view') AS pageviews,
-                count(DISTINCT session_id) FILTER (WHERE event_type = 'page_view' AND session_id IS NOT NULL) AS sessions,
-                count(*) FILTER (WHERE event_type = 'quiz_generated') AS generated,
-                count(*) FILTER (WHERE event_type LIKE 'download%') AS downloads
-         FROM events WHERE created_at >= ${since}
-         GROUP BY 1 ORDER BY 1`
+        `WITH agg AS (
+           SELECT date_trunc('day', created_at) AS day,
+                  count(*) FILTER (WHERE event_type = 'page_view') AS pageviews,
+                  count(DISTINCT session_id) FILTER (WHERE event_type = 'page_view' AND session_id IS NOT NULL) AS sessions,
+                  count(*) FILTER (WHERE event_type = 'quiz_generated') AS generated,
+                  count(*) FILTER (WHERE event_type LIKE 'download%') AS downloads
+           FROM events WHERE created_at >= ${since}
+           GROUP BY 1
+         )
+         SELECT to_char(r.day, 'YYYY-MM-DD') AS day,
+                coalesce(a.pageviews, 0)::text AS pageviews,
+                coalesce(a.sessions, 0)::text AS sessions,
+                coalesce(a.generated, 0)::text AS generated,
+                coalesce(a.downloads, 0)::text AS downloads
+         FROM generate_series(${seriesStart}, date_trunc('day', now()), interval '1 day') AS r(day)
+         LEFT JOIN agg a ON a.day = r.day
+         ORDER BY 1`
       ),
       query<{ path: string; views: string; sessions: string }>(
         `SELECT path, count(*) AS views,
@@ -54,13 +73,17 @@ export async function GET(request: NextRequest) {
          ) firsts GROUP BY path ORDER BY count(*) DESC LIMIT 10`
       ),
       query<{ referrer: string; count: string }>(
-        `SELECT referrer, count(*) AS count
+        // Grouped by host so google.com doesn't appear once per search URL.
+        // Self-traffic (this site, localhost dev environments) is excluded.
+        `SELECT coalesce(lower(substring(referrer from '^[a-zA-Z][a-zA-Z0-9+.-]*://([^/]+)')), referrer) AS referrer,
+                count(*) AS count
          FROM events
          WHERE event_type = 'page_view' AND created_at >= ${since}
            AND referrer IS NOT NULL AND referrer <> ''
            AND referrer NOT LIKE '/%'
            AND referrer NOT LIKE '%pubquizplanner%'
-         GROUP BY referrer ORDER BY count(*) DESC LIMIT 10`
+           AND referrer !~* '//(localhost|127\\.0\\.0\\.1|0\\.0\\.0\\.0|\\[::1\\])([:/]|$)'
+         GROUP BY 1 ORDER BY count(*) DESC LIMIT 10`
       ),
       query<{ from_path: string; to_path: string; count: string }>(
         `SELECT from_path, to_path, count(*) AS count FROM (
@@ -108,6 +131,7 @@ export async function GET(request: NextRequest) {
         slides: n(t?.dl_slides),
         answerSheet: n(t?.dl_sheet),
         cheatSheet: n(t?.dl_cheat),
+        categoryPdf: n(t?.dl_category),
       },
     },
     daily: daily.map((d) => ({

@@ -11,6 +11,16 @@ export default function TrackPageview() {
   useEffect(() => {
     if (!pathname || pathname === prevPath.current) return;
 
+    // Never track from dev environments or from the admin's own browser
+    // (opt-out cookie set on admin login). Saves the request entirely.
+    if (
+      /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(window.location.hostname) ||
+      document.cookie.split('; ').includes('pqp_notrack=1')
+    ) {
+      prevPath.current = pathname;
+      return;
+    }
+
     const payload = JSON.stringify({
       path: pathname,
       // First view of the session carries the external referrer; internal

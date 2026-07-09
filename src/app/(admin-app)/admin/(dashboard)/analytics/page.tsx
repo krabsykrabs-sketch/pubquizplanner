@@ -1,13 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Analytics {
   totals: {
     pageviews: number;
     sessions: number;
     generated: number;
-    downloads: { slides: number; answerSheet: number; cheatSheet: number };
+    downloads: { slides: number; answerSheet: number; cheatSheet: number; categoryPdf: number };
   };
   daily: { day: string; pageviews: number; sessions: number; generated: number; downloads: number }[];
   topPages: { path: string; views: number; sessions: number }[];
@@ -57,7 +57,10 @@ export default function AnalyticsPage() {
   }, [days, load]);
 
   const totalDownloads = data
-    ? data.totals.downloads.slides + data.totals.downloads.answerSheet + data.totals.downloads.cheatSheet
+    ? data.totals.downloads.slides +
+      data.totals.downloads.answerSheet +
+      data.totals.downloads.cheatSheet +
+      (data.totals.downloads.categoryPdf ?? 0)
     : 0;
 
   return (
@@ -120,10 +123,11 @@ export default function AnalyticsPage() {
 
           {/* Downloads by format */}
           <Section title="Downloads nach Format">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <Kpi label="🖥️ Präsentation" value={data.totals.downloads.slides} />
               <Kpi label="📄 Antwortbogen" value={data.totals.downloads.answerSheet} />
               <Kpi label="🗒️ Spickzettel" value={data.totals.downloads.cheatSheet} />
+              <Kpi label="📚 Kategorie-PDF" value={data.totals.downloads.categoryPdf ?? 0} />
             </div>
           </Section>
 
@@ -226,38 +230,152 @@ function SimpleTable({ rows }: { rows: string[][] }) {
   );
 }
 
+type SeriesKey = 'pageviews' | 'sessions' | 'generated' | 'downloads';
+
+const SERIES: { key: SeriesKey; color: string; label: string }[] = [
+  { key: 'pageviews', color: '#d4a843', label: 'Seitenaufrufe' },
+  { key: 'sessions', color: '#4ade80', label: 'Sessions' },
+  { key: 'generated', color: '#60a5fa', label: 'Quizze' },
+  { key: 'downloads', color: '#f472b6', label: 'Downloads' },
+];
+
+const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+
+function formatDay(iso: string, withWeekday = false) {
+  const d = new Date(`${iso}T00:00:00`);
+  const short = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.`;
+  return withWeekday ? `${WEEKDAYS[d.getDay()]} ${short}${d.getFullYear()}` : short;
+}
+
 function DailyChart({ daily }: { daily: Analytics['daily'] }) {
   const W = 900;
-  const H = 200;
-  const PAD = 30;
+  const H = 220;
+  const PAD_X = 34;
+  const PAD_T = 14;
+  const PAD_B = 26;
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [hover, setHover] = useState<number | null>(null);
+
   const max = Math.max(...daily.map((d) => d.pageviews), 1);
-  const x = (i: number) => PAD + (i / Math.max(daily.length - 1, 1)) * (W - PAD * 2);
-  const y = (v: number) => H - PAD - (v / max) * (H - PAD * 2);
-  const line = (key: 'pageviews' | 'sessions' | 'generated' | 'downloads') =>
+  const x = (i: number) => PAD_X + (i / Math.max(daily.length - 1, 1)) * (W - PAD_X * 2);
+  const y = (v: number) => H - PAD_B - (v / max) * (H - PAD_T - PAD_B);
+  const line = (key: SeriesKey) =>
     daily.map((d, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(' ');
 
-  const series: { key: 'pageviews' | 'sessions' | 'generated' | 'downloads'; color: string; label: string }[] = [
-    { key: 'pageviews', color: '#d4a843', label: 'Seitenaufrufe' },
-    { key: 'sessions', color: '#4ade80', label: 'Sessions' },
-    { key: 'generated', color: '#60a5fa', label: 'Quizze' },
-    { key: 'downloads', color: '#f472b6', label: 'Downloads' },
-  ];
+  // Nearest day under the cursor, in viewBox coordinates.
+  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const rect = svgRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const vx = ((e.clientX - rect.left) / rect.width) * W;
+    const i = Math.round(((vx - PAD_X) / (W - PAD_X * 2)) * (daily.length - 1));
+    setHover(Math.max(0, Math.min(daily.length - 1, i)));
+  };
+
+  // ~6 x-axis ticks, always including first and last day.
+  const tickStep = Math.max(1, Math.ceil(daily.length / 6));
+  const ticks = daily
+    .map((_, i) => i)
+    .filter((i) => i % tickStep === 0 || i === daily.length - 1);
+
+  const gridValues = [max, Math.round(max / 2)];
+  const h = hover !== null ? daily[hover] : null;
+  // Tooltip on the other side of the crosshair when near the right edge.
+  const tooltipLeftPct = hover !== null ? (x(hover) / W) * 100 : 0;
+  const tooltipFlip = tooltipLeftPct > 62;
 
   return (
-    <div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
-        <line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="var(--dark-border)" />
-        <text x={PAD} y={12} fontSize="10" fill="var(--muted)">{max}</text>
-        {series.map((s) => (
+    <div className="relative">
+      <svg
+        ref={svgRef}
+        viewBox={`0 0 ${W} ${H}`}
+        className="w-full cursor-crosshair"
+        onMouseMove={onMove}
+        onMouseLeave={() => setHover(null)}
+      >
+        {/* Grid + y labels */}
+        <line x1={PAD_X} y1={H - PAD_B} x2={W - PAD_X} y2={H - PAD_B} stroke="var(--dark-border)" />
+        {gridValues.map((v) => (
+          <g key={v}>
+            <line
+              x1={PAD_X}
+              y1={y(v)}
+              x2={W - PAD_X}
+              y2={y(v)}
+              stroke="var(--dark-border)"
+              strokeDasharray="3 5"
+            />
+            <text x={PAD_X - 6} y={y(v) + 3} fontSize="10" fill="var(--muted)" textAnchor="end">
+              {v}
+            </text>
+          </g>
+        ))}
+        {/* X ticks */}
+        {ticks.map((i) => (
+          <text
+            key={i}
+            x={x(i)}
+            y={H - 8}
+            fontSize="10"
+            fill="var(--muted)"
+            textAnchor={i === 0 ? 'start' : i === daily.length - 1 ? 'end' : 'middle'}
+          >
+            {formatDay(daily[i].day)}
+          </text>
+        ))}
+        {/* Series */}
+        {SERIES.map((s) => (
           <path key={s.key} d={line(s.key)} fill="none" stroke={s.color} strokeWidth="2" />
         ))}
-        <text x={PAD} y={H - 8} fontSize="10" fill="var(--muted)">{daily[0]?.day}</text>
-        <text x={W - PAD} y={H - 8} fontSize="10" fill="var(--muted)" textAnchor="end">
-          {daily[daily.length - 1]?.day}
-        </text>
+        {/* Hover crosshair + points */}
+        {hover !== null && (
+          <g>
+            <line
+              x1={x(hover)}
+              y1={PAD_T}
+              x2={x(hover)}
+              y2={H - PAD_B}
+              stroke="var(--muted)"
+              strokeWidth="1"
+              strokeDasharray="2 3"
+            />
+            {SERIES.map((s) => (
+              <circle
+                key={s.key}
+                cx={x(hover)}
+                cy={y(daily[hover][s.key])}
+                r="3.5"
+                fill={s.color}
+                stroke="var(--dark-card)"
+                strokeWidth="1.5"
+              />
+            ))}
+          </g>
+        )}
       </svg>
+
+      {/* Tooltip */}
+      {h && (
+        <div
+          className="pointer-events-none absolute top-1 z-10 rounded-lg border border-[var(--dark-border)] bg-[var(--background)] px-3 py-2 text-xs shadow-xl"
+          style={
+            tooltipFlip
+              ? { right: `${100 - tooltipLeftPct}%`, marginRight: 10 }
+              : { left: `${tooltipLeftPct}%`, marginLeft: 10 }
+          }
+        >
+          <p className="mb-1 font-bold text-[var(--foreground)]">{formatDay(h.day, true)}</p>
+          {SERIES.map((s) => (
+            <p key={s.key} className="flex items-center gap-2 text-[var(--muted)]">
+              <span className="inline-block h-2 w-2 rounded-full" style={{ background: s.color }} />
+              {s.label}
+              <span className="ml-auto pl-4 font-mono text-[var(--foreground)]">{h[s.key]}</span>
+            </p>
+          ))}
+        </div>
+      )}
+
       <div className="flex gap-4 mt-2 text-xs text-[var(--muted)]">
-        {series.map((s) => (
+        {SERIES.map((s) => (
           <span key={s.key} className="flex items-center gap-1.5">
             <span className="inline-block w-3 h-0.5" style={{ background: s.color }} />
             {s.label}
