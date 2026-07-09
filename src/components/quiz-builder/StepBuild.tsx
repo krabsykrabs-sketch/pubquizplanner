@@ -1,15 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  ArrowRight,
-  Brain,
-  ChevronDown,
-  ChevronRight,
-  Dices,
-  Plus,
-  X,
-} from 'lucide-react';
+import { ArrowRight, Brain, Dices, Plus, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { Category, QuizConfig, QuizQuestion, RoundConfig } from '@/types/quiz';
 import CategorySelector from '@/components/CategorySelector';
@@ -61,6 +53,8 @@ export default function StepBuild({
   const [initializing, setInitializing] = useState(roundsData.length === 0);
   const [loadingRounds, setLoadingRounds] = useState<Set<number>>(new Set());
   const [swapping, setSwapping] = useState<string | null>(null);
+  // One round is shown at a time; the switcher above the panel navigates.
+  const [activeRound, setActiveRound] = useState(0);
 
   const fetchQuestions = async (
     round: RoundConfig,
@@ -204,6 +198,7 @@ export default function StepBuild({
     const rounds = [...config.rounds, round];
     onChange({ ...config, rounds, numberOfRounds: rounds.length });
     setRoundsData((prev) => [...prev, { questions: [], expanded: true }]);
+    setActiveRound(i);
 
     setRoundLoading(i, true);
     try {
@@ -226,6 +221,7 @@ export default function StepBuild({
       .map((r, j) => ({ ...r, roundNumber: j + 1 }));
     onChange({ ...config, rounds, numberOfRounds: rounds.length });
     setRoundsData((prev) => prev.filter((_, j) => j !== i));
+    setActiveRound((a) => Math.min(a > i ? a - 1 : a, rounds.length - 1));
   };
 
   const handleSwap = async (roundIndex: number, questionIndex: number) => {
@@ -261,13 +257,6 @@ export default function StepBuild({
     setSwapping(null);
   };
 
-  const toggleRound = (i: number) =>
-    setRoundsData((prev) => {
-      const next = [...prev];
-      next[i] = { ...next[i], expanded: !next[i].expanded };
-      return next;
-    });
-
   if (initializing) {
     return (
       <div className="py-20 text-center">
@@ -282,121 +271,160 @@ export default function StepBuild({
     roundsData.every((r) => r.questions.length > 0) &&
     loadingRounds.size === 0;
 
+  // Never point past the end (rounds can be removed).
+  const current = Math.min(activeRound, config.rounds.length - 1);
+  const round = config.rounds[current];
+  const data = roundsData[current];
+  const isLoading = loadingRounds.has(current);
+
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto max-w-3xl space-y-5">
       <h2 className="font-display text-[1.75rem] font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">
         {t('step1')}
       </h2>
 
-      {config.rounds.map((round, i) => {
-        const data = roundsData[i];
-        const isLoading = loadingRounds.has(i);
-        const RoundIcon = categoryIcon(round.categorySlug);
-        return (
-          <div
-            key={i}
-            className="overflow-hidden rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--surface-card)] shadow-warm-sm"
-          >
-            {/* Round header = its configuration */}
-            <div className="flex flex-wrap items-center gap-2 border-b border-[var(--border-subtle)] bg-[var(--surface-raised)] p-4">
-              <IconButton
-                label={`${t('round')} ${i + 1}`}
-                size="sm"
-                onClick={() => toggleRound(i)}
+      {/* Round switcher — one round is shown at a time. Sticky below the site
+          header so orientation survives long question lists. */}
+      <nav
+        aria-label={t('rounds')}
+        className="sticky top-[70px] z-40 -mx-4 border-b border-[var(--border-subtle)] bg-[var(--bg-page)]/95 px-4 py-3 [backdrop-filter:blur(8px)]"
+      >
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+          {config.rounds.map((r, i) => {
+            const on = i === current;
+            const Icon = categoryIcon(r.categorySlug);
+            const count = roundsData[i]?.questions.length || r.questionsPerRound;
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActiveRound(i)}
+                aria-current={on ? 'true' : undefined}
+                className={`flex items-center gap-2.5 rounded-ds-lg border-[1.5px] px-3 py-2 text-left transition-colors ${
+                  on
+                    ? 'border-[var(--accent)] bg-[var(--accent-soft)]'
+                    : 'border-[var(--border-subtle)] bg-[var(--surface-card)] hover:border-[var(--border-strong)]'
+                }`}
               >
-                {data?.expanded ? (
-                  <ChevronDown className="h-4 w-4" aria-hidden />
-                ) : (
-                  <ChevronRight className="h-4 w-4" aria-hidden />
-                )}
-              </IconButton>
-              <span className="inline-flex h-[34px] w-[34px] flex-none items-center justify-center rounded-ds bg-[var(--accent-soft)] text-[var(--accent-text)]">
-                <RoundIcon className="h-[18px] w-[18px]" aria-hidden />
-              </span>
-              <span className="whitespace-nowrap font-semibold text-[var(--text-strong)]">
-                {t('round')}{' '}
-                <span className="font-mono text-[var(--accent-text)]">{i + 1}</span>
-              </span>
-              <div className="min-w-[180px] flex-1">
-                <CategorySelector
-                  categories={categories}
-                  value={round.categoryId}
-                  onChange={(cat) =>
-                    updateRound(i, {
-                      categoryId: cat.id,
-                      categorySlug: cat.slug,
-                      categoryName: cat.name_de,
-                      categoryIcon: cat.icon || '',
-                    })
-                  }
-                />
-              </div>
-              <Select
-                value={round.questionsPerRound}
-                onChange={(e) =>
-                  updateRound(i, { questionsPerRound: parseInt(e.target.value) })
-                }
-                title={t('questionsPerRound')}
-              >
-                {[5, 8, 10].map((n) => (
-                  <option key={n} value={n}>
-                    {n} {t('questions')}
-                  </option>
-                ))}
-              </Select>
-              <IconButton
-                label={t('rerollRound')}
-                variant="outline"
-                onClick={() => rerollRound(i)}
-                disabled={isLoading}
-              >
-                <Dices className="h-[18px] w-[18px]" aria-hidden />
-              </IconButton>
-              {config.rounds.length > MIN_ROUNDS && (
-                <IconButton
-                  label={t('removeRound')}
-                  variant="outline"
-                  onClick={() => removeRound(i)}
-                  disabled={isLoading}
-                  className="hover:border-[var(--danger)] hover:text-[var(--danger)]"
+                <span
+                  className={`flex h-8 w-8 flex-none items-center justify-center rounded-ds ${
+                    on
+                      ? 'bg-[var(--accent)] text-[var(--text-on-accent)]'
+                      : 'bg-[var(--surface-inset)] text-[var(--text-muted)]'
+                  }`}
                 >
-                  <X className="h-[18px] w-[18px]" aria-hidden />
-                </IconButton>
-              )}
-            </div>
+                  <Icon className="h-4 w-4" aria-hidden />
+                </span>
+                <span className="min-w-0">
+                  <span
+                    className={`block truncate text-[0.85rem] font-semibold leading-tight ${
+                      on ? 'text-[var(--accent-text)]' : 'text-[var(--text-strong)]'
+                    }`}
+                  >
+                    {t('round')} <span className="font-mono">{i + 1}</span>
+                    {r.categoryName ? ` · ${r.categoryName}` : ''}
+                  </span>
+                  <span
+                    className={`block font-mono text-[0.68rem] leading-tight text-[var(--text-faint)] ${
+                      loadingRounds.has(i) ? 'animate-pulse' : ''
+                    }`}
+                  >
+                    {loadingRounds.has(i)
+                      ? t('loading')
+                      : `${count} ${t('questions')}`}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+          {config.rounds.length < MAX_ROUNDS && (
+            <button
+              type="button"
+              onClick={addRound}
+              title={t('addRound')}
+              className="flex items-center justify-center gap-1.5 rounded-ds-lg border-[1.5px] border-dashed border-[var(--border-strong)] px-3 py-2 text-[0.85rem] font-medium text-[var(--text-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent-text)]"
+            >
+              <Plus className="h-4 w-4" aria-hidden />
+              {t('addRound')}
+            </button>
+          )}
+        </div>
+      </nav>
 
-            {/* Questions */}
-            {data?.expanded && (
-              <div className="space-y-3 px-5 py-4">
-                {isLoading ? (
-                  <p className="animate-pulse py-6 text-center text-[var(--text-muted)]">
-                    {t('loading')}
-                  </p>
-                ) : (
-                  data.questions.map((question, qIndex) => (
-                    <QuestionCard
-                      key={question.id}
-                      question={question}
-                      onSwap={() => handleSwap(i, qIndex)}
-                      swapDisabled={swapping === `${i}-${qIndex}`}
-                    />
-                  ))
-                )}
-              </div>
-            )}
+      {/* Active round */}
+      <div className="overflow-hidden rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--surface-card)] shadow-warm-sm">
+        {/* Round header = its configuration */}
+        <div className="flex flex-wrap items-center gap-2 border-b border-[var(--border-subtle)] bg-[var(--surface-raised)] p-4">
+          <span className="whitespace-nowrap font-semibold text-[var(--text-strong)]">
+            {t('round')}{' '}
+            <span className="font-mono text-[var(--accent-text)]">{current + 1}</span>
+          </span>
+          <div className="min-w-[180px] flex-1">
+            <CategorySelector
+              categories={categories}
+              value={round.categoryId}
+              onChange={(cat) =>
+                updateRound(current, {
+                  categoryId: cat.id,
+                  categorySlug: cat.slug,
+                  categoryName: cat.name_de,
+                  categoryIcon: cat.icon || '',
+                })
+              }
+            />
           </div>
-        );
-      })}
+          <Select
+            value={round.questionsPerRound}
+            onChange={(e) =>
+              updateRound(current, { questionsPerRound: parseInt(e.target.value) })
+            }
+            title={t('questionsPerRound')}
+          >
+            {[5, 8, 10].map((n) => (
+              <option key={n} value={n}>
+                {n} {t('questions')}
+              </option>
+            ))}
+          </Select>
+          <IconButton
+            label={t('rerollRound')}
+            variant="outline"
+            onClick={() => rerollRound(current)}
+            disabled={isLoading}
+          >
+            <Dices className="h-[18px] w-[18px]" aria-hidden />
+          </IconButton>
+          {config.rounds.length > MIN_ROUNDS && (
+            <IconButton
+              label={t('removeRound')}
+              variant="outline"
+              onClick={() => removeRound(current)}
+              disabled={isLoading}
+              className="hover:border-[var(--danger)] hover:text-[var(--danger)]"
+            >
+              <X className="h-[18px] w-[18px]" aria-hidden />
+            </IconButton>
+          )}
+        </div>
 
-      {config.rounds.length < MAX_ROUNDS && (
-        <button
-          onClick={addRound}
-          className="flex w-full items-center justify-center gap-2 rounded-ds-lg border-[1.5px] border-dashed border-[var(--border-strong)] py-3 font-medium text-[var(--text-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent-text)]"
-        >
-          <Plus className="h-4 w-4" aria-hidden />
-          {t('addRound')}
-        </button>
-      )}
+        {/* Questions */}
+        <div className="space-y-3 px-5 py-4">
+          {isLoading ? (
+            <p className="animate-pulse py-6 text-center text-[var(--text-muted)]">
+              {t('loading')}
+            </p>
+          ) : (
+            (data?.questions ?? []).map((question, qIndex) => (
+              <QuestionCard
+                key={question.id}
+                question={question}
+                onSwap={() => handleSwap(current, qIndex)}
+                swapDisabled={swapping === `${current}-${qIndex}`}
+              />
+            ))
+          )}
+        </div>
+      </div>
 
       <Button
         size="lg"
