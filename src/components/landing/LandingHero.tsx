@@ -2,9 +2,8 @@ import { Dices, SlidersHorizontal, Zap } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Badge from '@/components/ds/Badge';
 import Button from '@/components/ds/Button';
-import CategoryTile from '@/components/ds/CategoryTile';
 import { LOCALE_LABELS, LOCALES } from '@/config/locales';
-import { categoryVisual } from '@/lib/category-visuals';
+import HeroTileDeck, { type HeroTileCat } from './HeroTileDeck';
 import type { CategoryChip } from './types';
 
 // Four subjects staged as rounds of a night; the square standalone
@@ -50,19 +49,16 @@ export default async function LandingHero({
 }) {
   const t = await getTranslations({ locale, namespace: 'landing' });
 
+  // The tile pool: the four picks lead, every other visible category follows —
+  // the client deck flips through all of them over time.
   const bySlug = new Map(categories.map((c) => [c.slug, c]));
   const picks = HERO_PICKS.map((slug) => bySlug.get(slug)).filter(
     (c): c is CategoryChip => !!c
   );
   for (const c of categories) {
-    if (picks.length >= 4) break;
     if (!picks.includes(c)) picks.push(c);
   }
-  const heroTiles = picks.slice(0, 4).map((c, i) => ({
-    chip: c,
-    visual: categoryVisual(c.slug),
-    offset: i % 2 === 1,
-  }));
+  const pool: HeroTileCat[] = picks.map((c) => ({ slug: c.slug, name: c.name_de }));
 
   return (
     <section
@@ -131,20 +127,11 @@ export default async function LandingHero({
           </div>
         </div>
 
-        {heroTiles.length === 4 && (
-          <div className="grid grid-cols-2 gap-4">
-            {heroTiles.map(({ chip, visual, offset }, i) => (
-              <CategoryTile
-                key={chip.slug}
-                title={chip.name_de}
-                subtitle={t('roundLabel', { n: i + 1 })}
-                image={visual?.iconArt}
-                ratio="1 / 1"
-                size="sm"
-                className={offset ? 'mt-7' : ''}
-              />
-            ))}
-          </div>
+        {pool.length >= 4 && (
+          <HeroTileDeck
+            pool={pool}
+            labels={[1, 2, 3, 4].map((n) => t('roundLabel', { n }))}
+          />
         )}
       </div>
     </section>
