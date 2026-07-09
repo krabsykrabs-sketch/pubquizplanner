@@ -10,9 +10,9 @@ export interface HeroTileCat {
 }
 
 // How often a flip happens (one tile at a time, round-robin), and how long
-// the turn takes. Quiet by design: each individual tile only flips every
-// FLIP_EVERY_MS * 4.
-const FLIP_EVERY_MS = 4200;
+// the turn takes. Each individual tile flips every FLIP_EVERY_MS * 4 —
+// tuned so a tile turns roughly every 4–5 seconds.
+const FLIP_EVERY_MS = 1150;
 const FLIP_DURATION_MS = 700;
 
 interface TileState {
