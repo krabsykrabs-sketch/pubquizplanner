@@ -1,6 +1,7 @@
 'use client';
 
 import { Suspense, useEffect, useState } from 'react';
+import { Dices } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import type { Category, QuizConfig, QuizQuestion } from '@/types/quiz';
@@ -27,6 +28,8 @@ function makeConfig(locale: string): QuizConfig {
     locale,
     numberOfRounds: DEFAULT_ROUNDS,
     mode: DEFAULT_QUIZ_MODE,
+    timerSeconds: 0,
+    timerSound: true,
     rounds: Array.from({ length: DEFAULT_ROUNDS }, (_, i) => makeRound(i + 1)),
   };
 }
@@ -68,10 +71,12 @@ function GeneratorFlow() {
   const hasQuiz = roundsData.length > 0 && roundsData.some((r) => r.questions.length > 0);
 
   return (
-    <main className="min-h-screen py-8 px-4">
+    <main className="min-h-screen bg-[var(--bg-page)] px-4 py-8 nav:py-12">
       {/* Header */}
-      <div className="max-w-3xl mx-auto mb-8">
-        <h1 className="text-2xl font-bold text-center mb-6">{t('title')}</h1>
+      <div className="mx-auto mb-8 max-w-3xl">
+        <h1 className="mb-6 text-center font-display text-[1.75rem] font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">
+          {t('title')}
+        </h1>
 
         {/* Clickable step indicator */}
         <div className="flex items-center justify-center gap-2">
@@ -86,30 +91,30 @@ function GeneratorFlow() {
                   className={`flex items-center gap-2 ${clickable ? 'cursor-pointer' : 'cursor-default'}`}
                 >
                   <span
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-mono ${
+                    className={`flex h-8 w-8 items-center justify-center rounded-full font-mono text-sm font-semibold transition-colors ${
                       step === target
-                        ? 'bg-[var(--gold)] text-[var(--background)]'
-                        : step > target || (clickable && target !== step)
-                        ? 'bg-[var(--gold)] bg-opacity-30 text-[var(--gold)]'
-                        : 'bg-[var(--dark-card)] text-[var(--muted)]'
+                        ? 'bg-[var(--accent)] text-[var(--text-on-accent)]'
+                        : clickable
+                        ? 'bg-[var(--accent-soft)] text-[var(--accent-text)]'
+                        : 'border border-[var(--border-subtle)] bg-[var(--surface-card)] text-[var(--text-faint)]'
                     }`}
                   >
                     {target}
                   </span>
                   <span
-                    className={`text-sm hidden sm:inline ${
+                    className={`hidden text-sm font-medium sm:inline ${
                       step === target
-                        ? 'text-[var(--foreground)]'
+                        ? 'text-[var(--text-strong)]'
                         : clickable
-                        ? 'text-[var(--muted)] hover:text-[var(--foreground)]'
-                        : 'text-[var(--muted)]'
+                        ? 'text-[var(--text-muted)] hover:text-[var(--text-strong)]'
+                        : 'text-[var(--text-faint)]'
                     }`}
                   >
                     {label}
                   </span>
                 </button>
                 {i < stepLabels.length - 1 && (
-                  <div className="w-8 h-px bg-[var(--dark-border)]" />
+                  <div className="h-px w-8 bg-[var(--border-strong)]" />
                 )}
               </div>
             );
@@ -119,9 +124,9 @@ function GeneratorFlow() {
 
       {/* Steps */}
       {!quickReady && (
-        <div className="text-center py-20">
-          <div className="text-4xl mb-4 animate-pulse">🎲</div>
-          <p className="text-[var(--muted)]">{t('loading')}</p>
+        <div className="py-20 text-center">
+          <Dices className="mx-auto mb-4 h-10 w-10 animate-pulse text-[var(--accent)]" aria-hidden />
+          <p className="text-[var(--text-muted)]">{t('loading')}</p>
         </div>
       )}
       {quickReady && step === 1 && (

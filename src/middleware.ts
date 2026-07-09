@@ -49,7 +49,9 @@ export const config = {
   // separately-handled admin/api routes) — so adding a locale needs no edit here.
   matcher: [
     '/',
-    '/((?!api|_next|_vercel|admin|.*\\..*).*)',
+    // `apple-icon` is a Next metadata route without a file extension; keep it
+    // out of locale routing or it 307s to /<locale>/apple-icon and 404s.
+    '/((?!api|_next|_vercel|admin|apple-icon|.*\\..*).*)',
     '/admin/:path*',
     '/api/admin/:path*',
   ],

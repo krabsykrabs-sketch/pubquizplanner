@@ -1,6 +1,9 @@
 'use client';
 
+import { BarChart3, Check, Flag, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import Badge from '@/components/ds/Badge';
 import { getSessionId } from '@/lib/session-id';
 import type { QuizQuestion } from '@/types/quiz';
 
@@ -11,6 +14,7 @@ interface Props {
 }
 
 export default function QuestionCard({ question, onSwap, swapDisabled }: Props) {
+  const t = useTranslations('generator');
   const [reported, setReported] = useState(false);
 
   const report = async () => {
@@ -28,34 +32,50 @@ export default function QuestionCard({ question, onSwap, swapDisabled }: Props) 
   };
 
   return (
-    <div className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg p-4 flex items-start gap-4">
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--gold)] bg-opacity-20 flex items-center justify-center text-sm font-mono text-[var(--gold)]">
-        {question.questionNumber}
+    <div className="flex items-start gap-4 rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--surface-raised)] p-4">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-ds bg-[var(--accent-soft)] font-mono text-sm font-semibold text-[var(--accent-text)]">
+        {String(question.questionNumber).padStart(2, '0')}
       </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-[var(--foreground)] mb-1">{question.text_de}</p>
-        <p className="text-sm text-[var(--gold)]">→ {question.answer_de}</p>
+      <div className="min-w-0 flex-1">
+        <p className="mb-1 font-medium text-[var(--text-strong)]">{question.text_de}</p>
+        <p className="text-sm text-[var(--accent-text)]">→ {question.answer_de}</p>
         {question.question_type === 'estimation' && (
-          <p className="text-xs text-[var(--gold-light)] mt-1">📊 Schätzfrage</p>
+          <div className="mt-1.5">
+            <Badge tone="accent">
+              <BarChart3 className="h-3 w-3" aria-hidden />
+              Schätzfrage
+            </Badge>
+          </div>
         )}
-        <div className="flex items-center gap-3 text-xs text-[var(--muted)] mt-1">
+        <div className="mt-1.5 flex items-center gap-3 text-xs text-[var(--text-muted)]">
           <button
             onClick={report}
             disabled={reported}
-            className="hover:text-orange-400 transition-colors disabled:cursor-default"
-            title="Frage als fehlerhaft melden"
+            className="inline-flex items-center gap-1 transition-colors hover:text-[var(--danger)] disabled:cursor-default disabled:hover:text-[var(--text-muted)]"
+            title={t('reportQuestion')}
           >
-            {reported ? '✓ Gemeldet' : '⚑ Melden'}
+            {reported ? (
+              <>
+                <Check className="h-3 w-3" aria-hidden />
+                {t('reported')}
+              </>
+            ) : (
+              <>
+                <Flag className="h-3 w-3" aria-hidden />
+                {t('reportQuestion')}
+              </>
+            )}
           </button>
         </div>
       </div>
       <button
         onClick={onSwap}
         disabled={swapDisabled}
-        className="flex-shrink-0 px-3 py-2 rounded-lg text-sm border border-[var(--dark-border)] hover:border-[var(--gold)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-        title="Frage tauschen"
+        className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-ds border-[1.5px] border-[var(--border-strong)] bg-[var(--surface-card)] px-3 py-2 text-sm font-medium text-[var(--text-body)] transition-colors hover:bg-[var(--surface-inset)] disabled:cursor-not-allowed disabled:opacity-30"
+        title={t('swap')}
       >
-        🔄 <span className="hidden sm:inline">Tauschen</span>
+        <RefreshCw className={`h-3.5 w-3.5 ${swapDisabled ? 'animate-spin' : ''}`} aria-hidden />
+        <span className="hidden sm:inline">{t('swap')}</span>
       </button>
     </div>
   );

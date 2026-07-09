@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '../globals.css';
+import { fontVariables } from '@/lib/fonts';
 
 export const metadata: Metadata = {
   title: 'PQP Admin',
@@ -12,9 +13,9 @@ export default function AdminRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de">
+    <html lang="de" className={fontVariables}>
       <head />
-      <body className="antialiased min-h-screen">{children}</body>
+      <body className="antialiased min-h-screen admin-legacy">{children}</body>
     </html>
   );
 }

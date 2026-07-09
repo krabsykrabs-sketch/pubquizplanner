@@ -1,7 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { query } from '@/lib/db';
+import Button from '@/components/ds/Button';
+import CategoryTile from '@/components/ds/CategoryTile';
+import { categoryIcon, categoryVisual } from '@/lib/category-visuals';
 import {
   SOURCE_LOCALE,
   localeAlternates,
@@ -180,101 +184,102 @@ export default async function FragenIndexPage({
     <main className="max-w-4xl mx-auto px-6 py-16">
       <JsonLd data={[breadcrumb, collectionPage]} />
 
-      <h1 className="text-4xl md:text-5xl font-bold text-[var(--gold)] mb-6">
+      <h1 className="mb-6 font-display text-4xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-5xl">
         {t('indexTitle')}
       </h1>
 
       {/* Substantial intro */}
-      <div className="space-y-4 text-lg text-[var(--muted)] leading-relaxed max-w-3xl mb-6">
+      <div className="mb-6 max-w-3xl space-y-4 text-lg leading-relaxed text-[var(--text-body)]">
         <p>{t('indexIntro1', { count: roundedCount })}</p>
         <p>{t('indexIntro2', { categoryCount: categories.length })}</p>
         <p>{t('indexIntro3')}</p>
       </div>
 
-      <p className="text-sm text-[var(--muted)] mb-6">
+      <p className="mb-6 font-mono text-sm text-[var(--text-muted)]">
         {t('countLine', { count: totalCount, categoryCount: categories.length })}
       </p>
 
       {/* Category navigation */}
       <nav
-        className="flex gap-2 overflow-x-auto pb-2 mb-12 scrollbar-hide -mx-6 px-6"
+        className="mb-12 flex flex-wrap gap-2"
         aria-label={t('categoriesAria')}
       >
-        {categories.map((cat) => (
-          <Link
-            key={cat.slug}
-            href={`/${locale}/fragen/${cat.slug}`}
-            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium border bg-[var(--dark-card)] border-[var(--dark-border)] text-[var(--muted)] hover:border-[var(--gold)] hover:text-[var(--foreground)] transition-colors shrink-0"
-          >
-            {cat.icon} {cat.name_de}
-          </Link>
-        ))}
+        {categories.map((cat) => {
+          const Icon = categoryIcon(cat.slug);
+          return (
+            <Link
+              key={cat.slug}
+              href={`/${locale}/fragen/${cat.slug}`}
+              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border-[1.5px] border-[var(--border-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm font-medium text-[var(--text-body)] transition-colors hover:bg-[var(--surface-inset)] hover:text-[var(--text-strong)]"
+            >
+              <Icon className="h-4 w-4" aria-hidden /> {cat.name_de}
+            </Link>
+          );
+        })}
       </nav>
 
       {/* Category grid */}
-      <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)] mb-6">
+      <h2 className="mb-6 font-display text-2xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-3xl">
         {t('gridHeading')}
       </h2>
-      <div className="grid sm:grid-cols-2 gap-4 mb-16">
+      <div className="mb-16 grid gap-4 sm:grid-cols-2">
         {categories.map((cat) => (
-          <Link
+          <CategoryTile
             key={cat.slug}
+            title={cat.name_de}
+            subtitle={t('questionsLabel', { count: cat.count })}
+            image={categoryVisual(cat.slug)?.background}
             href={`/${locale}/fragen/${cat.slug}`}
-            className="flex items-center gap-4 bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl p-5 hover:border-[var(--gold)] transition-colors group"
-          >
-            <span className="text-3xl">{cat.icon}</span>
-            <div className="flex-1">
-              <h3 className="text-lg font-bold group-hover:text-[var(--gold)] transition-colors">
-                {cat.name_de}
-              </h3>
-              <p className="text-sm text-[var(--muted)]">
-                {t('questionsLabel', { count: cat.count })}
-              </p>
-            </div>
-            <span className="text-[var(--muted)] group-hover:text-[var(--gold)] transition-colors">
-              &rarr;
-            </span>
-          </Link>
+            ratio="4 / 3"
+          />
         ))}
       </div>
 
       {/* Sample questions per category */}
-      <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)] mb-2">
+      <h2 className="mb-2 font-display text-2xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-3xl">
         {t('samplesHeading')}
       </h2>
-      <p className="text-[var(--muted)] mb-8">{t('samplesSubline')}</p>
-      <div className="space-y-10 mb-16">
+      <p className="mb-8 text-[var(--text-muted)]">{t('samplesSubline')}</p>
+      <div className="mb-16 space-y-10">
         {categories.map((cat) => {
           const catSamples = samplesByCategory.get(cat.slug) ?? [];
           if (catSamples.length === 0) return null;
+          const Icon = categoryIcon(cat.slug);
           return (
             <section key={cat.slug}>
-              <h3 className="text-lg font-bold mb-3">
-                {cat.icon} {cat.name_de}
+              <h3 className="mb-3 flex items-center gap-2.5 font-display text-lg font-bold text-[var(--text-strong)]">
+                <span className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-ds bg-[var(--accent-soft)] text-[var(--accent-text)]">
+                  <Icon className="h-4 w-4" aria-hidden />
+                </span>
+                {cat.name_de}
               </h3>
               <div className="space-y-2">
                 {catSamples.map((q, i) => (
                   <details
                     key={i}
-                    className="group bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl overflow-hidden"
+                    className="group overflow-hidden rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--surface-card)]"
                   >
-                    <summary className="flex items-start gap-3 p-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden select-none">
-                      <span className="flex-1 text-[var(--foreground)]">{q.text_de}</span>
-                      <span className="shrink-0 text-[var(--muted)] group-open:rotate-180 transition-transform text-xs">
-                        ▼
-                      </span>
+                    <summary className="flex cursor-pointer select-none list-none items-start gap-3 p-4 [&::-webkit-details-marker]:hidden">
+                      <span className="flex-1 text-[var(--text-body)]">{q.text_de}</span>
+                      <ChevronDown
+                        className="mt-1 h-4 w-4 shrink-0 text-[var(--text-faint)] transition-transform group-open:rotate-180"
+                        aria-hidden
+                      />
                     </summary>
-                    <div className="px-4 pb-4 pt-1 border-t border-[var(--dark-border)]">
-                      <p className="text-[var(--gold)] font-medium">&rarr; {q.answer_de}</p>
+                    <div className="border-t border-[var(--border-subtle)] px-4 pb-4 pt-3">
+                      <p className="font-medium text-[var(--accent-text)]">
+                        &rarr; {q.answer_de}
+                      </p>
                     </div>
                   </details>
                 ))}
               </div>
               <Link
                 href={`/${locale}/fragen/${cat.slug}`}
-                className="inline-block mt-3 text-sm text-[var(--gold)] hover:text-[var(--gold-light)] transition-colors"
+                className="mt-3 inline-flex items-center gap-[7px] text-sm font-semibold text-[var(--link)] no-underline transition-colors hover:text-[var(--link-hover)]"
               >
-                {t('sampleMoreLink', { count: cat.count, name: cat.name_de })} &rarr;
+                {t('sampleMoreLink', { count: cat.count, name: cat.name_de })}
+                <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </section>
           );
@@ -282,19 +287,33 @@ export default async function FragenIndexPage({
       </div>
 
       {/* Create your own quiz */}
-      <section className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl p-8 text-center">
-        <h2 className="text-2xl font-bold text-[var(--gold)] mb-3">
-          {t('createHeading')}
-        </h2>
-        <p className="text-[var(--muted)] mb-6 max-w-xl mx-auto">
-          {t('createText')}
-        </p>
-        <Link
-          href={`/${locale}/generator`}
-          className="inline-flex items-center gap-2 bg-[var(--gold)] text-[var(--background)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
-        >
-          {t('ctaButton')} &rarr;
-        </Link>
+      <section
+        data-theme="dark"
+        className="relative overflow-hidden rounded-ds-xl bg-[var(--night-800)] p-8 text-center"
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(60% 120% at 50% 0%, rgba(217,110,42,0.22), transparent 60%)',
+          }}
+        />
+        <div className="relative">
+          <h2 className="mb-3 font-display text-2xl font-extrabold tracking-[-0.02em] text-white">
+            {t('createHeading')}
+          </h2>
+          <p className="mx-auto mb-6 max-w-xl text-[var(--text-body)]">
+            {t('createText')}
+          </p>
+          <Button
+            size="lg"
+            href={`/${locale}/generator`}
+            iconRight={<ArrowRight className="h-5 w-5" aria-hidden />}
+          >
+            {t('ctaButton')}
+          </Button>
+        </div>
       </section>
     </main>
   );

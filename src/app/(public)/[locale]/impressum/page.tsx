@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export default function ImpressumPage({
   params: { locale },
@@ -6,12 +7,14 @@ export default function ImpressumPage({
   params: { locale: string };
 }) {
   return (
-    <main className="max-w-2xl mx-auto px-6 py-16">
-      <h1 className="text-3xl font-bold text-[var(--gold)] mb-8">Impressum</h1>
+    <main className="mx-auto max-w-container-narrow px-6 py-16">
+      <h1 className="mb-8 font-display text-3xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">
+        Impressum
+      </h1>
 
-      <div className="space-y-8 text-sm text-[var(--muted)] leading-relaxed">
+      <div className="space-y-8 text-sm leading-relaxed text-[var(--text-body)]">
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">Angaben gemäß § 5 TMG</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">Angaben gemäß § 5 TMG</h2>
           <p>Jan Ahrens</p>
           <p>C/Gombau 14 3-2</p>
           <p>Barcelona, Spanien</p>
@@ -20,7 +23,7 @@ export default function ImpressumPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">Haftung für Inhalte</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">Haftung für Inhalte</h2>
           <p>
             Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen
             Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir
@@ -38,7 +41,7 @@ export default function ImpressumPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">Haftung für Links</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">Haftung für Links</h2>
           <p>
             Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir
             keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine
@@ -55,7 +58,7 @@ export default function ImpressumPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">Urheberrecht</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">Urheberrecht</h2>
           <p>
             Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
             unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
@@ -73,7 +76,7 @@ export default function ImpressumPage({
           </p>
         </section>
 
-        <section className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl p-5">
+        <section className="rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--bg-sunken)] p-5">
           <p>
             Diese Website verwendet keine Cookies und erhebt keine personenbezogenen Daten.
           </p>
@@ -81,9 +84,10 @@ export default function ImpressumPage({
 
         <Link
           href={`/${locale}`}
-          className="inline-block text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+          className="inline-flex items-center gap-[7px] text-sm font-semibold text-[var(--link)] no-underline transition-colors hover:text-[var(--link-hover)]"
         >
-          ← Zurück zur Startseite
+          <ArrowLeft className="h-4 w-4" aria-hidden />
+          Zurück zur Startseite
         </Link>
       </div>
     </main>

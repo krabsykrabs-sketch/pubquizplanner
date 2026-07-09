@@ -1,46 +1,151 @@
-import Link from 'next/link';
+import { Dices, SlidersHorizontal, Zap } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import { HERO_BACKGROUND_IMAGE } from '@/config/hero-background';
+import Badge from '@/components/ds/Badge';
+import Button from '@/components/ds/Button';
+import CategoryTile from '@/components/ds/CategoryTile';
+import { LOCALE_LABELS, LOCALES } from '@/config/locales';
+import { categoryVisual } from '@/lib/category-visuals';
+import type { CategoryChip } from './types';
 
-// Hero: value prop + the two primary CTAs into the generator. No dynamic data.
-export default async function LandingHero({ locale }: { locale: string }) {
-  const t = await getTranslations('landing');
+// Four subjects staged as rounds of a night; the square standalone
+// illustrations read best on the square hero tiles. Falls back to the first
+// available categories when a pick doesn't clear the visibility threshold.
+const HERO_PICKS = ['kunst-kultur', 'essen-trinken', 'logik-mathe', 'geschichte'];
 
-  // Dark overlay baked into the style so the background artwork doesn't need to
-  // guarantee text contrast itself — see LANDING_DESIGN_PROMPTS.md.
-  const heroStyle = HERO_BACKGROUND_IMAGE
-    ? {
-        backgroundImage: `linear-gradient(rgba(6, 6, 10, 0.72), rgba(6, 6, 10, 0.72)), url(${HERO_BACKGROUND_IMAGE})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }
-    : undefined;
+/** Decorative pub ambience: string lights across the top. */
+function StringLights() {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 1400 200"
+      preserveAspectRatio="none"
+      className="absolute left-0 top-0 h-[190px] w-full text-[var(--amber-400)] opacity-[0.09]"
+    >
+      <path
+        d="M0 26 Q175 96 350 40 T700 40 T1050 40 T1400 30"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <g fill="currentColor">
+        <circle cx="88" cy="66" r="4" />
+        <circle cx="262" cy="70" r="4" />
+        <circle cx="436" cy="44" r="4" />
+        <circle cx="610" cy="66" r="4" />
+        <circle cx="786" cy="44" r="4" />
+        <circle cx="960" cy="66" r="4" />
+        <circle cx="1136" cy="44" r="4" />
+        <circle cx="1310" cy="52" r="4" />
+      </g>
+    </svg>
+  );
+}
+
+export default async function LandingHero({
+  locale,
+  categories,
+}: {
+  locale: string;
+  categories: CategoryChip[];
+}) {
+  const t = await getTranslations({ locale, namespace: 'landing' });
+
+  const bySlug = new Map(categories.map((c) => [c.slug, c]));
+  const picks = HERO_PICKS.map((slug) => bySlug.get(slug)).filter(
+    (c): c is CategoryChip => !!c
+  );
+  for (const c of categories) {
+    if (picks.length >= 4) break;
+    if (!picks.includes(c)) picks.push(c);
+  }
+  const heroTiles = picks.slice(0, 4).map((c, i) => ({
+    chip: c,
+    visual: categoryVisual(c.slug),
+    offset: i % 2 === 1,
+  }));
 
   return (
     <section
-      style={heroStyle}
-      className="flex flex-col items-center justify-center min-h-[60vh] px-6 text-center"
+      id="top"
+      data-theme="dark"
+      className="relative overflow-hidden bg-[var(--night-900)] text-[var(--text-strong)]"
     >
-      <div className="text-6xl mb-8">🧠</div>
-      <h1 className="text-5xl md:text-7xl font-black text-[var(--gold)] mb-6 text-balance">
-        {t('hero')}
-      </h1>
-      <p className="text-xl md:text-2xl text-[var(--muted)] mb-10 max-w-2xl">
-        {t('subtitle')}
-      </p>
-      <div className="flex flex-col sm:flex-row items-center gap-4">
-        <Link
-          href={`/${locale}/generator`}
-          className="inline-flex items-center gap-3 bg-[var(--gold)] text-[var(--background)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
-        >
-          {t('cta')} →
-        </Link>
-        <Link
-          href={`/${locale}/generator?quick=1`}
-          className="inline-flex items-center gap-3 border-2 border-[var(--gold)] text-[var(--gold)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors"
-        >
-          🎲 {t('quickStart')}
-        </Link>
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(78% 88% at 82% 8%, rgba(217,110,42,0.28), transparent 58%)',
+        }}
+      />
+      <StringLights />
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 h-[3px] w-[46%] opacity-50"
+        style={{ background: 'linear-gradient(90deg, rgba(217,110,42,0.12), transparent)' }}
+      />
+
+      <div className="relative mx-auto grid max-w-container grid-cols-1 items-center gap-10 px-6 py-[60px] nav:grid-cols-[1.05fr_0.95fr] nav:gap-14 nav:py-[92px]">
+        <div>
+          <div className="mb-[22px] inline-flex">
+            <Badge tone="accent">{t('badge')}</Badge>
+          </div>
+          <h1 className="m-0 font-display text-[clamp(3rem,6vw+1rem,4.75rem)] font-extrabold leading-[1.02] tracking-[-0.03em] text-white">
+            {t('heroTitle1')}
+            <br />
+            {t('heroTitle2')}
+          </h1>
+          <p className="mb-[34px] mt-6 max-w-[47ch] text-[1.1875rem] leading-[1.6] text-[var(--text-body)]">
+            {t('heroLead')}
+          </p>
+          <div className="flex flex-wrap items-center gap-3.5">
+            <Button
+              size="lg"
+              href={`/${locale}/generator?quick=1`}
+              iconLeft={<Dices className="h-5 w-5" aria-hidden />}
+            >
+              {t('ctaPrimary')}
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              href={`/${locale}/generator`}
+              iconLeft={<SlidersHorizontal className="h-5 w-5" aria-hidden />}
+            >
+              {t('ctaSecondary')}
+            </Button>
+          </div>
+          <div className="mt-[18px] flex items-center gap-2 text-[0.9rem] text-[var(--text-muted)]">
+            <Zap className="h-4 w-4 text-[var(--accent)]" aria-hidden />
+            {t('reassurance')}
+          </div>
+          <div className="mt-[34px] flex flex-wrap gap-4">
+            {LOCALES.map((l) => (
+              <span
+                key={l}
+                className="font-mono text-[0.72rem] tracking-[0.06em] text-[var(--text-muted)]"
+              >
+                {LOCALE_LABELS[l] ?? l}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {heroTiles.length === 4 && (
+          <div className="grid grid-cols-2 gap-4">
+            {heroTiles.map(({ chip, visual, offset }, i) => (
+              <CategoryTile
+                key={chip.slug}
+                title={chip.name_de}
+                subtitle={t('roundLabel', { n: i + 1 })}
+                image={visual?.iconArt}
+                ratio="1 / 1"
+                size="sm"
+                className={offset ? 'mt-7' : ''}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

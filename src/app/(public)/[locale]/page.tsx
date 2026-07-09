@@ -13,6 +13,7 @@ import CategorySection from '@/components/landing/CategorySection';
 import SampleQuestions from '@/components/landing/SampleQuestions';
 import HowItWorks from '@/components/landing/HowItWorks';
 import DemoQuiz from '@/components/landing/DemoQuiz';
+import CtaBand from '@/components/landing/CtaBand';
 import { isDemoStorageReady } from '@/lib/demo-deck';
 import type { CategoryChip, SampleQuestion } from '@/components/landing/types';
 
@@ -57,7 +58,7 @@ async function getLandingData(locale: string) {
         ),
     translated
       ? query<CategoryChip>(
-          `SELECT c.slug, ct.name AS name_de, c.icon
+          `SELECT c.slug, ct.name AS name_de, c.icon, COUNT(q.id)::int AS question_count
            FROM categories c
            JOIN category_translations ct ON ct.category_id = c.id AND ct.locale = $2
            JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
@@ -69,7 +70,7 @@ async function getLandingData(locale: string) {
           [MIN_QUESTIONS, locale]
         )
       : query<CategoryChip>(
-          `SELECT c.slug, c.name_de, c.icon
+          `SELECT c.slug, c.name_de, c.icon, COUNT(q.id)::int AS question_count
            FROM categories c
            JOIN questions q ON q.category_id = c.id AND q.status = 'approved'
            GROUP BY c.id
@@ -80,7 +81,7 @@ async function getLandingData(locale: string) {
     translated
       ? query<SampleQuestion>(
           `SELECT t.text AS text_de, t.answer AS answer_de, t.fun_fact AS fun_fact_de,
-                  ct.name AS category_name_de, c.icon AS category_icon
+                  ct.name AS category_name_de, c.icon AS category_icon, c.slug AS category_slug
            FROM questions q
            JOIN question_translations t ON t.question_id = q.id
              AND t.locale = $1 AND t.status IN ('machine', 'reviewed')
@@ -93,7 +94,7 @@ async function getLandingData(locale: string) {
         )
       : query<SampleQuestion>(
           `SELECT q.text_de, q.answer_de, q.fun_fact_de,
-                  c.name_de as category_name_de, c.icon as category_icon
+                  c.name_de as category_name_de, c.icon as category_icon, c.slug AS category_slug
            FROM questions q
            JOIN categories c ON c.id = q.category_id
            WHERE q.status = 'approved' AND q.fun_fact_de IS NOT NULL
@@ -133,8 +134,8 @@ export default async function LandingPage({
 
   return (
     <main className="min-h-screen">
-      <LandingHero locale={locale} />
-      {demoReady && <DemoQuiz locale={locale} />}
+      <LandingHero locale={locale} categories={categories} />
+      <DemoQuiz locale={locale} demoReady={demoReady} />
       <CategorySection
         locale={locale}
         categories={categories}
@@ -142,6 +143,7 @@ export default async function LandingPage({
       />
       <SampleQuestions questions={sampleQuestions} />
       <HowItWorks />
+      <CtaBand locale={locale} />
     </main>
   );
 }

@@ -8,6 +8,8 @@ export interface OutputStrings {
   questions: string;
   goodLuck: string;
   keysHint: string;
+  // Extra key hint appended to keysHint only when the countdown is enabled.
+  timerKeyHint: string;
   halftime: string;
   halftimeSub: string;
   resolution: string;
@@ -36,7 +38,8 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     questions: 'Fragen',
     goodLuck: 'Viel Spaß und gutes Gelingen!',
     keysHint:
-      'Tasten: → / Leertaste weiter &nbsp;·&nbsp; ← zurück &nbsp;·&nbsp; T 30s-Timer &nbsp;·&nbsp; F Vollbild',
+      'Tasten: → / Leertaste weiter &nbsp;·&nbsp; ← zurück &nbsp;·&nbsp; F Vollbild',
+    timerKeyHint: 'T Timer Start/Pause',
     halftime: 'Halbzeit!',
     halftimeSub: 'Zeit für ein Getränk',
     resolution: 'Auflösung',
@@ -62,7 +65,8 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     questions: 'vragen',
     goodLuck: 'Veel plezier en succes!',
     keysHint:
-      'Toetsen: → / spatie verder &nbsp;·&nbsp; ← terug &nbsp;·&nbsp; T 30s-timer &nbsp;·&nbsp; F volledig scherm',
+      'Toetsen: → / spatie verder &nbsp;·&nbsp; ← terug &nbsp;·&nbsp; F volledig scherm',
+    timerKeyHint: 'T timer start/pauze',
     halftime: 'Pauze!',
     halftimeSub: 'Tijd voor een drankje',
     resolution: 'De antwoorden',
@@ -88,7 +92,8 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     questions: 'Pytań',
     goodLuck: 'Dobrej zabawy i powodzenia!',
     keysHint:
-      'Klawisze: → / spacja dalej &nbsp;·&nbsp; ← wstecz &nbsp;·&nbsp; T timer 30 s &nbsp;·&nbsp; F pełny ekran',
+      'Klawisze: → / spacja dalej &nbsp;·&nbsp; ← wstecz &nbsp;·&nbsp; F pełny ekran',
+    timerKeyHint: 'T start/pauza timera',
     halftime: 'Połowa za nami!',
     halftimeSub: 'Czas na coś do picia',
     resolution: 'Rozwiązanie',
@@ -114,7 +119,8 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     questions: 'Frågor',
     goodLuck: 'Lycka till och ha så kul!',
     keysHint:
-      'Tangenter: → / mellanslag nästa &nbsp;·&nbsp; ← tillbaka &nbsp;·&nbsp; T 30s-timer &nbsp;·&nbsp; F helskärm',
+      'Tangenter: → / mellanslag nästa &nbsp;·&nbsp; ← tillbaka &nbsp;·&nbsp; F helskärm',
+    timerKeyHint: 'T timer start/paus',
     halftime: 'Halvlek!',
     halftimeSub: 'Dags att hämta något att dricka',
     resolution: 'Facit',

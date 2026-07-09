@@ -2,9 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* ============================================================
+ * PubQuizPlanner design system — "The Marquee"
+ * Warm off-white for app/marketing, deep warm near-black for
+ * slides/dark sections, one burnt-amber accent across both.
+ * Fonts (--font-display/--font-body/--font-mono) are injected
+ * by next/font in the layouts (src/lib/fonts.ts).
+ * ============================================================ */
 
 :root {
+  /* --- Warm neutral ramp (paper → ink). Brown-tinted, never cold grey. --- */
+  --warm-50:  #FBF7F0;
+  --warm-100: #F4EDE1;
+  --warm-200: #E8DCCB;
+  --warm-300: #D5C7B0;
+  --warm-400: #B4A488;
+  --warm-500: #8B7B63;
+  --warm-600: #6A5C47;
+  --warm-700: #4A3E30;
+  --warm-800: #2D261D;
+  --warm-900: #1B1611;
+
+  /* --- Burnt amber (primary accent) --- */
+  --amber-300: #F0A867;
+  --amber-400: #E88A45;
+  --amber-500: #D96E2A;
+  --amber-600: #BE5A1C;
+  --amber-700: #984515;
+
+  /* --- Deep warm surfaces for slides / dark sections --- */
+  --night-900: #16110D;
+  --night-800: #1D1712;
+  --night-700: #261E17;
+  --night-600: #33291F;
+
+  /* --- Semantic accents (muted, warm-leaning; never the only signal) --- */
+  --green-500: #5B7F4E;
+  --green-600: #46653C;
+  --red-500:   #C24A2E;
+  --red-600:   #A03A22;
+
+  /* ============ Semantic aliases — LIGHT (app / marketing) ============ */
+  --bg-page:        var(--warm-50);
+  --bg-sunken:      var(--warm-100);
+  --surface-card:   #FFFFFF;
+  --surface-raised: var(--warm-50);
+  --surface-inset:  var(--warm-100);
+
+  --border-subtle:  var(--warm-200);
+  --border-strong:  var(--warm-300);
+  --border-focus:   var(--amber-500);
+
+  --text-strong:    var(--warm-900);
+  --text-body:      var(--warm-800);
+  --text-muted:     var(--warm-600);
+  --text-faint:     var(--warm-500);
+  --text-on-accent: var(--warm-50);
+
+  --accent:         var(--amber-500);
+  --accent-hover:   var(--amber-600);
+  --accent-soft:    #F7E4D2;
+  --accent-text:    var(--amber-700);
+
+  --success:        var(--green-500);
+  --success-soft:   #E4EBDD;
+  --danger:         var(--red-500);
+  --danger-soft:    #F4E0D9;
+
+  --link:       var(--amber-700);
+  --link-hover: var(--amber-600);
+
+  /* ============ Effects ============ */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   18px;
+  --radius-full: 999px;
+
+  --shadow-sm:  0 1px 2px rgba(43, 33, 22, 0.06);
+  --shadow-md:  0 2px 8px rgba(43, 33, 22, 0.08), 0 1px 2px rgba(43, 33, 22, 0.05);
+  --shadow-lg:  0 8px 28px rgba(43, 33, 22, 0.12), 0 2px 6px rgba(43, 33, 22, 0.06);
+  --shadow-xl:  0 20px 50px rgba(43, 33, 22, 0.16);
+  --ring: 0 0 0 3px rgba(217, 110, 42, 0.32);
+
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.25, 1);
+  --dur-fast: 120ms;
+  --dur:      200ms;
+  --dur-slow: 340ms;
+
+  /* Image-frame treatment: consistent vignette + amber grade that ties
+     every category image into one family. Layer over any <img>. */
+  --image-vignette: linear-gradient(180deg, rgba(22,17,13,0) 38%, rgba(22,17,13,0.78) 100%);
+  --image-grade:    linear-gradient(160deg, rgba(217,110,42,0.10), rgba(22,17,13,0.10));
+
+  /* ============ Layout ============ */
+  --container: 1200px;
+  --container-narrow: 760px;
+
+  /* ============ Legacy tokens (admin area only — do not use in new code) ============ */
   --background: #0a0a0f;
   --foreground: #e8e4dc;
   --gold: #d4a843;
@@ -14,14 +110,54 @@
   --dark-border: #2a2a30;
 }
 
+/* ============ Semantic aliases — DARK sections / slides ============
+ * Apply via data-theme="dark" on any ancestor; components need no changes. */
+[data-theme='dark'] {
+  --bg-page:        var(--night-900);
+  --bg-sunken:      var(--night-900);
+  --surface-card:   var(--night-800);
+  --surface-raised: var(--night-700);
+  --surface-inset:  var(--night-900);
+
+  --border-subtle:  var(--night-600);
+  --border-strong:  #46372A;
+  --border-focus:   var(--amber-400);
+
+  --text-strong:    var(--warm-50);
+  --text-body:      #EADFCF;
+  --text-muted:     #B4A488;
+  --text-faint:     #8B7B63;
+  --text-on-accent: var(--warm-900);
+
+  --accent:         var(--amber-400);
+  --accent-hover:   var(--amber-300);
+  --accent-soft:    #33291F;
+  --accent-text:    var(--amber-300);
+
+  --success:        #7FA06E;
+  --success-soft:   #26301F;
+  --danger:         #D9694B;
+  --danger-soft:    #34201A;
+
+  --link:       var(--amber-300);
+  --link-hover: var(--amber-400);
+}
+
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-body), 'Hanken Grotesk', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display), 'Archivo', system-ui, sans-serif;
+}
+
+/* Admin area keeps the legacy dark look (scoped via body class in its layout). */
+body.admin-legacy {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 @layer utilities {
@@ -35,4 +171,14 @@ h1, h2, h3 {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* Quiet motion for dialogs — fades + short slides, no bounce. */
+@keyframes pqp-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pqp-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }

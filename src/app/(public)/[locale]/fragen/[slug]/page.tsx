@@ -2,9 +2,12 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { ArrowLeft, ArrowRight, Download } from 'lucide-react';
 import { query, queryOne } from '@/lib/db';
 import { getCategoryIntro } from '@/lib/category-intros';
 import { getCategorySeoName } from '@/lib/category-seo';
+import Button from '@/components/ds/Button';
+import { categoryIcon } from '@/lib/category-visuals';
 import {
   SOURCE_LOCALE,
   LOCALES,
@@ -188,6 +191,8 @@ export default async function CategoryQuestionsPage({
 
   const categoryUrl = `${BASE_URL}/${locale}/fragen/${slug}`;
 
+  const HeroIcon = categoryIcon(slug);
+
   // Mark up exactly the Q&A pairs rendered below (QuestionList shows every
   // question with its answer in an expandable panel) — nothing off-page.
   const breadcrumb = breadcrumbSchema([
@@ -205,97 +210,120 @@ export default async function CategoryQuestionsPage({
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
       <JsonLd data={[breadcrumb, questionItemList, faqPage]} />
-      <h1 className="text-4xl md:text-5xl font-bold text-[var(--gold)] mb-6">
-        {category.icon} {t('categoryTitle', { name: category.name_de })}
+      <h1 className="mb-6 flex items-center gap-3.5 font-display text-4xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-5xl">
+        <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-ds-lg bg-[var(--accent-soft)] text-[var(--accent-text)]">
+          <HeroIcon className="h-6 w-6" aria-hidden />
+        </span>
+        {t('categoryTitle', { name: category.name_de })}
       </h1>
 
-      <p className="text-lg text-[var(--muted)] mb-6 leading-relaxed">
+      <p className="mb-6 text-lg leading-relaxed text-[var(--text-body)]">
         {intro}
       </p>
 
       {/* Category navigation */}
       <nav
-        className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide -mx-6 px-6"
+        className="mb-6 flex flex-wrap gap-2"
         aria-label={t('categoriesAria')}
       >
         {allCategories.map((cat) => {
           const isCurrent = cat.slug === slug;
+          const Icon = categoryIcon(cat.slug);
           return (
             <Link
               key={cat.slug}
               href={`/${locale}/fragen/${cat.slug}`}
-              className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium border transition-colors shrink-0 ${
+              className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border-[1.5px] px-4 py-2 text-sm font-medium transition-colors ${
                 isCurrent
-                  ? 'bg-[var(--gold)] text-[var(--background)] border-[var(--gold)]'
-                  : 'bg-[var(--dark-card)] border-[var(--dark-border)] text-[var(--muted)] hover:border-[var(--gold)] hover:text-[var(--foreground)]'
+                  ? 'border-transparent bg-[var(--accent)] text-[var(--text-on-accent)]'
+                  : 'border-[var(--border-strong)] bg-[var(--surface-card)] text-[var(--text-body)] hover:bg-[var(--surface-inset)] hover:text-[var(--text-strong)]'
               }`}
               aria-current={isCurrent ? 'page' : undefined}
             >
-              {cat.icon} {cat.name_de}
+              <Icon className="h-4 w-4" aria-hidden /> {cat.name_de}
             </Link>
           );
         })}
       </nav>
 
-      <div className="flex flex-wrap items-center gap-3 mb-4">
-        <div className="inline-block bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-4 py-2 text-sm text-[var(--muted)]">
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <div className="inline-flex items-center rounded-ds border border-[var(--border-subtle)] bg-[var(--bg-sunken)] px-4 py-2 font-mono text-sm text-[var(--text-muted)]">
           {t('questionsAvailable', { count: category.count })}
         </div>
         <a
           href={`/api/fragen/${slug}/pdf?locale=${locale}`}
-          className="inline-flex items-center gap-2 bg-[var(--dark-card)] border border-[var(--gold)] text-[var(--gold)] rounded-lg px-4 py-2 text-sm font-medium hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors"
+          className="inline-flex min-h-[40px] items-center justify-center gap-2 rounded-ds border-[1.5px] border-[var(--border-strong)] bg-[var(--surface-card)] px-[18px] py-[9px] font-sans text-[0.9375rem] font-semibold leading-none tracking-[0.01em] text-[var(--text-strong)] no-underline transition-colors hover:bg-[var(--surface-inset)]"
         >
-          📄 {t('pdfButton')}
+          <Download className="h-4 w-4" aria-hidden /> {t('pdfButton')}
         </a>
       </div>
-      <p className="text-sm text-[var(--muted)] mb-8">
+      <p className="mb-8 text-sm text-[var(--text-muted)]">
         {t('pdfHint', { count: category.count })}
       </p>
 
       <QuestionList questions={questions} locale={locale} />
 
       {/* Bottom CTA */}
-      <section className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl p-8 text-center mt-12 mb-12">
-        <h2 className="text-2xl font-bold text-[var(--gold)] mb-3">
-          {t('ctaTitleCategory')}
-        </h2>
-        <p className="text-[var(--muted)] mb-6 max-w-xl mx-auto">
-          {t('ctaTextCategory')}
-        </p>
-        <Link
-          href={`/${locale}/generator`}
-          className="inline-flex items-center gap-2 bg-[var(--gold)] text-[var(--background)] px-8 py-4 rounded-xl text-lg font-bold hover:bg-[var(--gold-light)] transition-colors"
-        >
-          {t('ctaButton')} &rarr;
-        </Link>
+      <section
+        data-theme="dark"
+        className="relative mb-12 mt-12 overflow-hidden rounded-ds-xl bg-[var(--night-800)] p-8 text-center"
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(60% 120% at 50% 0%, rgba(217,110,42,0.22), transparent 60%)',
+          }}
+        />
+        <div className="relative">
+          <h2 className="mb-3 font-display text-2xl font-extrabold tracking-[-0.02em] text-white">
+            {t('ctaTitleCategory')}
+          </h2>
+          <p className="mx-auto mb-6 max-w-xl text-[var(--text-body)]">
+            {t('ctaTextCategory')}
+          </p>
+          <Button
+            size="lg"
+            href={`/${locale}/generator`}
+            iconRight={<ArrowRight className="h-5 w-5" aria-hidden />}
+          >
+            {t('ctaButton')}
+          </Button>
+        </div>
       </section>
 
       {/* Related categories */}
       {allCategories.filter((c) => c.slug !== slug).length > 0 && (
         <section className="mb-8">
-          <h2 className="text-xl font-bold text-[var(--foreground)] mb-4">
+          <h2 className="mb-4 font-display text-xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">
             {t('moreCategories')}
           </h2>
           <div className="flex flex-wrap gap-3">
-            {allCategories.filter((c) => c.slug !== slug).map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/${locale}/fragen/${cat.slug}`}
-                className="inline-flex items-center gap-2 bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-4 py-2 text-sm hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
-              >
-                {cat.icon} {cat.name_de}
-                <span className="text-[var(--muted)]">({cat.count})</span>
-              </Link>
-            ))}
+            {allCategories.filter((c) => c.slug !== slug).map((cat) => {
+              const Icon = categoryIcon(cat.slug);
+              return (
+                <Link
+                  key={cat.slug}
+                  href={`/${locale}/fragen/${cat.slug}`}
+                  className="inline-flex items-center gap-2 rounded-ds border border-[var(--border-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm text-[var(--text-body)] transition-colors hover:bg-[var(--surface-inset)] hover:text-[var(--text-strong)]"
+                >
+                  <Icon className="h-4 w-4 text-[var(--accent-text)]" aria-hidden />
+                  {cat.name_de}
+                  <span className="font-mono text-[var(--text-faint)]">({cat.count})</span>
+                </Link>
+              );
+            })}
           </div>
         </section>
       )}
 
       <Link
         href={`/${locale}/fragen`}
-        className="inline-block text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+        className="inline-flex items-center gap-[7px] text-sm font-semibold text-[var(--link)] no-underline transition-colors hover:text-[var(--link-hover)]"
       >
-        &larr; {t('allQuestionsAnchor')}
+        <ArrowLeft className="h-4 w-4" aria-hidden />
+        {t('allQuestionsAnchor')}
       </Link>
     </main>
   );

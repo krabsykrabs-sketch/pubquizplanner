@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export default function DatenschutzPage({
   params: { locale },
@@ -6,12 +7,14 @@ export default function DatenschutzPage({
   params: { locale: string };
 }) {
   return (
-    <main className="max-w-2xl mx-auto px-6 py-16">
-      <h1 className="text-3xl font-bold text-[var(--gold)] mb-8">Datenschutzerklärung</h1>
+    <main className="mx-auto max-w-container-narrow px-6 py-16">
+      <h1 className="mb-8 font-display text-3xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">
+        Datenschutzerklärung
+      </h1>
 
-      <div className="space-y-8 text-sm text-[var(--muted)] leading-relaxed">
+      <div className="space-y-8 text-sm leading-relaxed text-[var(--text-body)]">
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">1. Verantwortlicher</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">1. Verantwortlicher</h2>
           <p>Jan Ahrens</p>
           <p>C/Gombau 14 3-2</p>
           <p>Barcelona, Spanien</p>
@@ -19,7 +22,7 @@ export default function DatenschutzPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">2. Allgemeine Hinweise</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">2. Allgemeine Hinweise</h2>
           <p>
             Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Diese Datenschutzerklärung
             informiert Sie darüber, welche Daten beim Besuch dieser Website erhoben werden und
@@ -29,9 +32,9 @@ export default function DatenschutzPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">3. Keine Erhebung personenbezogener Daten</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">3. Keine Erhebung personenbezogener Daten</h2>
           <p>
-            Diese Website erhebt, speichert und verarbeitet <strong className="text-[var(--foreground)]">keine
+            Diese Website erhebt, speichert und verarbeitet <strong className="text-[var(--text-strong)]">keine
             personenbezogenen Daten</strong> ihrer Besucher. Im Einzelnen bedeutet das:
           </p>
           <ul className="list-disc list-inside mt-2 space-y-1">
@@ -44,7 +47,7 @@ export default function DatenschutzPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">4. Quiz-Generierung</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">4. Quiz-Generierung</h2>
           <p>
             Die Quiz-Generierung auf dieser Website erfolgt ohne Anmeldung und ohne Speicherung
             von Nutzerdaten. Die ausgewählten Fragen werden direkt aus einer Datenbank abgerufen.
@@ -60,7 +63,7 @@ export default function DatenschutzPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">5. Hosting</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">5. Hosting</h2>
           <p>
             Diese Website wird über Coolify auf Servern von Hetzner Online GmbH in Deutschland
             gehostet. Der Server befindet sich in einem deutschen Rechenzentrum. Im Rahmen des
@@ -76,7 +79,7 @@ export default function DatenschutzPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">6. Ihre Rechte</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">6. Ihre Rechte</h2>
           <p>
             Sie haben gemäß DSGVO folgende Rechte: Auskunft (Art. 15), Berichtigung (Art. 16),
             Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit
@@ -89,7 +92,7 @@ export default function DatenschutzPage({
         </section>
 
         <section>
-          <h2 className="text-lg font-bold text-[var(--foreground)] mb-3">7. Änderungen</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-[var(--text-strong)]">7. Änderungen</h2>
           <p>
             Diese Datenschutzerklärung kann bei Bedarf aktualisiert werden, insbesondere wenn neue
             Funktionen (z.B. Werbeanzeigen) hinzugefügt werden. Die jeweils aktuelle Fassung
@@ -99,9 +102,10 @@ export default function DatenschutzPage({
 
         <Link
           href={`/${locale}`}
-          className="inline-block text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+          className="inline-flex items-center gap-[7px] text-sm font-semibold text-[var(--link)] no-underline transition-colors hover:text-[var(--link-hover)]"
         >
-          ← Zurück zur Startseite
+          <ArrowLeft className="h-4 w-4" aria-hidden />
+          Zurück zur Startseite
         </Link>
       </div>
     </main>

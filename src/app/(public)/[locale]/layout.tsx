@@ -3,8 +3,11 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import SiteFooter from '@/components/SiteFooter';
+import SiteHeader from '@/components/SiteHeader';
 import TrackPageview from '@/components/TrackPageview';
 import { isLocale } from '@/config/locales';
+import { fontVariables } from '@/lib/fonts';
 import { JsonLd, organizationSchema, websiteSchema } from '@/lib/structured-data';
 
 export async function generateMetadata({
@@ -30,48 +33,17 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
 
   const messages = await getMessages();
-  const t = await getTranslations({ locale, namespace: 'footer' });
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={fontVariables}>
       <body className="antialiased min-h-screen flex flex-col">
         {/* Site-wide entities — emitted on every public page */}
         <JsonLd data={[organizationSchema(), websiteSchema(locale)]} />
         <NextIntlClientProvider messages={messages}>
           <TrackPageview />
+          <SiteHeader locale={locale} />
           <div className="flex-1">{children}</div>
-          <footer className="border-t border-[var(--dark-border)] py-8 text-center text-sm text-[var(--muted)]">
-            <p>© {new Date().getFullYear()} PubQuizPlanner · {t('tagline')}</p>
-            <p className="mt-3 text-xs space-x-2">
-              <a
-                href={`/${locale}/fragen`}
-                className="underline hover:text-[var(--foreground)] transition-colors"
-              >
-                {t('questions')}
-              </a>
-              <span>|</span>
-              <a
-                href={`/${locale}/impressum`}
-                className="underline hover:text-[var(--foreground)] transition-colors"
-              >
-                {t('impressum')}
-              </a>
-              <span>|</span>
-              <a
-                href={`/${locale}/datenschutz`}
-                className="underline hover:text-[var(--foreground)] transition-colors"
-              >
-                {t('privacy')}
-              </a>
-              <span>|</span>
-              <a
-                href={`/${locale}/credits`}
-                className="underline hover:text-[var(--foreground)] transition-colors"
-              >
-                Credits
-              </a>
-            </p>
-          </footer>
+          <SiteFooter locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>

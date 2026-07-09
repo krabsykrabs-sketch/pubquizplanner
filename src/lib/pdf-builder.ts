@@ -57,15 +57,17 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
     doc.line(margin, y, margin + contentWidth, y);
     y += 8;
 
-    // Answer lines
-    doc.setFont(FONT, 'normal');
+    // Answer lines — numbers in mono for the brand's "scoreboard" feel
+    // (courier is jsPDF-built-in, so this stays embedded-font-free).
     doc.setFontSize(11);
     round.questions.forEach((q, i) => {
       if (y > doc.internal.pageSize.getHeight() - margin - 10) {
         doc.addPage();
         y = margin;
       }
+      doc.setFont('courier', 'bold');
       doc.text(`${i + 1}.`, margin, y);
+      doc.setFont(FONT, 'normal');
       doc.setLineWidth(0.2);
       doc.line(margin + 8, y, margin + contentWidth - 30, y);
       // Mark estimation questions so teams know to write a number.

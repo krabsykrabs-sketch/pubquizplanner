@@ -62,6 +62,13 @@ export interface QuizConfig {
   // offered — see src/lib/quiz-modes.ts. Optional so decks built before this
   // field (or without an explicit mode) fall back to the default.
   mode?: QuizMode;
+  // Per-question countdown for the presentation deck. 0 / undefined = off
+  // (opt-in). Allowed values: 30 | 45 | 60 | 90 (seconds). The host controls
+  // the timer during the show; it never auto-advances slides.
+  timerSeconds?: number;
+  // Whether the deck's countdown sound is on by default. The host can still
+  // toggle mute live inside the deck. Undefined is treated as true.
+  timerSound?: boolean;
   rounds: RoundConfig[];
 }
 

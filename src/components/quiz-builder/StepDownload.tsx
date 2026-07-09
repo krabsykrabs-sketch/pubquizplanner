@@ -1,11 +1,25 @@
 'use client';
 
+import {
+  ArrowLeft,
+  Calendar,
+  ClipboardList,
+  FileText,
+  Loader2,
+  MapPin,
+  Presentation,
+} from 'lucide-react';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import Button from '@/components/ds/Button';
+import Card from '@/components/ds/Card';
+import Input from '@/components/ds/Input';
+import { categoryIcon } from '@/lib/category-visuals';
 import { getSessionId } from '@/lib/session-id';
 import { getQuizMode, DEFAULT_QUIZ_MODE } from '@/lib/quiz-modes';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
 import ModeSelector from './ModeSelector';
+import TimerSelector from './TimerSelector';
 
 interface RoundQuestions {
   questions: QuizQuestion[];
@@ -74,46 +88,43 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
   // Which outputs the chosen mode offers (e.g. fast mode hides the answer sheet).
   const outputs = getQuizMode(config.mode ?? DEFAULT_QUIZ_MODE).outputs;
 
+  const labelCls = 'mb-1 block text-sm font-medium text-[var(--text-muted)]';
+
   return (
-    <div className="max-w-xl mx-auto space-y-8">
-      <h2 className="text-3xl font-bold text-[var(--gold)]">{t('step2')}</h2>
+    <div className="mx-auto max-w-xl space-y-8">
+      <h2 className="font-display text-[1.75rem] font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">
+        {t('step2')}
+      </h2>
 
       {/* Event details — only needed for the generated files */}
-      <div className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl p-6 space-y-4">
-        <h3 className="font-bold">{t('eventDetails')}</h3>
+      <Card padding="lg" className="space-y-4">
+        <h3 className="font-display text-[1.15rem] font-bold text-[var(--text-strong)]">
+          {t('eventDetails')}
+        </h3>
         <div>
-          <label className="block text-sm text-[var(--muted)] mb-1">
-            {t('quizTitle')}
-          </label>
-          <input
+          <label className={labelCls}>{t('quizTitle')}</label>
+          <Input
             type="text"
             value={config.title}
             onChange={(e) => onChange({ ...config, title: e.target.value })}
             placeholder={t('quizTitleDefault')}
-            className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-4 py-3 text-[var(--foreground)] focus:border-[var(--gold)] focus:outline-none transition-colors"
           />
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm text-[var(--muted)] mb-1">
-              {t('date')}
-            </label>
-            <input
+            <label className={labelCls}>{t('date')}</label>
+            <Input
               type="date"
               value={config.date}
               onChange={(e) => onChange({ ...config, date: e.target.value })}
-              className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-4 py-3 text-[var(--foreground)] focus:border-[var(--gold)] focus:outline-none transition-colors"
             />
           </div>
           <div>
-            <label className="block text-sm text-[var(--muted)] mb-1">
-              {t('venue')}
-            </label>
-            <input
+            <label className={labelCls}>{t('venue')}</label>
+            <Input
               type="text"
               value={config.venue}
               onChange={(e) => onChange({ ...config, venue: e.target.value })}
-              className="w-full bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-4 py-3 text-[var(--foreground)] focus:border-[var(--gold)] focus:outline-none transition-colors"
             />
           </div>
         </div>
@@ -121,86 +132,121 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
           value={config.mode ?? DEFAULT_QUIZ_MODE}
           onChange={(mode) => onChange({ ...config, mode })}
         />
-      </div>
+        <TimerSelector
+          seconds={config.timerSeconds ?? 0}
+          sound={config.timerSound ?? true}
+          onChangeSeconds={(timerSeconds) => onChange({ ...config, timerSeconds })}
+          onChangeSound={(timerSound) => onChange({ ...config, timerSound })}
+        />
+      </Card>
 
       {/* Summary */}
-      <div className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl p-6 space-y-3">
-        <h3 className="font-bold text-lg">{config.title || t('quizTitleDefault')}</h3>
+      <Card padding="lg" elevation="raised" className="space-y-3">
+        <h3 className="font-display text-lg font-bold text-[var(--text-strong)]">
+          {config.title || t('quizTitleDefault')}
+        </h3>
         {config.date && (
-          <p className="text-[var(--muted)] text-sm">📅 {config.date}</p>
+          <p className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)]">
+            <Calendar className="h-4 w-4" aria-hidden />
+            <span className="font-mono">{config.date}</span>
+          </p>
         )}
         {config.venue && (
-          <p className="text-[var(--muted)] text-sm">📍 {config.venue}</p>
+          <p className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+            <MapPin className="h-4 w-4" aria-hidden />
+            {config.venue}
+          </p>
         )}
-        <p className="text-[var(--muted)] text-sm">
-          {config.rounds.length} Runden · {totalQuestions} Fragen
+        <p className="text-sm text-[var(--text-muted)]">
+          <span className="font-mono">{config.rounds.length}</span> Runden ·{' '}
+          <span className="font-mono">{totalQuestions}</span> Fragen
         </p>
-        <div className="space-y-1 pt-2 border-t border-[var(--dark-border)]">
-          {config.rounds.map((round, i) => (
-            <p key={i} className="text-sm">
-              <span className="text-[var(--muted)]">
-                {round.categoryIcon} Runde {i + 1}:
-              </span>{' '}
-              {round.categoryName}{' '}
-              <span className="text-[var(--muted)]">
-                ({roundsData[i]?.questions.length || 0} Fragen)
-              </span>
-            </p>
-          ))}
+        <div className="space-y-1.5 border-t border-[var(--border-subtle)] pt-3">
+          {config.rounds.map((round, i) => {
+            const RoundIcon = categoryIcon(round.categorySlug);
+            return (
+              <p key={i} className="flex items-center gap-2 text-sm">
+                <RoundIcon className="h-4 w-4 flex-none text-[var(--accent-text)]" aria-hidden />
+                <span className="text-[var(--text-muted)]">
+                  Runde <span className="font-mono">{i + 1}</span>:
+                </span>{' '}
+                <span className="text-[var(--text-strong)]">{round.categoryName}</span>
+                <span className="font-mono text-xs text-[var(--text-faint)]">
+                  ({roundsData[i]?.questions.length || 0} Fragen)
+                </span>
+              </p>
+            );
+          })}
         </div>
-      </div>
+      </Card>
 
       {/* Download buttons */}
       <div className="space-y-4">
         {outputs.presentation && (
-          <button
+          <Button
+            size="lg"
+            fullWidth
             onClick={handleDownloadPresentation}
             disabled={generatingPres}
-            className="w-full bg-[var(--gold)] text-[var(--background)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold-light)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+            iconLeft={
+              generatingPres ? (
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
+              ) : (
+                <Presentation className="h-5 w-5" aria-hidden />
+              )
+            }
           >
-            {generatingPres ? (
-              <>⏳ {t('generating')}</>
-            ) : (
-              <>🖥️ {t('downloadPresentation')}</>
-            )}
-          </button>
+            {generatingPres ? t('generating') : t('downloadPresentation')}
+          </Button>
         )}
 
         {outputs.answerSheet && (
-          <button
+          <Button
+            size="lg"
+            fullWidth
+            variant="secondary"
             onClick={handleDownloadAnswerSheet}
             disabled={generatingPdf}
-            className="w-full border-2 border-[var(--gold)] text-[var(--gold)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+            iconLeft={
+              generatingPdf ? (
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
+              ) : (
+                <FileText className="h-5 w-5" aria-hidden />
+              )
+            }
           >
-            {generatingPdf ? (
-              <>⏳ {t('generating')}</>
-            ) : (
-              <>📄 {t('downloadAnswerSheet')}</>
-            )}
-          </button>
+            {generatingPdf ? t('generating') : t('downloadAnswerSheet')}
+          </Button>
         )}
 
         {outputs.cheatSheet && (
-          <button
+          <Button
+            size="lg"
+            fullWidth
+            variant="secondary"
             onClick={handleDownloadCheatSheet}
             disabled={generatingCheat}
-            className="w-full border-2 border-[var(--gold)] text-[var(--gold)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors disabled:opacity-50 flex items-center justify-center gap-3"
+            iconLeft={
+              generatingCheat ? (
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
+              ) : (
+                <ClipboardList className="h-5 w-5" aria-hidden />
+              )
+            }
           >
-            {generatingCheat ? (
-              <>⏳ {t('generating')}</>
-            ) : (
-              <>🗒️ {t('downloadCheatSheet')}</>
-            )}
-          </button>
+            {generatingCheat ? t('generating') : t('downloadCheatSheet')}
+          </Button>
         )}
       </div>
 
-      <button
+      <Button
+        variant="ghost"
+        fullWidth
         onClick={onBack}
-        className="w-full border border-[var(--dark-border)] py-3 rounded-lg font-bold hover:border-[var(--gold)] transition-colors"
+        iconLeft={<ArrowLeft className="h-4 w-4" aria-hidden />}
       >
-        ← {t('back')}
-      </button>
+        {t('back')}
+      </Button>
     </div>
   );
 }

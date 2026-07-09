@@ -1,10 +1,23 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import {
+  ArrowRight,
+  Brain,
+  ChevronDown,
+  ChevronRight,
+  Dices,
+  Plus,
+  X,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { Category, QuizConfig, QuizQuestion, RoundConfig } from '@/types/quiz';
 import CategorySelector from '@/components/CategorySelector';
 import QuestionCard from '@/components/QuestionCard';
+import Button from '@/components/ds/Button';
+import IconButton from '@/components/ds/IconButton';
+import Select from '@/components/ds/Select';
+import { categoryIcon } from '@/lib/category-visuals';
 import { getSessionId } from '@/lib/session-id';
 
 const MIN_ROUNDS = 3;
@@ -257,9 +270,9 @@ export default function StepBuild({
 
   if (initializing) {
     return (
-      <div className="text-center py-20">
-        <div className="text-4xl mb-4 animate-pulse">🧠</div>
-        <p className="text-[var(--muted)]">{t('loading')}</p>
+      <div className="py-20 text-center">
+        <Brain className="mx-auto mb-4 h-10 w-10 animate-pulse text-[var(--accent)]" aria-hidden />
+        <p className="text-[var(--text-muted)]">{t('loading')}</p>
       </div>
     );
   }
@@ -270,30 +283,41 @@ export default function StepBuild({
     loadingRounds.size === 0;
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <h2 className="text-3xl font-bold text-[var(--gold)]">{t('step1')}</h2>
+    <div className="mx-auto max-w-3xl space-y-6">
+      <h2 className="font-display text-[1.75rem] font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">
+        {t('step1')}
+      </h2>
 
       {config.rounds.map((round, i) => {
         const data = roundsData[i];
         const isLoading = loadingRounds.has(i);
+        const RoundIcon = categoryIcon(round.categorySlug);
         return (
           <div
             key={i}
-            className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-2xl overflow-hidden"
+            className="overflow-hidden rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--surface-card)] shadow-warm-sm"
           >
             {/* Round header = its configuration */}
-            <div className="flex flex-wrap items-center gap-2 p-4 border-b border-[var(--dark-border)]">
-              <button
+            <div className="flex flex-wrap items-center gap-2 border-b border-[var(--border-subtle)] bg-[var(--surface-raised)] p-4">
+              <IconButton
+                label={`${t('round')} ${i + 1}`}
+                size="sm"
                 onClick={() => toggleRound(i)}
-                className="text-[var(--muted)] hover:text-[var(--foreground)] px-1"
-                title={data?.expanded ? '▲' : '▼'}
               >
-                {data?.expanded ? '▼' : '▶'}
-              </button>
-              <span className="font-bold whitespace-nowrap">
-                {t('round')} {i + 1}
+                {data?.expanded ? (
+                  <ChevronDown className="h-4 w-4" aria-hidden />
+                ) : (
+                  <ChevronRight className="h-4 w-4" aria-hidden />
+                )}
+              </IconButton>
+              <span className="inline-flex h-[34px] w-[34px] flex-none items-center justify-center rounded-ds bg-[var(--accent-soft)] text-[var(--accent-text)]">
+                <RoundIcon className="h-[18px] w-[18px]" aria-hidden />
               </span>
-              <div className="flex-1 min-w-[180px]">
+              <span className="whitespace-nowrap font-semibold text-[var(--text-strong)]">
+                {t('round')}{' '}
+                <span className="font-mono text-[var(--accent-text)]">{i + 1}</span>
+              </span>
+              <div className="min-w-[180px] flex-1">
                 <CategorySelector
                   categories={categories}
                   value={round.categoryId}
@@ -307,12 +331,11 @@ export default function StepBuild({
                   }
                 />
               </div>
-              <select
+              <Select
                 value={round.questionsPerRound}
                 onChange={(e) =>
                   updateRound(i, { questionsPerRound: parseInt(e.target.value) })
                 }
-                className="bg-[var(--background)] border border-[var(--dark-border)] rounded-lg px-3 py-3 text-sm text-[var(--foreground)] focus:border-[var(--gold)] focus:outline-none"
                 title={t('questionsPerRound')}
               >
                 {[5, 8, 10].map((n) => (
@@ -320,32 +343,33 @@ export default function StepBuild({
                     {n} {t('questions')}
                   </option>
                 ))}
-              </select>
-              <button
+              </Select>
+              <IconButton
+                label={t('rerollRound')}
+                variant="outline"
                 onClick={() => rerollRound(i)}
                 disabled={isLoading}
-                className="px-3 py-2.5 rounded-lg text-sm border border-[var(--dark-border)] hover:border-[var(--gold)] transition-colors disabled:opacity-30"
-                title={t('rerollRound')}
               >
-                🎲
-              </button>
+                <Dices className="h-[18px] w-[18px]" aria-hidden />
+              </IconButton>
               {config.rounds.length > MIN_ROUNDS && (
-                <button
+                <IconButton
+                  label={t('removeRound')}
+                  variant="outline"
                   onClick={() => removeRound(i)}
                   disabled={isLoading}
-                  className="px-3 py-2.5 rounded-lg text-sm border border-[var(--dark-border)] text-[var(--muted)] hover:border-red-400 hover:text-red-400 transition-colors disabled:opacity-30"
-                  title={t('removeRound')}
+                  className="hover:border-[var(--danger)] hover:text-[var(--danger)]"
                 >
-                  ✕
-                </button>
+                  <X className="h-[18px] w-[18px]" aria-hidden />
+                </IconButton>
               )}
             </div>
 
             {/* Questions */}
             {data?.expanded && (
-              <div className="px-5 py-4 space-y-3">
+              <div className="space-y-3 px-5 py-4">
                 {isLoading ? (
-                  <p className="text-center text-[var(--muted)] animate-pulse py-6">
+                  <p className="animate-pulse py-6 text-center text-[var(--text-muted)]">
                     {t('loading')}
                   </p>
                 ) : (
@@ -367,19 +391,22 @@ export default function StepBuild({
       {config.rounds.length < MAX_ROUNDS && (
         <button
           onClick={addRound}
-          className="w-full border border-dashed border-[var(--dark-border)] py-3 rounded-2xl text-[var(--muted)] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
+          className="flex w-full items-center justify-center gap-2 rounded-ds-lg border-[1.5px] border-dashed border-[var(--border-strong)] py-3 font-medium text-[var(--text-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent-text)]"
         >
-          + {t('addRound')}
+          <Plus className="h-4 w-4" aria-hidden />
+          {t('addRound')}
         </button>
       )}
 
-      <button
+      <Button
+        size="lg"
+        fullWidth
         onClick={onNext}
         disabled={!ready}
-        className="w-full bg-[var(--gold)] text-[var(--background)] py-3 rounded-lg font-bold hover:bg-[var(--gold-light)] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        iconRight={<ArrowRight className="h-5 w-5" aria-hidden />}
       >
-        {t('toDownload')} →
-      </button>
+        {t('toDownload')}
+      </Button>
     </div>
   );
 }
