@@ -60,6 +60,10 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
 
   const approve = () => save({ status: 'approved', verified: true });
   const reject = () => save({ status: 'rejected', verified: false });
+  // Divert a too-specific-but-fun question into the Multiple-Choice candidate
+  // pool instead of rejecting it outright. Its fact is great as an MC question
+  // even when it's unfair as an open question. Collectible via status filter.
+  const markMcCandidate = () => save({ status: 'mc_candidate' });
 
   const handleFix = async () => {
     setFixing(true);
@@ -116,9 +120,11 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
             question.status === 'approved' ? 'bg-green-900/30 text-green-400' :
             question.status === 'rejected' ? 'bg-red-900/30 text-red-400' :
             question.status === 'flagged' ? 'bg-orange-900/30 text-orange-400' :
+            question.status === 'mc_candidate' ? 'bg-purple-900/30 text-purple-400' :
             'bg-yellow-900/30 text-yellow-400'
           }`}>
-            {question.status === 'flagged' ? '⚠️ flagged' : question.status}
+            {question.status === 'flagged' ? '⚠️ flagged' :
+             question.status === 'mc_candidate' ? '🎯 MC-Kandidat' : question.status}
           </span>
         </div>
         <button
@@ -303,6 +309,14 @@ export default function ReviewCard({ question, categories, onUpdate }: Props) {
           className="px-4 py-2 bg-red-600/20 text-red-400 rounded-lg text-sm font-medium hover:bg-red-600/30 transition-colors disabled:opacity-50"
         >
           ❌ Ablehnen
+        </button>
+        <button
+          onClick={markMcCandidate}
+          disabled={saving}
+          title="Für spätere Multiple-Choice-Frage vormerken (aus dem Review nehmen, aber nicht verwerfen)"
+          className="px-4 py-2 bg-purple-600/20 text-purple-400 rounded-lg text-sm font-medium hover:bg-purple-600/30 transition-colors disabled:opacity-50"
+        >
+          🎯 MC-Kandidat
         </button>
         {editing && (
           <button

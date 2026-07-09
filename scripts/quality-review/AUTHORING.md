@@ -25,10 +25,31 @@ Frage langweilig — Namen sind selten der Spaß.
 Faustregel: Frag nach dem überraschenden WAS/WARUM/WIE, nicht nach dem WER —
 außer der Name selbst ist die Pointe.
 
+**Aber Vorsicht: WAS/WARUM/WIE statt WER reicht allein nicht.** Der Twist in
+der Antwort zu verstecken behebt nur das Problem "unwissbarer Name" — es
+macht eine Antwort nicht automatisch fair. Wenn die Antwort selbst eine
+obskure Produktions-/Statistik-Detailinfo ist, auf die niemand jemals gestoßen
+wäre außer bei gezielter Recherche, scheitert die Frage genauso:
+
+- ❌ "Warum ging das WM-Viertelfinale Österreich/Schweiz 1954 als
+  'Hitzeschlacht von Lausanne' in die Geschichte ein?" → "12 Tore bei 40 Grad,
+  bis heute torreichstes WM-Spiel" (niemand kann das erraten oder auch nur
+  vage erinnern — reines Nachschlagewissen)
+- ❌ "Warum erschießt Indy den Schwertkämpfer im fertigen Film einfach mit
+  einem Schuss?" → "Harrison Ford hatte Ruhr" (Set-Trivia, die außerhalb
+  gezielter Recherche niemand kennt)
+
+Testfrage vor jeder Frage: Hatte diese Antwort jemals eine faire Chance, im
+kulturellen Gedächtnis einer normalen Vierergruppe am Tisch aufzutauchen —
+in den Nachrichten, im gemeinsam Erlebten, im Allgemeinwissen — oder ist sie
+nur durch gezieltes Graben auffindbar? Frisches Material kann trotzdem
+scheitern, wenn es zu obskur ist; "nicht kanonisch" und "fair beantwortbar"
+sind zwei getrennte Anforderungen, beide müssen erfüllt sein.
+
 Außerdem abgelehnt wird der berühmte Kanon: Rätselbuch-Klassiker
 (17 Schafe, Geburtstagsparadoxon, Äquator-Seil) und tausendmal gehörte
 Anekdoten (Hand Gottes, Barfuß-Marathon, Mona-Lisa-Diebstahl als Namensfrage).
-Frisches Material schlägt berühmtes Material.
+Frisches Material schlägt berühmtes Material — aber nur, wenn es auch fair ist.
 
 ## Hard rules
 

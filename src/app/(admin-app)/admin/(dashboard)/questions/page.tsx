@@ -137,6 +137,7 @@ export default function QuestionsPage() {
           <option value="flagged">Markiert</option>
           <option value="approved">Freigegeben</option>
           <option value="rejected">Abgelehnt</option>
+          <option value="mc_candidate">🎯 MC-Kandidaten</option>
         </select>
         <select
           value={filterVerified}
@@ -236,9 +237,10 @@ export default function QuestionsPage() {
                       q.status === 'approved' ? 'bg-green-900/30 text-green-400' :
                       q.status === 'rejected' ? 'bg-red-900/30 text-red-400' :
                       q.status === 'flagged' ? 'bg-orange-900/30 text-orange-400' :
+                      q.status === 'mc_candidate' ? 'bg-purple-900/30 text-purple-400' :
                       'bg-yellow-900/30 text-yellow-400'
                     }`}>
-                      {q.status}
+                      {q.status === 'mc_candidate' ? '🎯 mc' : q.status}
                     </span>
                   </td>
                   <td className="py-2 px-2 font-mono text-[var(--muted)]">{q.times_served}</td>
