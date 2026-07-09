@@ -6,6 +6,7 @@ export type EventType =
   | 'download_slides'
   | 'download_answer_sheet'
   | 'download_cheat_sheet'
+  | 'download_category_pdf'
   | 'question_report';
 
 export const EVENT_TYPES: EventType[] = [
@@ -14,6 +15,7 @@ export const EVENT_TYPES: EventType[] = [
   'download_slides',
   'download_answer_sheet',
   'download_cheat_sheet',
+  'download_category_pdf',
   'question_report',
 ];
 

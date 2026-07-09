@@ -237,9 +237,20 @@ export default async function CategoryQuestionsPage({
         })}
       </nav>
 
-      <div className="inline-block bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-4 py-2 text-sm text-[var(--muted)] mb-8">
-        {t('questionsAvailable', { count: category.count })}
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <div className="inline-block bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-lg px-4 py-2 text-sm text-[var(--muted)]">
+          {t('questionsAvailable', { count: category.count })}
+        </div>
+        <a
+          href={`/api/fragen/${slug}/pdf?locale=${locale}`}
+          className="inline-flex items-center gap-2 bg-[var(--dark-card)] border border-[var(--gold)] text-[var(--gold)] rounded-lg px-4 py-2 text-sm font-medium hover:bg-[var(--gold)] hover:text-[var(--background)] transition-colors"
+        >
+          📄 {t('pdfButton')}
+        </a>
       </div>
+      <p className="text-sm text-[var(--muted)] mb-8">
+        {t('pdfHint', { count: category.count })}
+      </p>
 
       <QuestionList questions={questions} locale={locale} />
 
