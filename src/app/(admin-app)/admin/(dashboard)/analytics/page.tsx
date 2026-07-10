@@ -13,6 +13,7 @@ interface Analytics {
   topPages: { path: string; views: number; sessions: number }[];
   entryPages: { path: string; entries: number }[];
   referrers: { referrer: string; count: number }[];
+  countries: { country: string; views: number; sessions: number }[];
   transitions: { from: string; to: string; count: number }[];
   funnel: {
     sessions: number;
@@ -132,42 +133,46 @@ export default function AnalyticsPage() {
           </Section>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <Section title="Meistbesuchte Seiten">
-              <SimpleTable
-                rows={data.topPages.map((p) => [p.path, `${p.views} Aufrufe`, `${p.sessions} Sessions`])}
-              />
-            </Section>
-            <Section title="Einstiegsseiten">
-              <SimpleTable rows={data.entryPages.map((p) => [p.path, `${p.entries} Einstiege`])} />
-            </Section>
-            <Section title="Externe Referrer">
-              {data.referrers.length ? (
-                <SimpleTable rows={data.referrers.map((r) => [r.referrer, String(r.count)])} />
-              ) : (
-                <p className="text-sm text-[var(--muted)]">Keine externen Referrer im Zeitraum.</p>
-              )}
-            </Section>
-            <Section title="Seitenfluss (von → nach)">
-              {data.transitions.length ? (
-                <SimpleTable rows={data.transitions.map((t) => [`${t.from} → ${t.to}`, String(t.count)])} />
-              ) : (
-                <p className="text-sm text-[var(--muted)]">Noch keine Übergänge erfasst.</p>
-              )}
-            </Section>
+            <ListSection
+              title="Meistbesuchte Seiten"
+              rows={data.topPages.map((p) => [p.path, `${p.views} Aufrufe`, `${p.sessions} Sessions`])}
+              emptyText="Noch keine Seitenaufrufe im Zeitraum."
+            />
+            <ListSection
+              title="Einstiegsseiten"
+              rows={data.entryPages.map((p) => [p.path, `${p.entries} Einstiege`])}
+              emptyText="Noch keine Einstiege erfasst."
+            />
+            <ListSection
+              title="Externe Referrer"
+              rows={data.referrers.map((r) => [r.referrer, String(r.count)])}
+              emptyText="Keine externen Referrer im Zeitraum."
+            />
+            <ListSection
+              title="Länder"
+              rows={(data.countries ?? []).map((c) => [
+                countryLabel(c.country),
+                `${c.views} Aufrufe`,
+                `${c.sessions} Sessions`,
+              ])}
+              emptyText="Noch keine Länderdaten — werden seit dem letzten Update erfasst (aus der Browser-Sprache abgeleitet, ohne IP-Speicherung)."
+              footnote="Abgeleitet aus der Browser-Spracheinstellung (z. B. de-DE), keine IP-Erfassung."
+            />
+            <ListSection
+              title="Seitenfluss (von → nach)"
+              rows={data.transitions.map((t) => [`${t.from} → ${t.to}`, String(t.count)])}
+              emptyText="Noch keine Übergänge erfasst."
+            />
           </div>
 
-          <Section title="⚑ Gemeldete Fragen">
-            {data.reportedQuestions?.length ? (
-              <SimpleTable
-                rows={data.reportedQuestions.map((r) => [
-                  r.text ? `#${r.questionId} ${r.text} → ${r.answer ?? ''}` : `#${r.questionId} (Frage gelöscht)`,
-                  `${r.reports}× · zuletzt ${r.lastReport}`,
-                ])}
-              />
-            ) : (
-              <p className="text-sm text-[var(--muted)]">Keine Meldungen im Zeitraum. 🎉</p>
-            )}
-          </Section>
+          <ListSection
+            title="⚑ Gemeldete Fragen"
+            rows={(data.reportedQuestions ?? []).map((r) => [
+              r.text ? `#${r.questionId} ${r.text} → ${r.answer ?? ''}` : `#${r.questionId} (Frage gelöscht)`,
+              `${r.reports}× · zuletzt ${r.lastReport}`,
+            ])}
+            emptyText="Keine Meldungen im Zeitraum. 🎉"
+          />
         </>
       ) : (
         <p className="text-[var(--muted)]">Keine Daten verfügbar.</p>
@@ -206,6 +211,103 @@ function FunnelBar({ label, value, max }: { label: string; value: number; max: n
         {value} <span className="text-[var(--muted)]">({pct.toFixed(1)}%)</span>
       </span>
     </div>
+  );
+}
+
+// ISO country code → flag emoji + German name (client-side, no data needed).
+function countryLabel(code: string): string {
+  const cc = code.toUpperCase();
+  const flag =
+    /^[A-Z]{2}$/.test(cc) &&
+    String.fromCodePoint(
+      0x1f1e6 + cc.charCodeAt(0) - 65,
+      0x1f1e6 + cc.charCodeAt(1) - 65
+    );
+  let name = cc;
+  try {
+    name = new Intl.DisplayNames(['de'], { type: 'region' }).of(cc) ?? cc;
+  } catch {
+    // unknown code — show it raw
+  }
+  return flag ? `${flag} ${name}` : name;
+}
+
+const LIST_PREVIEW = 10;
+
+// Section with a table capped at LIST_PREVIEW rows; the full list opens in a
+// modal so the dashboard stays scannable.
+function ListSection({
+  title,
+  rows,
+  emptyText,
+  footnote,
+}: {
+  title: string;
+  rows: string[][];
+  emptyText: string;
+  footnote?: string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  return (
+    <Section title={title}>
+      {rows.length === 0 ? (
+        <p className="text-sm text-[var(--muted)]">{emptyText}</p>
+      ) : (
+        <>
+          <SimpleTable rows={rows.slice(0, LIST_PREVIEW)} />
+          {footnote && <p className="text-xs text-[var(--muted)] opacity-70">{footnote}</p>}
+          {rows.length > LIST_PREVIEW && (
+            <button
+              onClick={() => setOpen(true)}
+              className="mt-1 text-sm text-[var(--gold)] hover:text-[var(--gold-light)] transition-colors"
+            >
+              Alle {rows.length} anzeigen →
+            </button>
+          )}
+        </>
+      )}
+
+      {open && (
+        <div
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={title}
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full max-w-3xl max-h-[85vh] overflow-hidden flex flex-col bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--dark-border)]">
+              <h2 className="text-sm font-bold text-[var(--muted)] uppercase tracking-wide">
+                {title} · {rows.length}
+              </h2>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Schließen"
+                className="w-8 h-8 rounded-lg border border-[var(--dark-border)] text-[var(--muted)] hover:text-[var(--foreground)] hover:border-[var(--gold)] transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="overflow-y-auto px-6 py-4">
+              <SimpleTable rows={rows} />
+            </div>
+          </div>
+        </div>
+      )}
+    </Section>
   );
 }
 
@@ -259,8 +361,15 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
   const max = Math.max(...daily.map((d) => d.pageviews), 1);
   const x = (i: number) => PAD_X + (i / Math.max(daily.length - 1, 1)) * (W - PAD_X * 2);
   const y = (v: number) => H - PAD_B - (v / max) * (H - PAD_T - PAD_B);
+  // The last bucket is the still-running current day — connecting it to the
+  // line makes every morning look like a crash, so the lines stop at
+  // yesterday and today renders as detached dots.
+  const todayIdx = daily.length - 1;
   const line = (key: SeriesKey) =>
-    daily.map((d, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`).join(' ');
+    daily
+      .slice(0, -1)
+      .map((d, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`)
+      .join(' ');
 
   // Nearest day under the cursor, in viewBox coordinates.
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -322,9 +431,19 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
             {formatDay(daily[i].day)}
           </text>
         ))}
-        {/* Series */}
+        {/* Series (lines end yesterday; today = dots) */}
         {SERIES.map((s) => (
           <path key={s.key} d={line(s.key)} fill="none" stroke={s.color} strokeWidth="2" />
+        ))}
+        {SERIES.map((s) => (
+          <circle
+            key={`today-${s.key}`}
+            cx={x(todayIdx)}
+            cy={y(daily[todayIdx][s.key])}
+            r="3"
+            fill={s.color}
+            opacity="0.9"
+          />
         ))}
         {/* Hover crosshair + points */}
         {hover !== null && (
@@ -374,13 +493,14 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
         </div>
       )}
 
-      <div className="flex gap-4 mt-2 text-xs text-[var(--muted)]">
+      <div className="flex flex-wrap gap-4 mt-2 text-xs text-[var(--muted)]">
         {SERIES.map((s) => (
           <span key={s.key} className="flex items-center gap-1.5">
             <span className="inline-block w-3 h-0.5" style={{ background: s.color }} />
             {s.label}
           </span>
         ))}
+        <span className="opacity-70">· heutiger (laufender) Tag als Punkte</span>
       </div>
     </div>
   );

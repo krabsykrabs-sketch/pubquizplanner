@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       ? `date_trunc('day', ${since})`
       : `date_trunc('day', (SELECT coalesce(min(created_at), now()) FROM events))`;
 
-  const [totals, daily, topPages, entryPages, referrers, transitions, funnel, reports] =
+  const [totals, daily, topPages, entryPages, referrers, countries, transitions, funnel, reports] =
     await Promise.all([
       query<{
         pageviews: string;
@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
                 count(DISTINCT session_id) AS sessions
          FROM events
          WHERE event_type = 'page_view' AND created_at >= ${since}
-         GROUP BY path ORDER BY count(*) DESC LIMIT 15`
+         GROUP BY path ORDER BY count(*) DESC LIMIT 200`
       ),
       query<{ path: string; entries: string }>(
         `SELECT path, count(*) AS entries FROM (
@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
            FROM events
            WHERE event_type = 'page_view' AND session_id IS NOT NULL AND created_at >= ${since}
            ORDER BY session_id, created_at
-         ) firsts GROUP BY path ORDER BY count(*) DESC LIMIT 10`
+         ) firsts GROUP BY path ORDER BY count(*) DESC LIMIT 200`
       ),
       query<{ referrer: string; count: string }>(
         // Grouped by host so google.com doesn't appear once per search URL.
@@ -83,7 +83,18 @@ export async function GET(request: NextRequest) {
            AND referrer NOT LIKE '/%'
            AND referrer NOT LIKE '%pubquizplanner%'
            AND referrer !~* '//(localhost|127\\.0\\.0\\.1|0\\.0\\.0\\.0|\\[::1\\])([:/]|$)'
-         GROUP BY 1 ORDER BY count(*) DESC LIMIT 10`
+         GROUP BY 1 ORDER BY count(*) DESC LIMIT 200`
+      ),
+      // Visitor countries, approximated from the Accept-Language region that
+      // /api/track stores in meta. Only events since that deploy carry it.
+      query<{ country: string; views: string; sessions: string }>(
+        `SELECT upper(meta->>'country') AS country,
+                count(*) AS views,
+                count(DISTINCT session_id) AS sessions
+         FROM events
+         WHERE event_type = 'page_view' AND created_at >= ${since}
+           AND meta->>'country' ~* '^[a-z]{2}$'
+         GROUP BY 1 ORDER BY count(*) DESC LIMIT 200`
       ),
       query<{ from_path: string; to_path: string; count: string }>(
         `SELECT from_path, to_path, count(*) AS count FROM (
@@ -93,7 +104,7 @@ export async function GET(request: NextRequest) {
            WHERE event_type = 'page_view' AND session_id IS NOT NULL AND created_at >= ${since}
          ) t
          WHERE from_path IS NOT NULL AND from_path <> to_path
-         GROUP BY from_path, to_path ORDER BY count(*) DESC LIMIT 15`
+         GROUP BY from_path, to_path ORDER BY count(*) DESC LIMIT 200`
       ),
       query<{ sessions: string; generator_sessions: string; generated_sessions: string; download_sessions: string }>(
         `SELECT
@@ -114,7 +125,7 @@ export async function GET(request: NextRequest) {
          WHERE e.event_type = 'question_report' AND e.created_at >= ${since}
          GROUP BY 1, q.text_de, q.answer_de
          ORDER BY count(*) DESC, max(e.created_at) DESC
-         LIMIT 20`
+         LIMIT 100`
       ),
     ]);
 
@@ -144,6 +155,11 @@ export async function GET(request: NextRequest) {
     topPages: topPages.map((p) => ({ path: p.path, views: n(p.views), sessions: n(p.sessions) })),
     entryPages: entryPages.map((p) => ({ path: p.path, entries: n(p.entries) })),
     referrers: referrers.map((r) => ({ referrer: r.referrer, count: n(r.count) })),
+    countries: countries.map((c) => ({
+      country: c.country,
+      views: n(c.views),
+      sessions: n(c.sessions),
+    })),
     transitions: transitions.map((tr) => ({ from: tr.from_path, to: tr.to_path, count: n(tr.count) })),
     funnel: {
       sessions: n(f?.sessions),
