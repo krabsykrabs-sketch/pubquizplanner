@@ -155,8 +155,8 @@ export default function AnalyticsPage() {
                 `${c.views} Aufrufe`,
                 `${c.sessions} Sessions`,
               ])}
-              emptyText="Noch keine Länderdaten — werden seit dem letzten Update erfasst (aus der Browser-Sprache abgeleitet, ohne IP-Speicherung)."
-              footnote="Abgeleitet aus der Browser-Spracheinstellung (z. B. de-DE), keine IP-Erfassung."
+              emptyText="Noch keine Länderdaten — werden seit dem letzten Update erfasst (Land aus IP via geojs.io, ohne IP-Speicherung; Fallback: Browser-Sprache)."
+              footnote="Land über geojs.io aus der IP ermittelt (wird nicht gespeichert); Fallback: Browser-Sprache."
             />
             <ListSection
               title="Seitenfluss (von → nach)"

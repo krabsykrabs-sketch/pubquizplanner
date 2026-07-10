@@ -47,11 +47,13 @@ export default function DatenschutzPage({
             personenbezogenen Daten</strong> ihrer Besucher. Im Einzelnen bedeutet das:
           </p>
           <ul className="list-disc list-inside mt-2 space-y-1">
-            <li>Es werden keine Cookies gesetzt.</li>
-            <li>Es werden keine Analyse- oder Tracking-Tools eingesetzt.</li>
+            <li>Es werden keine Werbe- oder Marketing-Cookies gesetzt.</li>
+            <li>
+              Es werden keine Drittanbieter-Analyse- oder Tracking-Tools wie Google Analytics
+              eingesetzt (zu unseren selbst gehosteten, anonymen Statistiken siehe Abschnitt 4).
+            </li>
             <li>Es gibt keine Benutzerkonten oder Login-Funktionen für Besucher.</li>
             <li>Es werden keine externen Schriften (z.B. Google Fonts) von Drittanbietern geladen.</li>
-            <li>Es werden keine Drittanbieter-Dienste auf der öffentlichen Seite eingebunden.</li>
           </ul>
         </section>
 
@@ -64,10 +66,17 @@ export default function DatenschutzPage({
           </p>
           <p className="mt-2">
             Zur Verbesserung des Angebots erheben wir selbst gehostete, anonyme
-            Nutzungsstatistiken (aufgerufene Seiten, Anzahl erstellter Quizze und Downloads).
-            Dabei werden weder IP-Adressen noch Cookies noch sonstige personenbezogene Daten
+            Nutzungsstatistiken (aufgerufene Seiten, Referrer, Anzahl erstellter Quizze und
+            Downloads). Dabei werden weder IP-Adressen noch sonstige personenbezogene Daten
             gespeichert; eine Wiedererkennung über den einzelnen Besuch hinaus findet nicht
-            statt. Es kommen keine Analysedienste von Drittanbietern zum Einsatz.
+            statt.
+          </p>
+          <p className="mt-2">
+            Zur groben geografischen Einordnung (Land) rufen wir einmal pro Sitzung den Dienst
+            GeoJS (geojs.io) auf. Dabei wird Ihre IP-Adresse an GeoJS übermittelt, um daraus das
+            Land abzuleiten. Wir selbst speichern Ihre IP-Adresse nicht — bei uns wird
+            ausschließlich das zweistellige Länderkürzel (z.B. „DE") abgelegt. Rechtsgrundlage ist
+            Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an anonymer Reichweitenmessung).
           </p>
         </section>
 

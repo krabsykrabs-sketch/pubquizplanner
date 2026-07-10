@@ -47,7 +47,14 @@ export async function POST(request: NextRequest) {
       return new NextResponse(null, { status: 204 });
     }
 
-    const country = countryFromAcceptLanguage(request.headers.get('accept-language'));
+    // Prefer the precise country the client resolved (geojs.io geo-IP; no IP
+    // reaches or is stored by us), fall back to the Accept-Language region.
+    const clientCountry =
+      typeof body.country === 'string' && /^[A-Za-z]{2}$/.test(body.country)
+        ? body.country.toUpperCase()
+        : null;
+    const country =
+      clientCountry ?? countryFromAcceptLanguage(request.headers.get('accept-language'));
 
     await logEvent('page_view', {
       path,
