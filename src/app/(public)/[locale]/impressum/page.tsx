@@ -1,5 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { SOURCE_LOCALE } from '@/config/locales';
+
+// The legal text is German on every locale URL, so all variants declare the
+// source-locale page as canonical — otherwise Google reports them as
+// "duplicate without user-selected canonical" and skips indexing.
+export const metadata: Metadata = {
+  title: 'Impressum | PubQuizPlanner',
+  alternates: { canonical: `/${SOURCE_LOCALE}/impressum` },
+};
 
 export default function ImpressumPage({
   params: { locale },

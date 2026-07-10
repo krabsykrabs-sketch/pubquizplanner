@@ -1,6 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import Card from '@/components/ds/Card';
+import { SOURCE_LOCALE } from '@/config/locales';
+
+// German-only content on every locale URL → canonical points at the
+// source-locale page (see impressum/page.tsx).
+export const metadata: Metadata = {
+  title: 'Credits | PubQuizPlanner',
+  alternates: { canonical: `/${SOURCE_LOCALE}/credits` },
+};
 
 export default function CreditsPage({
   params: { locale },

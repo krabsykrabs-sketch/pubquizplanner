@@ -1,5 +1,14 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { SOURCE_LOCALE } from '@/config/locales';
+
+// German-only legal text on every locale URL → canonical points at the
+// source-locale page (see impressum/page.tsx).
+export const metadata: Metadata = {
+  title: 'Datenschutzerklärung | PubQuizPlanner',
+  alternates: { canonical: `/${SOURCE_LOCALE}/datenschutz` },
+};
 
 export default function DatenschutzPage({
   params: { locale },
