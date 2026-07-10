@@ -43,13 +43,16 @@ export async function fetchQuestionsForRound(
     `SELECT ${selectClause} FROM questions q
      ${joinClause}
      WHERE ${conditions.join(' AND ')}
-     ORDER BY q.times_served ASC, RANDOM()
+     ORDER BY q.times_served / 5 ASC, RANDOM()
      LIMIT $1`,
     params
   );
 
-  // Rotate the pool: least-served questions are preferred above, so
-  // counting every serve spreads usage across the whole inventory.
+  // Rotate the pool in coarse buckets of 5 serves: usage still spreads across
+  // the whole inventory long-term, but within a bucket selection is uniformly
+  // random — so a freshly imported batch (times_served = 0) blends in with
+  // everything under 5 serves instead of flooding every new quiz until it
+  // catches up (integer division; times_served is an int column).
   if (rows.length > 0) {
     await query(
       'UPDATE questions SET times_served = times_served + 1 WHERE id = ANY($1)',
