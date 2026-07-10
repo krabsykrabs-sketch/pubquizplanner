@@ -16,6 +16,9 @@ const TAGLINES: Partial<Record<Locale, string>> = {
   nl: 'De hele quizavond. Niet alleen de vragen.',
   pl: 'Cały wieczór quizowy. Nie tylko pytania.',
   sv: 'Hela quizkvällen. Inte bara frågorna.',
+  fr: 'Toute la soirée quiz. Pas seulement les questions.',
+  es: 'Toda la noche de quiz. No solo las preguntas.',
+  pt: 'Toda a noite de quiz. Não só as perguntas.',
 };
 
 // Satori (next/og) does not support SVG <text>, so the "?" is HTML overlaid

@@ -14,7 +14,8 @@ export const SOURCE_LOCALE = 'de';
 // All supported locales, source first. Add a new locale code here to enable it
 // across routing, static params, sitemap and hreflang.
 // NB: Swedish uses the ISO 639-1 language code 'sv' (not 'se', which is Sami).
-export const LOCALES = ['de', 'nl', 'pl', 'sv'] as const;
+// NB: 'pt' is European Portuguese (site targets the European market).
+export const LOCALES = ['de', 'nl', 'pl', 'sv', 'fr', 'es', 'pt'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -38,6 +39,9 @@ export const OG_LOCALE: Partial<Record<Locale, string>> = {
   nl: 'nl_NL',
   pl: 'pl_PL',
   sv: 'sv_SE',
+  fr: 'fr_FR',
+  es: 'es_ES',
+  pt: 'pt_PT',
 };
 
 // Human-readable language names (hreflang debugging, a future language switcher).
@@ -46,6 +50,9 @@ export const LOCALE_LABELS: Partial<Record<Locale, string>> = {
   nl: 'Nederlands',
   pl: 'Polski',
   sv: 'Svenska',
+  fr: 'Français',
+  es: 'Español',
+  pt: 'Português',
 };
 
 // Build the `alternates.languages` map for a page's hreflang tags.

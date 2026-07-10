@@ -17,6 +17,7 @@ const LANGUAGES = {
   it: 'Italienisch (Italiano)',
   fr: 'Französisch (Français)',
   en: 'Englisch (English)',
+  pt: 'Europäisches Portugiesisch (Português europeu — Portugal, nicht Brasilien)',
 };
 
 const locale = process.argv[2];
