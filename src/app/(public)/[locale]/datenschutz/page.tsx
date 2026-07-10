@@ -75,7 +75,7 @@ export default function DatenschutzPage({
             Zur groben geografischen Einordnung (Land) rufen wir einmal pro Sitzung den Dienst
             GeoJS (geojs.io) auf. Dabei wird Ihre IP-Adresse an GeoJS übermittelt, um daraus das
             Land abzuleiten. Wir selbst speichern Ihre IP-Adresse nicht — bei uns wird
-            ausschließlich das zweistellige Länderkürzel (z.B. „DE") abgelegt. Rechtsgrundlage ist
+            ausschließlich das zweistellige Länderkürzel (z.B. &bdquo;DE&ldquo;) abgelegt. Rechtsgrundlage ist
             Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an anonymer Reichweitenmessung).
           </p>
         </section>
