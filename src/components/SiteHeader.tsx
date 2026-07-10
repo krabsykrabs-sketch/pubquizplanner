@@ -16,40 +16,32 @@ function switchLocalePath(pathname: string, next: Locale): string {
   return parts.join('/') || `/${next}`;
 }
 
-export default function SiteHeader({ locale }: { locale: Locale }) {
+/* Language dropdown. Self-contained (own state + ref) because the header
+ * renders it twice (desktop nav + mobile bar). Outside-close listens on
+ * 'click', NOT 'mousedown' — a mousedown listener would unmount the menu's
+ * links before their own click event fires and swallow the navigation. */
+function LanguageSwitcher({ locale }: { locale: Locale }) {
   const t = useTranslations('nav');
   const pathname = usePathname() || `/${locale}`;
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
-  const langRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!open) return;
     const onClick = (e: MouseEvent) => {
-      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
-    document.addEventListener('mousedown', onClick);
-    return () => document.removeEventListener('mousedown', onClick);
-  }, []);
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, [open]);
 
-  // Close the mobile menu on navigation.
-  useEffect(() => {
-    setMenuOpen(false);
-    setLangOpen(false);
-  }, [pathname]);
-
-  const links = [
-    { href: `/${locale}#how`, label: t('how') },
-    { href: `/${locale}#kategorien`, label: t('categories') },
-    { href: `/${locale}/fragen`, label: t('questions') },
-  ];
-
-  const langSwitcher = (
-    <div className="relative" ref={langRef}>
+  return (
+    <div className="relative" ref={ref}>
       <button
         type="button"
-        onClick={() => setLangOpen((v) => !v)}
+        onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
-        aria-expanded={langOpen}
+        aria-expanded={open}
         aria-label={t('language')}
         className="inline-flex cursor-pointer items-center gap-1.5 rounded-ds border-[1.5px] border-[var(--border-strong)] px-[11px] py-1.5 text-[0.85rem] font-semibold text-[var(--text-body)] transition-colors hover:bg-[var(--surface-inset)] focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]"
       >
@@ -57,7 +49,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
         {locale.toUpperCase()}
         <ChevronDown aria-hidden className="h-3.5 w-3.5" />
       </button>
-      {langOpen && (
+      {open && (
         <div
           role="listbox"
           className="absolute right-0 top-[calc(100%+6px)] z-50 min-w-[160px] overflow-hidden rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--surface-card)] py-1 shadow-warm-lg"
@@ -68,7 +60,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
               href={switchLocalePath(pathname, l)}
               role="option"
               aria-selected={l === locale}
-              className={`block px-3.5 py-2 text-[0.9rem] transition-colors hover:bg-[var(--surface-inset)] ${
+              className={`block px-3.5 py-2 text-[0.9rem] no-underline transition-colors hover:bg-[var(--surface-inset)] ${
                 l === locale
                   ? 'font-semibold text-[var(--accent-text)]'
                   : 'text-[var(--text-body)]'
@@ -81,6 +73,23 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
       )}
     </div>
   );
+}
+
+export default function SiteHeader({ locale }: { locale: Locale }) {
+  const t = useTranslations('nav');
+  const pathname = usePathname() || `/${locale}`;
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close the mobile menu on navigation.
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  const links = [
+    { href: `/${locale}#how`, label: t('how') },
+    { href: `/${locale}#kategorien`, label: t('categories') },
+    { href: `/${locale}/fragen`, label: t('questions') },
+  ];
 
   return (
     <header
@@ -103,7 +112,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
               {l.label}
             </Link>
           ))}
-          {langSwitcher}
+          <LanguageSwitcher locale={locale} />
           <Button size="sm" href={`/${locale}/generator`}>
             {t('cta')}
           </Button>
@@ -111,7 +120,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
 
         {/* Mobile: language + burger */}
         <div className="flex items-center gap-3 nav:hidden">
-          {langSwitcher}
+          <LanguageSwitcher locale={locale} />
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}

@@ -39,8 +39,23 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
           <span className="text-[0.8125rem]">
             © {new Date().getFullYear()} PubQuizPlanner · {t('tagline')}
           </span>
+          {/* Real links (not just labels): the one crawlable cross-locale path
+              on every page, so search engines discover all language versions. */}
           <span className="font-mono text-[0.72rem] tracking-[0.04em]">
-            {LOCALES.map((l) => LOCALE_LABELS[l] ?? l).join(' · ')}
+            {LOCALES.map((l, i) => (
+              <span key={l}>
+                {i > 0 && ' · '}
+                <a
+                  href={`/${l}`}
+                  hrefLang={l}
+                  className={`no-underline transition-colors hover:text-[var(--text-body)] ${
+                    l === locale ? 'text-[var(--text-muted)]' : ''
+                  }`}
+                >
+                  {LOCALE_LABELS[l] ?? l}
+                </a>
+              </span>
+            ))}
           </span>
         </div>
       </div>
