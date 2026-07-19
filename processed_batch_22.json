@@ -1,0 +1,740 @@
+[
+  {
+    "_batch_index": 2200,
+    "text_de": "Wie heißt die arabische Flöte, die den Bauchtanz im Nahen Osten begleitet?",
+    "answer_de": "Nay",
+    "category": "Musik",
+    "difficulty": 3,
+    "fun_fact_de": "Die Nay ist eine der ältesten Flöten der Welt und wird seit über 4000 Jahren gespielt.",
+    "tags": ["arabische-musik", "instrument"]
+  },
+  {
+    "_batch_index": 2201,
+    "text_de": "Wie wollte Walt Disney seinen späteren Star Mickey Mouse ursprünglich nennen?",
+    "answer_de": "Mortimer Mouse",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Walt Disneys Frau überzeugte ihn, den Namen zu ändern, weil sie Mortimer zu hochnäsig fand.",
+    "tags": ["disney", "animation"]
+  },
+  {
+    "_batch_index": 2202,
+    "text_de": "In welcher Stadt starb der Komponist Richard Wagner?",
+    "answer_de": "Venedig",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Wagner starb 1883 in Venedig an einem Herzinfarkt, nur wenige Monate nach der Uraufführung seines letzten Werks Parsifal.",
+    "tags": ["komponist", "oper"]
+  },
+  {
+    "_batch_index": 2203,
+    "text_de": "Welches Organ wählt in Deutschland den Bundespräsidenten?",
+    "answer_de": "Bundesversammlung",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Bundesversammlung trifft sich alle fünf Jahre und besteht aus Bundestagsabgeordneten und Ländervertretern.",
+    "tags": ["politik", "verfassung"]
+  },
+  {
+    "_batch_index": 2204,
+    "text_de": "Was speichert ein Kamel in seinen Höckern?",
+    "answer_de": "Fett",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Entgegen dem Mythos speichern Kamele kein Wasser in den Höckern, sondern Fettreserven als Energievorrat.",
+    "tags": ["tiere", "biologie"]
+  },
+  {
+    "_batch_index": 2205,
+    "text_de": "Wie heißt Inspektor Columbo laut Dienstausweis mit Vornamen?",
+    "answer_de": "Frank",
+    "category": "Film&TV",
+    "difficulty": 3,
+    "fun_fact_de": "Der Vorname wurde erst in der letzten Folge der Serie 2003 offiziell enthüllt, nachdem jahrzehntelang spekuliert worden war.",
+    "tags": ["krimi", "fernsehen"]
+  },
+  {
+    "_batch_index": 2208,
+    "text_de": "Wer schrieb 1792 die Marseillaise?",
+    "answer_de": "Claude Joseph Rouget de Lisle",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Die französische Nationalhymne wurde ursprünglich als Kriegslied für den Rheinfeldzug komponiert.",
+    "tags": ["frankreich", "nationalhymne"]
+  },
+  {
+    "_batch_index": 2209,
+    "text_de": "Was ist eine Klappmütze?",
+    "answer_de": "Robbe",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Der Name kommt von der charakteristischen aufblasbaren Hautkappe der männlichen Tiere während der Paarungszeit.",
+    "tags": ["meeressäuger", "biologie"]
+  },
+  {
+    "_batch_index": 2210,
+    "text_de": "Wie hieß der erste kommerzielle Nachrichtensatellit der Erde?",
+    "answer_de": "Early Bird",
+    "category": "Technik",
+    "difficulty": 3,
+    "fun_fact_de": "Early Bird wurde 1965 gestartet und ermöglichte erstmals Live-Fernsehübertragungen zwischen Europa und Nordamerika.",
+    "tags": ["raumfahrt", "kommunikation"]
+  },
+  {
+    "_batch_index": 2211,
+    "text_de": "Wer singt das Lied \"As Time Goes By\" im Film \"Casablanca\"?",
+    "answer_de": "Dooley Wilson",
+    "category": "Film&TV",
+    "difficulty": 3,
+    "fun_fact_de": "Dooley Wilson konnte ironischerweise gar nicht Klavier spielen - die Klaviermusik wurde später eingespielt.",
+    "tags": ["klassiker", "hollywood"]
+  },
+  {
+    "_batch_index": 2213,
+    "text_de": "Welches britische Morgenblatt wurde 1903 zunächst als Frauenzeitung auf den Markt gebracht?",
+    "answer_de": "Daily Mirror",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Der Daily Mirror war die erste Zeitung der Welt, die hauptsächlich von Frauen für Frauen produziert wurde.",
+    "tags": ["medien", "grossbritannien"]
+  },
+  {
+    "_batch_index": 2214,
+    "text_de": "In welcher kanadischen Provinz liegt Uranium City?",
+    "answer_de": "Saskatchewan",
+    "category": "Geographie",
+    "difficulty": 3,
+    "fun_fact_de": "Die Stadt war ein wichtiges Uranabbaugebiet und wurde nach dem Rohstoff benannt, der dort gefördert wurde.",
+    "tags": ["kanada", "bergbau"]
+  },
+  {
+    "_batch_index": 2215,
+    "text_de": "Der Grundriss der brasilianischen Hauptstadt Brasília sieht der Planung nach aus wie ein ...?",
+    "answer_de": "Flugzeug",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Brasília wurde in nur vier Jahren erbaut und 1960 eingeweiht - eine der jüngsten Hauptstädte der Welt.",
+    "tags": ["brasilien", "stadtplanung"]
+  },
+  {
+    "_batch_index": 2216,
+    "text_de": "Wie nennt man Signaturen eines Graffiti-Künstlers?",
+    "answer_de": "Tags",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Tags sind die einfachste Form von Graffiti und dienen als Markenzeichen der Künstler in der Szene.",
+    "tags": ["street-art", "urban"]
+  },
+  {
+    "_batch_index": 2217,
+    "text_de": "Wer schrieb die Gesangstexte des Musicals \"West Side Story\"?",
+    "answer_de": "Stephen Sondheim",
+    "category": "Musik",
+    "difficulty": 3,
+    "fun_fact_de": "Sondheim war erst 25 Jahre alt, als er die Texte schrieb und später einer der erfolgreichsten Musical-Komponisten wurde.",
+    "tags": ["musical", "broadway"]
+  },
+  {
+    "_batch_index": 2218,
+    "text_de": "Wie nennt man eine Züchtung aus Yak und Kuh?",
+    "answer_de": "Dzo",
+    "category": "Wissenschaft",
+    "difficulty": 3,
+    "fun_fact_de": "Dzos sind besonders widerstandsfähig gegen Kälte und werden im Himalaya als Lasttiere eingesetzt.",
+    "tags": ["tierzucht", "himalaya"]
+  },
+  {
+    "_batch_index": 2220,
+    "text_de": "Für wen wird die Hymne \"Hail To The Chief\" ausschließlich gespielt?",
+    "answer_de": "US-Präsident",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Melodie stammt aus einem schottischen Volkslied und wird seit 1829 als Präsidentenhymne verwendet.",
+    "tags": ["usa", "protokoll"]
+  },
+  {
+    "_batch_index": 2221,
+    "text_de": "Welchen Vornamen trägt ungefähr die Hälfte aller männlichen Bewohner der Insel Korfu?",
+    "answer_de": "Spiro",
+    "category": "Geographie",
+    "difficulty": 3,
+    "fun_fact_de": "Der Name geht auf den Heiligen Spiridon zurück, den Schutzpatron der Insel Korfu.",
+    "tags": ["griechenland", "tradition"]
+  },
+  {
+    "_batch_index": 2222,
+    "text_de": "Wie heißt das kleinste Naturschutzgebiet der Welt?",
+    "answer_de": "Trottelbusch",
+    "category": "Geographie",
+    "difficulty": 3,
+    "fun_fact_de": "Das nur 3,5 Quadratmeter große Schutzgebiet in Schleswig-Holstein schützt einen seltenen Baum.",
+    "tags": ["naturschutz", "rekord"]
+  },
+  {
+    "_batch_index": 2225,
+    "text_de": "Wer initiierte 1974 die \"Deutsche Krebshilfe e.V.\"?",
+    "answer_de": "Mildred Scheel",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Mildred Scheel, Ehefrau von Bundespräsident Walter Scheel, machte Krebs erstmals zu einem öffentlichen Thema in Deutschland.",
+    "tags": ["medizin", "charity"]
+  },
+  {
+    "_batch_index": 2226,
+    "text_de": "\"Da steh' ich nun, ich armer Tor! Und bin so klug als wie zuvor\" ist aus ...?",
+    "answer_de": "Faust I",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Diese berühmten Worte spricht Doktor Faust in Goethes Drama, als er seine Gelehrsamkeit hinterfragt.",
+    "tags": ["goethe", "klassiker"]
+  },
+  {
+    "_batch_index": 2227,
+    "text_de": "Welche Band stürmte 1986 mit \"In The Army Now\" die Charts?",
+    "answer_de": "Status Quo",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Das Lied war ursprünglich von Bolland & Bolland, Status Quo machte daraus einen Welthit.",
+    "tags": ["rock", "80er"]
+  },
+  {
+    "_batch_index": 2228,
+    "text_de": "Wer führte in dem Film \"Apocalypse Now\" Regie?",
+    "answer_de": "Francis Ford Coppola",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Die Dreharbeiten dauerten über ein Jahr und trieben Coppola fast in den Bankrott.",
+    "tags": ["kriegsfilm", "klassiker"]
+  },
+  {
+    "_batch_index": 2229,
+    "text_de": "Welcher Musiker wurde als \"Teufelsgeiger\" bekannt?",
+    "answer_de": "Niccolò Paganini",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Paganinis virtuoses Geigenspiel war so außergewöhnlich, dass Gerüchte aufkamen, er habe seine Seele dem Teufel verkauft.",
+    "tags": ["klassik", "virtuose"]
+  },
+  {
+    "_batch_index": 2231,
+    "text_de": "Wer trat 1993 die Nachfolge von Björn Engholm als Vorsitzender der SPD an?",
+    "answer_de": "Rudolf Scharping",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Scharping war der erste SPD-Vorsitzende aus Rheinland-Pfalz und führte die Partei in die Bundestagswahl 1994.",
+    "tags": ["politik", "spd"]
+  },
+  {
+    "_batch_index": 2233,
+    "text_de": "Wo war Anastasio Somoza bis zu seinem Sturz 1979 Staatspräsident?",
+    "answer_de": "Nicaragua",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Somoza-Dynastie herrschte über 40 Jahre in Nicaragua, bis sie von den Sandinisten gestürzt wurde.",
+    "tags": ["mittelamerika", "diktatur"]
+  },
+  {
+    "_batch_index": 2234,
+    "text_de": "Wie heißt die Hauptfigur in George Orwells \"1984\"?",
+    "answer_de": "Winston Smith",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Der Name Winston könnte eine Anspielung auf Winston Churchill sein, den Orwell sowohl bewunderte als auch kritisierte.",
+    "tags": ["dystopie", "orwell"]
+  },
+  {
+    "_batch_index": 2236,
+    "text_de": "In welcher Sportart gibt es eine \"spanische Eröffnung\"?",
+    "answer_de": "Schach",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Die spanische Eröffnung ist eine der ältesten und beliebtesten Schacheröffnungen, benannt nach einem spanischen Priester.",
+    "tags": ["schach", "strategie"]
+  },
+  {
+    "_batch_index": 2237,
+    "text_de": "Um welchen Baustoff handelt es sich bei \"Mönch\" und \"Nonne\"?",
+    "answer_de": "Dachziegel",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die Namen kommen von der Form der Ziegel - der \"Mönch\" ist konvex, die \"Nonne\" konkav.",
+    "tags": ["architektur", "handwerk"]
+  },
+  {
+    "_batch_index": 2238,
+    "text_de": "Wer gehört zu den Gründungsmitgliedern der OPEC?",
+    "answer_de": "Iran",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die OPEC wurde 1960 in Bagdad von Iran, Irak, Kuwait, Saudi-Arabien und Venezuela gegründet.",
+    "tags": ["erdöl", "wirtschaft"]
+  },
+  {
+    "_batch_index": 2240,
+    "text_de": "Welchen Namen trägt das Firmenmaskottchen von \"Salamander\"?",
+    "answer_de": "Lurchi",
+    "category": "Popkultur",
+    "difficulty": 2,
+    "fun_fact_de": "Lurchi wirbt seit 1937 für Salamander-Schuhe und ist eines der ältesten Werbemaskottchen Deutschlands.",
+    "tags": ["werbung", "maskottchen"]
+  },
+  {
+    "_batch_index": 2241,
+    "text_de": "Wie bezeichnet man den höchsten Kartenwert beim Poker?",
+    "answer_de": "Royal Flush",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Ein Royal Flush besteht aus Ass, König, Dame, Bube und Zehn derselben Farbe - die seltenste Hand im Poker.",
+    "tags": ["kartenspiel", "glücksspiel"]
+  },
+  {
+    "_batch_index": 2242,
+    "text_de": "Welcher Musikstil wurde von der Gruppe \"Nirvana\" geprägt?",
+    "answer_de": "Grunge",
+    "category": "Musik",
+    "difficulty": 1,
+    "fun_fact_de": "Grunge entstand in Seattle und revolutionierte in den 90ern die Rockmusik mit seinem rohen, unpolierten Sound.",
+    "tags": ["90er", "alternative"]
+  },
+  {
+    "_batch_index": 2243,
+    "text_de": "Auf welchem Anwesen lebte Elvis Presley in Memphis?",
+    "answer_de": "Graceland",
+    "category": "Musik",
+    "difficulty": 1,
+    "fun_fact_de": "Graceland ist heute eine der meistbesuchten Privatresidenzen der USA und steht unter Denkmalschutz.",
+    "tags": ["elvis", "memphis"]
+  },
+  {
+    "_batch_index": 2244,
+    "text_de": "Wie heißt der belgische Meisterdetektiv von Agatha Christie?",
+    "answer_de": "Hercule Poirot",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Poirot erschien in 33 Romanen und 50 Kurzgeschichten - mehr als jede andere Figur Christies.",
+    "tags": ["krimi", "agatha-christie"]
+  },
+  {
+    "_batch_index": 2245,
+    "text_de": "In welchem Landkreis liegt die Teststrecke des Transrapid?",
+    "answer_de": "Emsland",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Die 31,5 Kilometer lange Teststrecke im Emsland war die einzige Transrapid-Strecke in Deutschland.",
+    "tags": ["deutschland", "magnetschwebebahn"]
+  },
+  {
+    "_batch_index": 2247,
+    "text_de": "Mit welchem dieser Länder hat die Ukraine keine gemeinsame Grenze?",
+    "answer_de": "Georgien",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die Ukraine grenzt an sieben Länder, aber Georgien liegt weiter südlich am Kaukasus.",
+    "tags": ["ukraine", "grenzen"]
+  },
+  {
+    "_batch_index": 2248,
+    "text_de": "Wie nennt man den stark ölhaltigen Samen des Flachses?",
+    "answer_de": "Leinsamen",
+    "category": "Essen&Trinken",
+    "difficulty": 1,
+    "fun_fact_de": "Leinsamen enthalten wertvolle Omega-3-Fettsäuren und werden seit Jahrtausenden als Nahrungsmittel genutzt.",
+    "tags": ["samen", "gesundheit"]
+  },
+  {
+    "_batch_index": 2249,
+    "text_de": "Wer gewann 1997 für das Team Telekom die Tour de France?",
+    "answer_de": "Jan Ullrich",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Ullrich war der erste und einzige Deutsche, der die Tour de France gewann.",
+    "tags": ["radsport", "tour-de-france"]
+  },
+  {
+    "_batch_index": 2251,
+    "text_de": "Welches dieser Länder war nie eine britische Kolonie?",
+    "answer_de": "Brasilien",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Brasilien war eine portugiesische Kolonie, während viele andere südamerikanische Länder zeitweise unter britischer Kontrolle standen.",
+    "tags": ["kolonialismus", "südamerika"]
+  },
+  {
+    "_batch_index": 2252,
+    "text_de": "Welchen Test hat die Mercedes A-Klasse 1997 in Schweden nicht bestanden?",
+    "answer_de": "Elchtest",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Der Elchtest simuliert ein plötzliches Ausweichmanöver und führte zum Rückruf und zur Nachbesserung der A-Klasse.",
+    "tags": ["automobil", "sicherheit"]
+  },
+  {
+    "_batch_index": 2253,
+    "text_de": "Konstantinopel heißt heute ...?",
+    "answer_de": "Istanbul",
+    "category": "Geographie",
+    "difficulty": 1,
+    "fun_fact_de": "Der Name Istanbul leitet sich vom griechischen \"eis tin polin\" ab, was \"in die Stadt\" bedeutet.",
+    "tags": ["türkei", "geschichte"]
+  },
+  {
+    "_batch_index": 2255,
+    "text_de": "Wie heißt das Gift der Tollkirsche?",
+    "answer_de": "Atropin",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Atropin wird heute paradoxerweise als Medikament bei Vergiftungen und in der Augenheilkunde eingesetzt.",
+    "tags": ["botanik", "medizin"]
+  },
+  {
+    "_batch_index": 2256,
+    "text_de": "Welcher Begriff steht für \"im Namen Gottes\"?",
+    "answer_de": "In nomine Dei",
+    "category": "Sprache",
+    "difficulty": 2,
+    "fun_fact_de": "Dieser lateinische Ausdruck wurde traditionell zu Beginn wichtiger Dokumente und Zeremonien verwendet.",
+    "tags": ["latein", "religion"]
+  },
+  {
+    "_batch_index": 2257,
+    "text_de": "Wie heißt die große Liebe von Quasimodo, dem Glöckner von Notre Dame?",
+    "answer_de": "Esmeralda",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Victor Hugos Roman \"Der Glöckner von Notre Dame\" machte die gotische Kathedrale weltberühmt.",
+    "tags": ["victor-hugo", "klassiker"]
+  },
+  {
+    "_batch_index": 2258,
+    "text_de": "Wer war von 1981 bis 1995 Staatspräsident von Frankreich?",
+    "answer_de": "François Mitterrand",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Mitterrand war mit 14 Jahren Amtszeit der am längsten amtierende französische Präsident der Fünften Republik.",
+    "tags": ["frankreich", "politik"]
+  },
+  {
+    "_batch_index": 2259,
+    "text_de": "Welcher Farbton ist das Markenzeichen der Deutschen Telekom?",
+    "answer_de": "Magenta",
+    "category": "Popkultur",
+    "difficulty": 1,
+    "fun_fact_de": "Die Telekom ließ sich die spezielle Farbe \"Telekom Magenta\" sogar markenrechtlich schützen.",
+    "tags": ["marke", "farbe"]
+  },
+  {
+    "_batch_index": 2262,
+    "text_de": "Wie hieß der Vater von Wolfgang Amadeus Mozart mit Vornamen?",
+    "answer_de": "Leopold",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Leopold Mozart war selbst ein angesehener Komponist und Violinlehrer, der seinen Sohn streng förderte.",
+    "tags": ["mozart", "klassik"]
+  },
+  {
+    "_batch_index": 2263,
+    "text_de": "Wo stellte das Sachsenring Automobilwerk seit Ende der 50er Jahre den Trabant her?",
+    "answer_de": "Zwickau",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Der Trabant wurde über 30 Jahre lang produziert und war das meistgebaute Auto der DDR.",
+    "tags": ["ddr", "automobil"]
+  },
+  {
+    "_batch_index": 2265,
+    "text_de": "Welche Früchte hängen am Melonenbaum?",
+    "answer_de": "Papayas",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Die Papaya wird trotz ihres Namens \"Melonenbaum\" botanisch zu den Beeren gezählt.",
+    "tags": ["botanik", "tropische-früchte"]
+  },
+  {
+    "_batch_index": 2266,
+    "text_de": "An welcher Stelle des Zuckerahornbaumes wird Ahornsirup gewonnen?",
+    "answer_de": "Stamm",
+    "category": "Essen&Trinken",
+    "difficulty": 1,
+    "fun_fact_de": "Ein Ahornbaum kann bis zu 40 Liter Saft pro Saison geben, aus denen ein Liter Sirup wird.",
+    "tags": ["ahornsirup", "kanada"]
+  },
+  {
+    "_batch_index": 2267,
+    "text_de": "Bei der Nummerierung der Sitzreihen in Lufthansa-Flugzeugen fehlen immer die 13 und die ...?",
+    "answer_de": "17",
+    "category": "Technik",
+    "difficulty": 3,
+    "fun_fact_de": "Die 17 wird in Italien als Unglückszahl betrachtet, da sie als römische Ziffer XVII ein Anagramm von VIXI (\"ich habe gelebt\") ergibt.",
+    "tags": ["luftfahrt", "aberglaube"]
+  },
+  {
+    "_batch_index": 2268,
+    "text_de": "Für welches Land siegte Vicky Leandros 1973 beim Grand Prix Eurovision?",
+    "answer_de": "Luxemburg",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Luxemburg gewann viermal den Eurovision Song Contest, obwohl es eines der kleinsten Teilnehmerländer war.",
+    "tags": ["eurovision", "luxemburg"]
+  },
+  {
+    "_batch_index": 2269,
+    "text_de": "Wie heißt der Zeichner von Asterix?",
+    "answer_de": "Albert Uderzo",
+    "category": "Popkultur",
+    "difficulty": 2,
+    "fun_fact_de": "Uderzo zeichnete über 50 Jahre lang Asterix-Comics und schuf mit René Goscinny die berühmtesten Gallier der Welt.",
+    "tags": ["comic", "frankreich"]
+  },
+  {
+    "_batch_index": 2270,
+    "text_de": "Auf wen zeigt Gottes Finger auf Michelangelos berühmtem Fresko in der Sixtinischen Kapelle?",
+    "answer_de": "Adam",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Die \"Erschaffung Adams\" ist eines der berühmtesten Kunstwerke der Welt und zeigt die biblische Schöpfungsgeschichte.",
+    "tags": ["michelangelo", "renaissance"]
+  },
+  {
+    "_batch_index": 2271,
+    "text_de": "Wer wurde unter Gerhard Schröder als Ministerin vereidigt?",
+    "answer_de": "Heidemarie Wieczorek-Zeul",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Wieczorek-Zeul war von 1998 bis 2009 Bundesministerin für wirtschaftliche Zusammenarbeit und Entwicklung.",
+    "tags": ["politik", "entwicklungshilfe"]
+  },
+  {
+    "_batch_index": 2272,
+    "text_de": "Welcher Urlaubsort befindet sich auf der Insel Mallorca?",
+    "answer_de": "Alcúdia",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Alcúdia ist eine der ältesten Städte Mallorcas und war bereits zur Römerzeit ein wichtiger Handelsplatz.",
+    "tags": ["mallorca", "spanien"]
+  },
+  {
+    "_batch_index": 2273,
+    "text_de": "In welchem Takt spielt ein Orchester den Walzer?",
+    "answer_de": "3/4-Takt",
+    "category": "Musik",
+    "difficulty": 1,
+    "fun_fact_de": "Der 3/4-Takt gibt dem Walzer seinen charakteristischen Schwung mit der Betonung auf dem ersten Schlag.",
+    "tags": ["klassik", "tanz"]
+  },
+  {
+    "_batch_index": 2274,
+    "text_de": "Wie heißt der Ehemann von Rosi Mittermaier?",
+    "answer_de": "Christian Neureuther",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Beide waren erfolgreiche Skirennläufer - ihr Sohn Felix Neureuther wurde ebenfalls Ski-Profi.",
+    "tags": ["skisport", "familie"]
+  },
+  {
+    "_batch_index": 2275,
+    "text_de": "Was ist \"Singapore Sling\"?",
+    "answer_de": "Alkoholisches Getränk",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Der Singapore Sling wurde 1915 im Raffles Hotel erfunden und gilt als Nationalgetränk Singapurs.",
+    "tags": ["cocktail", "singapur"]
+  },
+  {
+    "_batch_index": 2276,
+    "text_de": "Was versteht man unter Kassandra-Rufen?",
+    "answer_de": "Unheilverkündende Weissagungen",
+    "category": "Sprache",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus der griechischen Mythologie - Kassandra konnte die Zukunft vorhersehen, aber niemand glaubte ihr.",
+    "tags": ["mythologie", "redewendung"]
+  },
+  {
+    "_batch_index": 2277,
+    "text_de": "Welcher Schriftsteller überlebte innerhalb von 24 Stunden zwei Flugzeugabstürze?",
+    "answer_de": "Ernest Hemingway",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Die Abstürze ereigneten sich 1954 in Afrika - Hemingway wurde sogar für tot erklärt, bevor er wieder auftauchte.",
+    "tags": ["hemingway", "biografie"]
+  },
+  {
+    "_batch_index": 2278,
+    "text_de": "Welchen Beruf hat die bolivianische Mutter von Verona Feldbusch ausgeübt?",
+    "answer_de": "Friseurin",
+    "category": "Popkultur",
+    "difficulty": 3,
+    "fun_fact_de": "Verona Pooth wurde in Bolivien geboren und zog erst als Kind nach Deutschland.",
+    "tags": ["promis", "biografie"]
+  },
+  {
+    "_batch_index": 2279,
+    "text_de": "Was für ein Tier ist der \"Totenkopf\"?",
+    "answer_de": "Schmetterling",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Der Totenkopfschwärmer hat eine charakteristische Zeichnung auf dem Rücken, die einem Totenschädel ähnelt.",
+    "tags": ["insekten", "nachtfalter"]
+  },
+  {
+    "_batch_index": 2280,
+    "text_de": "Welches Theater steht nicht in Berlin?",
+    "answer_de": "Thalia Theater",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Das Thalia Theater steht in Hamburg und ist eines der renommiertesten Sprechtheater Deutschlands.",
+    "tags": ["theater", "hamburg"]
+  },
+  {
+    "_batch_index": 2281,
+    "text_de": "Wer erwarb 1991 die Aktienmehrheit beim Automobilhersteller \"Škoda\"?",
+    "answer_de": "Volkswagen AG",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Die Übernahme von Škoda war ein wichtiger Schritt für VW zur Expansion nach Osteuropa nach dem Fall des Eisernen Vorhangs.",
+    "tags": ["automobil", "übernahme"]
+  },
+  {
+    "_batch_index": 2282,
+    "text_de": "Wer stürmte 1992 mit dem Album \"Erotica\" die internationalen Hitparaden?",
+    "answer_de": "Madonna",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Das Album war sehr kontrovers und kam zusammen mit Madonnas Buch \"Sex\" heraus.",
+    "tags": ["pop", "90er"]
+  },
+  {
+    "_batch_index": 2283,
+    "text_de": "Wer spielt den Lukas Lenz in der TV-Serie \"Lukas\"?",
+    "answer_de": "Dirk Bach",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Dirk Bach war auch als Komiker und Moderator bekannt und verstarb 2012 überraschend im Alter von 51 Jahren.",
+    "tags": ["fernsehen", "comedy"]
+  },
+  {
+    "_batch_index": 2284,
+    "text_de": "Gegen welches Land verhängte Napoleon 1806 die \"Kontinentalsperre\"?",
+    "answer_de": "Großbritannien",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Kontinentalsperre sollte Großbritannien wirtschaftlich schwächen, führte aber letztendlich zu Napoleons eigenem Untergang.",
+    "tags": ["napoleon", "wirtschaftskrieg"]
+  },
+  {
+    "_batch_index": 2285,
+    "text_de": "Welcher Begriff steht für einen Druckabfall in Überdrucksystemen?",
+    "answer_de": "Dekompression",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Schnelle Dekompression in Flugzeugen kann lebensgefährlich sein und erfordert Sauerstoffmasken für die Passagiere.",
+    "tags": ["luftfahrt", "physik"]
+  },
+  {
+    "_batch_index": 2286,
+    "text_de": "Welcher Entertainer hatte 1989 mit dem Titel \"Barfuß oder Lackschuh\" Erfolg?",
+    "answer_de": "Harald Juhnke",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Juhnke war ein vielseitiger Entertainer - Sänger, Schauspieler und Showmaster in einem.",
+    "tags": ["schlager", "entertainment"]
+  },
+  {
+    "_batch_index": 2287,
+    "text_de": "Wer erfand die Detektivfigur \"Philip Marlowe\"?",
+    "answer_de": "Raymond Chandler",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Philip Marlowe ist der Prototyp des zynischen Privatdetektivs und prägte das Genre des \"Hard-boiled Detective\".",
+    "tags": ["krimi", "noir"]
+  },
+  {
+    "_batch_index": 2288,
+    "text_de": "Was symbolisieren die Olympischen Ringe?",
+    "answer_de": "Fünf Kontinente",
+    "category": "Sport",
+    "difficulty": 1,
+    "fun_fact_de": "Die fünf ineinander verschlungenen Ringe stehen für die Verbindung aller Kontinente durch den olympischen Gedanken.",
+    "tags": ["olympia", "symbol"]
+  },
+  {
+    "_batch_index": 2289,
+    "text_de": "In welchem Land hat der Energiekonzern \"Gazprom\" seinen Hauptsitz?",
+    "answer_de": "Russland",
+    "category": "Allgemeinwissen",
+    "difficulty": 1,
+    "fun_fact_de": "Gazprom ist einer der größten Erdgasproduzenten der Welt und sitzt in Sankt Petersburg.",
+    "tags": ["energie", "russland"]
+  },
+  {
+    "_batch_index": 2290,
+    "text_de": "Bei welcher Stadt mündet die Elbe in die Nordsee?",
+    "answer_de": "Cuxhaven",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die Elbe legt auf ihrem Weg zur Nordsee über 1000 Kilometer zurück und durchfließt dabei zwei Länder.",
+    "tags": ["flüsse", "nordsee"]
+  },
+  {
+    "_batch_index": 2292,
+    "text_de": "Ein Wechselgebet im christlichen Gottesdienst nennt man ...?",
+    "answer_de": "Litanei",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Bei einer Litanei wechseln sich Vorbeter und Gemeinde mit festen Formeln ab.",
+    "tags": ["religion", "liturgie"]
+  },
+  {
+    "_batch_index": 2294,
+    "text_de": "Wer eröffnete im April 2001 die Bundesgartenschau in Potsdam?",
+    "answer_de": "Gerhard Schröder",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die BUGA 2001 in Potsdam fand in den historischen Parkanlagen von Sanssouci statt.",
+    "tags": ["gartenschau", "potsdam"]
+  },
+  {
+    "_batch_index": 2295,
+    "text_de": "Wie heißt das flächenmäßig größte Bundesland Deutschlands?",
+    "answer_de": "Bayern",
+    "category": "Geographie",
+    "difficulty": 1,
+    "fun_fact_de": "Bayern ist mit über 70.000 Quadratkilometern etwa so groß wie Österreich und die Schweiz zusammen.",
+    "tags": ["deutschland", "bundesländer"]
+  },
+  {
+    "_batch_index": 2296,
+    "text_de": "Golda Meir war von 1969 bis 1974 Ministerpräsidentin welchen Landes?",
+    "answer_de": "Israel",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Golda Meir war eine der ersten weiblichen Regierungschefs der Welt und führte Israel durch den Jom-Kippur-Krieg.",
+    "tags": ["israel", "politik"]
+  },
+  {
+    "_batch_index": 2297,
+    "text_de": "Welche Rolle spielte Kurt Russell in dem Film \"Flucht aus L.A.\"?",
+    "answer_de": "Snake Plissken",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Snake Plissken ist eine ikonische Antihelden-Figur aus den Filmen von John Carpenter.",
+    "tags": ["action", "antiheld"]
+  },
+  {
+    "_batch_index": 2298,
+    "text_de": "Wer trat am 1. Mai 2000 sein Amt als Geschäftsführender Direktor des IWF an?",
+    "answer_de": "Horst Köhler",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Köhler wurde später von 2004 bis 2010 Bundespräsident der Bundesrepublik Deutschland.",
+    "tags": ["iwf", "politik"]
+  },
+  {
+    "_batch_index": 2299,
+    "text_de": "Welches Verfahren nennt man auch \"Steindruck\"?",
+    "answer_de": "Lithografie",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Die Lithografie wurde Ende des 18. Jahrhunderts erfunden und ermöglichte erstmals günstigen Farbdruck.",
+    "tags": ["drucktechnik", "kunst"]
+  }
+]

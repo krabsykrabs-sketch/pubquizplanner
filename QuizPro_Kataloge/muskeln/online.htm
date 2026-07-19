@@ -1,0 +1,378 @@
+<html>
+																																																																																		<!--
+           (c) by    |    _) |             |    _)     ___|         _| |                    
+   www.Litschi.de    |     | __|  __|  __| __ \  |   \___ \   _ \  |   __|                  
+  info@litschi.de    |     | |  \__ \ (    | | | |_____|   | (   | __| |                    
+made with QUIZPro   _____|_|\__|____/\___|_| |_|_|   _____/ \___/ _|  \__|                  
+
+																																																																																		-->
+<head>
+<meta name="author" content="Mag. Markus Braun">
+<meta name="description" content="">
+<meta name="generator" content="Litschi-Soft">
+<title>Muskel Quiz</title>
+<style type="text/css">
+<!-- 
+	p		{	width=85%;
+				border: 6px double #EFEFEF;
+				margin-left: 20px;
+				padding: 5px;
+				font-family: Arial;
+				font-size: 13px;		
+			}
+<!-- --------------------------------------------------------------------------- -->
+	p.text 		{ 	background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->
+	p.text INPUT 	{	border: 3px outset #CCCCCC;
+				width=95%;
+				color: #FFFFF;
+				font-weight: bold;
+	     	     	}	
+<!-- --------------------------------------------------------------------------- -->
+	p.radio		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.radio INPUT 	{ 
+				border: 4px outset #CCCCCC;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+	p.checkbox		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.checkbox INPUT 	{ 
+				border: 4px outset #CCCCCC;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+<!-- ---checkbox2 wird bei der Umwandlung von SMC (Simple Multiple Choice) nach AMC (Advanced Multiple Choice angelegt um eine optische Trennung zu ermˆglichen -->
+<!-- --------------------------------------------------------------------------- -->
+	p.checkbox2		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.checkbox2 INPUT 	{ 
+				border: 4px outset #000000;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+	img.bild	{
+				border: 2px solid #AAAAAA;
+			}
+<!-- --------------------------------------------------------------------------- -->
+	INPUT, TEXTAREA {
+					
+				padding: 2px;
+				font-size: 15px;
+				font-weight: bold;
+				font-weight: bold;
+				background-color: #FFFFFF;
+				font-weight: bold;
+			}
+                                
+.grau   {	background-color: #AAAAAA;
+		font-size: 20px;
+		font-weight: bold;
+        }
+                                                                                 -->
+</style>
+<script language="JavaScript">
+<!--
+function auswerten() 
+{
+	var i=0;		//Z‰hler
+	var ii=0;		//Z‰hler
+	var wort="";		//Zum zerlegen der Antwortmˆglichkeiten bei Textantworten in ein Array
+	var ergebnis=0;		//Returnwert der Funktion, enth‰lt die erreichten Gesamtpunkte
+	var textwert=0;		//enth‰lt die erreichten Punkte bei Textantworten
+	var mcwert=0;		//enth‰lt die erreichten Punkte bei Multiple-Choice Antworten
+	var chwert=0;		//enth‰lt die erreichten Punkte bei Multiple-Choice (mehrere Antworten mˆglich)
+for (i=0;i<document.quizform.length; i++) 
+	{
+		if (document.quizform.elements(i).type == "radio") 
+		{	if (document.forms(0).item(i).checked == true) 
+		{	mcwert = mcwert + parseInt(document.forms(0).item(i).value)
+		}}
+		if (document.quizform.elements(i).type == "checkbox") 
+		{	if (document.forms(0).item(i).checked == true) 
+		{	chwert = chwert + parseInt(document.forms(0).item(i).value)
+		}}
+		if (document.quizform.elements(i).type == "text") 
+		{	if (document.quizform.item(i).name != "namen") 
+		{	if (document.quizform.item(i).value != "") 
+		{	wort=document.quizform.item(i).vergleich.split("::");
+		for (ii=0;ii<wort.length;ii++)
+		{	if(document.quizform.item(i).value.toUpperCase()==wort[ii].toUpperCase())
+       		{	textwert = textwert + parseInt(document.forms(0).item(i).wert)
+		}}}}}
+	}
+	if (chwert < 0) 
+{	chwert = 0;
+}
+ergebnis = mcwert + textwert + chwert;
+	document.quizform.punkte.value=ergebnis;
+	   document.quizform.txt.value=textwert;
+	    document.quizform.smc.value=mcwert;
+	    document.quizform.amc.value=chwert;
+	return ergebnis;
+}
+	function hidestatus(){window.status='';return true};if (document.layers)document.captureEvents(Event.MOUSEOVER | Event.MOUSEOUT);document.onmouseover=hidestatus;document.onmouseout=hidestatus
+	function click(e){if (document.all) if (event.button == 2) return false;if(document.layers) if (e.which == 3) return false;}function click2(){event.returnValue=false;return false;}if (document.layers)document.captureEvents(Event.MOUSEDOWN);document.onmousedown=click;document.oncontextmenu=click2;
+//-->
+</script>
+</head>
+<body bgcolor="#EFEBEF">
+<a name="#_Seitenanfang"></a>
+<form name="quizform" method="post" onreset="return confirm('Sind Sie sicher?')">
+<input type="hidden" name="punkte">
+ <input type="hidden" name="txt">
+ <input type="hidden" name="smc">
+ <input type="hidden" name="amc"> 
+<div align="center">
+
+    <table width="60%" border="1" bordercolor="#000000" align="center">
+      <tr><td align="center">
+<marquee behavior=alternate>
+	<a href="http://www.litschi.de" target="_blank">
+		<img src="http://www.lehrquiz.de/litschi/grafik/litschilogofiles.jpg" border="0">
+	</a>
+</marquee>
+<span style="font-size:8pt;">Diese Onlinedemo wurde erzeugt mit dem QUIZPro-Converter V2 (c) Litschi-Soft</span>
+</td></tr></table>
+
+
+</div>
+<br>
+<hr>
+<table width="100%" bgcolor="#FFFFFF" border="1" bordercolor="#AAAAAA"><tr><td>
+<pre>
+<b> Katalogname: <span style="color:#000055">Muskel Quiz</span>
+Fragenanzahl: <span style="color:#005500">20</span>
+Gesamtpunkte: 20
+       Autor: <span style="color:#550000">Mag. Markus Braun</span></b><span style="font-size:7pt"> [Info wurde aus Fragenkatalog ¸bernommen (ohne Gew‰hr!)]</pre></span>
+</td></tr></table>
+
+<p class='radio'>
+<img src="01.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>1</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 3 ?<br><br>
+<input type='radio' name='A0' value='0'>&nbsp;Wadenmuskel<br>
+<input type='radio' name='A0' value='0'>&nbsp;Groﬂer Brustmuskel<br>
+<input type='radio' name='A0' value='0'>&nbsp;Quadriceps<br>
+<input type='radio' name='A0' value='1'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A0' value='0'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A0' value='0'>&nbsp;Latissimus<br>
+</p>
+<p class='radio'>
+<img src="02.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>2</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ?<br><br>
+<input type='radio' name='A1' value='0'>&nbsp;Biceps femoris<br>
+<input type='radio' name='A1' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A1' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A1' value='0'>&nbsp;Latissimus<br>
+<input type='radio' name='A1' value='1'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A1' value='0'>&nbsp;Trapezmuskel<br>
+</p>
+<p class='radio'>
+<img src="03.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>3</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 6 ?<br><br>
+<input type='radio' name='A2' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A2' value='0'>&nbsp;Quadriceps femoris<br>
+<input type='radio' name='A2' value='0'>&nbsp;Abduktoren<br>
+<input type='radio' name='A2' value='0'>&nbsp;Abduktoren<br>
+<input type='radio' name='A2' value='1'>&nbsp;Schienbeinmuskel<br>
+<input type='radio' name='A2' value='0'>&nbsp;Groﬂer Ges‰ﬂmuskel<br>
+</p>
+<p class='radio'>
+<img src="04.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>4</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ?<br><br>
+<input type='radio' name='A3' value='1'>&nbsp;Groﬂer Ges‰ﬂmuskel<br>
+<input type='radio' name='A3' value='0'>&nbsp;Wadenmuskel<br>
+<input type='radio' name='A3' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A3' value='0'>&nbsp;Schr‰ger Bauchmuskel<br>
+<input type='radio' name='A3' value='0'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A3' value='0'>&nbsp;Adduktoren<br>
+</p>
+<p class='radio'>
+<img src="05.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>5</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 4 ?<br><br>
+<input type='radio' name='A4' value='0'>&nbsp;Latissimus<br>
+<input type='radio' name='A4' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A4' value='1'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A4' value='0'>&nbsp;Groﬂer Brustmuskel<br>
+<input type='radio' name='A4' value='0'>&nbsp;Kleiner Brustmuskel<br>
+<input type='radio' name='A4' value='0'>&nbsp;Deltamuskel<br>
+</p>
+<p class='radio'>
+<img src="06.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>6</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ?<br><br>
+<input type='radio' name='A5' value='0'>&nbsp;Schr‰ger Bauchmuskel<br>
+<input type='radio' name='A5' value='0'>&nbsp;Kleiner Brustmuskel<br>
+<input type='radio' name='A5' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A5' value='1'>&nbsp;Gerader Bauchmuskel<br>
+<input type='radio' name='A5' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A5' value='0'>&nbsp;S‰gemuskel<br>
+</p>
+<p class='radio'>
+<img src="07.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>7</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ?<br><br>
+<input type='radio' name='A6' value='0'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A6' value='0'>&nbsp;Latissimus<br>
+<input type='radio' name='A6' value='0'>&nbsp;Rundmuskel<br>
+<input type='radio' name='A6' value='0'>&nbsp;Schr‰ger Bauchmuskel<br>
+<input type='radio' name='A6' value='1'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A6' value='0'>&nbsp;S‰gemuskel<br>
+</p>
+<p class='radio'>
+<img src="01.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>8</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 5 und 6 ? (Arminnenseite)<br><br>
+<input type='radio' name='A7' value='0'>&nbsp;Rundmuskel<br>
+<input type='radio' name='A7' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A7' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A7' value='0'>&nbsp;Fingerstrecker<br>
+<input type='radio' name='A7' value='0'>&nbsp;Biceps femoris<br>
+<input type='radio' name='A7' value='1'>&nbsp;Fingerbeuger<br>
+</p>
+<p class='radio'>
+<img src="02.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>9</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 2 ?<br><br>
+<input type='radio' name='A8' value='0'>&nbsp;Biceps femoris<br>
+<input type='radio' name='A8' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A8' value='0'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A8' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A8' value='1'>&nbsp;Triceps brachii<br>
+<input type='radio' name='A8' value='0'>&nbsp;Biceps brachii<br>
+</p>
+<p class='radio'>
+<img src="03.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>10</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1-3 ?<br><br>
+<input type='radio' name='A9' value='0'>&nbsp;Latissimus<br>
+<input type='radio' name='A9' value='0'>&nbsp;Biceps femoris<br>
+<input type='radio' name='A9' value='0'>&nbsp;Abduktoren<br>
+<input type='radio' name='A9' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A9' value='0'>&nbsp;Adduktoren<br>
+<input type='radio' name='A9' value='1'>&nbsp;Quadriceps femoris<br>
+</p>
+<p class='radio'>
+<img src="04.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>11</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 4 ?<br><br>
+<input type='radio' name='A10' value='0'>&nbsp;Abduktoren<br>
+<input type='radio' name='A10' value='0'>&nbsp;Biceps femoris<br>
+<input type='radio' name='A10' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A10' value='0'>&nbsp;Quadriceps femoris<br>
+<input type='radio' name='A10' value='1'>&nbsp;Wadenmuskel<br>
+<input type='radio' name='A10' value='0'>&nbsp;Schienbeinmuskel<br>
+</p>
+<p class='radio'>
+<img src="05.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>12</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 2 ?<br><br>
+<input type='radio' name='A11' value='0'>&nbsp;Kleiner Brustmuskel<br>
+<input type='radio' name='A11' value='0'>&nbsp;Triceps brachii<br>
+<input type='radio' name='A11' value='1'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A11' value='0'>&nbsp;Groﬂer Brustmuskel<br>
+<input type='radio' name='A11' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A11' value='0'>&nbsp;S‰gemuskel<br>
+</p>
+<p class='radio'>
+<img src="06.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>13</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 2 ?<br><br>
+<input type='radio' name='A12' value='1'>&nbsp;Schr‰ger Bauchmuskel<br>
+<input type='radio' name='A12' value='0'>&nbsp;Rundmuskel<br>
+<input type='radio' name='A12' value='0'>&nbsp;Gerader Bauchmuskel<br>
+<input type='radio' name='A12' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A12' value='0'>&nbsp;Adduktoren<br>
+<input type='radio' name='A12' value='0'>&nbsp;Trapezmuskel<br>
+</p>
+<p class='radio'>
+<img src="07.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>14</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 2 ?<br><br>
+<input type='radio' name='A13' value='0'>&nbsp;Triceps brachii<br>
+<input type='radio' name='A13' value='1'>&nbsp;Latissimus<br>
+<input type='radio' name='A13' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A13' value='0'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A13' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A13' value='0'>&nbsp;Rundmuskel<br>
+</p>
+<p class='radio'>
+<img src="01.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>15</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ?<br><br>
+<input type='radio' name='A14' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A14' value='1'>&nbsp;Groﬂer Brustmuskel<br>
+<input type='radio' name='A14' value='0'>&nbsp;Schr‰ger Bauchmuskel<br>
+<input type='radio' name='A14' value='0'>&nbsp;Latissimus<br>
+<input type='radio' name='A14' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A14' value='0'>&nbsp;Deltamuskel<br>
+</p>
+<p class='radio'>
+<img src="03.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>16</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 4 ?<br><br>
+<input type='radio' name='A15' value='1'>&nbsp;Adduktoren<br>
+<input type='radio' name='A15' value='0'>&nbsp;Abduktoren<br>
+<input type='radio' name='A15' value='0'>&nbsp;Schienbeinmuskel<br>
+<input type='radio' name='A15' value='0'>&nbsp;Groﬂer Ges‰ﬂmuskel<br>
+<input type='radio' name='A15' value='0'>&nbsp;Quadriceps femoris<br>
+<input type='radio' name='A15' value='0'>&nbsp;S‰gemuskel<br>
+</p>
+<p class='radio'>
+<img src="05.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>17</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ?<br><br>
+<input type='radio' name='A16' value='1'>&nbsp;Kopfdreher<br>
+<input type='radio' name='A16' value='0'>&nbsp;Groﬂer Ges‰ﬂmuskel<br>
+<input type='radio' name='A16' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A16' value='0'>&nbsp;Kleiner Brustmuskel<br>
+<input type='radio' name='A16' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A16' value='0'>&nbsp;Trapezmuskel<br>
+</p>
+<p class='radio'>
+<img src="04.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>18</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 2 ?<br><br>
+<input type='radio' name='A17' value='0'>&nbsp;Abduktoren<br>
+<input type='radio' name='A17' value='0'>&nbsp;Adduktoren<br>
+<input type='radio' name='A17' value='0'>&nbsp;Wadenmuskel<br>
+<input type='radio' name='A17' value='0'>&nbsp;Groﬂer Ges‰ﬂmuskel<br>
+<input type='radio' name='A17' value='0'>&nbsp;Biceps femoris<br>
+<input type='radio' name='A17' value='1'>&nbsp;Halbsehniger Muskel<br>
+</p>
+<p class='radio'>
+<img src="05.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>19</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 3 ?<br><br>
+<input type='radio' name='A18' value='0'>&nbsp;Rundmuskel<br>
+<input type='radio' name='A18' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A18' value='0'>&nbsp;Trapezmuskel<br>
+<input type='radio' name='A18' value='0'>&nbsp;Halbsehniger Muskel<br>
+<input type='radio' name='A18' value='0'>&nbsp;Kopfdreher<br>
+<input type='radio' name='A18' value='1'>&nbsp;Groﬂer Brustmuskel<br>
+</p>
+<p class='radio'>
+<img src="07.jpg" Height='200'  class="bild"><br>
+<u>Frage <b>20</b> von 20:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 3 ?<br><br>
+<input type='radio' name='A19' value='0'>&nbsp;Halbsehniger Muskel<br>
+<input type='radio' name='A19' value='0'>&nbsp;S‰gemuskel<br>
+<input type='radio' name='A19' value='0'>&nbsp;Rundmuskel<br>
+<input type='radio' name='A19' value='0'>&nbsp;Groﬂer Brustmuskel<br>
+<input type='radio' name='A19' value='1'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A19' value='0'>&nbsp;Trapezmuskel<br>
+</p>
+
+<hr>
+  <div align="center">Auswerten von Muskel Quiz.<br>
+    <br>
+    <input type="button" class="grau" value=" Ergebnis anzeigen " onclick="alert('Sie erreichten\n' + auswerten() + ' von insgesamt 20 Punkten !');self.close();">
+    <br>
+    <br>
+</form>
+<a href="#_Seitenanfang">Zum Seitenanfang</a><br>
+</div>
+</body>
+</html>
+
+

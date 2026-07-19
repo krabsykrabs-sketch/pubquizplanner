@@ -1,0 +1,731 @@
+[
+  {
+    "_batch_index": 1000,
+    "text_de": "Wo liegt Beirut?",
+    "answer_de": "Libanon",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Beirut ist eine der ältesten Städte der Welt und war bereits vor über 5000 Jahren besiedelt.",
+    "tags": ["Naher Osten", "Hauptstadt", "Mittelmeer"]
+  },
+  {
+    "_batch_index": 1001,
+    "text_de": "Was ist der Walhai?",
+    "answer_de": "der größte Fisch der Welt",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Trotz seiner enormen Größe von bis zu 18 Metern ernährt sich der Walhai hauptsächlich von winzigem Plankton.",
+    "tags": ["Meerestiere", "Rekorde", "Biologie"]
+  },
+  {
+    "_batch_index": 1002,
+    "text_de": "Woraus gewinnt man Terpentin?",
+    "answer_de": "Baumharz",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Terpentin wird hauptsächlich aus dem Harz von Kiefern gewonnen und wird seit Jahrhunderten als Lösungsmittel verwendet.",
+    "tags": ["Chemie", "Natur", "Handwerk"]
+  },
+  {
+    "_batch_index": 1003,
+    "text_de": "Zu welcher Vogelfamilie gehört der Kanarienvogel?",
+    "answer_de": "Finken",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Kanarienvögel wurden ursprünglich von den Kanarischen Inseln nach Europa gebracht und waren dort zunächst graubraun gefärbt.",
+    "tags": ["Vögel", "Haustiere", "Biologie"]
+  },
+  {
+    "_batch_index": 1004,
+    "text_de": "Wie viele Profi-Kämpfe verlor Muhammad Ali?",
+    "answer_de": "fünf",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Muhammad Ali bestritt 61 Profikämpfe, von denen er 56 gewann und nur 5 verlor.",
+    "tags": ["Boxen", "Sport-Geschichte", "Rekorde"]
+  },
+  {
+    "_batch_index": 1006,
+    "text_de": "Zu welchem Kontinent gehören die Kanarischen Inseln?",
+    "answer_de": "Afrika",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Obwohl sie politisch zu Spanien gehören, liegen die Kanarischen Inseln geografisch vor der Küste Nordwestafrikas.",
+    "tags": ["Inseln", "Spanien", "Atlantik"]
+  },
+  {
+    "_batch_index": 1007,
+    "text_de": "Wer schrieb den Roman \"Irrungen, Wirrungen\"?",
+    "answer_de": "Theodor Fontane",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "\"Irrungen, Wirrungen\" gilt als einer der ersten realistischen deutschen Gesellschaftsromane des 19. Jahrhunderts.",
+    "tags": ["Deutsche Literatur", "19. Jahrhundert", "Realismus"]
+  },
+  {
+    "_batch_index": 1008,
+    "text_de": "Wo legen Grashüpfer ihre Eier ab?",
+    "answer_de": "im Boden",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Grashüpfer bohren mit ihrem Legebohrer kleine Löcher in die Erde und legen dort ihre Eier für die Überwinterung ab.",
+    "tags": ["Insekten", "Fortpflanzung", "Biologie"]
+  },
+  {
+    "_batch_index": 1009,
+    "text_de": "In welchem Land entstand das Golfspiel?",
+    "answer_de": "Schottland",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Golf entwickelte sich im 15. Jahrhundert in Schottland, wobei der Old Course in St. Andrews als Wiege des Golfsports gilt.",
+    "tags": ["Golf", "Schottland", "Sport-Geschichte"]
+  },
+  {
+    "_batch_index": 1010,
+    "text_de": "Wie hieß das Schiff, mit dem die Pilgerväter 1620 nach Amerika fuhren?",
+    "answer_de": "Mayflower",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Mayflower war nur 27 Meter lang und brachte 102 Passagiere über den Atlantik nach Nordamerika.",
+    "tags": ["Amerika", "Kolonialzeit", "Seefahrt"]
+  },
+  {
+    "_batch_index": 1011,
+    "text_de": "Wie heißt \"Batavia\" heute?",
+    "answer_de": "Jakarta",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Jakarta, die heutige Hauptstadt Indonesiens, hieß während der niederländischen Kolonialzeit Batavia.",
+    "tags": ["Indonesien", "Hauptstadt", "Kolonialgeschichte"]
+  },
+  {
+    "_batch_index": 1012,
+    "text_de": "Was ist ein Welpe?",
+    "answer_de": "ein junger Hund",
+    "category": "Allgemeinwissen",
+    "difficulty": 1,
+    "fun_fact_de": "Welpen werden blind und taub geboren und öffnen ihre Augen erst nach etwa zwei Wochen.",
+    "tags": ["Hunde", "Tierbabys", "Entwicklung"]
+  },
+  {
+    "_batch_index": 1013,
+    "text_de": "Wie sah Leonardo da Vincis Entwurf für einen Fallschirm aus?",
+    "answer_de": "wie eine Pyramide",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Da Vincis pyramidenförmiger Fallschirmentwurf aus dem Jahr 1485 war über 300 Jahre älter als der erste tatsächliche Fallschirmsprung.",
+    "tags": ["Leonardo da Vinci", "Erfindungen", "Renaissance"]
+  },
+  {
+    "_batch_index": 1015,
+    "text_de": "Was versteht man in der Medizin unter \"Anämie\"?",
+    "answer_de": "Blutarmut",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Anämie ist weltweit eine der häufigsten Mangelerkrankungen und betrifft etwa ein Viertel der Weltbevölkerung.",
+    "tags": ["Medizin", "Krankheiten", "Blut"]
+  },
+  {
+    "_batch_index": 1016,
+    "text_de": "Welcher Romanheld ritt auf dem Pferd \"Rosinante\"?",
+    "answer_de": "Don Quichotte",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "\"Rosinante\" bedeutet auf Spanisch \"alter Klepper\" - ein passender Name für das magere Pferd des verträumten Ritters.",
+    "tags": ["Cervantes", "Spanische Literatur", "Klassiker"]
+  },
+  {
+    "_batch_index": 1017,
+    "text_de": "Was schätzt man anhand der \"Beaufort-Skala\" ab?",
+    "answer_de": "Windstärke",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Die Beaufort-Skala wurde 1806 von dem britischen Admiral Francis Beaufort entwickelt und reicht von 0 (Windstille) bis 12 (Orkan).",
+    "tags": ["Wetter", "Meteorologie", "Navigation"]
+  },
+  {
+    "_batch_index": 1018,
+    "text_de": "Was ist \"Malaria\"?",
+    "answer_de": "eine tropische Krankheit",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Malaria wird durch Parasiten übertragen, die von Anopheles-Mücken verbreitet werden und jährlich über 200 Millionen Menschen betreffen.",
+    "tags": ["Krankheiten", "Tropen", "Parasiten"]
+  },
+  {
+    "_batch_index": 1019,
+    "text_de": "Welches ist die größte Insel der Großen Antillen?",
+    "answer_de": "Kuba",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Kuba ist mit 110.000 Quadratkilometern etwa so groß wie Bulgarien und die 17. größte Insel der Welt.",
+    "tags": ["Karibik", "Inseln", "Größenrekorde"]
+  },
+  {
+    "_batch_index": 1020,
+    "text_de": "Wer stürmte 1984 mit \"Purple Rain\" die Charts?",
+    "answer_de": "Prince",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "\"Purple Rain\" war sowohl ein Album als auch ein Film und brachte Prince den Oscar für die beste Filmmusik ein.",
+    "tags": ["Prince", "80er Jahre", "Pop-Musik"]
+  },
+  {
+    "_batch_index": 1021,
+    "text_de": "Welche Schlange ist giftig?",
+    "answer_de": "die Viper",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Vipern haben klappbare Giftzähne, die sie nach vorne ausklappen können, wenn sie zubeißen.",
+    "tags": ["Schlangen", "Giftiere", "Biologie"]
+  },
+  {
+    "_batch_index": 1022,
+    "text_de": "Was ist das \"Hermelin\"?",
+    "answer_de": "ein Wiesel",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Das Hermelin wechselt im Winter sein braunes Fell gegen ein weißes - nur die Schwanzspitze bleibt schwarz.",
+    "tags": ["Säugetiere", "Fellwechsel", "Winter"]
+  },
+  {
+    "_batch_index": 1023,
+    "text_de": "Wo war \"Golda Meir\" Ministerpräsidentin?",
+    "answer_de": "in Israel",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Golda Meir war von 1969 bis 1974 Israels Ministerpräsidentin und eine der ersten weiblichen Regierungschefinnen der Welt.",
+    "tags": ["Israel", "Politik", "Frauen"]
+  },
+  {
+    "_batch_index": 1024,
+    "text_de": "Wer von \"Tom und Jerry\" ist der Kater?",
+    "answer_de": "Tom",
+    "category": "Popkultur",
+    "difficulty": 1,
+    "fun_fact_de": "Die Zeichentrickserie \"Tom und Jerry\" gewann sieben Oscars für den besten animierten Kurzfilm.",
+    "tags": ["Zeichentrick", "Klassiker", "Animation"]
+  },
+  {
+    "_batch_index": 1025,
+    "text_de": "Was sind Meerkatzen?",
+    "answer_de": "Affen",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Trotz ihres Namens sind Meerkatzen Primaten aus Afrika und haben nichts mit Katzen oder dem Meer zu tun.",
+    "tags": ["Primaten", "Afrika", "Tiernamen"]
+  },
+  {
+    "_batch_index": 1026,
+    "text_de": "Welches ist die älteste olympische Disziplin?",
+    "answer_de": "Kurzstreckenlauf",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Der Stadionlauf über etwa 192 Meter war die einzige Disziplin bei den ersten Olympischen Spielen im antiken Griechenland 776 v. Chr.",
+    "tags": ["Olympia", "Antike", "Leichtathletik"]
+  },
+  {
+    "_batch_index": 1028,
+    "text_de": "Wann entdeckte Kolumbus Amerika?",
+    "answer_de": "1492",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Kolumbus landete am 12. Oktober 1492 auf einer Insel der Bahamas und dachte zunächst, er sei in Indien angekommen.",
+    "tags": ["Entdeckungen", "Amerika", "15. Jahrhundert"]
+  },
+  {
+    "_batch_index": 1029,
+    "text_de": "Wie heißt das Festland von Dänemark?",
+    "answer_de": "Jütland",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Jütland ist eine Halbinsel, die Dänemark mit dem europäischen Festland verbindet und etwa 70% der dänischen Landesfläche ausmacht.",
+    "tags": ["Dänemark", "Skandinavien", "Halbinsel"]
+  },
+  {
+    "_batch_index": 1030,
+    "text_de": "Mit welchem Tanz landete die Gruppe \"Kaoma\" einen Hit?",
+    "answer_de": "Lambada",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "\"Lambada\" von Kaoma war 1989 ein Welthit und machte den gleichnamigen brasilianischen Tanz international populär.",
+    "tags": ["Lateinamerika", "Tanz", "80er Jahre"]
+  },
+  {
+    "_batch_index": 1031,
+    "text_de": "Seit wann dürfen Frauen in Deutschland wählen?",
+    "answer_de": "1918",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Das Frauenwahlrecht wurde am 30. November 1918 in Deutschland eingeführt, und bei der ersten Wahl 1919 gingen 90% der wahlberechtigten Frauen zur Urne.",
+    "tags": ["Wahlrecht", "Frauen", "Weimarer Republik"]
+  },
+  {
+    "_batch_index": 1032,
+    "text_de": "Welchen Beinamen erhielt König Richard I. von England?",
+    "answer_de": "Löwenherz",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Richard Löwenherz verbrachte nur etwa sechs Monate seiner zehnjährigen Regentschaft tatsächlich in England.",
+    "tags": ["England", "Kreuzzüge", "Mittelalter"]
+  },
+  {
+    "_batch_index": 1033,
+    "text_de": "In welchem US-Bundesstaat liegt der Weltraumbahnhof \"Cape Canaveral\"?",
+    "answer_de": "Florida",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Cape Canaveral wurde wegen seiner Nähe zum Äquator gewählt, da Raketen dort von der Erdrotation zusätzlichen Schub erhalten.",
+    "tags": ["Raumfahrt", "USA", "NASA"]
+  },
+  {
+    "_batch_index": 1034,
+    "text_de": "In welcher Stadt herrscht zum Karneval das \"Dreigestirn\"?",
+    "answer_de": "Köln",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Das Kölner Dreigestirn besteht aus Prinz, Bauer und Jungfrau und regiert symbolisch während der närrischen Zeit.",
+    "tags": ["Karneval", "Köln", "Tradition"]
+  },
+  {
+    "_batch_index": 1036,
+    "text_de": "Was ist ein \"Fennek\"?",
+    "answer_de": "ein Wüstenfuchs",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Der Fennek ist der kleinste Fuchs der Welt und hat überproportional große Ohren, die ihm bei der Wärmeabgabe in der Wüste helfen.",
+    "tags": ["Wüstentiere", "Füchse", "Afrika"]
+  },
+  {
+    "_batch_index": 1037,
+    "text_de": "Aus welchem Land kommt der \"Pyjama\"?",
+    "answer_de": "aus Indien",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Das Wort \"Pyjama\" stammt aus dem Hindi und bedeutet \"Beinkleid\" - ursprünglich war es weite Tageskleindung.",
+    "tags": ["Kleidung", "Indien", "Etymologie"]
+  },
+  {
+    "_batch_index": 1039,
+    "text_de": "Wer führte 1984 bei dem Film \"Amadeus\" Regie?",
+    "answer_de": "Miloš Forman",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "\"Amadeus\" gewann acht Oscars, darunter den für die beste Regie für Miloš Forman, der zuvor schon \"Einer flog über das Kuckucksnest\" inszeniert hatte.",
+    "tags": ["Mozart", "Oscars", "Biopic"]
+  },
+  {
+    "_batch_index": 1040,
+    "text_de": "Wie ist der Mond auf der türkischen Staatsflagge dargestellt?",
+    "answer_de": "abnehmender Mond",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die türkische Flagge zeigt einen abnehmenden Mond mit einem Stern, ein Symbol, das bereits vom Byzantinischen Reich verwendet wurde.",
+    "tags": ["Türkei", "Flaggen", "Symbole"]
+  },
+  {
+    "_batch_index": 1041,
+    "text_de": "Wer waren die \"Fugger\"?",
+    "answer_de": "Kaufleute",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Fugger aus Augsburg waren im 15. und 16. Jahrhundert die reichste Kaufmannsfamilie Europas und finanzierten sogar Kaiser.",
+    "tags": ["Mittelalter", "Handel", "Augsburg"]
+  },
+  {
+    "_batch_index": 1042,
+    "text_de": "Welches Volk hat als erstes Kämme aus Elfenbein benutzt?",
+    "answer_de": "die Ägypter",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Ägyptische Elfenbeinkämme sind über 5000 Jahre alt und zeigen die frühe Bedeutung der Körperpflege im alten Ägypten.",
+    "tags": ["Altes Ägypten", "Körperpflege", "Handwerk"]
+  },
+  {
+    "_batch_index": 1043,
+    "text_de": "Wo steht der größte Herrscher-Palast?",
+    "answer_de": "in Peking",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die Verbotene Stadt in Peking hat 9999 Räume und war 500 Jahre lang das Zentrum der chinesischen Macht.",
+    "tags": ["China", "Paläste", "Architektur"]
+  },
+  {
+    "_batch_index": 1046,
+    "text_de": "Was ist eine \"Kasematte\"?",
+    "answer_de": "ein Schutzraum",
+    "category": "Allgemeinwissen",
+    "difficulty": 3,
+    "fun_fact_de": "Kasematten sind bombensichere Räume in Festungen, die sowohl als Unterkunft als auch als Geschützstellung dienten.",
+    "tags": ["Militär", "Festungen", "Architektur"]
+  },
+  {
+    "_batch_index": 1047,
+    "text_de": "Welches Rauschgift war einmal Anlass eines Krieges zwischen China und England?",
+    "answer_de": "Opium",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Opiumkriege (1839-1842 und 1856-1860) entstanden, als China den britischen Opiumhandel stoppen wollte.",
+    "tags": ["China", "England", "Drogen"]
+  },
+  {
+    "_batch_index": 1048,
+    "text_de": "Wer hat den Boxsport erfunden?",
+    "answer_de": "die Griechen",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Boxen war bereits 688 v. Chr. olympische Disziplin im antiken Griechenland, allerdings ohne Handschuhe und Gewichtsklassen.",
+    "tags": ["Boxen", "Antike", "Griechenland"]
+  },
+  {
+    "_batch_index": 1049,
+    "text_de": "In welchem Jahr spielen die Geschichten von \"Asterix und Obelix\"?",
+    "answer_de": "50 vor Christus",
+    "category": "Popkultur",
+    "difficulty": 3,
+    "fun_fact_de": "Die Asterix-Comics spielen zur Zeit von Julius Cäsar, als die Römer fast ganz Gallien erobert hatten.",
+    "tags": ["Comics", "Römer", "Gallien"]
+  },
+  {
+    "_batch_index": 1050,
+    "text_de": "Wie lange dauert die \"Halbzeit\" beim Bundesliga-Fußball?",
+    "answer_de": "15 Minuten",
+    "category": "Sport",
+    "difficulty": 1,
+    "fun_fact_de": "Die 15-minütige Halbzeitpause wurde bereits 1863 in den ersten Fußballregeln festgelegt.",
+    "tags": ["Fußball", "Bundesliga", "Regeln"]
+  },
+  {
+    "_batch_index": 1051,
+    "text_de": "Was folgte auf die Bronzezeit?",
+    "answer_de": "Eisenzeit",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Eisenzeit begann um 800 v. Chr. in Mitteleuropa, als Menschen lernten, Eisen zu verhütten und zu bearbeiten.",
+    "tags": ["Ur- und Frühgeschichte", "Metallzeiten", "Technologie"]
+  },
+  {
+    "_batch_index": 1052,
+    "text_de": "Was sind \"Schwämme\"?",
+    "answer_de": "Tiere",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Schwämme gehören zu den einfachsten Tieren und leben seit über 600 Millionen Jahren in den Weltmeeren.",
+    "tags": ["Meerestiere", "Evolution", "Biologie"]
+  },
+  {
+    "_batch_index": 1053,
+    "text_de": "Welches Land griff im Dezember 1941 die Amerikaner in \"Pearl Harbor\" an?",
+    "answer_de": "Japan",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Der Angriff auf Pearl Harbor am 7. Dezember 1941 führte zum Eintritt der USA in den Zweiten Weltkrieg.",
+    "tags": ["Zweiter Weltkrieg", "USA", "Japan"]
+  },
+  {
+    "_batch_index": 1055,
+    "text_de": "Wo gibt es die meisten Vulkane?",
+    "answer_de": "in Indonesien",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Indonesien hat über 130 aktive Vulkane und liegt im \"Pazifischen Feuerring\", der geologisch aktivsten Zone der Erde.",
+    "tags": ["Vulkane", "Indonesien", "Geologie"]
+  },
+  {
+    "_batch_index": 1056,
+    "text_de": "Wo wurde Udo Lindenberg geboren?",
+    "answer_de": "in Gronau",
+    "category": "Musik",
+    "difficulty": 3,
+    "fun_fact_de": "Udo Lindenberg wurde 1946 in Gronau (Westfalen) geboren und lebt seit Jahrzehnten im Hamburger Hotel Atlantic.",
+    "tags": ["Deutsche Musik", "Rock", "Musiker"]
+  },
+  {
+    "_batch_index": 1057,
+    "text_de": "Wer besiedelte als erster Island?",
+    "answer_de": "Wikinger",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die ersten Wikinger erreichten Island um 870 n. Chr., angeführt von Ingólfur Arnarson, der Reykjavík gründete.",
+    "tags": ["Wikinger", "Island", "Besiedlung"]
+  },
+  {
+    "_batch_index": 1058,
+    "text_de": "Wo liegt der \"Winnipeg-See\"?",
+    "answer_de": "in Kanada",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Der Winnipeg-See in Manitoba ist mit 24.000 Quadratkilometern der elftgrößte Süßwassersee der Welt.",
+    "tags": ["Kanada", "Seen", "Süßwasser"]
+  },
+  {
+    "_batch_index": 1060,
+    "text_de": "Wie nennt man die Vermischung zweier Gase?",
+    "answer_de": "Diffusion",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Diffusion erfolgt aufgrund der Brownschen Molekularbewegung und führt zur gleichmäßigen Verteilung der Gase.",
+    "tags": ["Physik", "Chemie", "Gase"]
+  },
+  {
+    "_batch_index": 1061,
+    "text_de": "Mit welchen Tieren befasst sich ein \"Kynologe\"?",
+    "answer_de": "Hunden",
+    "category": "Wissenschaft",
+    "difficulty": 3,
+    "fun_fact_de": "Kynologie ist die Lehre von den Hunden und umfasst Züchtung, Verhalten, Anatomie und Krankheiten.",
+    "tags": ["Hunde", "Wissenschaft", "Zoologie"]
+  },
+  {
+    "_batch_index": 1062,
+    "text_de": "Was sind \"Seedrachen\"?",
+    "answer_de": "Fische",
+    "category": "Wissenschaft",
+    "difficulty": 3,
+    "fun_fact_de": "Seedrachen sind mit Seepferdchen verwandt und leben vor der australischen Küste, wo sie perfekt getarnt zwischen Seetang schweben.",
+    "tags": ["Meerestiere", "Australien", "Tarnung"]
+  },
+  {
+    "_batch_index": 1063,
+    "text_de": "Wie viele Kilometer lang war im Jahr 117 etwa das Straßennetz im Römischen Reich?",
+    "answer_de": "80.000 Kilometer",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Das römische Straßennetz war so gut gebaut, dass viele Straßen heute noch befahrbar sind - daher \"Alle Wege führen nach Rom\".",
+    "tags": ["Römer", "Infrastruktur", "Antike"]
+  },
+  {
+    "_batch_index": 1064,
+    "text_de": "Welcher altgriechische Mathematiker konstruierte ein riesiges Katapult?",
+    "answer_de": "Archimedes",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Archimedes entwickelte im 3. Jahrhundert v. Chr. Kriegsmaschinen zur Verteidigung von Syrakus gegen die Römer.",
+    "tags": ["Antike", "Mathematiker", "Kriegstechnik"]
+  },
+  {
+    "_batch_index": 1065,
+    "text_de": "Wie wird unreif geernteter Dinkel genannt?",
+    "answer_de": "Grünkern",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Grünkern entsteht, wenn Dinkel noch grün geerntet und über Buchenholzfeuer gedarrt wird, was ihm den nussigen Geschmack verleiht.",
+    "tags": ["Getreide", "Ernährung", "Tradition"]
+  },
+  {
+    "_batch_index": 1066,
+    "text_de": "Wie lautet im Judentum die Bezeichnung für die fünf Bücher Mose?",
+    "answer_de": "Thora",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die Thora wird auf Pergamentrollen von Hand geschrieben und ist das heiligste Buch im Judentum.",
+    "tags": ["Religion", "Judentum", "Heilige Schriften"]
+  },
+  {
+    "_batch_index": 1068,
+    "text_de": "Was ist eine \"Dulcimer\"?",
+    "answer_de": "ein Musikinstrument",
+    "category": "Musik",
+    "difficulty": 3,
+    "fun_fact_de": "Die Dulcimer ist ein Saiteninstrument, das vor allem in der amerikanischen Folkmusik verwendet wird.",
+    "tags": ["Musikinstrumente", "Folk", "Saiteninstrumente"]
+  },
+  {
+    "_batch_index": 1070,
+    "text_de": "Wer war SPD-Kanzlerkandidat bei den ersten gesamtdeutschen Wahlen 1990?",
+    "answer_de": "Oskar Lafontaine",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Oskar Lafontaine verlor 1990 gegen Helmut Kohl und wurde später Vorsitzender der Partei Die Linke.",
+    "tags": ["Deutsche Einheit", "SPD", "Bundestagswahl"]
+  },
+  {
+    "_batch_index": 1071,
+    "text_de": "Wie heißt das 1825 gegründete Moskauer Ballett?",
+    "answer_de": "Bolschoi",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Das Bolschoi-Theater ist eines der berühmtesten Opern- und Balletthäuser der Welt und bedeutet auf Russisch \"das Große\".",
+    "tags": ["Ballett", "Russland", "Theater"]
+  },
+  {
+    "_batch_index": 1072,
+    "text_de": "Von was ist ein Freihafen frei?",
+    "answer_de": "von Zöllen",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "In Freihäfen können Waren ohne Zollabgaben gelagert und weiterverarbeitet werden, was den internationalen Handel erleichtert.",
+    "tags": ["Handel", "Zoll", "Wirtschaft"]
+  },
+  {
+    "_batch_index": 1073,
+    "text_de": "Was bedeutet es, wenn Sänger \"unisono\" singen?",
+    "answer_de": "Sie singen einstimmig",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "\"Unisono\" kommt aus dem Lateinischen und bedeutet \"mit einer Stimme\" - alle singen dieselbe Melodie zur gleichen Zeit.",
+    "tags": ["Musik", "Gesang", "Lateinisch"]
+  },
+  {
+    "_batch_index": 1074,
+    "text_de": "Was ist die \"Magna Carta\"?",
+    "answer_de": "ein Verfassungsdokument",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Magna Carta von 1215 gilt als Grundstein der modernen Demokratie und begrenzte erstmals die Macht des englischen Königs.",
+    "tags": ["England", "Demokratie", "Mittelalter"]
+  },
+  {
+    "_batch_index": 1076,
+    "text_de": "Was ist eine \"Schafgarbe\"?",
+    "answer_de": "ein Kraut",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Schafgarbe ist eine Heilpflanze, die bereits im Altertum zur Wundbehandlung verwendet wurde und heute noch in der Naturmedizin geschätzt wird.",
+    "tags": ["Heilpflanzen", "Kräuter", "Naturmedizin"]
+  },
+  {
+    "_batch_index": 1078,
+    "text_de": "Mit welchem Licht wird ein erfolgreicher Versuch beim Gewichtheben angezeigt?",
+    "answer_de": "Weiß",
+    "category": "Sport",
+    "difficulty": 3,
+    "fun_fact_de": "Bei Gewichtheben-Wettkämpfen zeigen drei Kampfrichter mit weißem oder rotem Licht an, ob ein Versuch gültig war.",
+    "tags": ["Gewichtheben", "Olympia", "Kampfrichter"]
+  },
+  {
+    "_batch_index": 1079,
+    "text_de": "Wo steht der \"Pittipalast\"?",
+    "answer_de": "in Florenz",
+    "category": "Kunst&Kultur",
+    "difficulty": 3,
+    "fun_fact_de": "Der Palazzo Pitti in Florenz war einst Residenz der Medici und beherbergt heute mehrere Museen mit Renaissancekunst.",
+    "tags": ["Italien", "Renaissance", "Paläste"]
+  },
+  {
+    "_batch_index": 1082,
+    "text_de": "Wie heißen die Landgüter in Südamerika?",
+    "answer_de": "Hacienda",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Haciendas waren große Landgüter in Lateinamerika, die während der Kolonialzeit entstanden und oft ganze Dörfer umfassten.",
+    "tags": ["Südamerika", "Kolonialzeit", "Landwirtschaft"]
+  },
+  {
+    "_batch_index": 1083,
+    "text_de": "Welches Königshaus bezahlte die erste Seereise von Kolumbus?",
+    "answer_de": "Das spanische Königshaus",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Königin Isabella von Kastilien finanzierte Kolumbus' Reise, nachdem sie angeblich sogar ihren Schmuck verpfändet hatte.",
+    "tags": ["Kolumbus", "Spanien", "Entdeckungen"]
+  },
+  {
+    "_batch_index": 1084,
+    "text_de": "Was hält einen Frisbee im Flug stabil?",
+    "answer_de": "der Drall",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Der Gyroeffekt durch die Rotation stabilisiert die Flugbahn des Frisbees, ähnlich wie bei einem Kreisel.",
+    "tags": ["Physik", "Sport", "Aerodynamik"]
+  },
+  {
+    "_batch_index": 1086,
+    "text_de": "Wie hieß die Begleitgruppe von Bob Marley?",
+    "answer_de": "The Wailers",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Bob Marley and the Wailers machten Reggae-Musik weltberühmt und brachten jamaikanische Kultur in die internationale Popmusik.",
+    "tags": ["Reggae", "Jamaika", "Bob Marley"]
+  },
+  {
+    "_batch_index": 1087,
+    "text_de": "Wer unterwarf sich 1902 im \"Abkommen von Vereeniging\" den Briten?",
+    "answer_de": "Buren",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Das Abkommen von Vereeniging beendete den Burenkrieg in Südafrika und führte zur britischen Kontrolle über die Burenrepubliken.",
+    "tags": ["Südafrika", "Burenkrieg", "Kolonialismus"]
+  },
+  {
+    "_batch_index": 1088,
+    "text_de": "Wem verdankt die Limonadensorte \"Cola\" ihren Namen?",
+    "answer_de": "Kolanuss",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Die Kolanuss aus Westafrika enthält Koffein und gab der Cola ihren Namen, wird aber heute meist durch synthetische Aromen ersetzt.",
+    "tags": ["Getränke", "Afrika", "Geschichte"]
+  },
+  {
+    "_batch_index": 1090,
+    "text_de": "Was ist \"Ostia\"?",
+    "answer_de": "ein antiker Hafen",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Ostia war der wichtigste Hafen des antiken Rom und versorgte die Millionenstadt mit Getreide aus Ägypten und anderen Provinzen.",
+    "tags": ["Antikes Rom", "Häfen", "Handel"]
+  },
+  {
+    "_batch_index": 1091,
+    "text_de": "Was umschreibt der Mediziner mit \"Logorrhöe\"?",
+    "answer_de": "Rededrang",
+    "category": "Wissenschaft",
+    "difficulty": 3,
+    "fun_fact_de": "Logorrhöe bezeichnet krankhaften Rededrang und kann bei verschiedenen psychiatrischen und neurologischen Erkrankungen auftreten.",
+    "tags": ["Medizin", "Psychiatrie", "Fachbegriffe"]
+  },
+  {
+    "_batch_index": 1092,
+    "text_de": "Wofür steht der Begriff \"Beatgeneration\"?",
+    "answer_de": "Literaturbewegung",
+    "category": "Literatur",
+    "difficulty": 3,
+    "fun_fact_de": "Die Beat Generation um Jack Kerouac und Allen Ginsberg prägte in den 1950er Jahren die amerikanische Gegenkultur.",
+    "tags": ["Amerikanische Literatur", "50er Jahre", "Gegenkultur"]
+  },
+  {
+    "_batch_index": 1094,
+    "text_de": "Wie heißt der Berg in Rio de Janeiro, auf dessen Gipfel die 38m hohe Christusstatue steht?",
+    "answer_de": "Corcovado",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die Christusstatue auf dem Corcovado gilt als eines der neuen Weltwunder und ist 710 Meter über dem Meeresspiegel.",
+    "tags": ["Brasilien", "Wahrzeichen", "Religion"]
+  },
+  {
+    "_batch_index": 1095,
+    "text_de": "Wer schrieb den Roman \"Die Reise zum Mittelpunkt der Erde\"?",
+    "answer_de": "Jules Verne",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Jules Verne gilt als Begründer der modernen Science Fiction und schrieb über 60 Abenteuer- und Zukunftsromane.",
+    "tags": ["Science Fiction", "Französische Literatur", "Abenteuer"]
+  },
+  {
+    "_batch_index": 1096,
+    "text_de": "In die Amtszeit welches US-Präsidenten fiel die \"Iran-Contra-Affäre\"?",
+    "answer_de": "Ronald Reagan",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Die Iran-Contra-Affäre war ein politischer Skandal in den 1980er Jahren, bei dem heimlich Waffen an den Iran verkauft wurden.",
+    "tags": ["USA", "Skandale", "80er Jahre"]
+  },
+  {
+    "_batch_index": 1097,
+    "text_de": "Wer spielte 1981 den Spion Faber in dem Film \"Die Nadel\"?",
+    "answer_de": "Donald Sutherland",
+    "category": "Film&TV",
+    "difficulty": 3,
+    "fun_fact_de": "\"Die Nadel\" basiert auf einem Roman von Ken Follett und spielt während des Zweiten Weltkriegs.",
+    "tags": ["Thriller", "Zweiter Weltkrieg", "Spionage"]
+  },
+  {
+    "_batch_index": 1098,
+    "text_de": "Wer schrieb das Trauerspiel \"Kabale und Liebe\"?",
+    "answer_de": "Friedrich Schiller",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "\"Kabale und Liebe\" von 1784 ist Schillers drittes Drama und kritisiert die Ständegesellschaft des 18. Jahrhunderts.",
+    "tags": ["Deutsche Literatur", "Drama", "Aufklärung"]
+  }
+]

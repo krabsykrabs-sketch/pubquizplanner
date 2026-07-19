@@ -1,0 +1,299 @@
+<html>
+																																																																																		<!--
+           (c) by    |    _) |             |    _)     ___|         _| |                    
+   www.Litschi.de    |     | __|  __|  __| __ \  |   \___ \   _ \  |   __|                  
+  info@litschi.de    |     | |  \__ \ (    | | | |_____|   | (   | __| |                    
+made with QUIZPro   _____|_|\__|____/\___|_| |_|_|   _____/ \___/ _|  \__|                  
+
+																																																																																		-->
+<head>
+<meta name="author" content="">
+<meta name="description" content="">
+<meta name="generator" content="Litschi-Soft">
+<title>schizophrenie-16 fragen</title>
+<style type="text/css">
+<!-- 
+	p		{	width=85%;
+				border: 6px double #EFEFEF;
+				margin-left: 20px;
+				padding: 5px;
+				font-family: Arial;
+				font-size: 13px;		
+			}
+<!-- --------------------------------------------------------------------------- -->
+	p.text 		{ 	background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->
+	p.text INPUT 	{	border: 3px outset #CCCCCC;
+				width=95%;
+				color: #FFFFF;
+				font-weight: bold;
+	     	     	}	
+<!-- --------------------------------------------------------------------------- -->
+	p.radio		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.radio INPUT 	{ 
+				border: 4px outset #CCCCCC;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+	p.checkbox		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.checkbox INPUT 	{ 
+				border: 4px outset #CCCCCC;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+<!-- ---checkbox2 wird bei der Umwandlung von SMC (Simple Multiple Choice) nach AMC (Advanced Multiple Choice angelegt um eine optische Trennung zu ermöglichen -->
+<!-- --------------------------------------------------------------------------- -->
+	p.checkbox2		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.checkbox2 INPUT 	{ 
+				border: 4px outset #000000;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+	img.bild	{
+				border: 2px solid #AAAAAA;
+			}
+<!-- --------------------------------------------------------------------------- -->
+	INPUT, TEXTAREA {
+					
+				padding: 2px;
+				font-size: 15px;
+				font-weight: bold;
+				font-weight: bold;
+				background-color: #FFFFFF;
+				font-weight: bold;
+			}
+                                
+.grau   {	background-color: #AAAAAA;
+		font-size: 20px;
+		font-weight: bold;
+        }
+                                                                                 -->
+</style>
+<script language="JavaScript">
+<!--
+function auswerten() 
+{
+	var i=0;		//Zähler
+	var ii=0;		//Zähler
+	var wort="";		//Zum zerlegen der Antwortmöglichkeiten bei Textantworten in ein Array
+	var ergebnis=0;		//Returnwert der Funktion, enthält die erreichten Gesamtpunkte
+	var textwert=0;		//enthält die erreichten Punkte bei Textantworten
+	var mcwert=0;		//enthält die erreichten Punkte bei Multiple-Choice Antworten
+	var chwert=0;		//enthält die erreichten Punkte bei Multiple-Choice (mehrere Antworten möglich)
+for (i=0;i<document.quizform.length; i++) 
+	{
+		if (document.quizform.elements(i).type == "radio") 
+		{	if (document.forms(0).item(i).checked == true) 
+		{	mcwert = mcwert + parseInt(document.forms(0).item(i).value)
+		}}
+		if (document.quizform.elements(i).type == "checkbox") 
+		{	if (document.forms(0).item(i).checked == true) 
+		{	chwert = chwert + parseInt(document.forms(0).item(i).value)
+		}}
+		if (document.quizform.elements(i).type == "text") 
+		{	if (document.quizform.item(i).name != "namen") 
+		{	if (document.quizform.item(i).value != "") 
+		{	wort=document.quizform.item(i).vergleich.split("::");
+		for (ii=0;ii<wort.length;ii++)
+		{	if(document.quizform.item(i).value.toUpperCase()==wort[ii].toUpperCase())
+       		{	textwert = textwert + parseInt(document.forms(0).item(i).wert)
+		}}}}}
+	}
+	if (chwert < 0) 
+{	chwert = 0;
+}
+ergebnis = mcwert + textwert + chwert;
+	document.quizform.punkte.value=ergebnis;
+	   document.quizform.txt.value=textwert;
+	    document.quizform.smc.value=mcwert;
+	    document.quizform.amc.value=chwert;
+	return ergebnis;
+}
+	function hidestatus(){window.status='';return true};if (document.layers)document.captureEvents(Event.MOUSEOVER | Event.MOUSEOUT);document.onmouseover=hidestatus;document.onmouseout=hidestatus
+	function click(e){if (document.all) if (event.button == 2) return false;if(document.layers) if (e.which == 3) return false;}function click2(){event.returnValue=false;return false;}if (document.layers)document.captureEvents(Event.MOUSEDOWN);document.onmousedown=click;document.oncontextmenu=click2;
+//-->
+</script>
+</head>
+<body bgcolor="#EFEBEF">
+<a name="#_Seitenanfang"></a>
+<form name="quizform" method="post" onreset="return confirm('Sind Sie sicher?')">
+<input type="hidden" name="punkte">
+ <input type="hidden" name="txt">
+ <input type="hidden" name="smc">
+ <input type="hidden" name="amc"> 
+<div align="center">
+
+    <table width="60%" border="1" bordercolor="#000000" align="center">
+      <tr><td align="center">
+<marquee behavior=alternate>
+	<a href="http://www.litschi.de" target="_blank">
+		<img src="http://www.lehrquiz.de/litschi/grafik/litschilogofiles.jpg" border="0">
+	</a>
+</marquee>
+<span style="font-size:8pt;">Diese Onlinedemo wurde erzeugt mit dem QUIZPro-Converter V2 (c) Litschi-Soft</span>
+</td></tr></table>
+
+
+</div>
+<br>
+<hr>
+<table width="100%" bgcolor="#FFFFFF" border="1" bordercolor="#AAAAAA"><tr><td>
+<pre>
+<b> Katalogname: <span style="color:#000055">schizophrenie-16 fragen</span>
+Fragenanzahl: <span style="color:#005500">16</span>
+Gesamtpunkte: 46
+       Autor: <span style="color:#550000"></span></b><span style="font-size:7pt"> [Info wurde aus Fragenkatalog übernommen (ohne Gewähr!)]</pre></span>
+</td></tr></table>
+
+<p class='radio'>
+<u>Frage <b>1</b> von 16:</u><br>&#160;&#160;Weltweit leiden lt. WHO schätzungsweise wieviele Personen unter Schizophrenie?<br><br>
+<input type='radio' name='A0' value='0'>&nbsp;340 Mio.<br>
+<input type='radio' name='A0' value='0'>&nbsp;29 Mio.<br>
+<input type='radio' name='A0' value='1'>&nbsp;45 Mio.<br>
+<input type='radio' name='A0' value='0'>&nbsp;400 Mio.<br>
+<input type='radio' name='A0' value='0'>&nbsp;60 Mio.<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>2</b> von 16:</u><br>&#160;&#160;Charakteristische Symptome der Schizophrenie u. a. sind:<br><br>
+<input type='checkbox' ame='A1' value='1'>&nbsp;Stimmen, die zu den Kranken sprechen<br>
+<input type='checkbox' name='A1' value='-1'>&nbsp;Gleichgewichtsstörungen<br>
+<input type='checkbox' name='A1' value='1'>&nbsp;Akustische Halluzinationen<br>
+<input type='checkbox' name='A1' value='1'>&nbsp;Beziehungsideen<br>
+<input type='checkbox' name='A1' value='1'>&nbsp;Affektverflachung<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>3</b> von 16:</u><br>&#160;&#160;Charakteristische Symptome der Schizophrenie sind weiterhin:<br><br>
+<input type='checkbox' ame='A2' value='1'>&nbsp;Gedankenbeeinflussung<br>
+<input type='checkbox' name='A2' value='1'>&nbsp;Fehlende Einsicht<br>
+<input type='checkbox' name='A2' value='1'>&nbsp;Affektverflachung<br>
+<input type='checkbox' name='A2' value='1'>&nbsp;Verfolgungswahn<br>
+<input type='checkbox' name='A2' value='-1'>&nbsp;Rededrang<br>
+<input type='checkbox' name='A2' value='1'>&nbsp;Gedankenlautwerden<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>4</b> von 16:</u><br>&#160;&#160;Neuroleptika erzielen in der klinischen Therapie von Schizophrenien folgende Wirkung<br><br>
+<input type='checkbox' ame='A3' value='1'>&nbsp;antidepressiv<br>
+<input type='checkbox' name='A3' value='1'>&nbsp;sedierend<br>
+<input type='checkbox' name='A3' value='1'>&nbsp;motorisch dämpfend<br>
+<input type='checkbox' name='A3' value='-1'>&nbsp;anregend<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>5</b> von 16:</u><br>&#160;&#160;Welche der Aussagen über Langzeitprognose schizophrener Störungen trifft/treffen zu?<br><br>
+<input type='checkbox' ame='A4' value='1'>&nbsp;Prognostisch eher günstig ist ein perakuter Beginn<br>
+<input type='checkbox' name='A4' value='-1'>&nbsp;Psychisch-reaktiv ausgelöste schizophrene Psychosen zeigen eine eher ungünstige Prognose<br>
+<input type='checkbox' name='A4' value='1'>&nbsp;Die Langzeitprognose wird begünstigt durch eine frühzeitig einsetzende adäquate Therapie<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>6</b> von 16:</u><br>&#160;&#160;Welche Aussagen hinischtlich der perniziösen Katatonie sind richtig?<br><br>
+<input type='checkbox' ame='A5' value='-1'>&nbsp;Perniziöse Katatonien beginnen i. d. R. schleichend<br>
+<input type='checkbox' name='A5' value='1'>&nbsp;Eine Elektrokrampftherapie kann lebensrettend sein<br>
+<input type='checkbox' name='A5' value='1'>&nbsp;i.d.R. werden bei perniziösen Katatonien febrile Temperaturen beobachtet<br>
+<input type='checkbox' name='A5' value='1'>&nbsp;Störungen des Wasser- und Elektrolythaushaltes sind häufig<br>
+<input type='checkbox' name='A5' value='1'>&nbsp;Perniziöse Katatonien sind selten<br>
+</p>
+<p class='radio'>
+<u>Frage <b>7</b> von 16:</u><br>&#160;&#160;Welche der folgenden Beschreibungen fällt am ehesten unter den Begriff der schizoaffektiven Psychose?<br><br>
+<input type='radio' name='A6' value='1'>&nbsp;Psychose, in deren Ablauf vor allem affektive Störungen das Zustandsbild prägen, aber auch Symptome einer Schizophrenie nachweisbar sind<br>
+<input type='radio' name='A6' value='0'>&nbsp;schizophrene Psychose, in deren weiteren Verlauf es zu einer affektiven Abflachung kommt<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>8</b> von 16:</u><br>&#160;&#160;Welche Aussage beschreibt den Begriff der Parathymie?<br><br>
+<input type='checkbox' ame='A7' value='-1'>&nbsp;Beeinflussung der emotionalen Modulationsfähigkeit (sogenannte Steifigkeit der Effekte)<br>
+<input type='checkbox' name='A7' value='-1'>&nbsp;Allgemeine Empfindungsverarmung, die oft vom Patienten als unangenehm empfunden wird<br>
+<input type='checkbox' name='A7' value='1'>&nbsp;Unangebrachtes Verhalten in bezug auf Äusserungen und Taten<br>
+<input type='checkbox' name='A7' value='-1'>&nbsp;Abflachung an positivem Empfinden (z. B. Liebe, Interesse)<br>
+<input type='checkbox' name='A7' value='1'>&nbsp;Gefühlsreaktionen entsprechen nicht dem Gesagten oder dem tatsächlich Gedachten<br>
+</p>
+<p class='radio'>
+<u>Frage <b>9</b> von 16:</u><br>&#160;&#160;Welche Aussagen hinsichtlich Katatonie treffen zu?<br><br>
+<input type='radio' name='A8' value='1'>&nbsp;Im Vordergrund steht eine ausgeprägte psychomotorische Veränderung (Stupor, Negativismus, Sperrung, Mutismus, Erregung, Haltungsverharren mit raschem Wechsel zwischen gegensätzlichen Zuständen)<br>
+<input type='radio' name='A8' value='0'>&nbsp;Halluzinatorische Körpermissempfindungen stehen hier ganz im Vordergrund<br>
+<input type='radio' name='A8' value='0'>&nbsp;Im Vordergrund stehen Wahnideen (z. B. Verfolgungs- oder Größenwahn)<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>10</b> von 16:</u><br>&#160;&#160;Die coenästhetische Form der Schizophrenie beinhaltet vordergründig<br><br>
+<input type='checkbox' name='A9' value='-1'>&nbsp;sog. negative Symptome, die meist irreversibel sind wie z. B. Persönlichkeitsveränderung oder inadequater Affekt<br>
+<input type='checkbox' name='A9' value='1'>&nbsp;qualitativ eigenartige Leibmissempfindungen<br>
+<input type='checkbox' name='A9' value='1'>&nbsp;halluzinatorische Körpermissempfindungen<br>
+<input type='checkbox' name='A9' value='-1'>&nbsp;eine ausgeprägte psychomotorische Veränderung <br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>11</b> von 16:</u><br>&#160;&#160;Typische psychopathologische Symptome der Schizophrenie sind<br><br>
+<input type='checkbox' ame='A10' value='1'>&nbsp;formale und inhaltliche Denkstörungen<br>
+<input type='checkbox' name='A10' value='1'>&nbsp;Störungen des Icherlebnisses<br>
+<input type='checkbox' name='A10' value='1'>&nbsp;Affekt- und Kontaktstörungen <br>
+<input type='checkbox' name='A10' value='1'>&nbsp;Sinnestäuschungen<br>
+<input type='checkbox' name='A10' value='-1'>&nbsp;Eifersuchtswahn<br>
+<input type='checkbox' name='A10' value='1'>&nbsp;katatone Symptome<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>12</b> von 16:</u><br>&#160;&#160;Weitere typische psychopathologische Symptome der Schizophrenie sind<br><br>
+<input type='checkbox' ame='A11' value='1'>&nbsp;Störungen des Icherlebnisses<br>
+<input type='checkbox' name='A11' value='1'>&nbsp;Wahnsymptome<br>
+<input type='checkbox' name='A11' value='1'>&nbsp;leibliche Beeinflussungserlebnisse und Coenästhesien<br>
+<input type='checkbox' name='A11' value='-1'>&nbsp;optische Halluzinationen<br>
+<input type='checkbox' name='A11' value='1'>&nbsp;katatone Symptome<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>13</b> von 16:</u><br>&#160;&#160;Grundsymptome der Schizophrenie (nach Bleuler) werden folgendermaßen eingeteilt<br><br>
+<input type='checkbox' name='A12' value='1'>&nbsp;Antriebsstörungen<br>
+<input type='checkbox' name='A12' value='1'>&nbsp;Störungen des Denkens<br>
+<input type='checkbox' name='A12' value='-1'>&nbsp;Wahn<br>
+<input type='checkbox' name='A12' value='1'>&nbsp;Affektstörungen<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>14</b> von 16:</u><br>&#160;&#160;Akzessorische Symptome der Schizophrenie (nach Bleuler) sind die folgenden<br><br>
+<input type='checkbox' ame='A13' value='-1'>&nbsp;Autismus<br>
+<input type='checkbox' name='A13' value='1'>&nbsp;Halluzinationen<br>
+<input type='checkbox' name='A13' value='1'>&nbsp;katatone Störungen<br>
+<input type='checkbox' name='A13' value='-1'>&nbsp;Antriebsstörungen<br>
+<input type='checkbox' name='A13' value='-1'>&nbsp;Zerfahrenheit <br>
+<input type='checkbox' name='A13' value='1'>&nbsp;Wahn <br>
+</p>
+<p class='radio'>
+<u>Frage <b>15</b> von 16:</u><br>&#160;&#160;Welche Aussage ist richtig? Unter Spätschizophrenie wird verstanden<br><br>
+<input type='radio' name='A14' value='0'>&nbsp;Schizophrenien, die nach dem 3. Lebensjahrzehnt auftreten<br>
+<input type='radio' name='A14' value='0'>&nbsp;Schizophrenien, die nach dem 6. Lebensjahrzent auftreten<br>
+<input type='radio' name='A14' value='0'>&nbsp;Schizophrenien, die nach dem 7. Lebensjahrzehnt auftreten<br>
+<input type='radio' name='A14' value='1'>&nbsp;Schizophrenien, die nach dem 4. Lebensjahrzehnt auftreten<br>
+</p>
+<p class='checkbox'>
+<u>Frage <b>16</b> von 16:</u><br>&#160;&#160;Differentialdiagnostisch ist die Spätschizophrenie abzugrenzen mit<br><br>
+<input type='checkbox' ame='A15' value='1'>&nbsp;Kontaktmangelparanoid<br>
+<input type='checkbox' name='A15' value='1'>&nbsp;Kontaktmangelhalluzinose  <br>
+<input type='checkbox' name='A15' value='1'>&nbsp;paranoide Rückbildungspsychose als Begleitsymptomatik einer hirnorganischen Erkrankung<br>
+<input type='checkbox' name='A15' value='-1'>&nbsp;Morbus Alzheimer<br>
+<input type='checkbox' name='A15' value='1'>&nbsp;anderen Wahnkrankheiten<br>
+<input type='checkbox' name='A15' value='1'>&nbsp;Schwerhörigkeit (mit paranoider Entwicklung)<br>
+</p>
+
+<hr>
+  <div align="center">Auswerten von schizophrenie-16 fragen.<br>
+    <br>
+    <input type="button" class="grau" value=" Ergebnis anzeigen " onclick="alert('Sie erreichten\n' + auswerten() + ' von insgesamt 46 Punkten !');self.close();">
+    <br>
+    <br>
+</form>
+<a href="#_Seitenanfang">Zum Seitenanfang</a><br>
+</div>
+</body>
+</html>
+
+

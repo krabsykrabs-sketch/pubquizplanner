@@ -1,12 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 import { QuestionRoundel } from '@/components/ds/Wordmark';
 import { LOCALE_LABELS, LOCALES, type Locale } from '@/config/locales';
+import { questionsIndexPath } from '@/config/slugs';
 
 export default async function SiteFooter({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'footer' });
 
   const links = [
-    { href: `/${locale}/fragen`, label: t('questions') },
+    { href: questionsIndexPath(locale), label: t('questions') },
     { href: `/${locale}/impressum`, label: t('impressum') },
     { href: `/${locale}/datenschutz`, label: t('privacy') },
     { href: `/${locale}/credits`, label: 'Credits' },

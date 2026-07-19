@@ -1,0 +1,10 @@
+/* PubQuizPlanner — Webfonts
+ * Chosen from Google Fonts (no source fonts were provided).
+ *  - Archivo        → display / headlines (confident, slightly condensed at heavy weights)
+ *  - Hanken Grotesk → body / UI (warm humanist grotesque)
+ *  - Spline Sans Mono → question numbers, scores, tabular data
+ * All three carry full Latin-Extended coverage (DE ß/ü, PL ł/ą/ę, SV å/ä/ö, NL, EN).
+ * NOTE: served from Google's CDN. For offline/production reliability we can self-host —
+ *       ask the maintainer if you want the .woff2 files copied into the system.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap');

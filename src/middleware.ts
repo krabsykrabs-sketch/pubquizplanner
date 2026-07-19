@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
+import { resolveQuestionsRoute } from './config/slugs';
 import { verifyToken, getTokenFromCookies } from './lib/admin-auth';
 
 const intlMiddleware = createMiddleware(routing);
@@ -36,6 +37,25 @@ export default function middleware(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     return NextResponse.next();
+  }
+
+  // --- Localized question-page slugs (config-driven; German untouched) ---
+  // Old German-segment URLs (/pl/fragen/wissenschaft) 301 to the native path;
+  // native paths (/pl/pytania/nauka) rewrite onto the internal German /fragen
+  // route so the [locale]/fragen/[slug] page resolves with the canonical slug.
+  const localized = resolveQuestionsRoute(pathname);
+  if (localized?.type === 'redirect') {
+    const url = request.nextUrl.clone();
+    url.pathname = localized.pathname;
+    return NextResponse.redirect(url, 301);
+  }
+  if (localized?.type === 'rewrite') {
+    const url = request.nextUrl.clone();
+    url.pathname = localized.pathname;
+    // next-intl v4 resolves the request locale from the rendered [locale]
+    // segment (unchanged by the rewrite), so a plain rewrite keeps messages,
+    // hreflang and metadata correct while the browser URL stays localized.
+    return NextResponse.rewrite(url);
   }
 
   // --- All other routes: next-intl locale routing ---

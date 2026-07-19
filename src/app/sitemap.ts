@@ -5,6 +5,7 @@ import {
   EXTRA_LOCALES,
   MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
 } from '@/config/locales';
+import { categoryPath, questionsIndexPath } from '@/config/slugs';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     );
     for (const cat of deCategories) {
       entries.push({
-        url: `${BASE_URL}/de/fragen/${cat.slug}`,
+        url: `${BASE_URL}${categoryPath(SOURCE_LOCALE, cat.slug)}`,
         changeFrequency: 'weekly',
         priority: 0.8,
       });
@@ -55,11 +56,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push(
         { url: `${BASE_URL}/${locale}`, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${BASE_URL}/${locale}/generator`, changeFrequency: 'weekly', priority: 0.8 },
-        { url: `${BASE_URL}/${locale}/fragen`, changeFrequency: 'weekly', priority: 0.8 }
+        { url: `${BASE_URL}${questionsIndexPath(locale)}`, changeFrequency: 'weekly', priority: 0.8 }
       );
       for (const cat of cats) {
         entries.push({
-          url: `${BASE_URL}/${locale}/fragen/${cat.slug}`,
+          url: `${BASE_URL}${categoryPath(locale, cat.slug)}`,
           changeFrequency: 'weekly',
           priority: 0.7,
         });

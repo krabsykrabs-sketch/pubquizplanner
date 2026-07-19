@@ -1,0 +1,102 @@
+/* PubQuizPlanner — Color tokens
+ * "The Marquee": warm off-white for app/marketing, deep warm near-black for slides,
+ * one burnt-amber accent that carries across both. Restraint is the product —
+ * color is decoration and hierarchy, never the only signal (answer sheets print B/W).
+ */
+:root {
+  /* --- Warm neutral ramp (paper → ink). Brown-tinted, never cold grey. --- */
+  --warm-50:  #FBF7F0;
+  --warm-100: #F4EDE1;
+  --warm-200: #E8DCCB;
+  --warm-300: #D5C7B0;
+  --warm-400: #B4A488;
+  --warm-500: #8B7B63;
+  --warm-600: #6A5C47;
+  --warm-700: #4A3E30;
+  --warm-800: #2D261D;
+  --warm-900: #1B1611;
+
+  /* --- Burnt amber (primary accent) --- */
+  --amber-300: #F0A867;
+  --amber-400: #E88A45;
+  --amber-500: #D96E2A;  /* primary */
+  --amber-600: #BE5A1C;  /* hover / press */
+  --amber-700: #984515;
+
+  /* --- Deep warm surfaces for slides / dark mode --- */
+  --night-900: #16110D;  /* deepest slide backdrop */
+  --night-800: #1D1712;  /* base slide surface */
+  --night-700: #261E17;  /* raised surface on dark */
+  --night-600: #33291F;  /* hairline / border on dark */
+
+  /* --- Semantic accents (muted, warm-leaning) --- */
+  --green-500: #5B7F4E;  /* correct */
+  --green-600: #46653C;
+  --red-500:   #C24A2E;  /* incorrect */
+  --red-600:   #A03A22;
+
+  /* ============ Semantic aliases — LIGHT (app / marketing) ============ */
+  --bg-page:        var(--warm-50);
+  --bg-sunken:      var(--warm-100);
+  --surface-card:   #FFFFFF;
+  --surface-raised: var(--warm-50);
+  --surface-inset:  var(--warm-100);
+
+  --border-subtle:  var(--warm-200);
+  --border-strong:  var(--warm-300);
+  --border-focus:   var(--amber-500);
+
+  --text-strong:    var(--warm-900);
+  --text-body:      var(--warm-800);
+  --text-muted:     var(--warm-600);
+  --text-faint:     var(--warm-500);
+  --text-on-accent: var(--warm-50);
+
+  --accent:         var(--amber-500);
+  --accent-hover:   var(--amber-600);
+  --accent-soft:    #F7E4D2;   /* tinted fill behind amber content */
+  --accent-text:    var(--amber-700);
+
+  --success:        var(--green-500);
+  --success-soft:   #E4EBDD;
+  --danger:         var(--red-500);
+  --danger-soft:    #F4E0D9;
+
+  /* Link colors (define even before links exist) */
+  --link:       var(--amber-700);
+  --link-hover: var(--amber-600);
+}
+
+/* ============ Semantic aliases — DARK / SLIDES ============
+ * Apply via <body data-theme="dark"> or any ancestor with [data-theme="dark"].
+ */
+[data-theme="dark"] {
+  --bg-page:        var(--night-900);
+  --bg-sunken:      var(--night-900);
+  --surface-card:   var(--night-800);
+  --surface-raised: var(--night-700);
+  --surface-inset:  var(--night-900);
+
+  --border-subtle:  var(--night-600);
+  --border-strong:  #46372A;
+  --border-focus:   var(--amber-400);
+
+  --text-strong:    var(--warm-50);
+  --text-body:      #EADFCF;
+  --text-muted:     #B4A488;
+  --text-faint:     #8B7B63;
+  --text-on-accent: var(--warm-900);
+
+  --accent:         var(--amber-400);
+  --accent-hover:   var(--amber-300);
+  --accent-soft:    #33291F;
+  --accent-text:    var(--amber-300);
+
+  --success:        #7FA06E;
+  --success-soft:   #26301F;
+  --danger:         #D9694B;
+  --danger-soft:    #34201A;
+
+  --link:       var(--amber-300);
+  --link-hover: var(--amber-400);
+}

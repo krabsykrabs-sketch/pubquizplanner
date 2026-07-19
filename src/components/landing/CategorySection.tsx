@@ -7,6 +7,8 @@ import Button from '@/components/ds/Button';
 import CategoryTile from '@/components/ds/CategoryTile';
 import Tag from '@/components/ds/Tag';
 import { categoryVisual } from '@/lib/category-visuals';
+import type { Locale } from '@/config/locales';
+import { categoryPath, questionsIndexPath } from '@/config/slugs';
 import type { CategoryChip } from './types';
 
 // The six featured tiles lead with the design's picks, topped up from the
@@ -88,7 +90,7 @@ export default function CategorySection({
                   subtitle={t('questionsCount', { count: c.question_count })}
                   image={categoryVisual(c.slug)?.background}
                   selected={c.slug === activeCat}
-                  href={`/${locale}/fragen/${c.slug}`}
+                  href={categoryPath(locale as Locale, c.slug)}
                   ratio="4 / 3"
                 />
               ))}
@@ -96,7 +98,7 @@ export default function CategorySection({
 
             <div className="mt-7">
               <a
-                href={`/${locale}/fragen`}
+                href={questionsIndexPath(locale as Locale)}
                 className="inline-flex items-center gap-[7px] text-[0.95rem] font-semibold text-[var(--link)] no-underline transition-colors hover:text-[var(--link-hover)]"
               >
                 {t('allQuestionsLink')}

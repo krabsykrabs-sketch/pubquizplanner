@@ -1,0 +1,926 @@
+[
+  {
+    "_batch_index": 1201,
+    "text_de": "Welche Göttin der Griechen ist auch als 'Die Schaumgeborene' bekannt?",
+    "answer_de": "Aphrodite",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Der Mythos besagt, dass Aphrodite aus dem Schaum des Meeres geboren wurde, als Kronos die Genitalien seines Vaters Uranos ins Meer warf.",
+    "tags": [
+      "Mythologie",
+      "Antike"
+    ]
+  },
+  {
+    "_batch_index": 1202,
+    "text_de": "Welche Automarke führt einen Dreizack in ihrem Markenzeichen?",
+    "answer_de": "Maserati",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Dreizack stammt vom Neptun-Brunnen in Bologna, der Heimatstadt der Maserati-Gründer.",
+    "tags": [
+      "Autos",
+      "Markenzeichen"
+    ]
+  },
+  {
+    "_batch_index": 1203,
+    "text_de": "Die Latsche ist ein was?",
+    "answer_de": "Nadelbaum",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die Latschenkiefer wächst in den Alpen und ist für ihre niedrige, kriechende Wuchsform bekannt.",
+    "tags": [
+      "Botanik",
+      "Alpen"
+    ]
+  },
+  {
+    "_batch_index": 1204,
+    "text_de": "Wer landete 1971 mit dem Titel 'American Pie' in den Hitparaden?",
+    "answer_de": "Don McLean",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Das Lied ist über 8 Minuten lang und gilt als Hommage an Buddy Holly, der 1959 bei einem Flugzeugabsturz starb.",
+    "tags": [
+      "70er Jahre",
+      "Rock"
+    ]
+  },
+  {
+    "_batch_index": 1205,
+    "text_de": "Wer schrieb den Roman 'Das Parfüm'?",
+    "answer_de": "Patrick Süskind",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Der 1985 erschienene Roman wurde über 20 Millionen Mal verkauft und in mehr als 40 Sprachen übersetzt.",
+    "tags": [
+      "Deutsche Literatur",
+      "20. Jahrhundert"
+    ]
+  },
+  {
+    "_batch_index": 1206,
+    "text_de": "Wer spielte die 'Marlene' im gleichnamigen Film von Joseph Vilsmaier?",
+    "answer_de": "Katja Flint",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Der Film von 2000 erzählt die Lebensgeschichte von Marlene Dietrich, wobei Katja Flint für ihre Darstellung gelobt wurde.",
+    "tags": [
+      "Deutscher Film",
+      "Biographie"
+    ]
+  },
+  {
+    "_batch_index": 1207,
+    "text_de": "Wer schrieb den Roman 'Der Steppenwolf'?",
+    "answer_de": "Hermann Hesse",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Hesse erhielt 1946 den Nobelpreis für Literatur und 'Der Steppenwolf' wurde besonders in den 1960ern zum Kultbuch.",
+    "tags": [
+      "Deutsche Literatur",
+      "Nobelpreis"
+    ]
+  },
+  {
+    "_batch_index": 1208,
+    "text_de": "Bei welcher Stadt erlitt Napoleon I. 1815 die entscheidende Niederlage?",
+    "answer_de": "Waterloo",
+    "category": "Geschichte",
+    "difficulty": 1,
+    "fun_fact_de": "Die Schlacht bei Waterloo am 18. Juni 1815 beendete Napoleons Herrschaft der 'Hundert Tage' endgültig.",
+    "tags": [
+      "Napoleon",
+      "19. Jahrhundert"
+    ]
+  },
+  {
+    "_batch_index": 1209,
+    "text_de": "Wo fanden 1970 und 1986 die Fußballweltmeisterschaften statt?",
+    "answer_de": "Mexiko",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Mexiko ist das einzige Land, das zweimal Gastgeber einer Fußball-WM war, wobei beide Male im Aztekenstadion gespielt wurde.",
+    "tags": [
+      "Fußball",
+      "WM"
+    ]
+  },
+  {
+    "_batch_index": 1210,
+    "text_de": "Gegen wen führte Großbritannien 1982 den 'Falklandkrieg'?",
+    "answer_de": "Argentinien",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Der 74 Tage dauernde Krieg endete mit der Rückeroberung der Falklandinseln durch die Briten.",
+    "tags": [
+      "80er Jahre",
+      "Krieg"
+    ]
+  },
+  {
+    "_batch_index": 1211,
+    "text_de": "Wer landete 1984 mit dem Titel 'Private Dancer' in den Charts?",
+    "answer_de": "Tina Turner",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Das Album 'Private Dancer' markierte Tina Turners erfolgreiches Comeback als Solokünstlerin nach ihrer Trennung von Ike Turner.",
+    "tags": [
+      "80er Jahre",
+      "Soul"
+    ]
+  },
+  {
+    "_batch_index": 1212,
+    "text_de": "Wie heißen die freiwilligen Vereinigungen selbstständiger Handwerker?",
+    "answer_de": "Innungen",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Das Innungswesen geht auf mittelalterliche Zünfte zurück und existiert heute noch als wichtige Selbstverwaltungsorganisation des Handwerks.",
+    "tags": [
+      "Handwerk",
+      "Tradition"
+    ]
+  },
+  {
+    "_batch_index": 1213,
+    "text_de": "Wer schrieb den Roman 'Farm der Tiere'?",
+    "answer_de": "George Orwell",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Die 1945 veröffentlichte Fabel ist eine Allegorie auf die Ereignisse der Russischen Revolution und den Stalinismus.",
+    "tags": [
+      "Englische Literatur",
+      "Dystopie"
+    ]
+  },
+  {
+    "_batch_index": 1216,
+    "text_de": "Wie heißt die Hauptstadt von Australien?",
+    "answer_de": "Canberra",
+    "category": "Geographie",
+    "difficulty": 1,
+    "fun_fact_de": "Canberra wurde 1913 als Kompromiss zwischen Sydney und Melbourne zur Hauptstadt erklärt und ist eine der wenigen geplanten Hauptstädte der Welt.",
+    "tags": [
+      "Hauptstädte",
+      "Australien"
+    ]
+  },
+  {
+    "_batch_index": 1217,
+    "text_de": "Welches ist das oberste Organ der deutschen Rechtsprechung?",
+    "answer_de": "Bundesverfassungsgericht",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Das Bundesverfassungsgericht mit Sitz in Karlsruhe wacht seit 1951 über die Einhaltung des Grundgesetzes.",
+    "tags": [
+      "Politik",
+      "Recht"
+    ]
+  },
+  {
+    "_batch_index": 1218,
+    "text_de": "Wo entdeckte Archimedes angeblich das Prinzip des Auftriebs?",
+    "answer_de": "In der Badewanne",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Der Legende nach rief Archimedes 'Heureka!' (Ich hab's gefunden!), als er bemerkte, dass das Wasser beim Baden überläuft.",
+    "tags": [
+      "Physik",
+      "Antike"
+    ]
+  },
+  {
+    "_batch_index": 1220,
+    "text_de": "Eduard Schewardnadse war von 1995 bis 2003 Staatspräsident welches Landes?",
+    "answer_de": "Georgien",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Schewardnadse war zuvor sowjetischer Außenminister und spielte eine wichtige Rolle beim Ende des Kalten Krieges.",
+    "tags": [
+      "Politik",
+      "Sowjetunion"
+    ]
+  },
+  {
+    "_batch_index": 1221,
+    "text_de": "Wer konstruierte 1654 die sogenannten 'Magdeburger Halbkugeln'?",
+    "answer_de": "Otto von Guericke",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Mit diesem spektakulären Experiment vor Kaiser Ferdinand III. bewies von Guericke die Kraft des Luftdrucks.",
+    "tags": [
+      "Physik",
+      "Experimente"
+    ]
+  },
+  {
+    "_batch_index": 1223,
+    "text_de": "Wer hatte 1982 mit 'Das Model' einen Hit?",
+    "answer_de": "Kraftwerk",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Kraftwerk aus Düsseldorf gelten als Pioniere der elektronischen Musik und beeinflussten viele spätere Genres wie Techno und Hip-Hop.",
+    "tags": [
+      "Elektronische Musik",
+      "80er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1224,
+    "text_de": "Wer schrieb den Roman 'Das Geisterhaus'?",
+    "answer_de": "Isabel Allende",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Der 1982 erschienene Debütroman der chilenischen Autorin wurde zum internationalen Bestseller und in über 30 Sprachen übersetzt.",
+    "tags": [
+      "Lateinamerikanische Literatur",
+      "Magischer Realismus"
+    ]
+  },
+  {
+    "_batch_index": 1225,
+    "text_de": "Wer war Michael Schumachers Teamkollege bei Ferrari in der Formel-1-Saison 2001?",
+    "answer_de": "Rubens Barrichello",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "2001 gewann Schumacher seinen vierten WM-Titel, während Barrichello als loyaler Teamkollege wichtige Unterstützung leistete.",
+    "tags": [
+      "Formel 1",
+      "2000er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1226,
+    "text_de": "Welche PKW wurden vom 'VEB Automobilwerk Eisenach' gebaut?",
+    "answer_de": "Wartburg",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Der Wartburg war von 1956 bis 1991 das Flaggschiff der DDR-Autoproduktion und wurde nach der Wartburg bei Eisenach benannt.",
+    "tags": [
+      "DDR",
+      "Autos"
+    ]
+  },
+  {
+    "_batch_index": 1227,
+    "text_de": "Wie bezeichnet der Kaufmann die Bestandsaufnahme seiner Waren?",
+    "answer_de": "Inventur",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die jährliche Inventur ist gesetzlich vorgeschrieben und bildet die Grundlage für die Bilanz eines Unternehmens.",
+    "tags": [
+      "Wirtschaft",
+      "Buchhaltung"
+    ]
+  },
+  {
+    "_batch_index": 1228,
+    "text_de": "'Wodka' heißt aus dem Russischen übersetzt was?",
+    "answer_de": "Wässerchen",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Das russische Wort 'Wodka' ist die Verkleinerungsform von 'Woda' (Wasser) und bedeutet somit 'kleines Wasser'.",
+    "tags": [
+      "Alkohol",
+      "Sprache"
+    ]
+  },
+  {
+    "_batch_index": 1229,
+    "text_de": "Wie heißt der griechische Anisbranntwein?",
+    "answer_de": "Ouzo",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Ouzo wird traditionell mit Wasser verdünnt getrunken, wodurch er seine charakteristische milchige Farbe erhält.",
+    "tags": [
+      "Griechenland",
+      "Alkohol"
+    ]
+  },
+  {
+    "_batch_index": 1230,
+    "text_de": "Wer war von 1980 bis 2013 Königin der Niederlande?",
+    "answer_de": "Beatrix",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Königin Beatrix dankte 2013 zugunsten ihres Sohnes Willem-Alexander ab und ist damit die erste niederländische Monarchin, die abdankte.",
+    "tags": [
+      "Monarchie",
+      "Niederlande"
+    ]
+  },
+  {
+    "_batch_index": 1231,
+    "text_de": "Was baute der Ingenieur Elisha Graves Otis 1857 als Erster in ein Gebäude ein?",
+    "answer_de": "Personenaufzug",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Otis erfand die Sicherheitsbremse für Aufzüge, die bis heute verwendet wird und Hochhäuser erst möglich machte.",
+    "tags": [
+      "Erfindungen",
+      "Architektur"
+    ]
+  },
+  {
+    "_batch_index": 1232,
+    "text_de": "Wie heißt Michael Jacksons Anwesen mit eigenem Freizeitpark?",
+    "answer_de": "Neverland",
+    "category": "Popkultur",
+    "difficulty": 2,
+    "fun_fact_de": "Die Neverland Ranch in Kalifornien war von 1987 bis 2005 Jacksons Zuhause und verfügte über einen Zoo und Vergnügungspark.",
+    "tags": [
+      "Michael Jackson",
+      "Prominente"
+    ]
+  },
+  {
+    "_batch_index": 1234,
+    "text_de": "Wie viele Fußball-Länderspiele hat Franz Beckenbauer als Aktiver bestritten?",
+    "answer_de": "103",
+    "category": "Sport",
+    "difficulty": 3,
+    "fun_fact_de": "Beckenbauer ist neben Mario Zagallo und Didier Deschamps einer von nur drei Personen, die als Spieler und Trainer Weltmeister wurden.",
+    "tags": [
+      "Fußball",
+      "Rekorde"
+    ]
+  },
+  {
+    "_batch_index": 1235,
+    "text_de": "Welcher mythische König gilt als Erfinder des Bierbrauens?",
+    "answer_de": "Gambrinus",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Gambrinus ist eine Sagenfigur der Bierbrauer und wird oft als fröhlicher König mit Bierkrug dargestellt.",
+    "tags": [
+      "Bier",
+      "Mythologie"
+    ]
+  },
+  {
+    "_batch_index": 1236,
+    "text_de": "Wie viel Grad beträgt die Innenwinkelsumme im Dreieck?",
+    "answer_de": "180 Grad",
+    "category": "Logik&Mathe",
+    "difficulty": 1,
+    "fun_fact_de": "Diese Regel gilt nur in der euklidischen Geometrie - auf gekrümmten Oberflächen kann die Winkelsumme größer oder kleiner sein.",
+    "tags": [
+      "Geometrie",
+      "Mathematik"
+    ]
+  },
+  {
+    "_batch_index": 1237,
+    "text_de": "Womit machte sich Ernő Rubik einen Namen?",
+    "answer_de": "Zauberwürfel",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der ungarische Architekt erfand 1974 den Würfel ursprünglich als Lehrmittel für räumliches Denken.",
+    "tags": [
+      "Erfindungen",
+      "Spiele"
+    ]
+  },
+  {
+    "_batch_index": 1239,
+    "text_de": "Der Krug geht so lange zum Brunnen, bis er was?",
+    "answer_de": "bricht",
+    "category": "Sprache",
+    "difficulty": 1,
+    "fun_fact_de": "Diese deutsche Redewendung warnt davor, dass riskante Handlungen irgendwann schief gehen werden.",
+    "tags": [
+      "Sprichwörter",
+      "Weisheiten"
+    ]
+  },
+  {
+    "_batch_index": 1240,
+    "text_de": "Was verspeist die Schwarze Witwe nach dem Paarungsakt?",
+    "answer_de": "das Männchen",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Dieses Verhalten kommt nur bei etwa 20% der Paarungen vor und dient der Nährstoffversorgung für die Eierproduktion.",
+    "tags": [
+      "Biologie",
+      "Spinnen"
+    ]
+  },
+  {
+    "_batch_index": 1241,
+    "text_de": "Womit war der altnordische Gott Thor bewaffnet?",
+    "answer_de": "Hammer",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Thors Hammer Mjölnir konnte angeblich nur von Thor selbst gehoben werden und kehrte nach jedem Wurf zu ihm zurück.",
+    "tags": [
+      "Mythologie",
+      "Wikinger"
+    ]
+  },
+  {
+    "_batch_index": 1242,
+    "text_de": "Welcher Krieg wurde durch den 'Westfälischen Frieden' beendet?",
+    "answer_de": "Dreißigjähriger Krieg",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Der 1648 geschlossene Frieden begründete das moderne Staatensystem und das Prinzip der Religionsfreiheit.",
+    "tags": [
+      "17. Jahrhundert",
+      "Frieden"
+    ]
+  },
+  {
+    "_batch_index": 1243,
+    "text_de": "Welche TV-Sendung hat Michael Schanze moderiert?",
+    "answer_de": "Nur keine Hemmungen",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Die Show lief von 1963 bis 1975 im ZDF und war eine der ersten deutschen Spielshows mit Publikumsbeteiligung.",
+    "tags": [
+      "Deutsche TV-Shows",
+      "70er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1244,
+    "text_de": "Wie wird die wässrige Lösung einer Base bezeichnet?",
+    "answer_de": "Lauge",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Laugen haben einen pH-Wert über 7 und fühlen sich seifig an - Seife entsteht durch die Reaktion von Fetten mit Laugen.",
+    "tags": [
+      "Chemie",
+      "pH-Wert"
+    ]
+  },
+  {
+    "_batch_index": 1246,
+    "text_de": "Mit wem schloss Deutschland 1890 den 'Helgoland-Sansibar-Vertrag' ab?",
+    "answer_de": "Großbritannien",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Deutschland tauschte seine Ansprüche auf Sansibar gegen die strategisch wichtige Nordsee-Insel Helgoland.",
+    "tags": [
+      "Kolonialzeit",
+      "Verträge"
+    ]
+  },
+  {
+    "_batch_index": 1247,
+    "text_de": "Wo war Corazón Aquino von 1986 bis 1992 Staatspräsidentin?",
+    "answer_de": "Philippinen",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Sie war die erste Präsidentin der Philippinen und führte nach dem Sturz von Ferdinand Marcos die Demokratie wieder ein.",
+    "tags": [
+      "Politik",
+      "Asien"
+    ]
+  },
+  {
+    "_batch_index": 1248,
+    "text_de": "Welcher Bär gehört zum Inventar der 'Muppets-Show'?",
+    "answer_de": "Fozzie Bär",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Fozzie ist der Stand-up-Comedian unter den Muppets und für seine schlechten Witze und den Ausruf 'Waka waka waka!' bekannt.",
+    "tags": [
+      "Muppets",
+      "Kinderfernsehen"
+    ]
+  },
+  {
+    "_batch_index": 1249,
+    "text_de": "Wer wurde 1998 Deutscher Bundesminister für Arbeit und Soziales?",
+    "answer_de": "Walter Riester",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Riester gab der nach ihm benannten privaten Altersvorsorge ('Riester-Rente') den Namen.",
+    "tags": [
+      "Politik",
+      "90er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1250,
+    "text_de": "Wer schrieb den Kriminalroman 'Tod auf dem Nil'?",
+    "answer_de": "Agatha Christie",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Christie ist die meistverkaufte Kriminalautorin aller Zeiten und ihre Bücher wurden in über 100 Sprachen übersetzt.",
+    "tags": [
+      "Kriminalliteratur",
+      "Hercule Poirot"
+    ]
+  },
+  {
+    "_batch_index": 1251,
+    "text_de": "Wer landete 1993 mit dem Song 'Bed Of Roses' in den Charts?",
+    "answer_de": "Bon Jovi",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Die Rockballade war einer der größten Hits der Band und stammte vom Album 'Keep the Faith'.",
+    "tags": [
+      "Rock",
+      "90er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1252,
+    "text_de": "Wer spielte 1963 den Sir Charles Litton in dem Film 'Der rosarote Panther'?",
+    "answer_de": "David Niven",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Niven spielte den eleganten Gentleman-Dieb, während Peter Sellers als Inspektor Clouseau die Komödie dominierte.",
+    "tags": [
+      "Klassische Filme",
+      "60er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1253,
+    "text_de": "Zu welchem Herrschergeschlecht gehörte Kaiser Friedrich I. Barbarossa?",
+    "answer_de": "Staufer",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Staufer herrschten von 1138 bis 1254 im Heiligen Römischen Reich und waren für ihre Italienpolitik bekannt.",
+    "tags": [
+      "Mittelalter",
+      "Kaisertum"
+    ]
+  },
+  {
+    "_batch_index": 1254,
+    "text_de": "Wer entdeckte 1930 den Pluto?",
+    "answer_de": "Clyde Tombaugh",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Tombaugh war erst 24 Jahre alt, als er Pluto entdeckte, der 2006 zu einem Zwergplaneten herabgestuft wurde.",
+    "tags": [
+      "Astronomie",
+      "Planeten"
+    ]
+  },
+  {
+    "_batch_index": 1255,
+    "text_de": "Wie nennt man den roten Blutfarbstoff?",
+    "answer_de": "Hämoglobin",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Ein Hämoglobinmolekül kann bis zu vier Sauerstoffmoleküle transportieren und macht etwa 35% des Gewichts roter Blutkörperchen aus.",
+    "tags": [
+      "Biologie",
+      "Medizin"
+    ]
+  },
+  {
+    "_batch_index": 1256,
+    "text_de": "In welchem afrikanischen Land waren von 1992 bis 1995 UNO-Soldaten stationiert?",
+    "answer_de": "Somalia",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die UN-Mission UNOSOM sollte humanitäre Hilfe sicherstellen, endete aber nach dem 'Black Hawk Down'-Zwischenfall 1993 weitgehend erfolglos.",
+    "tags": [
+      "UNO",
+      "Afrika"
+    ]
+  },
+  {
+    "_batch_index": 1257,
+    "text_de": "Ein Verfahren zur Rauschunterdrückung bei Tonaufzeichnungen entwickelte wer?",
+    "answer_de": "Ray Dolby",
+    "category": "Technik",
+    "difficulty": 2,
+    "fun_fact_de": "Das Dolby-System revolutionierte die Audioaufnahme und ist heute Standard in Kinos und bei Heimkinosystemen.",
+    "tags": [
+      "Audio",
+      "Erfindungen"
+    ]
+  },
+  {
+    "_batch_index": 1258,
+    "text_de": "Bei welcher Pflanze heißen die Blütenstände 'Kätzchen'?",
+    "answer_de": "Weide",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Kätzchen sind hängende Blütenstände, die vor allem bei windbestäubten Bäumen wie Weiden, Birken und Haseln vorkommen.",
+    "tags": [
+      "Botanik",
+      "Blüten"
+    ]
+  },
+  {
+    "_batch_index": 1259,
+    "text_de": "Welche Stadt liegt an der spanischen 'Costa del Sol'?",
+    "answer_de": "Marbella",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Marbella ist seit den 1950ern ein beliebter Ferienort des internationalen Jet-Sets und bekannt für seine Luxushotels.",
+    "tags": [
+      "Spanien",
+      "Tourismus"
+    ]
+  },
+  {
+    "_batch_index": 1260,
+    "text_de": "Wie nennt der Jäger das Ohr der Hasen und Kaninchen?",
+    "answer_de": "Löffel",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die Jägersprache hat für fast alle Körperteile der Wildtiere eigene Begriffe, um die Jagdtradition zu bewahren.",
+    "tags": [
+      "Jagd",
+      "Jägersprache"
+    ]
+  },
+  {
+    "_batch_index": 1261,
+    "text_de": "Wie nennt man eine Anlage zum Auffangen von Regenwasser?",
+    "answer_de": "Zisterne",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Zisternen werden seit der Antike genutzt und erleben heute eine Renaissance als nachhaltige Wasserspeicher.",
+    "tags": [
+      "Wasserwirtschaft",
+      "Nachhaltigkeit"
+    ]
+  },
+  {
+    "_batch_index": 1263,
+    "text_de": "Wer spielte die weibliche Hauptrolle in Hitchcocks Film 'Das Fenster zum Hof'?",
+    "answer_de": "Grace Kelly",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Grace Kelly war Hitchcocks Lieblingsschauspielerin und wurde später Fürstin von Monaco.",
+    "tags": [
+      "Alfred Hitchcock",
+      "50er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1264,
+    "text_de": "Wer wurde 'an den Iden des März' 44 vor Christus ermordet?",
+    "answer_de": "Julius Caesar",
+    "category": "Geschichte",
+    "difficulty": 1,
+    "fun_fact_de": "Shakespeare machte die Warnung 'Hüte dich vor den Iden des März' in seinem Drama über Caesar weltberühmt.",
+    "tags": [
+      "Römisches Reich",
+      "Antike"
+    ]
+  },
+  {
+    "_batch_index": 1266,
+    "text_de": "Wer schrieb den 1934 erschienenen Roman 'Drei Männer im Schnee'?",
+    "answer_de": "Erich Kästner",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Kästner schrieb sowohl für Erwachsene als auch für Kinder und ist besonders für 'Emil und die Detektive' bekannt.",
+    "tags": [
+      "Deutsche Literatur",
+      "30er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1267,
+    "text_de": "Wie heißt die flächenmäßig größte Insel der Kykladen?",
+    "answer_de": "Naxos",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Naxos ist etwa 430 Quadratkilometer groß und war in der Antike berühmt für seinen Marmor.",
+    "tags": [
+      "Griechenland",
+      "Inseln"
+    ]
+  },
+  {
+    "_batch_index": 1268,
+    "text_de": "Wo brannten am 25. August 1988 weite Teile der historischen Altstadt nieder?",
+    "answer_de": "Lissabon",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Das Feuer im historischen Chiado-Viertel zerstörte viele Gebäude aus dem 18. Jahrhundert, die später originalgetreu rekonstruiert wurden.",
+    "tags": [
+      "Portugal",
+      "80er Jahre"
+    ]
+  },
+  {
+    "_batch_index": 1269,
+    "text_de": "Wer schrieb den Bestseller 'Der Name der Rose'?",
+    "answer_de": "Umberto Eco",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Der italienische Philosoph und Schriftsteller verband in seinem Debütroman Krimi, Philosophie und mittelalterliche Geschichte.",
+    "tags": [
+      "Italienische Literatur",
+      "Mittelalter"
+    ]
+  },
+  {
+    "_batch_index": 1270,
+    "text_de": "Welches Bundesland führt ein Pferd im Landeswappen?",
+    "answer_de": "Niedersachsen",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Das niedersächsische Ross ist ein heraldisches Symbol und geht auf das Stammeszeichen der Sachsen zurück.",
+    "tags": [
+      "Wappen",
+      "Deutschland"
+    ]
+  },
+  {
+    "_batch_index": 1271,
+    "text_de": "Wer ungelenk umherstakst, den vergleicht der Volksmund mit einem Storch im was?",
+    "answer_de": "Salat",
+    "category": "Sprache",
+    "difficulty": 2,
+    "fun_fact_de": "Die Redewendung 'wie ein Storch im Salat' beschreibt jemanden, der sich ungeschickt in einer ungewohnten Situation bewegt.",
+    "tags": [
+      "Redewendungen",
+      "Humor"
+    ]
+  },
+  {
+    "_batch_index": 1272,
+    "text_de": "Wie nennt man eine Mischung aus Nüssen, Mandeln und Rosinen?",
+    "answer_de": "Studentenfutter",
+    "category": "Essen&Trinken",
+    "difficulty": 1,
+    "fun_fact_de": "Der Name entstand, weil die energiereiche Mischung bei Studenten als preiswerter Energielieferant beliebt war.",
+    "tags": [
+      "Snacks",
+      "Umgangssprache"
+    ]
+  },
+  {
+    "_batch_index": 1273,
+    "text_de": "Was bedeutet das lateinische Wort 'globus'?",
+    "answer_de": "Kugel",
+    "category": "Sprache",
+    "difficulty": 2,
+    "fun_fact_de": "Von 'globus' stammen viele moderne Wörter ab, wie 'global', 'Globalisierung' und 'Globus'.",
+    "tags": [
+      "Latein",
+      "Etymologie"
+    ]
+  },
+  {
+    "_batch_index": 1274,
+    "text_de": "Was sind 'Terschelling' und 'Texel'?",
+    "answer_de": "westfriesische Inseln",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die niederländischen Nordseeinseln sind Teil des Wattenmeers und beliebte Urlaubsziele mit einzigartiger Natur.",
+    "tags": [
+      "Niederlande",
+      "Inseln"
+    ]
+  },
+  {
+    "_batch_index": 1275,
+    "text_de": "Welches Tier ist Vegetarier?",
+    "answer_de": "Großer Panda",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Obwohl Pandas biologisch Fleischfresser sind, ernähren sie sich fast ausschließlich von Bambus - bis zu 14 Stunden täglich.",
+    "tags": [
+      "Tiere",
+      "Ernährung"
+    ]
+  },
+  {
+    "_batch_index": 1276,
+    "text_de": "Wo wurden 'Shantys' ursprünglich gesungen?",
+    "answer_de": "auf dem Schiff",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Shanties halfen Seeleuten dabei, schwere Arbeiten im Rhythmus zu koordinieren und die Moral zu stärken.",
+    "tags": [
+      "Seemannslieder",
+      "Tradition"
+    ]
+  },
+  {
+    "_batch_index": 1277,
+    "text_de": "Wer führte den sogenannten 'Ödipuskomplex' in die Psychoanalyse ein?",
+    "answer_de": "Sigmund Freud",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Freud benannte den Komplex nach dem griechischen König Ödipus, der unwissend seinen Vater tötete und seine Mutter heiratete.",
+    "tags": [
+      "Psychologie",
+      "Mythologie"
+    ]
+  },
+  {
+    "_batch_index": 1278,
+    "text_de": "Welches ist das größte der Loire-Schlösser?",
+    "answer_de": "Chambord",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Schloss Chambord wurde im 16. Jahrhundert für Franz I. erbaut und hat 440 Zimmer sowie 282 Schornsteine.",
+    "tags": [
+      "Frankreich",
+      "Renaissance"
+    ]
+  },
+  {
+    "_batch_index": 1279,
+    "text_de": "Welcher Monat macht sprichwörtlich, was er will?",
+    "answer_de": "April",
+    "category": "Sprache",
+    "difficulty": 1,
+    "fun_fact_de": "Der April ist bekannt für sein wechselhaftes Wetter zwischen Winter und Frühling mit häufigen Wetterumschwüngen.",
+    "tags": [
+      "Sprichwörter",
+      "Wetter"
+    ]
+  },
+  {
+    "_batch_index": 1280,
+    "text_de": "Wie nennt man die vorgeschriebene festliche Kleidung für einen besonderen Anlass?",
+    "answer_de": "Gala",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff 'Gala' stammt aus dem Französischen und bedeutet 'Fest' oder 'Feierlichkeit'.",
+    "tags": [
+      "Mode",
+      "Etikette"
+    ]
+  },
+  {
+    "_batch_index": 1281,
+    "text_de": "Was macht der Bauer mit dem Feld?",
+    "answer_de": "bestellen",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Das 'Bestellen' eines Feldes umfasst alle Arbeiten von der Bodenbearbeitung bis zur Aussaat.",
+    "tags": [
+      "Landwirtschaft",
+      "Sprache"
+    ]
+  },
+  {
+    "_batch_index": 1282,
+    "text_de": "Eine bekannte griechische Vorspeise auf Joghurt-Basis heißt wie?",
+    "answer_de": "Tzatziki",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Tzatziki besteht aus griechischem Joghurt, Gurken, Knoblauch, Olivenöl und frischen Kräutern wie Dill oder Minze.",
+    "tags": [
+      "Griechische Küche",
+      "Vorspeisen"
+    ]
+  },
+  {
+    "_batch_index": 1283,
+    "text_de": "Was wird 'kolportiert'?",
+    "answer_de": "Gerücht",
+    "category": "Sprache",
+    "difficulty": 2,
+    "fun_fact_de": "Das Wort kommt vom französischen 'colporter' (hausieren gehen) und beschreibt das Weiterverbreiten unbestätigter Nachrichten.",
+    "tags": [
+      "Fremdwörter",
+      "Kommunikation"
+    ]
+  },
+  {
+    "_batch_index": 1284,
+    "text_de": "Was ist ein Maar?",
+    "answer_de": "ein Vulkantrichter",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Maare entstehen durch explosive Vulkanausbrüche und füllen sich oft mit Wasser zu kreisrunden Seen.",
+    "tags": [
+      "Geologie",
+      "Vulkane"
+    ]
+  },
+  {
+    "_batch_index": 1285,
+    "text_de": "Wie heißt die japanische Kampfsportart, bei der die Gegner mit Stöcken aufeinander einschlagen?",
+    "answer_de": "Kendo",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Kendo bedeutet 'Weg des Schwertes' und entwickelte sich aus der Schwertkunst der Samurai.",
+    "tags": [
+      "Kampfsport",
+      "Japan"
+    ]
+  },
+  {
+    "_batch_index": 1286,
+    "text_de": "Welche berühmte Brücke über die Moldau verbindet die Prager Altstadt mit der Kleinseite?",
+    "answer_de": "Karlsbrücke",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die im 14. Jahrhundert erbaute Karlsbrücke ist mit ihren 30 Heiligenstatuen eine der ältesten Steinbrücken Europas.",
+    "tags": [
+      "Prag",
+      "Architektur"
+    ]
+  }
+]

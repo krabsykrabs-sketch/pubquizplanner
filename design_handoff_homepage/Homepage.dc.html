@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/pubquizplanner-design-system-e327fe39-160e-47eb-b062-c33c014babb6/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/pubquizplanner-design-system-e327fe39-160e-47eb-b062-c33c014babb6/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/pubquizplanner-design-system-e327fe39-160e-47eb-b062-c33c014babb6/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/pubquizplanner-design-system-e327fe39-160e-47eb-b062-c33c014babb6/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/pubquizplanner-design-system-e327fe39-160e-47eb-b062-c33c014babb6/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/pubquizplanner-design-system-e327fe39-160e-47eb-b062-c33c014babb6/styles.css">
+  <script src="_ds/pubquizplanner-design-system-e327fe39-160e-47eb-b062-c33c014babb6/_ds_bundle.js"></script>
+  <script src="data/categories.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body { margin: 0; background: var(--bg-page); font-family: var(--font-body); color: var(--text-body); -webkit-font-smoothing: antialiased; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); }
+    .pqp-wrap { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+    .pqp-sec { padding: 92px 0; }
+    .pqp-hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+    .pqp-hero-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .pqp-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pqp-cat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pqp-nav-links { display: flex; align-items: center; gap: 30px; }
+    .pqp-footer-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
+    .pqp-menu-btn { display: none; }
+    @media (max-width: 860px) {
+      .pqp-sec { padding: 60px 0; }
+      .pqp-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .pqp-grid-3 { grid-template-columns: 1fr; }
+      .pqp-cat-tiles { grid-template-columns: 1fr 1fr; }
+      .pqp-nav-links { display: none; }
+      .pqp-menu-btn { display: inline-flex; }
+    }
+    @media (max-width: 480px) {
+      .pqp-cat-tiles { grid-template-columns: 1fr; }
+    }
+  </style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#161311">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#161311"/>
+    <circle cx="600" cy="400" r="210" fill="none" stroke="#D96E2A" stroke-width="14"/>
+    <circle cx="600" cy="400" r="168" fill="none" stroke="#D96E2A" stroke-width="6" stroke-dasharray="4 26"/>
+    <text x="600" y="500" font-family="Archivo, sans-serif" font-weight="800" font-size="260" text-anchor="middle" fill="#D96E2A">?</text>
+  </svg>
+</template>
+
+<div style="background: var(--bg-page);">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position: sticky; top: 0; z-index: 50; background: rgba(251,247,240,0.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle);">
+    <div class="pqp-wrap" style="display: flex; align-items: center; justify-content: space-between; height: 70px;">
+      <a href="#top" style="display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 1.28rem; letter-spacing: -0.03em; color: var(--text-strong);">
+        <svg width="30" height="30" viewBox="0 0 48 48" style="color: var(--accent); flex: none;" aria-hidden="true">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="24" cy="24" r="16.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="0.5 3.4" stroke-linecap="round"/>
+          <text x="24" y="33" font-family="Archivo, sans-serif" font-weight="800" font-size="24" text-anchor="middle" fill="currentColor">?</text>
+        </svg>
+        PubQuizPlanner
+      </a>
+      <nav class="pqp-nav-links">
+        <a href="#how" style="font-size: 0.9375rem; color: var(--text-muted); font-weight: 500;">So funktioniert's</a>
+        <a href="#kategorien" style="font-size: 0.9375rem; color: var(--text-muted); font-weight: 500;">Kategorien</a>
+        <a href="#fragen" style="font-size: 0.9375rem; color: var(--text-muted); font-weight: 500;">Fragen</a>
+        <span style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: var(--radius-md); border: 1.5px solid var(--border-strong); font-size: 0.85rem; font-weight: 600; color: var(--text-body); cursor: pointer;"><i data-lucide="globe" style="width:15px;height:15px"></i>DE<i data-lucide="chevron-down" style="width:14px;height:14px"></i></span>
+        <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Button" size="sm" href="/generator" hint-size="auto,32px">Quiz erstellen</x-import>
+      </nav>
+      <span class="pqp-menu-btn" style="align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: var(--radius-md); border: 1.5px solid var(--border-strong); color: var(--text-body); cursor: pointer;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      </span>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" data-theme="dark" data-screen-label="Hero" style="position: relative; background: var(--night-900); color: var(--text-strong); overflow: hidden;">
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(78% 88% at 82% 8%, rgba(217,110,42,0.28), transparent 58%);"></div>
+    <!-- low-contrast pub ambience: string lights across the top -->
+    <svg aria-hidden="true" viewBox="0 0 1400 200" preserveAspectRatio="none" style="position: absolute; top: 0; left: 0; width: 100%; height: 190px; opacity: 0.09; color: var(--amber-400);">
+      <path d="M0 26 Q175 96 350 40 T700 40 T1050 40 T1400 30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <g fill="currentColor">
+        <circle cx="88" cy="66" r="4"/><circle cx="262" cy="70" r="4"/><circle cx="436" cy="44" r="4"/><circle cx="610" cy="66" r="4"/><circle cx="786" cy="44" r="4"/><circle cx="960" cy="66" r="4"/><circle cx="1136" cy="44" r="4"/><circle cx="1310" cy="52" r="4"/>
+      </g>
+    </svg>
+    <div aria-hidden="true" style="position: absolute; left: 0; bottom: 0; width: 46%; height: 3px; background: linear-gradient(90deg, rgba(217,110,42,0.12), transparent); opacity: 0.5;"></div>
+    <div class="pqp-wrap pqp-hero-grid" style="position: relative; padding-top: 92px; padding-bottom: 92px;">
+      <div>
+        <div style="display: inline-flex; margin-bottom: 22px;">
+          <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Badge" tone="accent" hint-size="auto,24px">Kostenlos in der Beta</x-import>
+        </div>
+        <h1 style="font-family: var(--font-display); font-weight: 800; font-size: var(--text-4xl); line-height: 1.02; letter-spacing: -0.03em; margin: 0; color: #fff;">Der ganze Quizabend.<br>Nicht nur die Fragen.</h1>
+        <p style="font-size: 1.1875rem; line-height: 1.6; color: var(--text-body); max-width: 47ch; margin: 24px 0 34px;">Aus einer kuratierten Fragendatenbank werden fertige Präsentations-Folien, gedruckte Antwortbögen und ein Spickzettel für die Moderation — in wenigen Minuten. Auf der Leinwand poliert, hinter den Kulissen ruhig.</p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+          <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Button" size="lg" href="/generator?quick=1" hint-size="auto,50px"><span style="display:inline-flex;align-items:center;gap:10px"><i data-lucide="dices"></i>Sofort-Quiz starten</span></x-import>
+          <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Button" size="lg" variant="secondary" href="/generator" hint-size="auto,50px"><span style="display:inline-flex;align-items:center;gap:9px"><i data-lucide="sliders-horizontal"></i>Selbst zusammenstellen</span></x-import>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 18px; color: var(--text-muted); font-size: 0.9rem;"><i data-lucide="zap" style="width:16px;height:16px;color:var(--accent)"></i>Ein Klick — ein kompletter Abend. Keine Anmeldung nötig.</div>
+        <div style="display: flex; gap: 16px; margin-top: 34px; flex-wrap: wrap;">
+          <sc-for list="{{ languages }}" as="lang" hint-placeholder-count="4">
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.06em;">{{ lang }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ showHeroImage }}" hint-placeholder-val="{{ true }}">
+        <div class="pqp-hero-tiles">
+          <sc-for list="{{ heroTiles }}" as="tile" hint-placeholder-count="4">
+            <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.CategoryTile" title="{{ tile.name }}" subtitle="{{ tile.sub }}" image="{{ tile.img }}" icon="{{ tile.iconNode }}" ratio="1 / 1" style="{{ tile.offset }}" hint-size="100%,160px"></x-import>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section data-screen-label="Demo" class="pqp-sec" style="background: var(--bg-page);">
+    <div class="pqp-wrap" style="text-align: center;">
+      <div style="display: inline-flex; margin-bottom: 16px;">
+        <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Badge" tone="accent" hint-size="auto,24px">Live-Demo</x-import>
+      </div>
+      <h2 style="font-family: var(--font-display); font-weight: 800; font-size: var(--text-2xl); letter-spacing: -0.02em; color: var(--text-strong); margin: 0 auto; max-width: 20ch;">Sieh dir einen fertigen Abend an.</h2>
+      <p style="font-size: 1.0625rem; line-height: 1.6; color: var(--text-muted); max-width: 52ch; margin: 14px auto 0;">Kein Login, keine Einrichtung. Spiel dich durch ein echtes, generiertes Quiz — genau so, wie es bei dir auf der Leinwand läuft.</p>
+
+      <sc-if value="{{ demoReady }}" hint-placeholder-val="{{ true }}">
+        <div style="position: relative; max-width: 880px; margin: 40px auto 0; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); cursor: pointer; border: 1px solid var(--border-subtle);" onClick="{{ openDemo }}">
+          <div data-theme="dark" style="position: relative; aspect-ratio: 16 / 9; background: var(--night-800); overflow: hidden;">
+            <img src="assets/categories/kunst-kultur/projector.png" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: right center;">
+            <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(22,17,13,0.92) 42%, rgba(22,17,13,0.30) 72%, rgba(22,17,13,0) 100%);"></div>
+            <!-- quiz-card: a clean QUESTION slide (no answer — answers come later, as their own round) -->
+            <div style="position: absolute; left: 5.5%; top: 50%; transform: translateY(-50%) rotate(-1.1deg); width: 55%; box-sizing: border-box; background: var(--warm-50); border-radius: 22px; padding: 6.5% 6% 6%; box-shadow: 0 22px 50px rgba(0,0,0,0.45);">
+              <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 5.5%;">
+                <span style="font-family: var(--font-mono); font-weight: 600; font-size: clamp(0.9rem, 2vw, 1.35rem); color: #fff; background: var(--amber-500); width: clamp(40px, 4.6vw, 60px); height: clamp(40px, 4.6vw, 60px); border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 0 var(--amber-700);">07</span>
+                <span style="font-family: var(--font-mono); font-size: clamp(0.58rem, 1.05vw, 0.82rem); letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber-700); background: #F7E4D2; padding: 7px 13px; border-radius: var(--radius-full);">Kunst & Kultur</span>
+                <span style="margin-left: auto; font-family: var(--font-mono); font-size: clamp(0.56rem, 0.95vw, 0.78rem); color: var(--warm-500);">Frage 7 / 20</span>
+              </div>
+              <h3 style="font-family: var(--font-display); font-weight: 800; font-size: clamp(1.1rem, 2.6vw, 2rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--warm-900); margin: 0; text-wrap: balance;">Wer malte 1889 das Gemälde „Sternennacht"?</h3>
+              <div style="margin-top: 5.5%; display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: clamp(0.58rem, 1vw, 0.82rem); color: var(--warm-700); background: var(--warm-100); border: 1.5px solid var(--warm-200); padding: 8px 14px; border-radius: var(--radius-full);"><b style="color: var(--amber-700);">10 Punkte</b></div>
+            </div>
+            <div style="position: absolute; right: 5%; top: 8%; display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 999px; background: var(--accent); color: var(--text-on-accent); box-shadow: var(--shadow-xl);"><i data-lucide="play" style="width:24px;height:24px;fill:currentColor"></i></div>
+          </div>
+        </div>
+        <div style="margin-top: 22px;">
+          <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Button" size="md" variant="secondary" onClick="{{ openDemo }}" hint-size="auto,40px"><span style="display:inline-flex;align-items:center;gap:8px"><i data-lucide="play" style="width:16px;height:16px"></i>Demo abspielen</span></x-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ noDemo }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width: 640px; margin: 40px auto 0; padding: 44px 32px; border-radius: var(--radius-xl); border: 1.5px dashed var(--border-strong); background: var(--bg-sunken); text-align: center;">
+          <div style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--surface-inset); color: var(--text-muted); margin-bottom: 14px;"><i data-lucide="clapperboard"></i></div>
+          <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--text-strong); margin: 0 0 6px;">Demo wird gerade vorbereitet</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Sobald das erste Demo-Quiz generiert ist, kannst du es hier direkt abspielen. In der Zwischenzeit: leg einfach selbst los.</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES ============ -->
+  <section id="kategorien" data-screen-label="Kategorien" class="pqp-sec" style="background: var(--bg-sunken); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="pqp-wrap">
+      <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text);">Kategorien</span>
+
+      <sc-if value="{{ hasCategories }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <h2 style="font-family: var(--font-display); font-weight: 800; font-size: var(--text-2xl); letter-spacing: -0.02em; color: var(--text-strong); margin: 10px 0 0; max-width: 26ch;">Über <span style="font-family: var(--font-mono); color: var(--accent-text);">1.600</span> geprüfte Fragen. In <span style="font-family: var(--font-mono); color: var(--accent-text);">14</span> Kategorien.</h2>
+          <p style="font-size: 1rem; line-height: 1.6; color: var(--text-muted); margin: 12px 0 0; max-width: 54ch;">Jede Kategorie hat vom ersten Tag an ein einheitliches Bild — und vertieft sich mit wachsender Datenbank in Unterthemen. Aus Sport wird Radsport, Fußball, Tennis.</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin: 28px 0 24px;">
+            <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="14">
+              <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Tag" selected="{{ cat.isActive }}" onClick="{{ cat.select }}" hint-size="auto,30px">{{ cat.name }}</x-import>
+            </sc-for>
+          </div>
+          <div class="pqp-cat-tiles">
+            <sc-for list="{{ featured }}" as="cat" hint-placeholder-count="6">
+              <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.CategoryTile" title="{{ cat.name }}" subtitle="{{ cat.count }}" image="{{ cat.img }}" icon="{{ cat.iconNode }}" selected="{{ cat.isActive }}" onClick="{{ cat.select }}" ratio="4 / 3" hint-size="100%,170px"></x-import>
+            </sc-for>
+          </div>
+          <div style="margin-top: 28px;">
+            <a href="/fragen" style="display: inline-flex; align-items: center; gap: 7px; font-weight: 600; font-size: 0.95rem;">Alle Fragen ansehen<i data-lucide="arrow-right" style="width:16px;height:16px"></i></a>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ noCategories }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <h2 style="font-family: var(--font-display); font-weight: 800; font-size: var(--text-2xl); letter-spacing: -0.02em; color: var(--text-strong); margin: 10px 0 0;">Die Fragendatenbank wächst gerade.</h2>
+          <div style="margin-top: 28px; padding: 44px 32px; border-radius: var(--radius-xl); border: 1.5px dashed var(--border-strong); background: var(--surface-card); display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--surface-inset); color: var(--text-muted);"><i data-lucide="database"></i></div>
+            <div style="flex: 1; min-width: 240px;">
+              <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--text-strong); margin: 0 0 4px;">Noch keine freigeschalteten Kategorien</h3>
+              <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Kategorien erscheinen hier, sobald sie mindestens 30 geprüfte Fragen haben. Du kannst trotzdem schon ein Quiz zusammenstellen.</p>
+            </div>
+            <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Button" size="md" href="/generator" hint-size="auto,40px">Quiz erstellen</x-import>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ SAMPLE QUESTIONS ============ -->
+  <section id="fragen" data-screen-label="Kostprobe" class="pqp-sec" style="background: var(--bg-page);">
+    <div class="pqp-wrap">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;">
+        <div>
+          <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text);">Kostprobe</span>
+          <h3 style="font-family: var(--font-display); font-weight: 800; font-size: var(--text-xl); letter-spacing: -0.02em; color: var(--text-strong); margin: 10px 0 0;">Drei Fragen aus der Datenbank.</h3>
+        </div>
+        <span style="display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--text-faint);"><i data-lucide="shuffle" style="width:14px;height:14px"></i>Bei jedem Besuch neu gemischt</span>
+      </div>
+
+      <sc-if value="{{ hasQuestions }}" hint-placeholder-val="{{ true }}">
+        <div class="pqp-grid-3" style="margin-top: 32px;">
+          <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
+            <div style="transform: {{ q.tilt }};">
+              <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Card" padding="lg" elevation="raised" hint-size="100%,320px">
+                <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 16px;">
+                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: var(--radius-md); background: var(--accent-soft); color: var(--accent-text);">{{ q.iconNode }}</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);">{{ q.cat }}</span>
+                </div>
+                <p style="font-family: var(--font-display); font-weight: 700; font-size: 1.24rem; line-height: 1.25; letter-spacing: -0.01em; color: var(--text-strong); margin: 0 0 20px; text-wrap: pretty; min-height: 3.1em;">{{ q.question }}</p>
+                <div style="display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: 1px solid var(--border-subtle);">
+                  <div style="position: relative; width: 92px; height: 92px; flex: none; transform: rotate(-3deg);">
+                    <div style="position: absolute; inset: 0; border-radius: 999px; background: var(--warm-50); border: 2.5px solid var(--amber-500); box-shadow: 0 4px 12px rgba(74,42,22,0.22);"></div>
+                    <div style="position: absolute; inset: 7px; border-radius: 999px; border: 1.5px dashed rgba(217,110,42,0.5);"></div>
+                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 4px;">
+                      <span style="font-family: var(--font-mono); font-size: 0.48rem; letter-spacing: 0.16em; color: var(--amber-700);">ANTWORT</span>
+                      <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1; color: var(--amber-700); text-align: center;">{{ q.answer }}</span>
+                    </div>
+                  </div>
+                  <div style="flex: 1;">
+                    <span style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint);">Fun Fact</span>
+                    <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-muted); margin: 4px 0 0;">{{ q.fact }}</p>
+                  </div>
+                </div>
+              </x-import>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ noQuestions }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top: 32px; padding: 44px 32px; border-radius: var(--radius-xl); border: 1.5px dashed var(--border-strong); background: var(--surface-card); text-align: center;">
+          <div style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: var(--surface-inset); color: var(--text-muted); margin-bottom: 14px;"><i data-lucide="help-circle"></i></div>
+          <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--text-strong); margin: 0 0 6px;">Noch keine Beispielfragen</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Sobald geprüfte Fragen vorliegen, zeigen wir hier bei jedem Besuch drei zufällige.</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how" data-screen-label="So funktioniert's" class="pqp-sec" style="background: var(--bg-sunken); border-top: 1px solid var(--border-subtle);">
+    <div class="pqp-wrap">
+      <div style="max-width: 52ch;">
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text);">So funktioniert's</span>
+        <h2 style="font-family: var(--font-display); font-weight: 800; font-size: var(--text-2xl); letter-spacing: -0.02em; color: var(--text-strong); margin: 10px 0 0;">In drei Schritten vom leeren Blatt zum vollen Abend.</h2>
+      </div>
+      <div class="pqp-grid-3" style="margin-top: 40px;">
+        <sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
+          <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Card" padding="lg" elevation="raised" hint-size="100%,220px">
+            <div style="width: 74px; height: 74px; border-radius: var(--radius-lg); background: var(--night-900); display: flex; align-items: center; justify-content: center; padding: 8px; box-sizing: border-box; margin-bottom: 18px; box-shadow: var(--shadow-sm);"><img src="{{ step.img }}" alt="" style="width: 100%; height: 100%; object-fit: contain;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint); margin-bottom: 6px;">{{ step.num }}</div>
+            <h3 style="font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; letter-spacing: -0.01em; color: var(--text-strong); margin: 0 0 8px;">{{ step.title }}</h3>
+            <p style="font-size: 0.9375rem; line-height: 1.6; color: var(--text-muted); margin: 0;">{{ step.desc }}</p>
+          </x-import>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BAND ============ -->
+  <section data-theme="dark" data-screen-label="CTA" style="background: var(--night-800); position: relative; overflow: hidden;">
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(60% 120% at 50% 0%, rgba(217,110,42,0.22), transparent 60%);"></div>
+    <div class="pqp-wrap" style="position: relative; padding: 84px 24px; text-align: center;">
+      <h2 style="font-family: var(--font-display); font-weight: 800; font-size: var(--text-3xl); letter-spacing: -0.02em; color: #fff; margin: 0 auto; max-width: 18ch;">Dein nächster Quizabend ist 10 Minuten entfernt.</h2>
+      <p style="font-size: 1.125rem; color: var(--text-body); margin: 16px auto 30px; max-width: 46ch;">Kostenlos in der Beta. Deine eigene Marke bleibt auf jeder Folie.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Button" size="lg" href="/generator?quick=1" hint-size="auto,50px"><span style="display:inline-flex;align-items:center;gap:10px"><i data-lucide="dices"></i>Sofort-Quiz starten</span></x-import>
+        <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Button" size="lg" variant="secondary" href="/generator" hint-size="auto,50px">Selbst zusammenstellen</x-import>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer data-theme="dark" style="background: var(--night-900); color: var(--text-faint);">
+    <div class="pqp-wrap pqp-footer-row" style="padding: 48px 24px;">
+      <div style="max-width: 30ch;">
+        <div style="display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: #fff; letter-spacing: -0.03em; margin-bottom: 10px;">
+          <svg width="27" height="27" viewBox="0 0 48 48" style="color: var(--amber-400); flex: none;" aria-hidden="true">
+            <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="24" cy="24" r="16.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="0.5 3.4" stroke-linecap="round"/>
+            <text x="24" y="33" font-family="Archivo, sans-serif" font-weight="800" font-size="24" text-anchor="middle" fill="currentColor">?</text>
+          </svg>
+          PubQuizPlanner
+        </div>
+        <p style="font-size: 0.85rem; line-height: 1.5; margin: 0;">Der ganze Quizabend — Folien, Antwortbögen und Moderations-Spickzettel aus einer kuratierten Fragendatenbank.</p>
+      </div>
+      <div style="display: flex; gap: 26px; flex-wrap: wrap;">
+        <a href="/fragen" style="color: var(--text-muted); font-size: 0.9rem;">Fragen</a>
+        <a href="/impressum" style="color: var(--text-muted); font-size: 0.9rem;">Impressum</a>
+        <a href="/datenschutz" style="color: var(--text-muted); font-size: 0.9rem;">Datenschutz</a>
+        <a href="/credits" style="color: var(--text-muted); font-size: 0.9rem;">Credits</a>
+      </div>
+    </div>
+    <div style="border-top: 1px solid var(--night-600);">
+      <div class="pqp-wrap" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span style="font-size: 0.8125rem;">© {{ year }} PubQuizPlanner · Ein Abend, professionell gemacht.</span>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em;">Deutsch · Nederlands · Polski · Svenska</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ DEMO MODAL ============ -->
+  <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Dialog" open="{{ demoOpen }}" onClose="{{ closeDemo }}" width="840" hint-size="0,0">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--text-strong); letter-spacing: -0.02em;">Demo-Quiz</span>
+        <x-import component-from-global-scope="PubQuizPlannerDesignSystem_e327fe.Badge" tone="accent" hint-size="auto,24px">Live</x-import>
+      </div>
+      <span onClick="{{ closeDemo }}" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); color: var(--text-muted); cursor: pointer;"><i data-lucide="x" style="width:18px;height:18px"></i></span>
+    </div>
+    <div data-theme="dark" style="position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-lg); overflow: hidden; background: var(--night-800);">
+      <img src="assets/categories/kunst-kultur/projector.png" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: right center;">
+      <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(22,17,13,0.92) 42%, rgba(22,17,13,0.30) 72%, rgba(22,17,13,0) 100%);"></div>
+      <!-- ANSWER-REVEAL card: the answer round, shown after all questions -->
+      <div style="position: absolute; left: 5%; top: 50%; transform: translateY(-50%) rotate(-1.1deg); width: 56%; box-sizing: border-box; background: var(--warm-50); border-radius: 22px; padding: 5.5% 6%; box-shadow: 0 22px 50px rgba(0,0,0,0.45);">
+        <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 4.5%;">
+          <span style="font-family: var(--font-mono); font-weight: 600; font-size: clamp(0.85rem, 1.8vw, 1.2rem); color: #fff; background: var(--warm-400); width: clamp(38px, 4.2vw, 54px); height: clamp(38px, 4.2vw, 54px); border-radius: 13px; display: flex; align-items: center; justify-content: center;">07</span>
+          <span style="font-family: var(--font-mono); font-size: clamp(0.56rem, 1vw, 0.8rem); letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber-700); background: #F7E4D2; padding: 7px 13px; border-radius: var(--radius-full);">Kunst & Kultur</span>
+          <span style="margin-left: auto; font-family: var(--font-mono); font-size: clamp(0.54rem, 0.9vw, 0.76rem); color: var(--warm-500);">Frage 7 / 20</span>
+        </div>
+        <p style="font-family: var(--font-body); font-size: clamp(0.8rem, 1.6vw, 1.2rem); line-height: 1.3; color: var(--warm-600); margin: 0 0 4%; max-width: 26ch;">Wer malte 1889 das Gemälde „Sternennacht"?</p>
+        <div style="font-family: var(--font-mono); font-size: clamp(0.55rem, 0.95vw, 0.78rem); letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm-500); margin-bottom: 3.5%;">Auflösung · die Antwort lautet</div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span style="width: clamp(38px, 4vw, 52px); height: clamp(38px, 4vw, 52px); border-radius: 999px; background: var(--green-500); display: flex; align-items: center; justify-content: center; flex: none;"><svg width="60%" height="60%" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span style="font-family: var(--font-display); font-weight: 800; font-size: clamp(1.4rem, 3.4vw, 2.6rem); line-height: 1.02; letter-spacing: -0.03em; color: var(--amber-700);">Van Gogh</span>
+        </div>
+      </div>
+      <div style="position: absolute; right: 40px; top: 34px; display: flex; gap: 10px;">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--night-600); color: var(--text-muted);"><i data-lucide="chevron-left" style="width:18px;height:18px"></i></span>
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 999px; background: var(--accent); color: var(--text-on-accent);"><i data-lucide="chevron-right" style="width:18px;height:18px"></i></span>
+      </div>
+    </div>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin: 16px 0 0; text-align: center;">So sieht die Auflösung aus: In der echten Demo blätterst du erst durch alle Fragen — die Antworten kommen gesammelt am Ende jeder Runde, gefolgt von der Punktetafel.</p>
+  </x-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1280}, &quot;dataState&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;populated&quot;, &quot;empty&quot;], &quot;default&quot;: &quot;populated&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Content&quot;, &quot;label&quot;: &quot;Datenzustand&quot;}, &quot;showHeroImage&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hero&quot;, &quot;label&quot;: &quot;Kategorie-Kacheln im Hero&quot;}}">
+class Component extends DCLogic {
+  state = { demoOpen: false, activeCat: 'Kunst & Kultur' };
+
+  componentDidMount() { this.icons(); this.forceUpdate(); }
+  componentDidUpdate() { this.icons(); }
+  icons() {
+    if (window.lucide) {
+      clearTimeout(this._t);
+      this._t = setTimeout(() => window.lucide && window.lucide.createIcons(), 0);
+    }
+  }
+
+  iconNode(name, size) {
+    return React.createElement('i', { 'data-lucide': name, style: size ? { width: size, height: size } : undefined });
+  }
+
+  renderVals() {
+    const populated = (this.props.dataState ?? 'populated') !== 'empty';
+    const active = this.state.activeCat;
+    const setCat = (n) => this.setState({ activeCat: n });
+
+    // Single source of truth for subjects + art: data/categories.js -> window.PQP_CATEGORIES.
+    const PQP = (typeof window !== 'undefined' && window.PQP_CATEGORIES) || [];
+    // Fictional but stable question counts, keyed by slug.
+    const COUNTS = {
+      'allgemeinwissen': 195, 'sport': 176, 'film-tv': 168, 'musik': 154,
+      'popkultur': 149, 'geschichte': 142, 'wissenschaft-natur': 133, 'geographie': 120,
+      'sprache-woerter': 88, 'literatur': 71, 'essen-trinken': 64, 'technik': 58,
+      'kunst-kultur': 52, 'logik-mathe': 47,
+    };
+
+    const categories = PQP.map((c) => ({
+      slug: c.slug,
+      name: c.label,
+      lucide: c.lucide,
+      count: (COUNTS[c.slug] || 0) + ' Fragen',
+      // Marketing tiles use the base composition; falls back to icon watermark when absent.
+      img: c.present.background ? c.background : '',
+      // Square standalone illustration (used for the square hero tiles).
+      iconArt: c.present.icon ? c.icon : '',
+      isActive: c.label === active,
+      select: () => setCat(c.label),
+      iconNode: this.iconNode(c.lucide, '18px'),
+    }));
+    const bySlug = (s) => categories.find((c) => c.slug === s) || {};
+
+    // Featured tiles: the six subjects that ship with real background art today.
+    const featured = ['kunst-kultur', 'geschichte', 'essen-trinken', 'technik', 'logik-mathe', 'allgemeinwissen']
+      .map(bySlug).filter((c) => c.slug);
+
+    // Hero 2×2 — four subjects with art, staged as rounds of a night.
+    const heroTiles = [
+      { slug: 'kunst-kultur', sub: 'Runde 1', offset: '' },
+      { slug: 'essen-trinken', sub: 'Runde 2', offset: 'margin-top:28px' },
+      { slug: 'logik-mathe', sub: 'Runde 3', offset: '' },
+      { slug: 'geschichte', sub: 'Runde 4', offset: 'margin-top:28px' },
+    ].map((p) => {
+      const c = bySlug(p.slug);
+      // Square tiles read best with the square standalone illustration (no wide-crop).
+      return { name: c.name, sub: p.sub, img: c.iconArt || c.img, offset: p.offset, iconNode: this.iconNode(c.lucide || 'circle', '22px') };
+    });
+
+    // Short answers so the coaster stamp reads cleanly.
+    const rawQ = [
+      { cat: 'Musik', icon: 'music', question: 'Welche Band veröffentlichte 1975 das Album mit „Bohemian Rhapsody"?', answer: 'Queen', fact: 'Der Song dauert knapp sechs Minuten und hat keinen klassischen Refrain.', tilt: 'rotate(-1deg)' },
+      { cat: 'Wissenschaft & Natur', icon: 'microscope', question: 'Wie heißt das größte Organ des menschlichen Körpers?', answer: 'Die Haut', fact: 'Bei Erwachsenen bedeckt sie rund zwei Quadratmeter Fläche.', tilt: 'rotate(0.6deg)' },
+      { cat: 'Film & TV', icon: 'clapperboard', question: 'In welcher Stadt spielt die Serie „Babylon Berlin"?', answer: 'Berlin', fact: 'Die Handlung setzt Ende der 1920er-Jahre in der Weimarer Republik ein.', tilt: 'rotate(-0.8deg)' },
+    ];
+    const questions = rawQ.map((q) => ({ ...q, iconNode: this.iconNode(q.icon, '18px') }));
+
+    const steps = [
+      { num: '01', img: 'assets/marketing/step-choose.svg', title: 'Runden wählen', desc: 'Kategorien und Schwierigkeit festlegen. Aus einer kuratierten Datenbank, die stetig wächst.' },
+      { num: '02', img: 'assets/marketing/step-build.svg', title: 'Wir bauen den Abend', desc: 'Folien, Antwortbögen und ein Moderations-Spickzettel werden erzeugt — jedes Mal einheitlich gestaltet.' },
+      { num: '03', img: 'assets/marketing/step-present.svg', title: 'Überall präsentieren', desc: 'Läuft auf jedem Bildschirm. Der Raum sieht die Show, deine Notizen bleiben an der Seite.' },
+    ];
+
+    return {
+      hasCategories: populated, noCategories: !populated,
+      hasQuestions: populated, noQuestions: !populated,
+      demoReady: populated, noDemo: !populated,
+      showHeroImage: this.props.showHeroImage ?? true,
+      categories, featured, heroTiles, questions, steps,
+      languages: ['Deutsch', 'Nederlands', 'Polski', 'Svenska'],
+      year: '2026',
+      demoOpen: this.state.demoOpen,
+      openDemo: () => this.setState({ demoOpen: true }),
+      closeDemo: () => this.setState({ demoOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

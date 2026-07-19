@@ -1,0 +1,22 @@
+Sie haben nicht alle Fragen mit JA beantwortet.
+
+AVI / Grafik
+~~~~~~~~~~~~
+Installieren Sie den MS-Mediaplayer. Sie finden
+ihn auf vielen Shareware CD's.
+QUIZPro bringt zwar alles mit um AVI-Dateien
+anzeigen zu können, es kann jedoch der
+unwahrscheinliche Fall auftreten das Sie
+keinen passenden Wiedergabe-Codec installiert
+haben. Die Installation des MS-Mediaplayers
+sollte dies beheben.
+
+MIDI / WAV
+~~~~~~~~~~
+Kontrollieren Sie zuerst die Lautstärke
+Einstellungen für die Sound-Wiedergabe.
+Doppelklicken Sie dann auf irgendeine
+Midi/WAV-Datei. Wenn Sie immer noch nichts
+hören, lesen Sie bitte die Anleitung
+Ihrer Soundkarte und nehmen Sie die
+dort beschriebenen Einstellungen vor.

@@ -1,0 +1,313 @@
+<html>
+																																																																																		<!--
+           (c) by    |    _) |             |    _)     ___|         _| |                    
+   www.Litschi.de    |     | __|  __|  __| __ \  |   \___ \   _ \  |   __|                  
+  info@litschi.de    |     | |  \__ \ (    | | | |_____|   | (   | __| |                    
+made with QUIZPro   _____|_|\__|____/\___|_| |_|_|   _____/ \___/ _|  \__|                  
+
+																																																																																		-->
+<head>
+<meta name="author" content="Mag. Markus Braun (St.Pölten, Österreich)">
+<meta name="description" content="">
+<meta name="generator" content="Litschi-Soft">
+<title>06_Testall</title>
+<style type="text/css">
+<!-- 
+	p		{	width=85%;
+				border: 6px double #EFEFEF;
+				margin-left: 20px;
+				padding: 5px;
+				font-family: Arial;
+				font-size: 13px;		
+			}
+<!-- --------------------------------------------------------------------------- -->
+	p.text 		{ 	background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->
+	p.text INPUT 	{	border: 3px outset #CCCCCC;
+				width=95%;
+				color: #FFFFF;
+				font-weight: bold;
+	     	     	}	
+<!-- --------------------------------------------------------------------------- -->
+	p.radio		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.radio INPUT 	{ 
+				border: 4px outset #CCCCCC;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+	p.checkbox		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+				font-weight: bold;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.checkbox INPUT 	{ 
+				border: 4px outset #CCCCCC;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+<!-- ---checkbox2 wird bei der Umwandlung von SMC (Simple Multiple Choice) nach AMC (Advanced Multiple Choice angelegt um eine optische Trennung zu ermöglichen -->
+<!-- --------------------------------------------------------------------------- -->
+	p.checkbox2		{ 
+				background-color:#FFFFFF;
+				color: #000000;
+			}
+<!-- --------------------------------------------------------------------------- -->	
+	p.checkbox2 INPUT 	{ 
+				border: 4px outset #000000;
+				margin-left: 20px;
+	      		}	
+<!-- --------------------------------------------------------------------------- -->
+	img.bild	{
+				border: 2px solid #AAAAAA;
+			}
+<!-- --------------------------------------------------------------------------- -->
+	INPUT, TEXTAREA {
+					
+				padding: 2px;
+				font-size: 15px;
+				font-weight: bold;
+				font-weight: bold;
+				background-color: #FFFFFF;
+				font-weight: bold;
+			}
+                                
+.grau   {	background-color: #AAAAAA;
+		font-size: 20px;
+		font-weight: bold;
+        }
+                                                                                 -->
+</style>
+<script language="JavaScript">
+<!--
+function auswerten() 
+{
+	var i=0;		//Zähler
+	var ii=0;		//Zähler
+	var wort="";		//Zum zerlegen der Antwortmöglichkeiten bei Textantworten in ein Array
+	var ergebnis=0;		//Returnwert der Funktion, enthält die erreichten Gesamtpunkte
+	var textwert=0;		//enthält die erreichten Punkte bei Textantworten
+	var mcwert=0;		//enthält die erreichten Punkte bei Multiple-Choice Antworten
+	var chwert=0;		//enthält die erreichten Punkte bei Multiple-Choice (mehrere Antworten möglich)
+for (i=0;i<document.quizform.length; i++) 
+	{
+		if (document.quizform.elements(i).type == "radio") 
+		{	if (document.forms(0).item(i).checked == true) 
+		{	mcwert = mcwert + parseInt(document.forms(0).item(i).value)
+		}}
+		if (document.quizform.elements(i).type == "checkbox") 
+		{	if (document.forms(0).item(i).checked == true) 
+		{	chwert = chwert + parseInt(document.forms(0).item(i).value)
+		}}
+		if (document.quizform.elements(i).type == "text") 
+		{	if (document.quizform.item(i).name != "namen") 
+		{	if (document.quizform.item(i).value != "") 
+		{	wort=document.quizform.item(i).vergleich.split("::");
+		for (ii=0;ii<wort.length;ii++)
+		{	if(document.quizform.item(i).value.toUpperCase()==wort[ii].toUpperCase())
+       		{	textwert = textwert + parseInt(document.forms(0).item(i).wert)
+		}}}}}
+	}
+	if (chwert < 0) 
+{	chwert = 0;
+}
+ergebnis = mcwert + textwert + chwert;
+	document.quizform.punkte.value=ergebnis;
+	   document.quizform.txt.value=textwert;
+	    document.quizform.smc.value=mcwert;
+	    document.quizform.amc.value=chwert;
+	return ergebnis;
+}
+	function hidestatus(){window.status='';return true};if (document.layers)document.captureEvents(Event.MOUSEOVER | Event.MOUSEOUT);document.onmouseover=hidestatus;document.onmouseout=hidestatus
+	function click(e){if (document.all) if (event.button == 2) return false;if(document.layers) if (e.which == 3) return false;}function click2(){event.returnValue=false;return false;}if (document.layers)document.captureEvents(Event.MOUSEDOWN);document.onmousedown=click;document.oncontextmenu=click2;
+//-->
+</script>
+</head>
+<body bgcolor="#EFEBEF">
+<a name="#_Seitenanfang"></a>
+<form name="quizform" method="post" onreset="return confirm('Sind Sie sicher?')">
+<input type="hidden" name="punkte">
+ <input type="hidden" name="txt">
+ <input type="hidden" name="smc">
+ <input type="hidden" name="amc"> 
+<div align="center">
+
+    <table width="60%" border="1" bordercolor="#000000" align="center">
+      <tr><td align="center">
+<marquee behavior=alternate>
+	<a href="http://www.litschi.de" target="_blank">
+		<img src="http://www.lehrquiz.de/litschi/grafik/litschilogofiles.jpg" border="0">
+	</a>
+</marquee>
+<span style="font-size:8pt;">Diese Onlinedemo wurde erzeugt mit dem QUIZPro-Converter V2 (c) Litschi-Soft</span>
+</td></tr></table>
+
+
+</div>
+<br>
+<hr>
+<table width="100%" bgcolor="#FFFFFF" border="1" bordercolor="#AAAAAA"><tr><td>
+<pre>
+<b> Katalogname: <span style="color:#000055">06_Testall</span>
+Fragenanzahl: <span style="color:#005500">28</span>
+Gesamtpunkte: 28
+       Autor: <span style="color:#550000">Mag. Markus Braun (St.Pölten, Österreich)</span></b><span style="font-size:7pt"> [Info wurde aus Fragenkatalog übernommen (ohne Gewähr!)]</pre></span>
+</td></tr></table>
+
+<p class='text'>
+<img src="01.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>1</b> von 28:</u><br>&#160;&#160;Einer der beiden Ursprünge des "großen Brustmuskels" (M. pectoralis maior)<br><br>
+<input type='text' name='A0' value='' size='50' maxlength='50' wert='1' vergleich='Brustbein::Sternum::Schlüsselbein::Clavicula'><br></p>
+<p class='text'>
+<img src="02.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>2</b> von 28:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ? Bildquelle aller Muskelbilder: http://www2.tk-gesundheit.de/htdocs/PopUp/anatomicus/gliedm1a.cfm<br><br>
+<input type='text' name='A1' value='' size='50' maxlength='50' wert='1' vergleich='Deltoideus::M. deltoideus::Deltamuskel::Musculus deltoideus'><br></p>
+<p class='radio'>
+<u>Frage <b>3</b> von 28:</u><br>&#160;&#160;Das ATP dient:<br><br>
+<input type='radio' name='A2' value='1'>&nbsp;damit sich die Hälse der Myosinköpfchen abwinkeln können<br>
+<input type='radio' name='A2' value='0'>&nbsp;damit sich die Myosinköpfchen am Aktin binden können<br>
+<input type='radio' name='A2' value='0'>&nbsp;damit sich die Myosinköpfchen vom Aktin lösen können<br>
+</p>
+<p class='text'>
+<img src="04.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>4</b> von 28:</u><br>&#160;&#160;Welche Hauptfunktion hat der Muskel Nummer 1?<br><br>
+<input type='text' name='A3' value='' size='50' maxlength='50' wert='1' vergleich='Streckung::Strecken der Hüfte::Hüftstrecker::Streckung der Hüfte::Hüftstreckung'><br></p>
+<p class='text'>
+<u>Frage <b>5</b> von 28:</u><br>&#160;&#160;Wie heißt der Energieträger im Muskel?<br><br>
+<input type='text' name='A4' value='' size='50' maxlength='50' wert='1' vergleich='Adenosintriphosphat::ATP'><br></p>
+<p class='text'>
+<u>Frage <b>6</b> von 28:</u><br>&#160;&#160;Eine Nervenzelle mit allen zu ihr gehörigen Muskelzellen nennt man:<br><br>
+<input type='text' name='A5' value='' size='50' maxlength='50' wert='1' vergleich='motorische Einheit'><br></p>
+<p class='text'>
+<img src="07.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>7</b> von 28:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 1 ?<br><br>
+<input type='text' name='A6' value='' size='50' maxlength='50' wert='1' vergleich='Musculus trapezius::Trapezmuskel::Kapuzenmuskel::Trapezius::Trapecius::M. trapezius'><br></p>
+<p class='text'>
+<u>Frage <b>8</b> von 28:</u><br>&#160;&#160;Die Synapse zwischen Nerven- und Muskelzelle nennt man<br><br>
+<input type='text' name='A7' value='' size='50' maxlength='50' wert='1' vergleich='Endplatte::Motorische Endplatte::motorische Endplatte'><br></p>
+<p class='text'>
+<img src="02.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>9</b> von 28:</u><br>&#160;&#160;Eine der beiden  Funktionen des Muskels Nr. 2 (Armhinterseite) in der Schulter?<br><br>
+<input type='text' name='A8' value='' size='50' maxlength='50' wert='1' vergleich='Retroversion::Adduktion'><br></p>
+<p class='text'>
+<img src="03.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>10</b> von 28:</u><br>&#160;&#160;Ansatz des Muskels Nr. 1-3 ?<br><br>
+<input type='text' name='A9' value='' size='50' maxlength='50' wert='1' vergleich='Unterschenkel::Unterschenkel Vorderseite::Schienbein::Tibia'><br></p>
+<p class='text'>
+<img src="04.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>11</b> von 28:</u><br>&#160;&#160;Wie heißt die Sehne des Muskels Nr. 4 ?<br><br>
+<input type='text' name='A10' value='' size='50' maxlength='50' wert='1' vergleich='Achillessehne'><br></p>
+<p class='text'>
+<img src="05.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>12</b> von 28:</u><br>&#160;&#160;Ansatz des  Muskels Nr. 2 ?  (Vorderseite des Brustkorbes)<br><br>
+<input type='text' name='A11' value='' size='50' maxlength='50' wert='1' vergleich='Oberarm::Oberarmknochen::Oberarm Außenseite::Humerus'><br></p>
+<p class='radio'>
+<img src="06.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>13</b> von 28:</u><br>&#160;&#160;Um welchen Muskel handelt es sich bei Muskel Nr. 2 ?<br><br>
+<input type='radio' name='A12' value='0'>&nbsp;Adduktoren<br>
+<input type='radio' name='A12' value='0'>&nbsp;Sägemuskel<br>
+<input type='radio' name='A12' value='0'>&nbsp;Gerader Bauchmuskel<br>
+<input type='radio' name='A12' value='0'>&nbsp;Rundmuskel<br>
+<input type='radio' name='A12' value='1'>&nbsp;Schräger Bauchmuskel<br>
+<input type='radio' name='A12' value='0'>&nbsp;Trapezmuskel<br>
+</p>
+<p class='text'>
+<img src="07.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>14</b> von 28:</u><br>&#160;&#160;Ursprung des Muskels Nr. 2 ?<br><br>
+<input type='text' name='A13' value='' size='50' maxlength='50' wert='1' vergleich='Wirbel::Wirbelsäule::Lendenwirbelsäule::Beckenkamm'><br></p>
+<p class='text'>
+<img src="03.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>15</b> von 28:</u><br>&#160;&#160;Wieviele Köpfe hat der Muskel Nr. 1-3 ?<br><br>
+<input type='text' name='A14' value='' size='50' maxlength='50' wert='1' vergleich='4::vier'><br></p>
+<p class='text'>
+<img src="03.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>16</b> von 28:</u><br>&#160;&#160;Um welche Muskeln handelt es sich bei den Muskeln Nr. 4 ?                                                              (Vorderseite des rechten Beines)<br><br>
+<input type='text' name='A15' value='' size='50' maxlength='50' wert='1' vergleich='Adduktoren Gruppe::Adduktoren'><br></p>
+<p class='checkbox'>
+<img src="system.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>17</b> von 28:</u><br>&#160;&#160;Welches System schüttet bei einem ankommenden Aktionspotenzial Ca++ Ionen aus?<br><br>
+<input type='checkbox' name='A16' value='1'>&nbsp;L - System<br>
+<input type='checkbox' name='A16' value='-1'>&nbsp;T - System<br>
+</p>
+<p class='text'>
+<u>Frage <b>18</b> von 28:</u><br>&#160;&#160;Was bedeutet das H bei der PECH Regel?<br><br>
+<input type='text' name='A17' value='' size='50' maxlength='50' wert='1' vergleich='Hochlagern::Hochlagerung::hochlegen::hoch lagern'><br></p>
+<p class='text'>
+<img src="synapse.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>19</b> von 28:</u><br>&#160;&#160;Die Synapse zwischen Nerven- und Muskelzelle nennt man . . . <br><br>
+<input type='text' name='A18' value='' size='50' maxlength='50' wert='1' vergleich='Endplatte::Motorische Endplatte::motorische Endplatte'><br></p>
+<p class='text'>
+<img src="filament.jpg"  Width='320' class="bild"><br>
+<u>Frage <b>20</b> von 28:</u><br>&#160;&#160;Wie heißt das Muskelfilament mit den Köpfchen?<br><br>
+<input type='text' name='A19' value='' size='50' maxlength='50' wert='1' vergleich='Myosin'><br></p>
+<p class='text'>
+<u>Frage <b>21</b> von 28:</u><br>&#160;&#160;Sehnen verbinden den Muskelbauch mit den .......<br><br>
+<input type='text' name='A20' value='' size='50' maxlength='50' wert='1' vergleich='Knochen'><br></p>
+<p class='radio'>
+<u>Frage <b>22</b> von 28:</u><br>&#160;&#160;Sehnen können sich ......<br><br>
+<input type='radio' name='A21' value='0'>&nbsp;kontrahieren<br>
+<input type='radio' name='A21' value='1'>&nbsp;weder kontrahieren noch stark dehnen<br>
+<input type='radio' name='A21' value='0'>&nbsp;stark dehnen<br>
+</p>
+<p class='radio'>
+<u>Frage <b>23</b> von 28:</u><br>&#160;&#160;Bei welchem der folgenden Muskeln liegt der Muskelbauch über dem Gelenk?<br><br>
+<input type='radio' name='A22' value='0'>&nbsp;Handbeuger<br>
+<input type='radio' name='A22' value='0'>&nbsp;Biceps brachii<br>
+<input type='radio' name='A22' value='0'>&nbsp;Wadenmuskel<br>
+<input type='radio' name='A22' value='1'>&nbsp;Deltamuskel<br>
+<input type='radio' name='A22' value='0'>&nbsp;Quadriceps<br>
+</p>
+<p class='text'>
+<u>Frage <b>24</b> von 28:</u><br>&#160;&#160;Den Gegenspieler eines Muskels nennt man ....<br><br>
+<input type='text' name='A23' value='' size='50' maxlength='50' wert='1' vergleich='Antagonist::Antagonisten'><br></p>
+<p class='radio'>
+<u>Frage <b>25</b> von 28:</u><br>&#160;&#160;Ein Sarkomer ist ... <br><br>
+<input type='radio' name='A24' value='0'>&nbsp;der Überlappungsbereich von Aktin und Myosin<br>
+<input type='radio' name='A24' value='0'>&nbsp;ein Aktinfilamet<br>
+<input type='radio' name='A24' value='1'>&nbsp;ein Myosinfilament mit seinen beiden Aktinfilamenten<br>
+<input type='radio' name='A24' value='0'>&nbsp;ein Myosinfilament<br>
+</p>
+<p class='radio'>
+<u>Frage <b>26</b> von 28:</u><br>&#160;&#160;Um was handelt es sich bei Muskelkater?<br><br>
+<input type='radio' name='A25' value='1'>&nbsp;mikroskopisch kleinen Verletzungen (Mikrotraumen) in den Muskelfibrillen<br>
+<input type='radio' name='A25' value='0'>&nbsp;durch eine Überbelastung erfolgte Anreicherung von Lactat (Milchsäure) <br>
+<input type='radio' name='A25' value='0'>&nbsp;Bluterguß im Muskel<br>
+<input type='radio' name='A25' value='0'>&nbsp;chemischen Ungleichgewichtes: Mg- Mangel führt zu ATP Mangel<br>
+<input type='radio' name='A25' value='0'>&nbsp;Entzündung des Muskels<br>
+</p>
+<p class='radio'>
+<u>Frage <b>27</b> von 28:</u><br>&#160;&#160;Bei einer Muskelzerrung sollte man NICHT:<br><br>
+<input type='radio' name='A26' value='0'>&nbsp;Hochlagern<br>
+<input type='radio' name='A26' value='0'>&nbsp;Druckverband anlegen<br>
+<input type='radio' name='A26' value='0'>&nbsp;Kühlen<br>
+<input type='radio' name='A26' value='1'>&nbsp;Massieren<br>
+</p>
+<p class='radio'>
+<u>Frage <b>28</b> von 28:</u><br>&#160;&#160;Mg- Mangel führt zu ATP Mangel und in Folge zu einem/einer ....<br><br>
+<input type='radio' name='A27' value='0'>&nbsp;Prellung<br>
+<input type='radio' name='A27' value='1'>&nbsp;Krampf<br>
+<input type='radio' name='A27' value='0'>&nbsp;Muskelkater<br>
+<input type='radio' name='A27' value='0'>&nbsp;Sehnenscheidenentzündung<br>
+</p>
+
+<hr>
+  <div align="center">Auswerten von 06_Testall.<br>
+    <br>
+    <input type="button" class="grau" value=" Ergebnis anzeigen " onclick="alert('Sie erreichten\n' + auswerten() + ' von insgesamt 28 Punkten !');self.close();">
+    <br>
+    <br>
+</form>
+<a href="#_Seitenanfang">Zum Seitenanfang</a><br>
+</div>
+</body>
+</html>
+
+

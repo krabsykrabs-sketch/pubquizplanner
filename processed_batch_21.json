@@ -1,0 +1,821 @@
+[
+  {
+    "_batch_index": 2100,
+    "text_de": "Welches Land ist als die größte Demokratie der Welt bekannt?",
+    "answer_de": "Indien",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Mit über 900 Millionen Wahlberechtigten ist Indien die bevölkerungsreichste Demokratie der Welt.",
+    "tags": ["Politik", "Demokratie", "Indien"]
+  },
+  {
+    "_batch_index": 2101,
+    "text_de": "Was ist ein Lobbyist?",
+    "answer_de": "Interessenvertreter",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus dem Englischen und bezieht sich auf Personen, die in den Lobbys von Parlamentsgebäuden Politiker zu beeinflussen suchten.",
+    "tags": ["Politik", "Einflussnahme"]
+  },
+  {
+    "_batch_index": 2102,
+    "text_de": "Unter welchem Namen wurde der gebürtige Berliner Hans-Rolf Rippert berühmt?",
+    "answer_de": "Ivan Rebroff",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Ivan Rebroff war für seine außergewöhnliche Stimmlage bekannt und konnte vom Bass bis zum Sopran singen.",
+    "tags": ["Sänger", "Deutschland", "Künstlername"]
+  },
+  {
+    "_batch_index": 2104,
+    "text_de": "Wer komponierte die Opern \"Schneewittchen\" und \"Der goldene Hahn\"?",
+    "answer_de": "Rimski-Korsakow",
+    "category": "Musik",
+    "difficulty": 3,
+    "fun_fact_de": "Nikolai Rimski-Korsakow war Mitglied der berühmten Komponistengruppe \"Das mächtige Häuflein\" und schuf 15 Opern.",
+    "tags": ["Oper", "Russland", "Komponist"]
+  },
+  {
+    "_batch_index": 2105,
+    "text_de": "Unter welchem Namen wurde Steveland Morris Judkins weltberühmt?",
+    "answer_de": "Stevie Wonder",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Stevie Wonder ist seit seiner Geburt blind und gilt als einer der einflussreichsten Musiker des 20. Jahrhunderts.",
+    "tags": ["Musiker", "USA", "Soul"]
+  },
+  {
+    "_batch_index": 2106,
+    "text_de": "Wie heißt die Muse des Theaters?",
+    "answer_de": "Thalia",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "In der griechischen Mythologie war Thalia eine der neun Musen und zuständig für Komödie und heitere Dichtung.",
+    "tags": ["Mythologie", "Theater", "Griechenland"]
+  },
+  {
+    "_batch_index": 2108,
+    "text_de": "Was sind Dithyramben?",
+    "answer_de": "Lieder auf den Gott Dionysos",
+    "category": "Kunst&Kultur",
+    "difficulty": 3,
+    "fun_fact_de": "Aus den Dithyramben entwickelte sich die antike griechische Tragödie, sie gelten als Urform des europäischen Theaters.",
+    "tags": ["Antike", "Griechenland", "Dionysos", "Theater"]
+  },
+  {
+    "_batch_index": 2109,
+    "text_de": "Wie nennt man einen Abgesandten in geheimer Mission?",
+    "answer_de": "Emissär",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus dem Lateinischen \"emissarius\" und bedeutet \"der Ausgesandte\".",
+    "tags": ["Diplomatie", "Geheimmission"]
+  },
+  {
+    "_batch_index": 2110,
+    "text_de": "Welcher Farbton ist ein Rot?",
+    "answer_de": "Karmin",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Karmin wird traditionell aus getrockneten Cochenille-Läusen gewonnen und ergibt einen leuchtend roten Farbstoff.",
+    "tags": ["Farben", "Rot"]
+  },
+  {
+    "_batch_index": 2111,
+    "text_de": "Wer übersetzte die Songtexte des Musicals \"Joseph\" ins Deutsche?",
+    "answer_de": "Heinz Rudolf Kunze",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Heinz Rudolf Kunze ist nicht nur Übersetzer, sondern auch erfolgreicher deutscher Rockmusiker und Liedermacher.",
+    "tags": ["Musical", "Übersetzung", "Deutschland"]
+  },
+  {
+    "_batch_index": 2112,
+    "text_de": "Wen erwählten die Apostel zum Nachfolger von Judas dem Verräter?",
+    "answer_de": "Matthias",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die Nachwahl erfolgte durch Losentscheid zwischen Matthias und Barsabbas, wie in der Apostelgeschichte berichtet wird.",
+    "tags": ["Religion", "Apostel", "Bibel"]
+  },
+  {
+    "_batch_index": 2113,
+    "text_de": "Wer schuf die 20 Meter hohen Präsidentenporträts am Mount Rushmore?",
+    "answer_de": "Gutzon Borglum",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Die Arbeiten dauerten 14 Jahre (1927-1941) und Borglum starb kurz vor der Vollendung des Denkmals.",
+    "tags": ["USA", "Denkmal", "Bildhauer"]
+  },
+  {
+    "_batch_index": 2114,
+    "text_de": "Wer schrieb \"Der Graf von Monte Christo\"?",
+    "answer_de": "Alexandre Dumas",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Dumas schrieb den über 1000 Seiten langen Roman 1844-1846 als Fortsetzungsroman für eine französische Zeitung.",
+    "tags": ["Französische Literatur", "Roman", "19. Jahrhundert"]
+  },
+  {
+    "_batch_index": 2115,
+    "text_de": "Welche Band stürmte 1977 mit \"Hotel California\" die Hitparaden?",
+    "answer_de": "The Eagles",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "\"Hotel California\" gilt als eines der bekanntesten Rock-Alben aller Zeiten und verkaufte sich weltweit über 32 Millionen Mal.",
+    "tags": ["Rock", "USA", "1970er"]
+  },
+  {
+    "_batch_index": 2116,
+    "text_de": "Welche Stadt liegt in Kolumbien?",
+    "answer_de": "Medellín",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Medellín ist heute als \"Stadt des ewigen Frühlings\" bekannt und hat sich zu einem wichtigen Innovationszentrum Lateinamerikas entwickelt.",
+    "tags": ["Südamerika", "Kolumbien", "Städte"]
+  },
+  {
+    "_batch_index": 2117,
+    "text_de": "Wie nennt man die Einwohner von Mallorca?",
+    "answer_de": "Mallorquiner",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die Einwohner Mallorcas sprechen neben Spanisch auch Mallorquí, einen katalanischen Dialekt.",
+    "tags": ["Spanien", "Balearen", "Einwohnerbezeichnung"]
+  },
+  {
+    "_batch_index": 2118,
+    "text_de": "Einen Mann, der mit mehreren Frauen verheiratet ist, nennt man...?",
+    "answer_de": "Polygamist",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Polygamie ist in den meisten westlichen Ländern illegal, wird aber in einigen Kulturen und Religionen praktiziert.",
+    "tags": ["Ehe", "Gesellschaft"]
+  },
+  {
+    "_batch_index": 2119,
+    "text_de": "Wie hieß der letzte deutsche Kaiser?",
+    "answer_de": "Wilhelm II.",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Wilhelm II. dankte 1918 am Ende des Ersten Weltkriegs ab und lebte bis zu seinem Tod 1941 im niederländischen Exil.",
+    "tags": ["Deutschland", "Monarchie", "Erster Weltkrieg"]
+  },
+  {
+    "_batch_index": 2120,
+    "text_de": "Unter welchem Namen ist der Asparagus bekannter?",
+    "answer_de": "Spargel",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Spargel wird bereits seit über 2000 Jahren kultiviert und galt in der Antike als Heilpflanze und Aphrodisiakum.",
+    "tags": ["Gemüse", "Lateinischer Name"]
+  },
+  {
+    "_batch_index": 2122,
+    "text_de": "Welcher Schlagerstar landete mit \"Kalkutta liegt am Ganges\" einen Hit?",
+    "answer_de": "Vico Torriani",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Vico Torriani war ein Schweizer Entertainer, der in den 1950er und 60er Jahren zu den bekanntesten deutschsprachigen Schlagersängern zählte.",
+    "tags": ["Schlager", "Schweiz", "1950er"]
+  },
+  {
+    "_batch_index": 2123,
+    "text_de": "Welcher Begriff steht für einen bewaffneten Widerstandskämpfer?",
+    "answer_de": "Partisan",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus dem Italienischen und wurde besonders während des Zweiten Weltkriegs für Widerstandskämpfer verwendet.",
+    "tags": ["Widerstand", "Militär"]
+  },
+  {
+    "_batch_index": 2125,
+    "text_de": "Wer wurde 1985, 1986 und 1989 Wimbledon-Sieger im Herreneinzel?",
+    "answer_de": "Boris Becker",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Boris Becker war mit 17 Jahren der jüngste Wimbledon-Sieger aller Zeiten und der erste Deutsche, der diesen Titel gewann.",
+    "tags": ["Tennis", "Deutschland", "Wimbledon"]
+  },
+  {
+    "_batch_index": 2127,
+    "text_de": "Wie nannten Europäer einen Staatsbeamten im China der Kaiserzeit?",
+    "answer_de": "Mandarin",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Das Mandarinsystem war ein Beamtensystem basierend auf Bildung und Prüfungen, nicht auf Geburt oder Reichtum.",
+    "tags": ["China", "Beamtentum", "Kaiserzeit"]
+  },
+  {
+    "_batch_index": 2128,
+    "text_de": "Welches Musikinstrument befindet sich auf dem Staatswappen Irlands?",
+    "answer_de": "Harfe",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die irische Harfe ist seit dem 13. Jahrhundert Symbol Irlands und eine der ältesten Symbolfiguren Europas.",
+    "tags": ["Irland", "Wappen", "Musik"]
+  },
+  {
+    "_batch_index": 2129,
+    "text_de": "Wie heißt der erste Teil der autobiographischen Romanchronik von Walter Kempowski?",
+    "answer_de": "Tadellöser und Wolff",
+    "category": "Literatur",
+    "difficulty": 3,
+    "fun_fact_de": "Die Deutsche Chronik umfasst neun Bände und gilt als bedeutendes Werk der deutschen Nachkriegsliteratur.",
+    "tags": ["Deutsche Literatur", "Autobiographie", "Nachkriegszeit"]
+  },
+  {
+    "_batch_index": 2130,
+    "text_de": "Auf welches Land konzentriert sich Karlheinz Böhms Hilfsaktion \"Menschen für Menschen\"?",
+    "answer_de": "Äthiopien",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die Organisation wurde 1981 gegründet und hat seitdem über 2 Millionen Menschen in Äthiopien geholfen.",
+    "tags": ["Hilfsorganisation", "Äthiopien", "Karlheinz Böhm"]
+  },
+  {
+    "_batch_index": 2131,
+    "text_de": "In welchem Schloss wurde König Wilhelm I. von Preußen 1871 zum deutschen Kaiser ausgerufen?",
+    "answer_de": "Versailles",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die Kaiserproklamation im Spiegelsaal von Versailles war ein bewusst gewählter symbolischer Akt der Demütigung Frankreichs.",
+    "tags": ["Deutschland", "Kaiserproklamation", "Frankreich"]
+  },
+  {
+    "_batch_index": 2132,
+    "text_de": "Im alten Rom behob man den Frauenmangel durch den sagenhaften Raub der...?",
+    "answer_de": "Sabinerinnen",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Der Raub der Sabinerinnen ist eine Gründungslegende Roms und wurde oft in der Kunst dargestellt, etwa von Rubens und Poussin.",
+    "tags": ["Rom", "Antike", "Mythologie"]
+  },
+  {
+    "_batch_index": 2133,
+    "text_de": "Wie nennt der Volksmund den Rockschoß am Frack?",
+    "answer_de": "Schwalbenschwanz",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Name kommt von der charakteristischen Form, die an die gegabelte Schwanzform einer Schwalbe erinnert.",
+    "tags": ["Mode", "Kleidung", "Frack"]
+  },
+  {
+    "_batch_index": 2134,
+    "text_de": "Wolfgang Borcherts einziges Drama trägt den Titel \"Draußen...\"?",
+    "answer_de": "vor der Tür",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Das Drama von 1947 gilt als Schlüsselwerk der deutschen Nachkriegsliteratur und behandelt die Heimkehr eines Kriegsheimkehrers.",
+    "tags": ["Deutsche Literatur", "Nachkriegszeit", "Drama"]
+  },
+  {
+    "_batch_index": 2135,
+    "text_de": "Was ist ein Baumläufer?",
+    "answer_de": "Singvogel",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Baumläufer haben speziell geformte Krallen und einen gebogenen Schnabel, um an Baumstämmen nach Insekten zu suchen.",
+    "tags": ["Vögel", "Natur", "Biologie"]
+  },
+  {
+    "_batch_index": 2136,
+    "text_de": "Wie nennt man ein ungarisches Fleischragout?",
+    "answer_de": "Pörkölt",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Pörkölt ist eng verwandt mit dem Gulasch, aber dickflüssiger und wird traditionell mit Sauerrahm serviert.",
+    "tags": ["Ungarn", "Fleischgericht", "Ragout"]
+  },
+  {
+    "_batch_index": 2137,
+    "text_de": "Was trainiert man mit der Mnemotechnik?",
+    "answer_de": "Gedächtnis",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Mnemotechniken wurden bereits im antiken Griechenland entwickelt und von Rednern zur Memorierung langer Reden verwendet.",
+    "tags": ["Gedächtnis", "Lerntechnik", "Psychologie"]
+  },
+  {
+    "_batch_index": 2138,
+    "text_de": "Wie nennt man Sterne im Endstadium ihrer Entwicklung?",
+    "answer_de": "Weiße Zwerge",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Weiße Zwerge sind extrem dichte Sternreste - ein Teelöffel ihrer Materie würde etwa 5 Tonnen wiegen.",
+    "tags": ["Astronomie", "Sterne", "Physik"]
+  },
+  {
+    "_batch_index": 2139,
+    "text_de": "Eine Oper von Mozart heißt \"Die Hochzeit des...\"?",
+    "answer_de": "Figaro",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "\"Le nozze di Figaro\" wurde 1786 uraufgeführt und basiert auf dem umstrittenen Theaterstück von Beaumarchais.",
+    "tags": ["Mozart", "Oper", "18. Jahrhundert"]
+  },
+  {
+    "_batch_index": 2140,
+    "text_de": "Wie nennt man einen Fachmann, der beschädigte Kunstwerke ausbessert und wiederherstellt?",
+    "answer_de": "Restaurator",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Kunstrestauratoren benötigen sowohl technisches Know-how als auch kunsthistorisches Wissen und arbeiten oft jahrelang an einem einzigen Werk.",
+    "tags": ["Kunst", "Restaurierung", "Beruf"]
+  },
+  {
+    "_batch_index": 2141,
+    "text_de": "Auf welches Kartenspiel bezieht sich die Redewendung \"aus dem Schneider sein\"?",
+    "answer_de": "Skat",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Im Skat ist man \"Schneider\" wenn man weniger als 30 Punkte erreicht - \"aus dem Schneider\" bedeutet, diese Schwelle überschritten zu haben.",
+    "tags": ["Kartenspiele", "Redewendung", "Skat"]
+  },
+  {
+    "_batch_index": 2142,
+    "text_de": "Welche Schauspielerin jagt Dr. Lecter in \"Hannibal\", der Fortsetzung von \"Das Schweigen der Lämmer\"?",
+    "answer_de": "Julianne Moore",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Julianne Moore übernahm die Rolle von Jodie Foster, da diese nicht für die Fortsetzung zur Verfügung stand.",
+    "tags": ["Thriller", "Hannibal Lecter", "USA"]
+  },
+  {
+    "_batch_index": 2143,
+    "text_de": "In welchem Schiller-Stück findet man den Ausspruch \"Heisa, juchheia! Dudeldumdei!\"?",
+    "answer_de": "Wallensteins Lager",
+    "category": "Literatur",
+    "difficulty": 3,
+    "fun_fact_de": "\"Wallensteins Lager\" ist der erste Teil der Wallenstein-Trilogie und zeigt das Leben der Soldaten in drastischer Weise.",
+    "tags": ["Schiller", "Drama", "Deutsche Literatur"]
+  },
+  {
+    "_batch_index": 2144,
+    "text_de": "Wer war mit 9 Jahren Vollwaise, wurde später Bauingenieur und schließlich US-Präsident?",
+    "answer_de": "Herbert Hoover",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Hoover war der erste US-Präsident, der westlich des Mississippi geboren wurde und leitete vor seiner Präsidentschaft große Hilfsprogramme.",
+    "tags": ["USA", "Präsident", "20. Jahrhundert"]
+  },
+  {
+    "_batch_index": 2145,
+    "text_de": "Aus welchem Goethe-Drama stammt die Redewendung \"Himmelhoch jauchzend, zum Tode betrübt\"?",
+    "answer_de": "Egmont",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Das Drama behandelt den niederländischen Freiheitskampf gegen die spanische Herrschaft im 16. Jahrhundert.",
+    "tags": ["Goethe", "Drama", "Redewendung"]
+  },
+  {
+    "_batch_index": 2147,
+    "text_de": "Wo fand James Cook 1779 den Tod?",
+    "answer_de": "Hawaii",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Cook wurde bei einem Konflikt mit Einheimischen auf Hawaii getötet, nachdem er zunächst als Gott verehrt worden war.",
+    "tags": ["Entdecker", "Hawaii", "18. Jahrhundert"]
+  },
+  {
+    "_batch_index": 2148,
+    "text_de": "Wer Aufsehen erregt, der macht...?",
+    "answer_de": "Furore",
+    "category": "Sprache",
+    "difficulty": 2,
+    "fun_fact_de": "Das Wort \"Furore\" stammt aus dem Lateinischen und bedeutete ursprünglich \"Raserei\" oder \"Begeisterung\".",
+    "tags": ["Redewendung", "Lateinisch"]
+  },
+  {
+    "_batch_index": 2149,
+    "text_de": "Keine Vollpension, sondern nur Übernachtung mit Frühstück bietet ein Hotel...?",
+    "answer_de": "garni",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus dem Französischen \"garni\" und bedeutet \"ausgestattet\" oder \"möbliert\".",
+    "tags": ["Hotel", "Französisch", "Tourismus"]
+  },
+  {
+    "_batch_index": 2150,
+    "text_de": "Wie werden zentralasiatische Steppenvölker seit dem Mittelalter genannt?",
+    "answer_de": "Tataren",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Der Name \"Tataren\" wurde von den Mongolen übernommen und bezeichnete ursprünglich verschiedene Turkstämme.",
+    "tags": ["Zentralasien", "Mittelalter", "Völker"]
+  },
+  {
+    "_batch_index": 2152,
+    "text_de": "Welche typische Form hat das sogenannte Russischbrot?",
+    "answer_de": "Buchstaben",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Russischbrot wurde Ende des 19. Jahrhunderts erfunden und diente ursprünglich als Lernhilfe für Kinder.",
+    "tags": ["Gebäck", "Buchstaben", "Süßware"]
+  },
+  {
+    "_batch_index": 2153,
+    "text_de": "Wer führte Regie und spielte die Titelrolle im Filmklassiker \"Citizen Kane\"?",
+    "answer_de": "Orson Welles",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "\"Citizen Kane\" gilt oft als bester Film aller Zeiten und revolutionierte mit innovativen Kameratechniken das Kino.",
+    "tags": ["Film", "Klassiker", "USA"]
+  },
+  {
+    "_batch_index": 2154,
+    "text_de": "Was zählt zu den lateinamerikanischen Tänzen im Turniertanzsport?",
+    "answer_de": "Jive",
+    "category": "Sport",
+    "difficulty": 2,
+    "fun_fact_de": "Der Jive entwickelte sich aus dem Swing und ist der schnellste der lateinamerikanischen Standardtänze.",
+    "tags": ["Tanz", "Sport", "Lateinamerikanisch"]
+  },
+  {
+    "_batch_index": 2155,
+    "text_de": "Welche Münze wird in den USA \"Dime\" genannt?",
+    "answer_de": "10-Cent-Stück",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die Dime ist die kleinste und dünnste Münze der USA, obwohl sie mehr wert ist als die größeren Pennies und Nickels.",
+    "tags": ["USA", "Währung", "Münzen"]
+  },
+  {
+    "_batch_index": 2156,
+    "text_de": "An welchem Fluss liegt Erfurt?",
+    "answer_de": "Gera",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die Gera entspringt im Thüringer Wald und mündet nach 85 Kilometern bei Gebesee in die Unstrut.",
+    "tags": ["Deutschland", "Thüringen", "Flüsse"]
+  },
+  {
+    "_batch_index": 2158,
+    "text_de": "Welchen Titel trägt ein Großstadtroman von Alfred Döblin?",
+    "answer_de": "Berlin Alexanderplatz",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Der 1929 erschienene Roman gilt als Meisterwerk der literarischen Moderne und wurde mehrfach verfilmt.",
+    "tags": ["Deutsche Literatur", "Berlin", "Moderne"]
+  },
+  {
+    "_batch_index": 2159,
+    "text_de": "Was versteht man unter \"Okzident\"?",
+    "answer_de": "Abendland",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus dem Lateinischen \"occidens\" (Westen) und bezeichnet die westliche, christlich geprägte Welt.",
+    "tags": ["Geographie", "Kulturkreis", "Lateinisch"]
+  },
+  {
+    "_batch_index": 2160,
+    "text_de": "Welche Landstreicher-Ballade gilt als heimliche Nationalhymne Australiens?",
+    "answer_de": "Waltzing Matilda",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Das Lied erzählt die Geschichte eines Wanderarbeiters und wurde 1895 komponiert, basierend auf einer wahren Begebenheit.",
+    "tags": ["Australien", "Volksmusik", "Nationalsymbol"]
+  },
+  {
+    "_batch_index": 2161,
+    "text_de": "Zu welchem Gebirge gehören die Karawanken?",
+    "answer_de": "Alpen",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Die Karawanken bilden einen Teil der Grenze zwischen Österreich und Slowenien und erreichen eine Höhe von bis zu 2236 Metern.",
+    "tags": ["Alpen", "Österreich", "Slowenien"]
+  },
+  {
+    "_batch_index": 2162,
+    "text_de": "Was ist ein Abendsegler?",
+    "answer_de": "Fledermaus",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Der Große Abendsegler ist eine der größten europäischen Fledermausarten und kann Geschwindigkeiten von bis zu 50 km/h erreichen.",
+    "tags": ["Tiere", "Fledermäuse", "Natur"]
+  },
+  {
+    "_batch_index": 2163,
+    "text_de": "Was ist eine Hunderasse?",
+    "answer_de": "Boxer",
+    "category": "Wissenschaft",
+    "difficulty": 1,
+    "fun_fact_de": "Die Hunderasse Boxer wurde Ende des 19. Jahrhunderts in Deutschland gezüchtet und ist für ihr verspieltes Wesen bekannt.",
+    "tags": ["Hunde", "Haustiere", "Deutschland"]
+  },
+  {
+    "_batch_index": 2164,
+    "text_de": "Wie nennt man den förmlichen Verzicht eines Staatsoberhaupts auf sein Amt?",
+    "answer_de": "Abdankung",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Die bekannteste Abdankung der neueren Geschichte war die von Kaiser Wilhelm II. im Jahr 1918.",
+    "tags": ["Politik", "Monarchie", "Staatsrecht"]
+  },
+  {
+    "_batch_index": 2165,
+    "text_de": "Wie heißt der Deutsche Schallplattenpreis?",
+    "answer_de": "Echo",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Der Echo wurde von 1992 bis 2018 verliehen und war der wichtigste deutsche Musikpreis, bevor er durch kontroverse Vergaben abgeschafft wurde.",
+    "tags": ["Musikpreis", "Deutschland", "Auszeichnung"]
+  },
+  {
+    "_batch_index": 2166,
+    "text_de": "In Brechts \"Dreigroschenoper\" singt man die Moritat von Mackie...?",
+    "answer_de": "Messer",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "\"Die Moritat von Mackie Messer\" wurde zu einem der bekanntesten Songs des 20. Jahrhunderts und oft gecovert.",
+    "tags": ["Brecht", "Musical", "Theater"]
+  },
+  {
+    "_batch_index": 2167,
+    "text_de": "Welches Satzzeichen wird auch \"Semikolon\" genannt?",
+    "answer_de": "Strichpunkt",
+    "category": "Sprache",
+    "difficulty": 2,
+    "fun_fact_de": "Das Semikolon wurde im 15. Jahrhundert vom italienischen Humanisten Aldus Manutius erfunden.",
+    "tags": ["Grammatik", "Satzzeichen", "Sprache"]
+  },
+  {
+    "_batch_index": 2168,
+    "text_de": "Was ist eine Corrida?",
+    "answer_de": "Stierkampf",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus dem Spanischen und bedeutet \"Lauf\" - bezieht sich auf den rituellen Ablauf des Stierkampfs.",
+    "tags": ["Spanien", "Tradition", "Sport"]
+  },
+  {
+    "_batch_index": 2169,
+    "text_de": "Wer spielt den Doktor Schiwago im gleichnamigen Film von 1965?",
+    "answer_de": "Omar Sharif",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Omar Sharif war eigentlich Ägypter und hieß ursprünglich Michel Chalhoub, bevor er Filmstar wurde.",
+    "tags": ["Film", "1960er", "Literaturverfilmung"]
+  },
+  {
+    "_batch_index": 2170,
+    "text_de": "In welchem US-Bundesstaat steht die Freiheitsstatue?",
+    "answer_de": "New Jersey",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Obwohl die Statue nahe New York steht, befindet sie sich rechtlich auf dem Territorium von New Jersey.",
+    "tags": ["USA", "Wahrzeichen", "Grenze"]
+  },
+  {
+    "_batch_index": 2171,
+    "text_de": "Wie nennt man eine Champagnerflasche mit 6 Liter Inhalt?",
+    "answer_de": "Methusalem",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Die Bezeichnung stammt von der biblischen Figur Methusalem, der als ältester Mensch der Bibel galt.",
+    "tags": ["Champagner", "Flaschengrößen", "Bibel"]
+  },
+  {
+    "_batch_index": 2172,
+    "text_de": "Wie heißt das Pferd von Pippi Langstrumpf?",
+    "answer_de": "Kleiner Onkel",
+    "category": "Literatur",
+    "difficulty": 1,
+    "fun_fact_de": "In der schwedischen Originalversion heißt das Pferd \"Lilla Gubben\", was wörtlich \"kleiner alter Mann\" bedeutet.",
+    "tags": ["Kinderliteratur", "Astrid Lindgren", "Schweden"]
+  },
+  {
+    "_batch_index": 2173,
+    "text_de": "Welche US-Fernsehsendung moderierte Britney Spears im Alter von elf Jahren?",
+    "answer_de": "Mickey Mouse Club",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Viele spätere Stars wie Justin Timberlake, Christina Aguilera und Ryan Gosling waren ebenfalls Mitglieder des Mickey Mouse Clubs.",
+    "tags": ["Disney", "Kindersendung", "USA"]
+  },
+  {
+    "_batch_index": 2174,
+    "text_de": "Wie bevorzugt James Bond seinen Wodka-Martini?",
+    "answer_de": "geschüttelt, nicht gerührt",
+    "category": "Film&TV",
+    "difficulty": 1,
+    "fun_fact_de": "Dieser berühmte Ausspruch wurde zum Markenzeichen von James Bond, obwohl Barkeeper normalerweise Martinis rühren.",
+    "tags": ["James Bond", "Cocktails", "Filmzitat"]
+  },
+  {
+    "_batch_index": 2175,
+    "text_de": "Wer spielte den Harry Angel in Alan Parkers Film \"Angel Heart\"?",
+    "answer_de": "Mickey Rourke",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "\"Angel Heart\" war ein kontroverser Thriller von 1987, der wegen seiner Gewaltdarstellung heftig diskutiert wurde.",
+    "tags": ["Thriller", "1980er", "Mickey Rourke"]
+  },
+  {
+    "_batch_index": 2177,
+    "text_de": "In welcher TV-Serie spielte David Hasselhoff mit?",
+    "answer_de": "Baywatch",
+    "category": "Film&TV",
+    "difficulty": 1,
+    "fun_fact_de": "Baywatch war eine der weltweit erfolgreichsten TV-Serien der 1990er Jahre und machte Hasselhoff zum Weltstar.",
+    "tags": ["1990er", "Fernsehen", "USA"]
+  },
+  {
+    "_batch_index": 2178,
+    "text_de": "Wer schrieb 1985 den Roman \"Frauen vor Flusslandschaft\"?",
+    "answer_de": "Heinrich Böll",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Es war Bölls letzter vollendeter Roman vor seinem Tod und gilt als sein politischstes Werk.",
+    "tags": ["Deutsche Literatur", "Heinrich Böll", "1980er"]
+  },
+  {
+    "_batch_index": 2179,
+    "text_de": "Welche Hautfarbe ist Erkennungsmerkmal der Schlümpfe?",
+    "answer_de": "blau",
+    "category": "Popkultur",
+    "difficulty": 1,
+    "fun_fact_de": "Die Schlümpfe wurden 1958 vom belgischen Comiczeichner Peyo erfunden und sind nur \"drei Äpfel hoch\".",
+    "tags": ["Comic", "Belgien", "Kinderfiguren"]
+  },
+  {
+    "_batch_index": 2180,
+    "text_de": "Zarah Leander verriet 1937: \"Der Wind hat mir...\"?",
+    "answer_de": "ein Lied erzählt",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "Zarah Leander war eine schwedische Schauspielerin und Sängerin, die in den 1930er und 40er Jahren in Deutschland sehr populär war.",
+    "tags": ["Schlager", "1930er", "Schweden"]
+  },
+  {
+    "_batch_index": 2181,
+    "text_de": "Welche Garde diente unter König Friedrich Wilhelm I. von Preußen?",
+    "answer_de": "Lange Kerls",
+    "category": "Geschichte",
+    "difficulty": 2,
+    "fun_fact_de": "Die \"Langen Kerls\" waren über 1,80 m große Soldaten, die der König aus ganz Europa rekrutierte - manche wurden sogar entführt.",
+    "tags": ["Preußen", "Militär", "18. Jahrhundert"]
+  },
+  {
+    "_batch_index": 2182,
+    "text_de": "Was ist ein Ulkus?",
+    "answer_de": "Geschwür",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Der Begriff stammt aus dem Lateinischen und bezeichnet offene Wunden, besonders im Magen-Darm-Bereich.",
+    "tags": ["Medizin", "Lateinisch", "Krankheit"]
+  },
+  {
+    "_batch_index": 2183,
+    "text_de": "Welche ehemalige Kaiserstadt besitzt etwa 1.500 buddhistische Tempelanlagen?",
+    "answer_de": "Kyoto",
+    "category": "Geographie",
+    "difficulty": 2,
+    "fun_fact_de": "Kyoto war über 1000 Jahre lang die Hauptstadt Japans und ist heute UNESCO-Weltkulturerbe.",
+    "tags": ["Japan", "Buddhismus", "Weltkulturerbe"]
+  },
+  {
+    "_batch_index": 2184,
+    "text_de": "Wo findet man die Lemuren?",
+    "answer_de": "auf Madagaskar",
+    "category": "Wissenschaft",
+    "difficulty": 2,
+    "fun_fact_de": "Lemuren kommen fast ausschließlich auf Madagaskar vor, wo sie sich isoliert entwickeln konnten.",
+    "tags": ["Tiere", "Madagaskar", "Evolution"]
+  },
+  {
+    "_batch_index": 2185,
+    "text_de": "Welche Frucht gibt dem Earl Grey-Tee sein besonderes Aroma?",
+    "answer_de": "Bergamotte",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Die Bergamotte ist eine Zitrusfrucht, die hauptsächlich in Süditalien angebaut wird und einen unverwechselbaren Duft hat.",
+    "tags": ["Tee", "Zitrusfrüchte", "Aroma"]
+  },
+  {
+    "_batch_index": 2186,
+    "text_de": "Woraus trinkt der Bierfreund sein Pils?",
+    "answer_de": "Tulpe",
+    "category": "Essen&Trinken",
+    "difficulty": 2,
+    "fun_fact_de": "Die Tulpenform konzentriert die Aromen des Bieres und sorgt für eine stabile Schaumkrone.",
+    "tags": ["Bier", "Gläser", "Pils"]
+  },
+  {
+    "_batch_index": 2187,
+    "text_de": "Passend zu einem seiner Lieblingsmotive taufte Picasso seine Tochter \"Paloma\", zu Deutsch...?",
+    "answer_de": "Taube",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Die Taube war ein wiederkehrendes Motiv in Picassos Werk, besonders als Symbol des Friedens.",
+    "tags": ["Picasso", "Friedenssymbol", "Spanisch"]
+  },
+  {
+    "_batch_index": 2188,
+    "text_de": "Wie nennt man ein Stück Kautabak?",
+    "answer_de": "Priem",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Das Wort \"Priem\" stammt aus dem Plattdeutschen und bezeichnete ursprünglich etwas zum Kauen.",
+    "tags": ["Tabak", "Plattdeutsch", "Tradition"]
+  },
+  {
+    "_batch_index": 2189,
+    "text_de": "Wessen \"Mutter blickte stumm auf dem ganzen Tisch herum\"?",
+    "answer_de": "Zappelphilipp",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "Das Zitat stammt aus Heinrich Hoffmanns \"Struwwelpeter\", einem der bekanntesten deutschen Kinderbücher von 1845.",
+    "tags": ["Kinderliteratur", "Struwwelpeter", "19. Jahrhundert"]
+  },
+  {
+    "_batch_index": 2190,
+    "text_de": "Welcher kanadische Filmemacher inszenierte die Horrorvisionen \"Crash\" und \"Die Fliege\"?",
+    "answer_de": "David Cronenberg",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Cronenberg gilt als Meister des Body-Horrors und erforscht in seinen Filmen die Grenzen zwischen Mensch und Technik.",
+    "tags": ["Horror", "Kanada", "Body-Horror"]
+  },
+  {
+    "_batch_index": 2191,
+    "text_de": "Was verschwand im August 1911 und tauchte erst über zwei Jahre später wieder auf?",
+    "answer_de": "Mona Lisa",
+    "category": "Kunst&Kultur",
+    "difficulty": 2,
+    "fun_fact_de": "Das berühmte Gemälde wurde aus dem Louvre gestohlen und der Diebstahl machte es erst richtig weltberühmt.",
+    "tags": ["Leonardo da Vinci", "Kunstraub", "Louvre"]
+  },
+  {
+    "_batch_index": 2192,
+    "text_de": "Welcher Madonna-Song war im Frühjahr 1990 in Mode?",
+    "answer_de": "Vogue",
+    "category": "Musik",
+    "difficulty": 2,
+    "fun_fact_de": "\"Vogue\" popularisierte den gleichnamigen Tanzstil, der in der LGBT-Ballroom-Szene von Harlem entstanden war.",
+    "tags": ["Madonna", "1990er", "Tanzmusik"]
+  },
+  {
+    "_batch_index": 2193,
+    "text_de": "Im Titel eines Romans von Johannes Mario Simmel ging Jimmy zum...?",
+    "answer_de": "Regenbogen",
+    "category": "Literatur",
+    "difficulty": 2,
+    "fun_fact_de": "\"Und Jimmy ging zum Regenbogen\" war ein Bestseller von 1970 und wurde erfolgreich verfilmt.",
+    "tags": ["Deutsche Literatur", "Bestseller", "1970er"]
+  },
+  {
+    "_batch_index": 2194,
+    "text_de": "Wer moderierte bei VOX das TV-Kochduell?",
+    "answer_de": "Britta von Lojewski",
+    "category": "Film&TV",
+    "difficulty": 2,
+    "fun_fact_de": "Das \"Kochduell\" lief von 1994 bis 2002 und war eine der ersten erfolgreichen Kochsendungen im deutschen Fernsehen.",
+    "tags": ["Kochsendung", "VOX", "1990er"]
+  },
+  {
+    "_batch_index": 2195,
+    "text_de": "Welcher Heilige erblickte im Jahre 565 angeblich als erster Mensch das Ungeheuer von Loch Ness?",
+    "answer_de": "Columban",
+    "category": "Allgemeinwissen",
+    "difficulty": 3,
+    "fun_fact_de": "Saint Columba soll das Seeungeheuer durch Gebete vertrieben haben - dies ist die erste schriftlich überlieferte Sichtung.",
+    "tags": ["Schottland", "Legende", "Heiliger"]
+  },
+  {
+    "_batch_index": 2196,
+    "text_de": "Wie hieß der älteste Sohn des biblischen Königs Saul?",
+    "answer_de": "Jonatan",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Jonatan war der beste Freund von David und rettete ihm mehrmals das Leben vor seinem Vater Saul.",
+    "tags": ["Bibel", "Altes Testament", "Freundschaft"]
+  },
+  {
+    "_batch_index": 2197,
+    "text_de": "Wie heißt das Neujahrsfest der iranischen Völker?",
+    "answer_de": "Nouruz",
+    "category": "Allgemeinwissen",
+    "difficulty": 2,
+    "fun_fact_de": "Nouruz markiert den Frühlingsanfang und wird seit über 3000 Jahren gefeiert, heute von über 300 Millionen Menschen weltweit.",
+    "tags": ["Iran", "Neujahr", "Tradition"]
+  },
+  {
+    "_batch_index": 2198,
+    "text_de": "Wie nennen Fachleute hypothetische Teilchen, die sich stets mit Überlichtgeschwindigkeit fortbewegen?",
+    "answer_de": "Tachyonen",
+    "category": "Wissenschaft",
+    "difficulty": 3,
+    "fun_fact_de": "Tachyonen wurden 1967 theoretisch vorhergesagt, ihr tatsächlicher Nachweis würde Einsteins Relativitätstheorie herausfordern.",
+    "tags": ["Physik", "Teilchenphysik", "Relativitätstheorie"]
+  },
+  {
+    "_batch_index": 2199,
+    "text_de": "Für welche Münzstätte stand auf französischen Geldstücken von 1540 bis 1796 der Buchstabe \"N\"?",
+    "answer_de": "Montpellier",
+    "category": "Geschichte",
+    "difficulty": 3,
+    "fun_fact_de": "Französische Münzen trugen Buchstaben zur Kennzeichnung der verschiedenen Münzstätten im ganzen Land.",
+    "tags": ["Frankreich", "Numismatik", "Montpellier"]
+  }
+]

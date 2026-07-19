@@ -15,6 +15,12 @@ import {
   MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
   type Locale,
 } from '@/config/locales';
+import {
+  categoryPath,
+  questionsIndexPath,
+  questionsSegment,
+  localizedCategorySlug,
+} from '@/config/slugs';
 import type { Category, Question } from '@/types/quiz';
 import {
   BASE_URL,
@@ -160,13 +166,16 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/fragen/${slug}`,
-      languages: localeAlternates(`/fragen/${slug}`, availableLocales),
+      canonical: categoryPath(locale as Locale, slug),
+      languages: localeAlternates(
+        (loc) => `/${questionsSegment(loc)}/${localizedCategorySlug(loc, slug)}`,
+        availableLocales
+      ),
     },
     openGraph: {
       title,
       description,
-      url: `https://pubquizplanner.com/${locale}/fragen/${slug}`,
+      url: `https://pubquizplanner.com${categoryPath(locale as Locale, slug)}`,
     },
   };
 }
@@ -189,7 +198,7 @@ export default async function CategoryQuestionsPage({
     getCategoryIntro(locale, slug) ||
     t('categoryFallbackIntro', { count: category.count, name: category.name_de });
 
-  const categoryUrl = `${BASE_URL}/${locale}/fragen/${slug}`;
+  const categoryUrl = `${BASE_URL}${categoryPath(locale as Locale, slug)}`;
 
   const HeroIcon = categoryIcon(slug);
 
@@ -197,7 +206,7 @@ export default async function CategoryQuestionsPage({
   // question with its answer in an expandable panel) — nothing off-page.
   const breadcrumb = breadcrumbSchema([
     { name: t('breadcrumbHome'), url: `${BASE_URL}/${locale}` },
-    { name: t('breadcrumbQuestions'), url: `${BASE_URL}/${locale}/fragen` },
+    { name: t('breadcrumbQuestions'), url: `${BASE_URL}${questionsIndexPath(locale as Locale)}` },
     { name: category.name_de, url: categoryUrl },
   ]);
   const questionItemList = itemListSchema(
@@ -232,7 +241,7 @@ export default async function CategoryQuestionsPage({
           return (
             <Link
               key={cat.slug}
-              href={`/${locale}/fragen/${cat.slug}`}
+              href={categoryPath(locale as Locale, cat.slug)}
               className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border-[1.5px] px-4 py-2 text-sm font-medium transition-colors ${
                 isCurrent
                   ? 'border-transparent bg-[var(--accent)] text-[var(--text-on-accent)]'
@@ -305,7 +314,7 @@ export default async function CategoryQuestionsPage({
               return (
                 <Link
                   key={cat.slug}
-                  href={`/${locale}/fragen/${cat.slug}`}
+                  href={categoryPath(locale as Locale, cat.slug)}
                   className="inline-flex items-center gap-2 rounded-ds border border-[var(--border-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm text-[var(--text-body)] transition-colors hover:bg-[var(--surface-inset)] hover:text-[var(--text-strong)]"
                 >
                   <Icon className="h-4 w-4 text-[var(--accent-text)]" aria-hidden />
@@ -319,7 +328,7 @@ export default async function CategoryQuestionsPage({
       )}
 
       <Link
-        href={`/${locale}/fragen`}
+        href={questionsIndexPath(locale as Locale)}
         className="inline-flex items-center gap-[7px] text-sm font-semibold text-[var(--link)] no-underline transition-colors hover:text-[var(--link-hover)]"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden />

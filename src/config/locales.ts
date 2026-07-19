@@ -57,22 +57,26 @@ export const LOCALE_LABELS: Partial<Record<Locale, string>> = {
 
 // Build the `alternates.languages` map for a page's hreflang tags.
 //
-// `pathSuffix` is the part after the locale segment ('' for the home page,
-// '/fragen', '/fragen/technik'). Pass `availableLocales` when a page does not
-// exist in every locale (e.g. a category that clears the threshold only in some
-// languages) so we never advertise a URL that 404s. x-default points at the
-// source locale when available, otherwise the first available locale.
+// `pathSuffix` is the part after the locale segment. Pass a string when it is
+// the same for every locale ('' for the home page, '/generator'), or a builder
+// `(locale) => suffix` when the path is localized per locale (question slugs:
+// '/vragen/wetenschap' for nl, '/pytania/nauka' for pl, ...). Pass
+// `availableLocales` when a page does not exist in every locale (e.g. a category
+// that clears the threshold only in some languages) so we never advertise a URL
+// that 404s. x-default points at the source locale when available, otherwise the
+// first available locale.
 export function localeAlternates(
-  pathSuffix: string,
+  pathSuffix: string | ((locale: Locale) => string),
   availableLocales: readonly Locale[] = LOCALES
 ): Record<string, string> {
+  const suffixFor = typeof pathSuffix === 'function' ? pathSuffix : () => pathSuffix;
   const languages: Record<string, string> = {};
   for (const locale of availableLocales) {
-    languages[locale] = `/${locale}${pathSuffix}`;
+    languages[locale] = `/${locale}${suffixFor(locale)}`;
   }
   const xDefault = availableLocales.includes(SOURCE_LOCALE)
     ? SOURCE_LOCALE
     : availableLocales[0];
-  if (xDefault) languages['x-default'] = `/${xDefault}${pathSuffix}`;
+  if (xDefault) languages['x-default'] = `/${xDefault}${suffixFor(xDefault)}`;
   return languages;
 }

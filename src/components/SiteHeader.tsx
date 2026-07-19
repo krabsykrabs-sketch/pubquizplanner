@@ -8,13 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import Button from '@/components/ds/Button';
 import Wordmark from '@/components/ds/Wordmark';
 import { LOCALES, LOCALE_LABELS, type Locale } from '@/config/locales';
-
-function switchLocalePath(pathname: string, next: Locale): string {
-  const parts = pathname.split('/');
-  // pathname is always /<locale>[/rest] on public routes
-  parts[1] = next;
-  return parts.join('/') || `/${next}`;
-}
+import { questionsIndexPath, switchLocalePath } from '@/config/slugs';
 
 /* Language dropdown. Self-contained (own state + ref) because the header
  * renders it twice (desktop nav + mobile bar). Outside-close listens on
@@ -88,7 +82,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
   const links = [
     { href: `/${locale}#how`, label: t('how') },
     { href: `/${locale}#kategorien`, label: t('categories') },
-    { href: `/${locale}/fragen`, label: t('questions') },
+    { href: questionsIndexPath(locale), label: t('questions') },
   ];
 
   return (

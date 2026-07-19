@@ -10,7 +10,9 @@ import {
   SOURCE_LOCALE,
   localeAlternates,
   MIN_QUESTIONS_PER_CATEGORY as MIN_QUESTIONS,
+  type Locale,
 } from '@/config/locales';
+import { categoryPath, questionsIndexPath, questionsSegment } from '@/config/slugs';
 import {
   BASE_URL,
   JsonLd,
@@ -125,13 +127,13 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/fragen`,
-      languages: localeAlternates('/fragen'),
+      canonical: questionsIndexPath(locale as Locale),
+      languages: localeAlternates((loc) => `/${questionsSegment(loc)}`),
     },
     openGraph: {
       title,
       description,
-      url: `${BASE_URL}/${locale}/fragen`,
+      url: `${BASE_URL}${questionsIndexPath(locale as Locale)}`,
     },
   };
 }
@@ -163,13 +165,13 @@ export default async function FragenIndexPage({
       count: roundedCount,
       categoryCount: categories.length,
     }),
-    url: `${BASE_URL}/${locale}/fragen`,
+    url: `${BASE_URL}${questionsIndexPath(locale as Locale)}`,
     inLanguage: locale,
     isPartOf: { '@id': `${BASE_URL}/#website` },
     mainEntity: itemListSchema(
       categories.map((cat) => ({
         name: cat.name_de,
-        url: `${BASE_URL}/${locale}/fragen/${cat.slug}`,
+        url: `${BASE_URL}${categoryPath(locale as Locale, cat.slug)}`,
         numberOfItems: cat.count,
       }))
     ),
@@ -177,7 +179,7 @@ export default async function FragenIndexPage({
 
   const breadcrumb = breadcrumbSchema([
     { name: t('breadcrumbHome'), url: `${BASE_URL}/${locale}` },
-    { name: t('breadcrumbQuestions'), url: `${BASE_URL}/${locale}/fragen` },
+    { name: t('breadcrumbQuestions'), url: `${BASE_URL}${questionsIndexPath(locale as Locale)}` },
   ]);
 
   return (
@@ -209,7 +211,7 @@ export default async function FragenIndexPage({
           return (
             <Link
               key={cat.slug}
-              href={`/${locale}/fragen/${cat.slug}`}
+              href={categoryPath(locale as Locale, cat.slug)}
               className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border-[1.5px] border-[var(--border-strong)] bg-[var(--surface-card)] px-4 py-2 text-sm font-medium text-[var(--text-body)] transition-colors hover:bg-[var(--surface-inset)] hover:text-[var(--text-strong)]"
             >
               <Icon className="h-4 w-4" aria-hidden /> {cat.name_de}
@@ -229,7 +231,7 @@ export default async function FragenIndexPage({
             title={cat.name_de}
             subtitle={t('questionsLabel', { count: cat.count })}
             image={categoryVisual(cat.slug)?.background}
-            href={`/${locale}/fragen/${cat.slug}`}
+            href={categoryPath(locale as Locale, cat.slug)}
             ratio="4 / 3"
           />
         ))}
@@ -275,7 +277,7 @@ export default async function FragenIndexPage({
                 ))}
               </div>
               <Link
-                href={`/${locale}/fragen/${cat.slug}`}
+                href={categoryPath(locale as Locale, cat.slug)}
                 className="mt-3 inline-flex items-center gap-[7px] text-sm font-semibold text-[var(--link)] no-underline transition-colors hover:text-[var(--link-hover)]"
               >
                 {t('sampleMoreLink', { count: cat.count, name: cat.name_de })}
