@@ -115,10 +115,12 @@ function IndexNowCard() {
       const data = await res.json();
       if (res.ok && data.ok) {
         setState('done');
-        setMsg(`${data.submitted} URLs an IndexNow übermittelt.`);
+        // HTTP 200 = ok, 202 = accepted (key validation pending). Both success.
+        setMsg(`${data.submitted} URLs übermittelt · IndexNow antwortete HTTP ${data.status}.`);
       } else {
         setState('error');
-        setMsg(`Fehlgeschlagen (Status ${data.status ?? res.status}).`);
+        // 403 = key rejected, 422 = URL/host mismatch, 429 = rate limited.
+        setMsg(`Fehlgeschlagen · HTTP ${data.status ?? res.status}.`);
       }
     } catch {
       setState('error');
