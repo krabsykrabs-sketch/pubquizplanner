@@ -14,6 +14,8 @@ interface Analytics {
   entryPages: { path: string; entries: number }[];
   referrers: { referrer: string; count: number }[];
   countries: { country: string; views: number; sessions: number }[];
+  devices: { device: string; views: number; sessions: number }[];
+  locales: { locale: string; views: number; sessions: number }[];
   transitions: { from: string; to: string; count: number }[];
   funnel: {
     sessions: number;
@@ -36,6 +38,68 @@ const RANGES = [
   { days: 90, label: '90 Tage' },
   { days: 0, label: 'Gesamt' },
 ];
+
+function downloadFile(filename: string, content: string, mime: string) {
+  const url = URL.createObjectURL(new Blob([content], { type: mime }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function csvCell(v: string | number): string {
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function csvBlock(title: string, header: string[], rows: (string | number)[][]): string {
+  return [`## ${title}`, ...[header, ...rows].map((r) => r.map(csvCell).join(','))].join('\n');
+}
+
+// One flat CSV with a block per dashboard section — made to be handed to a
+// human or an LLM instead of screenshots.
+function buildCsv(data: Analytics, rangeLabel: string): string {
+  const d = data.totals.downloads;
+  return [
+    `# PubQuizPlanner Analytics · Zeitraum: ${rangeLabel} · exportiert: ${new Date().toISOString().slice(0, 10)}`,
+    csvBlock('Totals', ['metric', 'value'], [
+      ['sessions', data.totals.sessions],
+      ['pageviews', data.totals.pageviews],
+      ['quizzes_generated', data.totals.generated],
+      ['downloads_slides', d.slides],
+      ['downloads_answer_sheet', d.answerSheet],
+      ['downloads_cheat_sheet', d.cheatSheet],
+      ['downloads_category_pdf', d.categoryPdf ?? 0],
+    ]),
+    csvBlock('Funnel (Sessions)', ['step', 'sessions'], [
+      ['visit', data.funnel.sessions],
+      ['generator_opened', data.funnel.generatorSessions],
+      ['quiz_generated', data.funnel.generatedSessions],
+      ['download', data.funnel.downloadSessions],
+    ]),
+    csvBlock('Täglich', ['day', 'pageviews', 'sessions', 'quizzes', 'downloads'],
+      data.daily.map((r) => [r.day, r.pageviews, r.sessions, r.generated, r.downloads])),
+    csvBlock('Meistbesuchte Seiten', ['path', 'views', 'sessions'],
+      data.topPages.map((p) => [p.path, p.views, p.sessions])),
+    csvBlock('Einstiegsseiten', ['path', 'entries'],
+      data.entryPages.map((p) => [p.path, p.entries])),
+    csvBlock('Externe Referrer', ['referrer', 'count'],
+      data.referrers.map((r) => [r.referrer, r.count])),
+    csvBlock('Länder', ['country', 'views', 'sessions'],
+      (data.countries ?? []).map((c) => [c.country, c.views, c.sessions])),
+    csvBlock('Geräte', ['device', 'views', 'sessions'],
+      (data.devices ?? []).map((d) => [d.device, d.views, d.sessions])),
+    csvBlock('Sprachen', ['locale', 'views', 'sessions'],
+      (data.locales ?? []).map((l) => [l.locale, l.views, l.sessions])),
+    csvBlock('Seitenfluss', ['from', 'to', 'count'],
+      data.transitions.map((t) => [t.from, t.to, t.count])),
+    csvBlock('Gemeldete Fragen', ['question_id', 'reports', 'last_report', 'text', 'answer'],
+      (data.reportedQuestions ?? []).map((r) => [
+        r.questionId, r.reports, r.lastReport, r.text ?? '', r.answer ?? '',
+      ])),
+  ].join('\n\n');
+}
 
 export default function AnalyticsPage() {
   const [days, setDays] = useState(30);
@@ -68,7 +132,7 @@ export default function AnalyticsPage() {
     <div className="p-8 space-y-8">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">📈 Analytics</h1>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           {RANGES.map((r) => (
             <button
               key={r.days}
@@ -80,6 +144,32 @@ export default function AnalyticsPage() {
               }`}
             >
               {r.label}
+            </button>
+          ))}
+          <span className="mx-1 h-5 w-px bg-[var(--dark-border)]" aria-hidden />
+          {(['CSV', 'JSON'] as const).map((fmt) => (
+            <button
+              key={fmt}
+              disabled={!data}
+              onClick={() => {
+                if (!data) return;
+                const rangeLabel = RANGES.find((r) => r.days === days)?.label ?? `${days} Tage`;
+                const stamp = new Date().toISOString().slice(0, 10);
+                const base = `pubquizplanner_analytics_${rangeLabel.replace(' ', '')}_${stamp}`;
+                if (fmt === 'CSV') {
+                  downloadFile(`${base}.csv`, buildCsv(data, rangeLabel), 'text/csv;charset=utf-8');
+                } else {
+                  downloadFile(
+                    `${base}.json`,
+                    JSON.stringify({ range: rangeLabel, exportedAt: stamp, ...data }, null, 2),
+                    'application/json'
+                  );
+                }
+              }}
+              className="px-3 py-1.5 rounded-lg text-sm font-medium bg-[var(--dark-card)] text-[var(--muted)] hover:text-[var(--foreground)] disabled:opacity-40 transition-colors"
+              title={`Alle Dashboard-Daten als ${fmt} herunterladen`}
+            >
+              ⬇ {fmt}
             </button>
           ))}
         </div>
@@ -159,6 +249,24 @@ export default function AnalyticsPage() {
               footnote="Land über geojs.io aus der IP ermittelt (wird nicht gespeichert); Fallback: Browser-Sprache."
             />
             <ListSection
+              title="Geräte"
+              rows={(data.devices ?? []).map((d) => [
+                deviceLabel(d.device),
+                `${d.views} Aufrufe`,
+                `${d.sessions} Sessions`,
+              ])}
+              emptyText="Noch keine Gerätedaten — werden seit dem letzten Update erfasst."
+            />
+            <ListSection
+              title="Sprachen (URL)"
+              rows={(data.locales ?? []).map((l) => [
+                l.locale === '—' ? '— (ohne Präfix)' : l.locale.toUpperCase(),
+                `${l.views} Aufrufe`,
+                `${l.sessions} Sessions`,
+              ])}
+              emptyText="Noch keine Daten im Zeitraum."
+            />
+            <ListSection
               title="Seitenfluss (von → nach)"
               rows={data.transitions.map((t) => [`${t.from} → ${t.to}`, String(t.count)])}
               emptyText="Noch keine Übergänge erfasst."
@@ -230,6 +338,19 @@ function countryLabel(code: string): string {
     // unknown code — show it raw
   }
   return flag ? `${flag} ${name}` : name;
+}
+
+function deviceLabel(device: string): string {
+  switch (device) {
+    case 'mobile':
+      return '📱 Mobil';
+    case 'desktop':
+      return '🖥️ Computer';
+    case 'tablet':
+      return '📲 Tablet';
+    default:
+      return '❔ Unbekannt';
+  }
 }
 
 const LIST_PREVIEW = 10;

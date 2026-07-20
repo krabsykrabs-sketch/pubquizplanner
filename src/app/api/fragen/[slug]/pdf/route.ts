@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTranslations } from 'next-intl/server';
 import { query, queryOne } from '@/lib/db';
-import { logEvent } from '@/lib/events';
+import { logEvent, sanitizeSessionId } from '@/lib/events';
+import { shouldTrackRequest } from '@/lib/track-guard';
 import { buildQuestionSheet, type QuestionSheetItem } from '@/lib/pdf-builder';
 import {
   SOURCE_LOCALE,
@@ -72,10 +73,17 @@ export async function GET(
           [slug, locale]
         );
 
-  await logEvent('download_category_pdf', {
-    sessionId: request.headers.get('x-quiz-session'),
-    meta: { slug, locale, count: items.length },
-  });
+  // This endpoint is a plain <a href> on public pages, so crawlers hit it too
+  // and the browser can't send custom headers — the session travels as ?sid=
+  // (attached client-side on click) with the header as fallback.
+  if (shouldTrackRequest(request)) {
+    await logEvent('download_category_pdf', {
+      sessionId:
+        sanitizeSessionId(request.nextUrl.searchParams.get('sid')) ??
+        request.headers.get('x-quiz-session'),
+      meta: { slug, locale, count: items.length },
+    });
+  }
 
   const t = await getTranslations({ locale, namespace: 'fragen' });
   const pdf = buildQuestionSheet({

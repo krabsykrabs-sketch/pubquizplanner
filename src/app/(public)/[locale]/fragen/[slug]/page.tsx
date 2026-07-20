@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { ArrowLeft, ArrowRight, Download } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { query, queryOne } from '@/lib/db';
 import { getCategoryIntro } from '@/lib/category-intros';
 import { getCategorySeoName } from '@/lib/category-seo';
@@ -30,6 +30,7 @@ import {
   faqPageSchema,
 } from '@/lib/structured-data';
 import { QuestionList } from './question-list';
+import { CategoryPdfLink } from './pdf-link';
 
 export const dynamic = 'force-dynamic';
 
@@ -259,12 +260,7 @@ export default async function CategoryQuestionsPage({
         <div className="inline-flex items-center rounded-ds border border-[var(--border-subtle)] bg-[var(--bg-sunken)] px-4 py-2 font-mono text-sm text-[var(--text-muted)]">
           {t('questionsAvailable', { count: category.count })}
         </div>
-        <a
-          href={`/api/fragen/${slug}/pdf?locale=${locale}`}
-          className="inline-flex min-h-[40px] items-center justify-center gap-2 rounded-ds border-[1.5px] border-[var(--border-strong)] bg-[var(--surface-card)] px-[18px] py-[9px] font-sans text-[0.9375rem] font-semibold leading-none tracking-[0.01em] text-[var(--text-strong)] no-underline transition-colors hover:bg-[var(--surface-inset)]"
-        >
-          <Download className="h-4 w-4" aria-hidden /> {t('pdfButton')}
-        </a>
+        <CategoryPdfLink slug={slug} locale={locale} label={t('pdfButton')} />
       </div>
       <p className="mb-8 text-sm text-[var(--text-muted)]">
         {t('pdfHint', { count: category.count })}

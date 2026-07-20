@@ -95,6 +95,61 @@ export default function AdminDashboard() {
           </Link>
         </div>
       )}
+
+      <IndexNowCard />
+    </div>
+  );
+}
+
+// Manual IndexNow submission: push every live URL to Bing/Yandex after
+// publishing content, instead of waiting for a recrawl.
+function IndexNowCard() {
+  const [state, setState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
+  const [msg, setMsg] = useState('');
+
+  const submit = async () => {
+    setState('loading');
+    setMsg('');
+    try {
+      const res = await fetch('/api/admin/indexnow', { method: 'POST' });
+      const data = await res.json();
+      if (res.ok && data.ok) {
+        setState('done');
+        setMsg(`${data.submitted} URLs an IndexNow übermittelt.`);
+      } else {
+        setState('error');
+        setMsg(`Fehlgeschlagen (Status ${data.status ?? res.status}).`);
+      }
+    } catch {
+      setState('error');
+      setMsg('Netzwerkfehler.');
+    }
+  };
+
+  return (
+    <div className="bg-[var(--dark-card)] border border-[var(--dark-border)] rounded-xl p-5">
+      <h2 className="text-sm font-bold text-[var(--muted)] uppercase tracking-wider mb-1">
+        SEO · IndexNow
+      </h2>
+      <p className="text-sm text-[var(--muted)] mb-4">
+        Meldet alle Live-URLs an Bing &amp; Co. Nach dem Freigeben oder Ändern von Inhalten anstoßen.
+      </p>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={submit}
+          disabled={state === 'loading'}
+          className="px-5 py-2.5 rounded-lg font-bold bg-[var(--gold)] text-[var(--background)] hover:opacity-90 disabled:opacity-50 transition-opacity"
+        >
+          {state === 'loading' ? 'Übermittle…' : '🔔 URLs an IndexNow senden'}
+        </button>
+        {msg && (
+          <span
+            className={`text-sm ${state === 'error' ? 'text-red-400' : 'text-green-400'}`}
+          >
+            {msg}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

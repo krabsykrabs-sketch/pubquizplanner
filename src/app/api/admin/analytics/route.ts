@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       ? `date_trunc('day', ${since})`
       : `date_trunc('day', (SELECT coalesce(min(created_at), now()) FROM events))`;
 
-  const [totals, daily, topPages, entryPages, referrers, countries, transitions, funnel, reports] =
+  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports] =
     await Promise.all([
       query<{
         pageviews: string;
@@ -96,6 +96,28 @@ export async function GET(request: NextRequest) {
            AND meta->>'country' ~* '^[a-z]{2}$'
          GROUP BY 1 ORDER BY count(*) DESC LIMIT 200`
       ),
+      // Device split, from the coarse class /api/track stores in meta. Only
+      // events since that deploy carry it (older rows group under 'unbekannt').
+      query<{ device: string; views: string; sessions: string }>(
+        `SELECT coalesce(meta->>'device', 'unbekannt') AS device,
+                count(*) AS views,
+                count(DISTINCT session_id) AS sessions
+         FROM events
+         WHERE event_type = 'page_view' AND created_at >= ${since}
+         GROUP BY 1 ORDER BY count(*) DESC`
+      ),
+      // Locale from the first path segment (/de/..., /sv/...). Two-letter
+      // prefixes only; anything else groups under '—'.
+      query<{ locale: string; views: string; sessions: string }>(
+        `SELECT CASE WHEN substring(path from '^/([a-z]{2})(?:/|$)') IS NOT NULL
+                     THEN substring(path from '^/([a-z]{2})(?:/|$)')
+                     ELSE '—' END AS locale,
+                count(*) AS views,
+                count(DISTINCT session_id) AS sessions
+         FROM events
+         WHERE event_type = 'page_view' AND created_at >= ${since}
+         GROUP BY 1 ORDER BY count(*) DESC`
+      ),
       query<{ from_path: string; to_path: string; count: string }>(
         `SELECT from_path, to_path, count(*) AS count FROM (
            SELECT LAG(path) OVER (PARTITION BY session_id ORDER BY created_at) AS from_path,
@@ -160,6 +182,8 @@ export async function GET(request: NextRequest) {
       views: n(c.views),
       sessions: n(c.sessions),
     })),
+    devices: devices.map((d) => ({ device: d.device, views: n(d.views), sessions: n(d.sessions) })),
+    locales: locales.map((l) => ({ locale: l.locale, views: n(l.views), sessions: n(l.sessions) })),
     transitions: transitions.map((tr) => ({ from: tr.from_path, to: tr.to_path, count: n(tr.count) })),
     funnel: {
       sessions: n(f?.sessions),
