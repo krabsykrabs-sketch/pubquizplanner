@@ -91,8 +91,12 @@ export default async function LandingHero({
             <br />
             {t('heroTitle2')}
           </h1>
-          <p className="mb-[34px] mt-6 max-w-[47ch] text-[1.1875rem] leading-[1.6] text-[var(--text-body)]">
+          <p className="mb-0 mt-6 max-w-[47ch] text-[1.1875rem] leading-[1.6] text-[var(--text-body)]">
             {t('heroLead')}
+          </p>
+          {/* Names the non-pub uses too (schools, teams) without changing the brand. */}
+          <p className="mb-[34px] mt-3 max-w-[47ch] text-[1.0625rem] font-medium leading-[1.5] text-[var(--amber-300)]">
+            {t('heroUseCases')}
           </p>
           <div className="flex flex-wrap items-center gap-3.5">
             <Button

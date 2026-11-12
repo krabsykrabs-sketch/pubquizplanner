@@ -19,10 +19,11 @@
     "privacy": "Privacidade"
   },
   "landing": {
-    "badge": "Grátis em beta",
+    "badge": "Grátis · sem registo",
     "heroTitle1": "Toda a noite de quiz.",
     "heroTitle2": "Não só as perguntas.",
     "heroLead": "De uma base de perguntas curada saem slides de apresentação prontos, folhas de respostas impressas e uma cábula para a apresentação — em poucos minutos. Polido no ecrã, tranquilo nos bastidores.",
+    "heroUseCases": "Para a noite no bar, a aula, o evento de equipa ou o jantar de Natal.",
     "ctaPrimary": "Começar quiz imediato",
     "ctaSecondary": "Montar por ti próprio",
     "reassurance": "Um clique — uma noite completa. Sem registo.",
@@ -59,7 +60,7 @@
     "how3Title": "Apresenta em qualquer lado",
     "how3Desc": "Corre em qualquer ecrã. A sala vê o espetáculo, as tuas notas ficam ao lado.",
     "ctaBandTitle": "A tua próxima noite de quiz está a 10 minutos.",
-    "ctaBandText": "Grátis em beta. Sem registo — slides, folhas de respostas e cábula incluídos.",
+    "ctaBandText": "Grátis e sem registo — slides, folhas de respostas e cábula incluídos.",
     "cta": "Criar quiz"
   },
   "generator": {

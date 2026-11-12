@@ -19,10 +19,11 @@
     "privacy": "Confidentialité"
   },
   "landing": {
-    "badge": "Gratuit pendant la bêta",
+    "badge": "Gratuit · sans inscription",
     "heroTitle1": "Toute la soirée quiz.",
     "heroTitle2": "Pas seulement les questions.",
     "heroLead": "À partir d'une base de questions sélectionnées, tu obtiens des diapos de présentation prêtes à l'emploi, des feuilles de réponses imprimées et une antisèche pour l'animation — en quelques minutes. Impeccable à l'écran, tranquille en coulisses.",
+    "heroUseCases": "Pour la soirée au bar, le cours, l'événement d'équipe ou la fête de Noël.",
     "ctaPrimary": "Lancer un quiz instantané",
     "ctaSecondary": "Composer soi-même",
     "reassurance": "Un clic — une soirée complète. Sans inscription.",
@@ -59,7 +60,7 @@
     "how3Title": "Présente partout",
     "how3Desc": "Ça tourne sur n'importe quel écran. La salle voit le spectacle, tes notes restent sur le côté.",
     "ctaBandTitle": "Ta prochaine soirée quiz est à 10 minutes.",
-    "ctaBandText": "Gratuit pendant la bêta. Sans inscription — diapos, feuilles de réponses et antisèche compris.",
+    "ctaBandText": "Gratuit et sans inscription — diapos, feuilles de réponses et antisèche compris.",
     "cta": "Créer un quiz"
   },
   "generator": {

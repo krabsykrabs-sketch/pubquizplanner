@@ -19,10 +19,11 @@
     "privacy": "Privacidad"
   },
   "landing": {
-    "badge": "Gratis en la beta",
+    "badge": "Gratis · sin registro",
     "heroTitle1": "Toda la noche de quiz.",
     "heroTitle2": "No solo las preguntas.",
     "heroLead": "A partir de una base de preguntas seleccionada obtienes diapositivas listas para presentar, hojas de respuestas impresas y una chuleta para presentar, en pocos minutos. Impecable en la pantalla, tranquilo entre bastidores.",
+    "heroUseCases": "Para la noche de bar, la clase, el evento de equipo o la cena de Navidad.",
     "ctaPrimary": "Empezar quiz al instante",
     "ctaSecondary": "Montarlo tú mismo",
     "reassurance": "Un clic, una noche entera. Sin registro.",
@@ -59,7 +60,7 @@
     "how3Title": "Preséntalo en cualquier sitio",
     "how3Desc": "Funciona en cualquier pantalla. La sala ve el espectáculo, tus notas quedan a un lado.",
     "ctaBandTitle": "Tu próxima noche de quiz está a 10 minutos.",
-    "ctaBandText": "Gratis en la beta. Sin registro: diapositivas, hojas de respuestas y chuleta incluidas.",
+    "ctaBandText": "Gratis y sin registro: diapositivas, hojas de respuestas y chuleta incluidas.",
     "cta": "Crear quiz"
   },
   "generator": {

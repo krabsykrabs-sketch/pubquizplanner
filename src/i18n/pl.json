@@ -19,10 +19,11 @@
     "privacy": "Polityka prywatności"
   },
   "landing": {
-    "badge": "Za darmo w wersji beta",
+    "badge": "Za darmo · bez rejestracji",
     "heroTitle1": "Cały wieczór quizowy.",
     "heroTitle2": "Nie tylko pytania.",
     "heroLead": "Ze starannie dobranej bazy pytań powstają gotowe slajdy prezentacji, karty odpowiedzi do druku i ściąga dla quizmastera — w kilka minut. Dopracowane na ekranie, spokojne za kulisami.",
+    "heroUseCases": "Na wieczór w pubie, lekcję w szkole, imprezę firmową czy spotkanie świąteczne.",
     "ctaPrimary": "Wygeneruj quiz od razu",
     "ctaSecondary": "Złóż quiz samodzielnie",
     "reassurance": "Jedno kliknięcie — kompletny wieczór. Bez rejestracji.",
@@ -59,7 +60,7 @@
     "how3Title": "Prezentuj wszędzie",
     "how3Desc": "Działa na każdym ekranie. Sala widzi show, Twoje notatki zostają z boku.",
     "ctaBandTitle": "Twój następny wieczór quizowy jest 10 minut stąd.",
-    "ctaBandText": "Za darmo w wersji beta. Bez rejestracji — slajdy, karty odpowiedzi i ściąga w zestawie.",
+    "ctaBandText": "Za darmo i bez rejestracji — slajdy, karty odpowiedzi i ściąga w zestawie.",
     "cta": "Stwórz quiz"
   },
   "generator": {

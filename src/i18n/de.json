@@ -19,10 +19,11 @@
     "privacy": "Datenschutz"
   },
   "landing": {
-    "badge": "Kostenlos in der Beta",
+    "badge": "Kostenlos · ohne Anmeldung",
     "heroTitle1": "Der ganze Quizabend.",
     "heroTitle2": "Nicht nur die Fragen.",
     "heroLead": "Aus einer kuratierten Fragendatenbank werden fertige Präsentations-Folien, gedruckte Antwortbögen und ein Spickzettel für die Moderation — in wenigen Minuten. Auf der Leinwand poliert, hinter den Kulissen ruhig.",
+    "heroUseCases": "Für den Kneipenabend, die Schulstunde, das Team-Event oder die Weihnachtsfeier.",
     "ctaPrimary": "Sofort-Quiz starten",
     "ctaSecondary": "Selbst zusammenstellen",
     "reassurance": "Ein Klick — ein kompletter Abend. Keine Anmeldung nötig.",
@@ -59,7 +60,7 @@
     "how3Title": "Überall präsentieren",
     "how3Desc": "Läuft auf jedem Bildschirm. Der Raum sieht die Show, deine Notizen bleiben an der Seite.",
     "ctaBandTitle": "Dein nächster Quizabend ist 10 Minuten entfernt.",
-    "ctaBandText": "Kostenlos in der Beta. Ohne Anmeldung — Folien, Antwortbögen und Spickzettel inklusive.",
+    "ctaBandText": "Kostenlos und ohne Anmeldung — Folien, Antwortbögen und Spickzettel inklusive.",
     "cta": "Quiz erstellen"
   },
   "generator": {

@@ -19,10 +19,11 @@
     "privacy": "Privacy"
   },
   "landing": {
-    "badge": "Gratis tijdens de bèta",
+    "badge": "Gratis · zonder registratie",
     "heroTitle1": "De hele quizavond.",
     "heroTitle2": "Niet alleen de vragen.",
     "heroLead": "Uit een zorgvuldig samengestelde vragendatabase ontstaan kant-en-klare presentatieslides, geprinte antwoordformulieren en een spiekbriefje voor de quizmaster — in enkele minuten. Strak op het scherm, rustig achter de schermen.",
+    "heroUseCases": "Voor de caféavond, de les, het teamuitje of de kerstborrel.",
     "ctaPrimary": "Direct een quiz starten",
     "ctaSecondary": "Zelf samenstellen",
     "reassurance": "Eén klik — een complete avond. Geen registratie nodig.",
@@ -59,7 +60,7 @@
     "how3Title": "Overal presenteren",
     "how3Desc": "Werkt op elk scherm. De zaal ziet de show, jouw notities blijven aan de zijkant.",
     "ctaBandTitle": "Je volgende quizavond is 10 minuten verwijderd.",
-    "ctaBandText": "Gratis tijdens de bèta. Zonder registratie — slides, antwoordformulieren en spiekbriefje inbegrepen.",
+    "ctaBandText": "Gratis en zonder registratie — slides, antwoordformulieren en spiekbriefje inbegrepen.",
     "cta": "Quiz maken"
   },
   "generator": {

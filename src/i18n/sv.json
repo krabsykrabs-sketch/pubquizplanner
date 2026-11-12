@@ -19,10 +19,11 @@
     "privacy": "Integritetspolicy"
   },
   "landing": {
-    "badge": "Gratis under betan",
+    "badge": "Gratis · ingen registrering",
     "heroTitle1": "Hela quizkvällen.",
     "heroTitle2": "Inte bara frågorna.",
     "heroLead": "Ur en handplockad frågedatabas skapas färdiga presentationsslides, utskrivna svarsblanketter och en fusklapp för quizmastern — på några minuter. Polerat på duken, lugnt bakom kulisserna.",
+    "heroUseCases": "För pubkvällen, lektionen, teamaktiviteten eller julfesten.",
     "ctaPrimary": "Starta ett quiz direkt",
     "ctaSecondary": "Sätt ihop själv",
     "reassurance": "Ett klick — en hel kväll. Ingen registrering behövs.",
@@ -59,7 +60,7 @@
     "how3Title": "Presentera var som helst",
     "how3Desc": "Funkar på alla skärmar. Rummet ser showen, dina anteckningar stannar vid sidan.",
     "ctaBandTitle": "Din nästa quizkväll är 10 minuter bort.",
-    "ctaBandText": "Gratis under betan. Ingen registrering — slides, svarsblanketter och fusklapp ingår.",
+    "ctaBandText": "Gratis och utan registrering — slides, svarsblanketter och fusklapp ingår.",
     "cta": "Skapa quiz"
   },
   "generator": {
