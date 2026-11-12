@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="1024" preserveAspectRatio="none" style="display: block;" version="1.1" viewBox="0 0 2048 2048" width="1024">
+<defs>
+	<linearGradient gradientUnits="userSpaceOnUse" id="Tree" x1="700" x2="1420" y1="420" y2="1700">
+		<stop offset="0" stop-color="rgb(247,222,196)" stop-opacity="1"></stop>
+		<stop offset="0.45" stop-color="rgb(236,160,100)" stop-opacity="1"></stop>
+		<stop offset="1" stop-color="rgb(215,100,32)" stop-opacity="1"></stop>
+	</linearGradient>
+	<linearGradient gradientUnits="userSpaceOnUse" id="Trunk" x1="934" x2="1114" y1="1650" y2="1850">
+		<stop offset="0" stop-color="rgb(188,87,42)" stop-opacity="1"></stop>
+		<stop offset="1" stop-color="rgb(160,62,16)" stop-opacity="1"></stop>
+	</linearGradient>
+</defs>
+<g stroke="rgb(22,19,17)" stroke-width="26" stroke-linejoin="round" stroke-linecap="round">
+	<!-- trunk -->
+	<path d="M 938 1600 L 938 1822 Q 938 1856 972 1856 L 1076 1856 Q 1110 1856 1110 1822 L 1110 1600 Z" fill="url(#Trunk)"/>
+	<!-- bottom tier -->
+	<path d="M 1024 960 C 916 1210 664 1492 404 1640 Q 536 1708 664 1662 Q 824 1736 1024 1672 Q 1224 1736 1384 1662 Q 1512 1708 1644 1640 C 1384 1492 1132 1210 1024 960 Z" fill="url(#Tree)"/>
+	<!-- middle tier -->
+	<path d="M 1024 620 C 938 830 742 1078 548 1222 Q 660 1276 764 1242 Q 884 1304 1024 1252 Q 1164 1304 1284 1242 Q 1388 1276 1500 1222 C 1306 1078 1110 830 1024 620 Z" fill="url(#Tree)"/>
+	<!-- top tier -->
+	<path d="M 1024 372 C 962 540 824 716 690 832 Q 778 874 862 850 Q 942 902 1024 862 Q 1106 902 1186 850 Q 1270 874 1358 832 C 1224 716 1086 540 1024 372 Z" fill="url(#Tree)"/>
+	<!-- star -->
+	<path d="M 1024.0 132.0 L 1065.1 243.4 L 1183.8 248.1 L 1090.6 321.6 L 1122.7 435.9 L 1024.0 370.0 L 925.3 435.9 L 957.4 321.6 L 864.2 248.1 L 982.9 243.4 Z" fill="rgb(255,255,254)"/>
+</g>
+<!-- snow highlights on the lit (left) side -->
+<g fill="rgb(255,255,254)">
+	<path d="M 1000 478 C 958 590 880 690 772 792 C 884 742 968 650 1014 548 C 1022 520 1014 494 1000 478 Z"/>
+	<path d="M 990 742 C 930 900 800 1060 640 1180 C 800 1118 930 980 1004 826 C 1016 792 1008 760 990 742 Z"/>
+	<path d="M 984 1090 C 900 1290 720 1480 510 1606 C 720 1530 900 1370 1000 1180 C 1014 1144 1004 1108 984 1090 Z"/>
+</g>
+<!-- garlands -->
+<g fill="none" stroke="rgb(22,19,17)" stroke-width="11" stroke-linecap="round">
+	<path d="M 862 724 Q 1024 796 1186 718"/>
+	<path d="M 762 1070 Q 1024 1190 1288 1062"/>
+	<path d="M 664 1462 Q 1024 1612 1380 1456"/>
+</g>
+<!-- baubles -->
+<g stroke="rgb(22,19,17)" stroke-width="18">
+	<circle cx="1118" cy="742" r="40" fill="rgb(255,255,254)"/>
+	<circle cx="1024" cy="1136" r="46" fill="rgb(185,78,20)"/>
+	<circle cx="1228" cy="1094" r="42" fill="rgb(255,255,254)"/>
+	<circle cx="824" cy="1522" r="48" fill="rgb(185,78,20)"/>
+	<circle cx="1108" cy="1556" r="46" fill="rgb(255,255,254)"/>
+	<circle cx="1330" cy="1484" r="46" fill="rgb(185,78,20)"/>
+</g>
+<!-- sparkles -->
+<g fill="rgb(240,168,103)">
+	<path d="M 520.0 502.0 L 529.4 547.1 L 575.2 542.1 L 535.2 564.9 L 554.1 606.9 L 520.0 576.0 L 485.9 606.9 L 504.8 564.9 L 464.8 542.1 L 510.6 547.1 Z"/>
+	<path d="M 1560.0 714.0 L 1567.6 749.5 L 1603.7 745.8 L 1572.4 764.0 L 1587.0 797.2 L 1560.0 773.0 L 1533.0 797.2 L 1547.6 764.0 L 1516.3 745.8 L 1552.4 749.5 Z"/>
+	<circle cx="1470" cy="430" r="16"/>
+	<circle cx="430" cy="1120" r="14"/>
+</g>
+</svg>

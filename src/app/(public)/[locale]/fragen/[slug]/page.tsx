@@ -7,7 +7,7 @@ import { query, queryOne } from '@/lib/db';
 import { getCategoryIntro } from '@/lib/category-intros';
 import { getCategorySeoName } from '@/lib/category-seo';
 import Button from '@/components/ds/Button';
-import { categoryIcon } from '@/lib/category-visuals';
+import { categoryIcon, categoryLook, categoryVisual } from '@/lib/category-visuals';
 import {
   SOURCE_LOCALE,
   LOCALES,
@@ -217,12 +217,25 @@ export default async function CategoryQuestionsPage({
     questions.map((q) => ({ question: q.text_de, answer: q.answer_de }))
   );
 
+  const heroLook = categoryLook(category.slug);
+  const heroArt = categoryVisual(category.slug)?.iconArt;
+
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
       <JsonLd data={[breadcrumb, questionItemList, faqPage]} />
       <h1 className="mb-6 flex items-center gap-3.5 font-display text-4xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-5xl">
-        <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-ds-lg bg-[var(--accent-soft)] text-[var(--accent-text)]">
-          <HeroIcon className="h-6 w-6" aria-hidden />
+        <span
+          className={`inline-flex h-16 w-16 shrink-0 -rotate-3 items-center justify-center rounded-ds-lg border-2 border-[var(--edge)] shadow-hard-sm ${
+            heroLook.onDark ? 'text-[var(--yellow-soft)]' : 'text-[var(--warm-900)]'
+          }`}
+          style={{ background: heroLook.tint }}
+        >
+          {heroArt ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={heroArt} alt="" className="h-[84%] w-[84%] object-contain" />
+          ) : (
+            <HeroIcon className="h-7 w-7" aria-hidden />
+          )}
         </span>
         {t('categoryTitle', { name: category.name_de })}
       </h1>

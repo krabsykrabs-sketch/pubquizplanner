@@ -30,8 +30,8 @@ export interface SlideTheme {
   colorPanelBg: string; // panel background (accent-tinted, on dark)
   colorPanelBorder: string; // panel border (accent-tinted, on dark)
 
-  // The warm "quiz-card" that carries questions & answers (design system's
-  // signature slide treatment — a physical card on the night backdrop).
+  // The "quiz-card" that carries questions & answers (the signature slide
+  // treatment — a physical card on the dark backdrop).
   colorCardBg: string; // card surface (paper)
   colorCardInk: string; // question text on the card
   colorCardMuted: string; // secondary text on the card
@@ -43,38 +43,39 @@ export interface SlideTheme {
   colorNeutralChip: string; // number chip on answer slides (neutral)
 }
 
-// "The Marquee" — warm night backdrop, burnt-amber accent, quiz-card slides.
-// Archivo (display) / Hanken Grotesk (body) / Spline Sans Mono (numbers).
+// "Tageslicht" — navy backdrop (dark holds up best on a projector), cream
+// quiz-card with an orange hard shadow, yellow highlights.
+// Bricolage Grotesque (display) / Instrument Sans (body) / DM Mono (numbers).
 export const defaultSlideTheme: SlideTheme = {
-  name: 'marquee-night',
+  name: 'tageslicht-navy',
   fontImportUrl:
-    'https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap',
-  fontDisplay: "'Archivo', system-ui, sans-serif",
-  fontBody: "'Hanken Grotesk', system-ui, sans-serif",
-  fontMono: "'Spline Sans Mono', ui-monospace, monospace",
+    'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap',
+  fontDisplay: "'Bricolage Grotesque', system-ui, sans-serif",
+  fontBody: "'Instrument Sans', system-ui, sans-serif",
+  fontMono: "'DM Mono', ui-monospace, monospace",
 
-  colorBg: '#16110D', // night-900
-  colorText: '#FBF7F0', // warm-50
-  colorMuted: '#B4A488',
-  colorSubtle: '#8B7B63',
-  colorFaint: '#6A5C47',
-  colorAccent: '#E88A45', // amber-400 (dark-theme accent)
-  colorAccentLight: '#F0A867', // amber-300
-  colorCorrect: '#7FA06E', // muted green (dark)
-  colorWarning: '#D9694B',
-  colorPanelText: '#EADFCF',
-  colorPanelBg: 'rgba(217, 110, 42, 0.10)',
-  colorPanelBorder: 'rgba(217, 110, 42, 0.30)',
+  colorBg: '#141B2E', // night-900
+  colorText: '#FBF6EA', // paper
+  colorMuted: '#A9B0C4',
+  colorSubtle: '#8088A0',
+  colorFaint: '#69718A',
+  colorAccent: '#F88A4D', // orange on navy
+  colorAccentLight: '#FFCF4A', // yellow
+  colorCorrect: '#1F8F6B', // green
+  colorWarning: '#F0705F',
+  colorPanelText: '#E4E2DA',
+  colorPanelBg: 'rgba(255, 207, 74, 0.10)',
+  colorPanelBorder: 'rgba(255, 207, 74, 0.30)',
 
-  colorCardBg: '#FBF7F0', // warm-50
-  colorCardInk: '#1B1611', // warm-900
-  colorCardMuted: '#6A5C47', // warm-600
-  colorCardFaint: '#8B7B63', // warm-500
-  colorCardBorder: '#E8DCCB', // warm-200
-  colorChipBg: '#D96E2A', // amber-500
-  colorChipLip: '#984515', // amber-700
-  colorPillBg: '#F7E4D2', // accent-soft
-  colorNeutralChip: '#B4A488', // warm-400
+  colorCardBg: '#FFFDF7', // card paper
+  colorCardInk: '#1A2238', // ink
+  colorCardMuted: '#4B5368',
+  colorCardFaint: '#767D92',
+  colorCardBorder: '#E6DCC6',
+  colorChipBg: '#F26B2A', // orange
+  colorChipLip: '#B5430F', // deep orange: chip lip + accent text on the card
+  colorPillBg: '#FFE1CE', // peach
+  colorNeutralChip: '#C9CCD6',
 };
 
 // Renders the font import + the :root custom-property block for a theme. The

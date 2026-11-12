@@ -23,17 +23,17 @@ import {
  *   icon.svg       — square standalone subject illustration on a transparent
  *                    ground; the art used across the site, set on a tinted
  *                    panel (see categoryLook)
- *   projector.png  — dark full-bleed composition for projected slides
- *   background.png — dark app composition from the previous design; no
- *                    longer used on the site
+ *   projector.png / background.png — the previous design's pre-composed dark
+ *                    backgrounds. Unused by the app now, but decks downloaded
+ *                    before the redesign still load projector.png from the
+ *                    live site, so the files stay.
  * Slugs match the DB `categories.slug` column.
  */
 
 export interface CategoryVisual {
   /** Lucide glyph — functional icon + last-resort fallback for missing art. */
   icon: LucideIcon;
-  background: string;
-  projector: string;
+  /** Square subject illustration with a transparent ground. */
   iconArt: string;
 }
 
@@ -52,14 +52,15 @@ const ICONS: Record<string, LucideIcon> = {
   popkultur: Star,
   sprache: Languages,
   'logik-mathe': Calculator,
-  // Seasonal category (Nov 2026). No illustration yet — see NO_ART.
+  // Seasonal category (Nov 2026).
   weihnachten: TreePine,
 };
 
-// Slugs that have the full art set in public/categories/<slug>/. A category
-// without it falls back to CategoryTile's large Lucide glyph on its tint
-// instead of pointing at image files that don't exist.
-const NO_ART = new Set(['weihnachten']);
+// Slugs registered here without an icon.svg in public/categories/<slug>/. They
+// fall back to CategoryTile's large Lucide glyph on the category tint instead
+// of pointing at a file that doesn't exist. Add a new category here until its
+// illustration is drawn.
+const NO_ART = new Set<string>([]);
 
 export const CATEGORY_SLUGS = Object.keys(ICONS);
 
@@ -72,8 +73,6 @@ export function categoryVisual(slug: string): CategoryVisual | null {
   const dir = `/categories/${slug}`;
   return {
     icon,
-    background: `${dir}/background.png`,
-    projector: `${dir}/projector.png`,
     iconArt: `${dir}/icon.svg`,
   };
 }

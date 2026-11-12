@@ -9,13 +9,14 @@ import type { AssembledQuiz } from '@/types/quiz';
 // on another machine, so background images need an absolute URL.
 const BASE_URL = 'https://pubquizplanner.com';
 
-// The brand's "?" roundel (wordmark motif) as an inline SVG — no emoji, no
-// external asset, works offline.
-function roundelSvg(size: number): string {
-  return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" style="color: var(--slide-accent);" aria-hidden="true">
-    <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2.5"/>
-    <circle cx="24" cy="24" r="16.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="0.5 3.4" stroke-linecap="round"/>
-    <text x="24" y="33" font-family="Archivo, sans-serif" font-weight="800" font-size="24" text-anchor="middle" fill="currentColor">?</text>
+// The brand mark (a ticked answer box, tilted like a sticker) as an inline
+// SVG — no emoji, no external asset, works offline. Yellow box, ink tick.
+function brandMarkSvg(size: number): string {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" aria-hidden="true">
+    <g transform="rotate(-6 24 24)">
+      <rect x="3" y="3" width="42" height="42" rx="12" fill="var(--slide-accent-light)"/>
+      <path d="M35 16 20.5 32.5 13 25" fill="none" stroke="var(--slide-bg)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
   </svg>`;
 }
 
@@ -43,7 +44,7 @@ export function buildPresentation(
     ? `${s.keysHint} &nbsp;·&nbsp; ${s.timerKeyHint}`
     : s.keysHint;
 
-  // The warm quiz-card head row: number chip + category pill + progress.
+  // The quiz-card head row: number chip + category pill + progress.
   const cardHead = (
     num: number,
     total: number,
@@ -59,7 +60,7 @@ export function buildPresentation(
   // Title slide
   slides.push(buildSlide('title', `
     <div class="title-slide">
-      <div class="title-icon">${roundelSvg(96)}</div>
+      <div class="title-icon">${brandMarkSvg(96)}</div>
       <h1>${escapeHtml(config.title)}</h1>
       ${config.date ? `<p class="date">${escapeHtml(config.date)}</p>` : ''}
       ${config.venue ? `<p class="venue">${escapeHtml(config.venue)}</p>` : ''}
@@ -85,8 +86,8 @@ export function buildPresentation(
       </div>
     `, catClass));
 
-    // Question slides — quiz-card on the night backdrop, art bleeding in from
-    // the right. No answer here: answers come later as their own round.
+    // Question slides — quiz-card on the navy backdrop, the category art
+    // standing to its right. No answer here: answers come later as their own round.
     round.questions.forEach((q, qIndex) => {
       const isEstimation = q.question_type === 'estimation';
       const estimationBadge = isEstimation
@@ -149,7 +150,7 @@ export function buildPresentation(
   // Final slide
   slides.push(buildSlide('final', `
     <div class="final-slide">
-      <div class="title-icon">${roundelSvg(72)}</div>
+      <div class="title-icon">${brandMarkSvg(72)}</div>
       <h2>${s.finalTitle}</h2>
       <p>${s.finalSub}</p>
       <p class="branding">${s.madeWith}</p>
@@ -189,9 +190,9 @@ body {
 
 .slide.active { display: flex; }
 
-/* Warm amber glow for the "plain night" slides (title, halftime, final). */
+/* Soft yellow glow for the plain slides (title, halftime, final). */
 .slide.glow {
-  background-image: radial-gradient(70% 90% at 78% 6%, rgba(217, 110, 42, 0.26), transparent 58%);
+  background-image: radial-gradient(70% 90% at 78% 6%, rgba(255, 207, 74, 0.17), transparent 58%);
 }
 
 /* Category background artwork (see src/lib/category-backgrounds.ts) */
@@ -203,7 +204,7 @@ h1, h2 {
   letter-spacing: -0.02em;
 }
 
-/* ---------- The warm quiz-card (question & answer slides) ---------- */
+/* ---------- The quiz-card (question & answer slides) ---------- */
 .slide.question, .slide.answer {
   justify-content: flex-start;
   padding: 0 0 0 5.5vw;
@@ -213,7 +214,7 @@ h1, h2 {
   background: var(--card-bg);
   border-radius: 22px;
   padding: clamp(28px, 4vw, 56px) clamp(26px, 3.6vw, 52px);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45);
+  box-shadow: clamp(8px, 1vw, 14px) clamp(8px, 1vw, 14px) 0 var(--chip-bg);
   transform: rotate(-1.1deg);
 }
 .card-head {
@@ -226,7 +227,7 @@ h1, h2 {
   font-family: var(--slide-font-mono);
   font-weight: 600;
   font-size: clamp(1rem, 1.8vw, 1.5rem);
-  color: #fff;
+  color: var(--card-ink);
   background: var(--chip-bg);
   width: clamp(44px, 4.6vw, 64px);
   height: clamp(44px, 4.6vw, 64px);
@@ -463,7 +464,7 @@ h1, h2 {
   font-family: var(--slide-font-mono);
   font-size: 14px;
   color: var(--slide-muted);
-  background: rgba(22, 17, 13, 0.6);
+  background: rgba(20, 27, 46, 0.6);
   border: 1px solid var(--slide-panel-border);
   border-radius: 8px;
   padding: 6px 10px;
@@ -699,26 +700,26 @@ function categoryClass(slug: string): string {
   return `cat-${slug}`;
 }
 
-// Emits the CSS rules per registered category artwork. Two treatments:
-// - Round intros are full-art dividers: the image owns the slide, a bottom
-//   vignette keeps the low-left category lockup legible.
-// - Question/answer slides let the art bleed in from the right under a
-//   left-heavy veil, keeping the card side deep and the subject visible
-//   (the art's subject sits right-of-center by composition rule).
+// Emits the CSS rules per registered category artwork. The art is the square,
+// transparent subject illustration; each rule stacks three layers on the navy
+// slide: a veil (top), the illustration, and a soft glow behind it.
+// - Round intros: big subject right-of-center, a bottom veil keeps the
+//   low-left category lockup legible.
+// - Question/answer slides: the subject stands to the right of the quiz-card.
 function renderCategoryBackgroundCss(): string {
   return Object.entries(CATEGORY_BACKGROUNDS)
     .filter((entry): entry is [string, string] => Boolean(entry[1]))
     .map(
       ([slug, path]) => `.slide.round-title.cat-${slug} {
-  background-image: linear-gradient(180deg, rgba(22,17,13,0.12) 30%, rgba(22,17,13,0.82) 100%), url('${BASE_URL}${path}');
-  background-size: cover;
-  background-position: center;
+  background-image: linear-gradient(180deg, rgba(20,27,46,0) 62%, rgba(20,27,46,0.55) 100%), url('${BASE_URL}${path}'), radial-gradient(circle at 76% 40%, rgba(255,207,74,0.22), transparent 40%);
+  background-size: cover, auto 70%, cover;
+  background-position: center, 92% 30%, center;
   background-repeat: no-repeat;
 }
 .slide.question.cat-${slug}, .slide.answer.cat-${slug} {
-  background-image: linear-gradient(90deg, rgba(22,17,13,0.92) 42%, rgba(22,17,13,0.38) 72%, rgba(22,17,13,0.08) 100%), url('${BASE_URL}${path}');
-  background-size: cover;
-  background-position: right center;
+  background-image: url('${BASE_URL}${path}'), radial-gradient(circle at 82% 56%, rgba(255,207,74,0.18), transparent 34%);
+  background-size: auto 58%, cover;
+  background-position: 96% 60%, center;
   background-repeat: no-repeat;
 }`
     )

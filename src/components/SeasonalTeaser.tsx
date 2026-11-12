@@ -1,4 +1,4 @@
-import { ArrowRight, TreePine } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Button from '@/components/ds/Button';
 import { SOURCE_LOCALE } from '@/config/locales';
 import { categoryPath } from '@/config/slugs';
@@ -54,9 +54,12 @@ export default function SeasonalTeaser({
       />
       <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex items-start gap-4">
-          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-ds-lg bg-[var(--yellow)] text-[var(--warm-900)]">
-            <TreePine className="h-6 w-6" aria-hidden />
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/categories/${SLUG}/icon.svg`}
+            alt=""
+            className="-my-2 h-[84px] w-[84px] shrink-0 -rotate-3 object-contain"
+          />
           <div>
             <h2 className="mb-1 font-display text-2xl font-extrabold tracking-[-0.02em] text-white">
               Weihnachtsquiz {new Date().getFullYear()}

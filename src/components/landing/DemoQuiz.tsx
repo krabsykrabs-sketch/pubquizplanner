@@ -1,7 +1,7 @@
 'use client';
 
+/* eslint-disable @next/next/no-img-element */
 import { Clapperboard, Play, X } from 'lucide-react';
-import Image from 'next/image';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Badge from '@/components/ds/Badge';
@@ -27,33 +27,31 @@ function SlidePreviewCard({ onOpen, label }: { onOpen: () => void; label: string
       }}
       className="group relative mx-auto mt-10 max-w-[880px] cursor-pointer overflow-hidden rounded-ds-xl border-2 border-[var(--edge)] shadow-hard-lg transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]"
     >
-      <div data-theme="dark" className="relative aspect-video overflow-hidden bg-[#16110D]">
-        <Image
-          src="/categories/kunst-kultur/projector.png"
-          alt=""
-          fill
-          sizes="880px"
-          className="object-cover object-right"
-        />
+      <div data-theme="dark" className="relative aspect-video overflow-hidden bg-[var(--night-900)]">
         <div
           aria-hidden
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(90deg, rgba(22,17,13,0.92) 42%, rgba(22,17,13,0.30) 72%, rgba(22,17,13,0) 100%)',
+              'radial-gradient(circle at 82% 56%, rgba(255,207,74,0.18), transparent 34%)',
           }}
+        />
+        <img
+          src="/categories/kunst-kultur/icon.svg"
+          alt=""
+          className="absolute right-[4%] top-[21%] aspect-square h-[58%] w-auto"
         />
         {/* quiz-card: a clean QUESTION slide (no answer — answers come later, as their own round) */}
         <div
-          className="absolute left-[5.5%] top-1/2 w-[55%] rounded-[22px] bg-[var(--warm-50)] px-[6%] pb-[6%] pt-[6.5%]"
+          className="absolute left-[5.5%] top-1/2 w-[55%] rounded-[22px] bg-[#FFFDF7] px-[6%] pb-[6%] pt-[6.5%]"
           style={{
             transform: 'translateY(-50%) rotate(-1.1deg)',
-            boxShadow: '0 22px 50px rgba(0,0,0,0.45)',
+            boxShadow: '10px 10px 0 var(--amber-500)',
           }}
         >
           <div className="mb-[5.5%] flex items-center gap-[11px]">
             <span
-              className="flex items-center justify-center rounded-[14px] bg-[var(--amber-500)] font-mono font-semibold text-white"
+              className="flex items-center justify-center rounded-[14px] bg-[var(--amber-500)] font-mono font-semibold text-[var(--warm-900)]"
               style={{
                 width: 'clamp(40px, 4.6vw, 60px)',
                 height: 'clamp(40px, 4.6vw, 60px)',
