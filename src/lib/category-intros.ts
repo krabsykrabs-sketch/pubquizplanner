@@ -33,6 +33,8 @@ export const CATEGORY_INTROS: Partial<Record<Locale, Record<string, string>>> = 
       'Etymologie, Redewendungen und sprachliche Kuriositäten — diese Sprach-Quizfragen fordern die Wortakrobaten in deinem Pub Quiz heraus.',
     'logik-mathe':
       'Zahlen, Rätsel und logisches Denken — diese Logik & Mathe Quizfragen sind die ultimative Herausforderung für jedes Kneipenquiz.',
+    weihnachten:
+      'Bräuche aus aller Welt, Weihnachtsfilme, Lieder und Leckereien — diese Weihnachts-Quizfragen mit Antworten sind ideal für die Weihnachtsfeier im Büro, in der Schule oder mit der Familie. Einfach ausdrucken oder als Präsentation an die Wand werfen.',
   },
   fr: {
     wissenschaft:

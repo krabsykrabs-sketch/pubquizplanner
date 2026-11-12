@@ -1,0 +1,571 @@
+[
+  {
+    "text_de": "Bei welcher Fast-Food-Kette bestellen in Japan viele Familien ihr Weihnachtsessen – oft schon Wochen im Voraus?",
+    "answer_de": "KFC",
+    "fun_fact_de": "Auslöser war eine Werbekampagne in den 1970er-Jahren. Weil Weihnachten in Japan kein traditionelles Familienfest war, füllte das Brathähnchen-Menü einfach die Lücke.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "japan",
+      "essen"
+    ]
+  },
+  {
+    "text_de": "Was hängen viele Familien in der Ukraine als Glücksbringer an den Weihnachtsbaum, obwohl man es sonst eher aus dem Haus fegt?",
+    "answer_de": "Ein Spinnennetz",
+    "fun_fact_de": "Der Legende nach webten Spinnen den kahlen Baum einer armen Witwe ein – und am Weihnachtsmorgen verwandelte das Sonnenlicht die Fäden in Silber und Gold.",
+    "difficulty": 3,
+    "tags": [
+      "traditionen-weltweit",
+      "ukraine",
+      "christbaumschmuck"
+    ]
+  },
+  {
+    "text_de": "Was tut der „Caganer“, eine traditionelle Figur in katalanischen Weihnachtskrippen?",
+    "answer_de": "Er verrichtet seine Notdurft",
+    "fun_fact_de": "Der Caganer hockt meist versteckt in einer Ecke der Krippe. Heute gibt es ihn auch als Fußballstar, Politiker oder Royal – als besondere Ehre gilt das nicht unbedingt.",
+    "difficulty": 3,
+    "tags": [
+      "traditionen-weltweit",
+      "spanien",
+      "krippe"
+    ]
+  },
+  {
+    "text_de": "Wen frisst die isländische Weihnachtskatze der Sage nach?",
+    "answer_de": "Alle ohne neue Kleidung",
+    "fun_fact_de": "Die Sage hatte einen praktischen Zweck: Wer seine Arbeit an der Wolle vor dem Fest erledigt hatte, bekam als Lohn neue Kleidung – und war vor der Katze sicher.",
+    "difficulty": 3,
+    "tags": [
+      "traditionen-weltweit",
+      "island",
+      "sagen"
+    ]
+  },
+  {
+    "text_de": "Was verschenken Isländer an Heiligabend so zahlreich, dass man von einer regelrechten „Flut“ spricht?",
+    "answer_de": "Bücher",
+    "fun_fact_de": "Die „Jólabókaflóð“ (Weihnachtsbücherflut) prägt den isländischen Buchmarkt: Ein großer Teil der Neuerscheinungen kommt im Herbst heraus, damit sie unter dem Baum landen.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "island",
+      "geschenke"
+    ]
+  },
+  {
+    "text_de": "In welchem asiatischen Land beginnt die Weihnachtszeit schon im September?",
+    "answer_de": "Philippinen",
+    "fun_fact_de": "Sobald die „Ber-Monate“ anfangen – September, Oktober, November, Dezember –, laufen dort Weihnachtslieder in Einkaufszentren und Radios.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "philippinen"
+    ]
+  },
+  {
+    "text_de": "Wer bringt in Italien den Kindern traditionell in der Nacht zum 6. Januar Geschenke – den braven Süßes, den unartigen Kohle?",
+    "answer_de": "Die Befana",
+    "fun_fact_de": "Die Befana fliegt auf einem Besen durch den Kamin. Die „Kohle“ für unartige Kinder ist heute meist schwarz gefärbter Zucker.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "italien",
+      "gabenbringer"
+    ]
+  },
+  {
+    "text_de": "Was bleibt in Polen beim Abendessen an Heiligabend traditionell frei?",
+    "answer_de": "Ein Platz am Tisch",
+    "fun_fact_de": "Das zusätzliche Gedeck ist für einen unerwarteten Gast oder einen Wanderer gedacht – niemand soll an diesem Abend allein bleiben.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "polen",
+      "heiligabend"
+    ]
+  },
+  {
+    "text_de": "Wo schwimmt in vielen tschechischen Haushalten das Weihnachtsessen, bevor es auf den Tisch kommt?",
+    "answer_de": "In der Badewanne",
+    "fun_fact_de": "Der Weihnachtskarpfen wird lebend gekauft und bis zum Fest in der Wanne gehalten. Manche Familien bringen es danach nicht übers Herz und lassen ihn im Fluss frei.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "tschechien",
+      "karpfen"
+    ]
+  },
+  {
+    "text_de": "Welche Comicfigur schauen in Schweden jedes Jahr an Heiligabend um 15 Uhr Millionen Menschen im Fernsehen?",
+    "answer_de": "Donald Duck",
+    "fun_fact_de": "Seit 1960 zeigt das schwedische Fernsehen an Heiligabend dieselbe Disney-Sendung mit Zeichentrick-Klassikern. Viele Familien richten ihren ganzen Tagesablauf danach aus.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "schweden",
+      "fernsehen"
+    ]
+  },
+  {
+    "text_de": "Was passiert auffallend oft mit dem riesigen Strohbock, der jedes Jahr im Advent in der schwedischen Stadt Gävle aufgestellt wird?",
+    "answer_de": "Er wird abgefackelt",
+    "fun_fact_de": "Seit 1966 steht der Julbock in Gävle – und schon im ersten Jahr brannte er ab. Trotz Wachleuten und Brandschutzmittel ist es seither immer wieder passiert.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "schweden"
+    ]
+  },
+  {
+    "text_de": "Wofür wurde Rudolph, das Rentier mit der roten Nase, 1939 ursprünglich erfunden?",
+    "answer_de": "Als Werbefigur für ein Kaufhaus",
+    "fun_fact_de": "Robert L. May schrieb die Geschichte für die US-Kaufhauskette Montgomery Ward, die sie als Heftchen an Kunden verschenkte. Zum Lied wurde Rudolph erst zehn Jahre später.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "usa",
+      "weihnachtsmann"
+    ]
+  },
+  {
+    "text_de": "Aus welchem Land stammte Thomas Nast, der in den USA lange vor Coca-Cola das Bild des rundlichen, bärtigen Weihnachtsmanns prägte?",
+    "answer_de": "Aus Deutschland",
+    "fun_fact_de": "Nast wurde 1840 in Landau in der Pfalz geboren und zeichnete den Weihnachtsmann jahrzehntelang für ein New Yorker Magazin. Coca-Cola hat ihn also nicht erfunden, sondern nur sehr erfolgreich vermarktet.",
+    "difficulty": 3,
+    "tags": [
+      "traditionen-weltweit",
+      "weihnachtsmann",
+      "dach"
+    ]
+  },
+  {
+    "text_de": "Wie viele Rentiere ziehen den Schlitten des Weihnachtsmanns – Rudolph nicht mitgezählt?",
+    "answer_de": "Acht",
+    "fun_fact_de": "Die Namen stammen aus einem amerikanischen Gedicht von 1823. Donner und Blitzen hießen dort noch „Dunder“ und „Blixem“ – Niederländisch für Donner und Blitz.",
+    "difficulty": 2,
+    "tags": [
+      "traditionen-weltweit",
+      "weihnachtsmann",
+      "schätzfrage"
+    ]
+  },
+  {
+    "text_de": "Welchen Christbaumschmuck halten viele Amerikaner für einen alten deutschen Brauch, obwohl ihn in Deutschland kaum jemand kennt?",
+    "answer_de": "Die Weihnachtsgurke",
+    "fun_fact_de": "Die gläserne Gurke wird im Baum versteckt; wer sie am Weihnachtsmorgen zuerst findet, bekommt ein Extrageschenk. Woher die Legende vom „German Christmas Pickle“ stammt, ist ungeklärt.",
+    "difficulty": 3,
+    "tags": [
+      "dach",
+      "christbaumschmuck",
+      "usa"
+    ]
+  },
+  {
+    "text_de": "Warum hatte der erste Adventskranz, den Johann Hinrich Wichern 1839 in Hamburg aufhängte, viel mehr als vier Kerzen?",
+    "answer_de": "Eine Kerze für jeden Tag",
+    "fun_fact_de": "Wichern wollte den Kindern in seinem Hamburger Kinderheim zeigen, wie lange es noch bis Weihnachten ist. Sein Kranz war ein altes Wagenrad – und die Zahl der Kerzen änderte sich je nach Länge der Adventszeit.",
+    "difficulty": 2,
+    "tags": [
+      "dach",
+      "advent",
+      "adventskranz"
+    ]
+  },
+  {
+    "text_de": "Der Reformator Martin Luther wollte die Heiligenverehrung zurückdrängen. Welchen Gabenbringer machte er deshalb anstelle des Nikolaus populär?",
+    "answer_de": "Das Christkind",
+    "fun_fact_de": "Ironie der Geschichte: Heute bringt das Christkind vor allem im katholisch geprägten Süden und Westen die Geschenke, während im evangelischen Norden und Osten eher der Weihnachtsmann kommt.",
+    "difficulty": 3,
+    "tags": [
+      "dach",
+      "christkind",
+      "gabenbringer"
+    ]
+  },
+  {
+    "text_de": "Nach welchem Gebäck ist der Dresdner Striezelmarkt benannt, einer der ältesten Weihnachtsmärkte Deutschlands?",
+    "answer_de": "Nach dem Stollen",
+    "fun_fact_de": "„Striezel“ ist ein alter Name für den Stollen. Der Markt wurde schon 1434 erstmals abgehalten.",
+    "difficulty": 2,
+    "tags": [
+      "dach",
+      "weihnachtsmarkt",
+      "stollen"
+    ]
+  },
+  {
+    "text_de": "Welche zottelige Gestalt mit Hörnern und Rute begleitet in Österreich und Bayern den Nikolaus?",
+    "answer_de": "Der Krampus",
+    "fun_fact_de": "Bei Krampusläufen rund um den 5. Dezember ziehen Gruppen mit kunstvoll geschnitzten Holzmasken und lauten Glocken durch die Orte.",
+    "difficulty": 1,
+    "tags": [
+      "dach",
+      "nikolaus",
+      "brauchtum"
+    ]
+  },
+  {
+    "text_de": "Welcher Ort in Oberösterreich hat ein Weihnachtspostamt, dessen Sonderstempel jedes Jahr Briefe aus aller Welt erhalten?",
+    "answer_de": "Christkindl",
+    "fun_fact_de": "Das Postamt im Steyrer Ortsteil Christkindl stempelt seit 1950 Weihnachtspost. Jedes Jahr gehen dort mehr als eine Million Sendungen durch.",
+    "difficulty": 3,
+    "tags": [
+      "dach",
+      "österreich",
+      "post"
+    ]
+  },
+  {
+    "text_de": "Was soll an Weihnachten mit Kirschzweigen passieren, die man am 4. Dezember ins Wasser stellt?",
+    "answer_de": "Sie blühen",
+    "fun_fact_de": "Der 4. Dezember ist der Tag der heiligen Barbara, deshalb heißen sie Barbarazweige. Blühen sie pünktlich zum Fest, soll das Glück im neuen Jahr bringen.",
+    "difficulty": 2,
+    "tags": [
+      "dach",
+      "brauchtum",
+      "advent"
+    ]
+  },
+  {
+    "text_de": "Welche Baumart steht in deutschen Wohnzimmern mit Abstand am häufigsten als Christbaum?",
+    "answer_de": "Die Nordmanntanne",
+    "fun_fact_de": "Mehr als drei von vier verkauften Weihnachtsbäumen sind Nordmanntannen. Ursprünglich stammt die Art aus dem Kaukasus, benannt ist sie nach dem finnischen Naturforscher Alexander von Nordmann.",
+    "difficulty": 1,
+    "tags": [
+      "dach",
+      "weihnachtsbaum"
+    ]
+  },
+  {
+    "text_de": "Wie heißt der Nikolaus in der Schweiz?",
+    "answer_de": "Samichlaus",
+    "fun_fact_de": "Begleitet wird der Samichlaus vom Schmutzli, einer finsteren Gestalt in dunkler Kutte – das Schweizer Gegenstück zu Knecht Ruprecht.",
+    "difficulty": 1,
+    "tags": [
+      "dach",
+      "schweiz",
+      "nikolaus"
+    ]
+  },
+  {
+    "text_de": "Welche weihnachtliche Figur verbirgt sich hinter dem angeblichen DDR-Begriff „Jahresendflügelfigur“?",
+    "answer_de": "Der Engel",
+    "fun_fact_de": "Dass der Begriff je offiziell verwendet wurde, ist nicht belegt – vermutlich war er von Anfang an eine Parodie auf das sperrige DDR-Amtsdeutsch.",
+    "difficulty": 1,
+    "tags": [
+      "dach",
+      "ddr",
+      "sprache"
+    ]
+  },
+  {
+    "text_de": "Welcher Satz von Opa Hoppenstedt aus Loriots Sketch „Weihnachten bei Hoppenstedts“ ist bis heute ein geflügeltes Wort?",
+    "answer_de": "„Früher war mehr Lametta“",
+    "fun_fact_de": "Der Sketch lief erstmals 1978 und gehört bis heute zum festen Weihnachtsprogramm im Fernsehen.",
+    "difficulty": 1,
+    "tags": [
+      "filme-serien",
+      "dach",
+      "loriot"
+    ]
+  },
+  {
+    "text_de": "In welchem sächsischen Schloss wurde der Märchenfilm „Drei Haselnüsse für Aschenbrödel“ gedreht?",
+    "answer_de": "Schloss Moritzburg",
+    "fun_fact_de": "Der Film war eine Gemeinschaftsproduktion der Tschechoslowakei und der DDR von 1973. Im Winter zeigt das Schloss Moritzburg regelmäßig eine Ausstellung zum Film.",
+    "difficulty": 2,
+    "tags": [
+      "filme-serien",
+      "dach",
+      "märchen"
+    ]
+  },
+  {
+    "text_de": "Welcher spätere US-Präsident hat einen kurzen Gastauftritt in „Kevin – Allein in New York“?",
+    "answer_de": "Donald Trump",
+    "fun_fact_de": "Trump gehörte damals das Plaza Hotel, in dem Kevin absteigt – und er erklärt dem Jungen im Film den Weg zur Lobby.",
+    "difficulty": 1,
+    "tags": [
+      "filme-serien",
+      "kevin"
+    ]
+  },
+  {
+    "text_de": "Welche Nationalität haben Hans Gruber und die meisten seiner Komplizen im Original von „Stirb langsam“, als sie an Heiligabend ein Hochhaus in Los Angeles besetzen?",
+    "answer_de": "Deutsche",
+    "fun_fact_de": "In der deutschen Synchronfassung bekamen die Gangster englische Namen und eine andere Herkunft – aus Karl wurde zum Beispiel Charlie.",
+    "difficulty": 2,
+    "tags": [
+      "filme-serien",
+      "stirb-langsam",
+      "dach"
+    ]
+  },
+  {
+    "text_de": "Welcher Schauspieler spielt den griesgrämigen Großvater im TV-Klassiker „Der kleine Lord“ von 1980?",
+    "answer_de": "Alec Guinness",
+    "fun_fact_de": "Nur drei Jahre zuvor war Guinness als Obi-Wan Kenobi in „Krieg der Sterne“ zu sehen. „Der kleine Lord“ läuft im deutschen Fernsehen seit Jahrzehnten zur Weihnachtszeit.",
+    "difficulty": 3,
+    "tags": [
+      "filme-serien",
+      "der-kleine-lord"
+    ]
+  },
+  {
+    "text_de": "Was bekommt der Engel Clarence im Film „Ist das Leben nicht schön?“, wenn eine Glocke läutet?",
+    "answer_de": "Seine Flügel",
+    "fun_fact_de": "Der Film von 1946 floppte im Kino und wurde erst durch häufige Fernsehausstrahlungen zu einem der beliebtesten Weihnachtsfilme überhaupt.",
+    "difficulty": 2,
+    "tags": [
+      "filme-serien",
+      "klassiker"
+    ]
+  },
+  {
+    "text_de": "Welcher Schauspieler spielte im Jahr 2000 den Grinch in der Realverfilmung „Der Grinch“?",
+    "answer_de": "Jim Carrey",
+    "fun_fact_de": "Die stundenlange Maske setzte Carrey so zu, dass die Produktion einen Experten holte, der sonst CIA-Agenten beibrachte, Folter zu ertragen.",
+    "difficulty": 1,
+    "tags": [
+      "filme-serien",
+      "grinch"
+    ]
+  },
+  {
+    "text_de": "Welcher Oscar-Preisträger spielte den geizigen Ebenezer Scrooge in „Die Muppets Weihnachtsgeschichte“?",
+    "answer_de": "Michael Caine",
+    "fun_fact_de": "Caine spielte die Rolle todernst, als stünde er neben echten Schauspielern statt neben Kermit und Miss Piggy – genau das macht den Film so komisch.",
+    "difficulty": 3,
+    "tags": [
+      "filme-serien",
+      "muppets",
+      "dickens"
+    ]
+  },
+  {
+    "text_de": "Welcher Schauspieler übernahm im Animationsfilm „Der Polarexpress“ gleich mehrere Rollen, darunter den Schaffner und den Weihnachtsmann?",
+    "answer_de": "Tom Hanks",
+    "fun_fact_de": "Der Film von 2004 wurde komplett im Motion-Capture-Verfahren gedreht: Hanks' Bewegungen und Mimik wurden aufgezeichnet und auf die animierten Figuren übertragen.",
+    "difficulty": 2,
+    "tags": [
+      "filme-serien",
+      "animation"
+    ]
+  },
+  {
+    "text_de": "Welches Tier bekommen die Simpsons in ihrer allerersten Folge, einem Weihnachtsspecial?",
+    "answer_de": "Einen Hund",
+    "fun_fact_de": "Der Windhund heißt im Original „Santa's Little Helper“ – auf Deutsch passend „Knecht Ruprecht“.",
+    "difficulty": 2,
+    "tags": [
+      "filme-serien",
+      "simpsons"
+    ]
+  },
+  {
+    "text_de": "Wie viele Jahre musste „Last Christmas“ von Wham! warten, bis es erstmals Platz eins der britischen Charts erreichte?",
+    "answer_de": "36 Jahre",
+    "fun_fact_de": "1984 scheiterte der Song ausgerechnet an „Do They Know It's Christmas?“ von Band Aid – auf dem George Michael selbst mitsang. Erst am Neujahrstag 2021 stand „Last Christmas“ ganz oben.",
+    "difficulty": 3,
+    "tags": [
+      "weihnachtsmusik",
+      "wham",
+      "schätzfrage"
+    ]
+  },
+  {
+    "text_de": "Wie heißt das Spiel, bei dem man vom 1. bis 24. Dezember einen bestimmten Weihnachtssong nicht hören darf?",
+    "answer_de": "Whamageddon",
+    "fun_fact_de": "Wer „Last Christmas“ hört, ist raus – aber nur das Original von Wham! zählt. Coverversionen und Remixe sind erlaubt.",
+    "difficulty": 2,
+    "tags": [
+      "weihnachtsmusik",
+      "wham"
+    ]
+  },
+  {
+    "text_de": "Wie lange dauerte es, bis Mariah Careys „All I Want for Christmas Is You“ zum ersten Mal Platz eins der US-Charts erreichte?",
+    "answer_de": "25 Jahre",
+    "fun_fact_de": "Der Song erschien 1994 und stand im Dezember 2019 erstmals an der Spitze der Billboard-Charts. Seitdem schafft er das fast jedes Jahr wieder.",
+    "difficulty": 3,
+    "tags": [
+      "weihnachtsmusik",
+      "mariah-carey",
+      "schätzfrage"
+    ]
+  },
+  {
+    "text_de": "Welches Weihnachtslied erklang 1965 als erstes Lied im Weltraum?",
+    "answer_de": "Jingle Bells",
+    "fun_fact_de": "Die Gemini-6-Astronauten meldeten scherzhaft ein Flugobjekt, gesteuert von einem Piloten im roten Anzug – und spielten dann auf einer eingeschmuggelten Mundharmonika und Glöckchen „Jingle Bells“.",
+    "difficulty": 2,
+    "tags": [
+      "weihnachtsmusik",
+      "raumfahrt"
+    ]
+  },
+  {
+    "text_de": "Worum ging es in der Fassung von „O Tannenbaum“ aus dem Jahr 1819 – bevor das Lied zum Weihnachtslied wurde?",
+    "answer_de": "Um eine untreue Geliebte",
+    "fun_fact_de": "August Zarnack stellte die immergrüne, „treue“ Tanne einer treulosen Liebe gegenüber. Erst der Leipziger Lehrer Ernst Anschütz machte 1824 daraus ein Weihnachtslied.",
+    "difficulty": 3,
+    "tags": [
+      "weihnachtsmusik",
+      "dach",
+      "weihnachtslieder"
+    ]
+  },
+  {
+    "text_de": "Welcher Song gilt als meistverkaufte Single aller Zeiten?",
+    "answer_de": "White Christmas",
+    "fun_fact_de": "Bing Crosbys Aufnahme verkaufte sich nach Schätzungen rund 50 Millionen Mal. Geschrieben hat das Lied Irving Berlin.",
+    "difficulty": 2,
+    "tags": [
+      "weihnachtsmusik",
+      "rekorde"
+    ]
+  },
+  {
+    "text_de": "Wer schrieb das Kinderlied „In der Weihnachtsbäckerei“?",
+    "answer_de": "Rolf Zuckowski",
+    "fun_fact_de": "Das Lied gehört zu den meistgesungenen modernen Weihnachtsliedern im deutschsprachigen Raum – in Kitas und Grundschulen ist es kaum wegzudenken.",
+    "difficulty": 1,
+    "tags": [
+      "weihnachtsmusik",
+      "dach",
+      "kinderlieder"
+    ]
+  },
+  {
+    "text_de": "In welcher Lage soll Chris Rea die Idee zu „Driving Home for Christmas“ gekommen sein?",
+    "answer_de": "Im Stau",
+    "fun_fact_de": "Seine Frau hatte ihn mit ihrem Mini in London abgeholt. Auf dem langen Heimweg nach Middlesbrough steckten sie fest, und Rea sah sich die genervten Fahrer in den Nachbarautos an.",
+    "difficulty": 2,
+    "tags": [
+      "weihnachtsmusik"
+    ]
+  },
+  {
+    "text_de": "Auf der Erzählung welches deutschen Schriftstellers beruht Tschaikowskys Ballett „Der Nussknacker“?",
+    "answer_de": "E. T. A. Hoffmann",
+    "fun_fact_de": "Hoffmanns „Nussknacker und Mausekönig“ erschien 1816. Tschaikowsky nutzte allerdings eine entschärfte französische Fassung von Alexandre Dumas.",
+    "difficulty": 3,
+    "tags": [
+      "weihnachtsmusik",
+      "dach",
+      "ballett"
+    ]
+  },
+  {
+    "text_de": "Was kommt laut Umfragen in Deutschland an Heiligabend am häufigsten auf den Tisch?",
+    "answer_de": "Kartoffelsalat mit Würstchen",
+    "fun_fact_de": "Gans und Braten gibt es meist erst an den Feiertagen. Am 24. muss es schnell gehen – deshalb ist das schlichte Gericht seit Jahren Spitzenreiter, besonders in Ostdeutschland.",
+    "difficulty": 1,
+    "tags": [
+      "essen-trinken",
+      "dach",
+      "heiligabend"
+    ]
+  },
+  {
+    "text_de": "Was erlaubte der „Butterbrief“, den die sächsischen Herrscher Ende des 15. Jahrhunderts vom Papst erhielten?",
+    "answer_de": "Butter im Stollen",
+    "fun_fact_de": "Die Adventszeit war damals Fastenzeit, Butter war verboten – der Stollen bestand nur aus Mehl, Hefe, Öl und Wasser. Gegen eine Abgabe an die Kirche durfte er endlich gut schmecken.",
+    "difficulty": 3,
+    "tags": [
+      "essen-trinken",
+      "dach",
+      "stollen"
+    ]
+  },
+  {
+    "text_de": "Wo müssen „Nürnberger Lebkuchen“ hergestellt werden, damit sie so heißen dürfen?",
+    "answer_de": "In Nürnberg",
+    "fun_fact_de": "Der Name ist in der EU als geschützte geografische Angabe eingetragen. Ein Lebkuchen aus dem Nachbarort darf sich deshalb nicht „Nürnberger“ nennen.",
+    "difficulty": 1,
+    "tags": [
+      "essen-trinken",
+      "dach",
+      "lebkuchen"
+    ]
+  },
+  {
+    "text_de": "Was wird bei der Feuerzangenbowle angezündet?",
+    "answer_de": "Ein Zuckerhut",
+    "fun_fact_de": "Der rumgetränkte Zuckerhut liegt auf einer Zange über dem Glühwein und tropft brennend hinein. Berühmt wurde das Getränk durch den Film „Die Feuerzangenbowle“ mit Heinz Rühmann.",
+    "difficulty": 1,
+    "tags": [
+      "essen-trinken",
+      "dach",
+      "getränke"
+    ]
+  },
+  {
+    "text_de": "Aus welcher Stadt stammt der Panettone, der italienische Weihnachtskuchen?",
+    "answer_de": "Mailand",
+    "fun_fact_de": "Der hohe, luftige Hefekuchen braucht wegen seines Sauerteigs oft mehrere Tage, bis er fertig ist.",
+    "difficulty": 1,
+    "tags": [
+      "essen-trinken",
+      "italien",
+      "gebäck"
+    ]
+  },
+  {
+    "text_de": "Wie sieht die französische Weihnachtstorte „Bûche de Noël“ aus?",
+    "answer_de": "Wie ein Holzscheit",
+    "fun_fact_de": "Die Biskuitrolle mit Schokoladencreme erinnert an den alten Brauch, zu Weihnachten einen besonders großen Holzklotz im Kamin zu verbrennen.",
+    "difficulty": 2,
+    "tags": [
+      "essen-trinken",
+      "frankreich",
+      "gebäck"
+    ]
+  },
+  {
+    "text_de": "Welche norddeutsche Stadt ist weltberühmt für ihr Marzipan?",
+    "answer_de": "Lübeck",
+    "fun_fact_de": "„Lübecker Marzipan“ ist geschützt und muss besonders viel Mandelmasse enthalten. Die bekannteste Marke, Niederegger, gibt es seit 1806.",
+    "difficulty": 1,
+    "tags": [
+      "essen-trinken",
+      "dach",
+      "marzipan"
+    ]
+  },
+  {
+    "text_de": "Welche Zutat, die in fast jedem Plätzchenteig steckt, fehlt im klassischen Zimtstern-Teig?",
+    "answer_de": "Mehl",
+    "fun_fact_de": "Zimtsterne bestehen im Kern aus gemahlenen Mandeln oder Nüssen, Zucker, Eiweiß und Zimt. Die weiße Glasur ist steif geschlagenes Eiweiß mit Zucker.",
+    "difficulty": 2,
+    "tags": [
+      "essen-trinken",
+      "dach",
+      "plätzchen"
+    ]
+  },
+  {
+    "text_de": "An welches Symbol sollen Kipferl wie das Vanillekipferl der Legende nach erinnern – angeblich in Anlehnung an die Türkenbelagerung Wiens?",
+    "answer_de": "An den Halbmond",
+    "fun_fact_de": "Die Legende ist hübsch, aber historisch nicht belegt: Gebäck in Hörnchenform gab es schon lange vor den Belagerungen Wiens.",
+    "difficulty": 2,
+    "tags": [
+      "essen-trinken",
+      "dach",
+      "plätzchen"
+    ]
+  },
+  {
+    "text_de": "Welchen Fisch essen viele Portugiesen traditionell an Heiligabend?",
+    "answer_de": "Stockfisch",
+    "fun_fact_de": "Der getrocknete und gesalzene Kabeljau heißt in Portugal „Bacalhau“. Angeblich gibt es in Portugal mehr als 365 Rezepte dafür – eines für jeden Tag des Jahres.",
+    "difficulty": 2,
+    "tags": [
+      "essen-trinken",
+      "portugal",
+      "heiligabend"
+    ]
+  }
+]

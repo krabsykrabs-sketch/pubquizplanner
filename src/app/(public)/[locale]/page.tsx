@@ -14,6 +14,7 @@ import SampleQuestions from '@/components/landing/SampleQuestions';
 import HowItWorks from '@/components/landing/HowItWorks';
 import DemoQuiz from '@/components/landing/DemoQuiz';
 import CtaBand from '@/components/landing/CtaBand';
+import SeasonalTeaser from '@/components/SeasonalTeaser';
 import { isDemoStorageReady } from '@/lib/demo-deck';
 import type { CategoryChip, SampleQuestion } from '@/components/landing/types';
 
@@ -135,6 +136,10 @@ export default async function LandingPage({
   return (
     <main className="min-h-screen">
       <LandingHero locale={locale} categories={categories} />
+      {/* Renders only for de, in season, once the category is live */}
+      <div className="mx-auto max-w-container px-6 pt-10 empty:hidden">
+        <SeasonalTeaser locale={locale} categories={categories} />
+      </div>
       <DemoQuiz locale={locale} demoReady={demoReady} />
       <CategorySection
         locale={locale}

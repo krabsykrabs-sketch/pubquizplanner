@@ -5,6 +5,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { query } from '@/lib/db';
 import Button from '@/components/ds/Button';
 import CategoryTile from '@/components/ds/CategoryTile';
+import SeasonalTeaser from '@/components/SeasonalTeaser';
 import { categoryIcon, categoryVisual } from '@/lib/category-visuals';
 import {
   SOURCE_LOCALE,
@@ -196,6 +197,8 @@ export default async function FragenIndexPage({
         <p>{t('indexIntro2', { categoryCount: categories.length })}</p>
         <p>{t('indexIntro3')}</p>
       </div>
+
+      <SeasonalTeaser locale={locale} categories={categories} className="mb-8" />
 
       <p className="mb-6 font-mono text-sm text-[var(--text-muted)]">
         {t('countLine', { count: totalCount, categoryCount: categories.length })}

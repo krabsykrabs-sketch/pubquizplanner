@@ -12,6 +12,8 @@ export const CATEGORY_SEO_NAMES: Partial<Record<Locale, Record<string, string>>>
     'logik-mathe': 'Mathematik & Logik',
     // Display "Film & TV" — but searchers type "film und fernsehen".
     'film-tv': 'Film & Fernsehen',
+    // Builds "Weihnachts-Quizfragen" — matches "weihnachtsquiz fragen".
+    weihnachten: 'Weihnachts',
   },
 };
 
