@@ -7,7 +7,14 @@ interface Analytics {
     pageviews: number;
     sessions: number;
     generated: number;
-    downloads: { slides: number; answerSheet: number; cheatSheet: number; categoryPdf: number };
+    downloads: {
+      slides: number;
+      answerSheet: number;
+      cheatSheet: number;
+      categoryPdf: number;
+      /** Download hits without a visit id (direct URL hits, scrapers) — excluded above. */
+      unverified?: number;
+    };
   };
   daily: { day: string; pageviews: number; sessions: number; generated: number; downloads: number }[];
   topPages: { path: string; views: number; sessions: number }[];
@@ -71,6 +78,7 @@ function buildCsv(data: Analytics, rangeLabel: string): string {
       ['downloads_answer_sheet', d.answerSheet],
       ['downloads_cheat_sheet', d.cheatSheet],
       ['downloads_category_pdf', d.categoryPdf ?? 0],
+      ['downloads_unverified_no_session', d.unverified ?? 0],
     ]),
     csvBlock('Funnel (Sessions)', ['step', 'sessions'], [
       ['visit', data.funnel.sessions],
@@ -220,6 +228,13 @@ export default function AnalyticsPage() {
               <Kpi label="🗒️ Spickzettel" value={data.totals.downloads.cheatSheet} />
               <Kpi label="📚 Kategorie-PDF" value={data.totals.downloads.categoryPdf ?? 0} />
             </div>
+            {(data.totals.downloads.unverified ?? 0) > 0 && (
+              <p className="text-xs text-[var(--muted)]">
+                Gezählt werden nur Downloads aus einem Besuch auf der Seite. Zusätzlich{' '}
+                {data.totals.downloads.unverified} Abrufe ohne Besuchs-ID (Direktaufrufe der
+                PDF-Adresse, meist Bots) — nicht mitgezählt.
+              </p>
+            )}
           </Section>
 
           <div className="grid md:grid-cols-2 gap-8">

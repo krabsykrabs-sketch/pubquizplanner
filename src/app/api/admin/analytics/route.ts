@@ -27,15 +27,22 @@ export async function GET(request: NextRequest) {
         dl_sheet: string;
         dl_cheat: string;
         dl_category: string;
+        dl_unverified: string;
       }>(
+        // Downloads only count when they carry a visit (session) id, i.e. were
+        // clicked on the site. Session-less hits — direct requests to the PDF
+        // URL, mostly scrapers with browser user-agents (e.g. ~3,700 on
+        // 11+13 Sep 2026), plus some open-in-new-tab / search-result opens —
+        // are reported separately as "unverified", never mixed in.
         `SELECT
            count(*) FILTER (WHERE event_type = 'page_view') AS pageviews,
            count(DISTINCT session_id) FILTER (WHERE event_type = 'page_view' AND session_id IS NOT NULL) AS sessions,
            count(*) FILTER (WHERE event_type = 'quiz_generated') AS generated,
-           count(*) FILTER (WHERE event_type = 'download_slides') AS dl_slides,
-           count(*) FILTER (WHERE event_type = 'download_answer_sheet') AS dl_sheet,
-           count(*) FILTER (WHERE event_type = 'download_cheat_sheet') AS dl_cheat,
-           count(*) FILTER (WHERE event_type = 'download_category_pdf') AS dl_category
+           count(*) FILTER (WHERE event_type = 'download_slides' AND session_id IS NOT NULL) AS dl_slides,
+           count(*) FILTER (WHERE event_type = 'download_answer_sheet' AND session_id IS NOT NULL) AS dl_sheet,
+           count(*) FILTER (WHERE event_type = 'download_cheat_sheet' AND session_id IS NOT NULL) AS dl_cheat,
+           count(*) FILTER (WHERE event_type = 'download_category_pdf' AND session_id IS NOT NULL) AS dl_category,
+           count(*) FILTER (WHERE event_type LIKE 'download%' AND session_id IS NULL) AS dl_unverified
          FROM events WHERE created_at >= ${since}`
       ),
       query<{ day: string; pageviews: string; sessions: string; generated: string; downloads: string }>(
@@ -44,7 +51,7 @@ export async function GET(request: NextRequest) {
                   count(*) FILTER (WHERE event_type = 'page_view') AS pageviews,
                   count(DISTINCT session_id) FILTER (WHERE event_type = 'page_view' AND session_id IS NOT NULL) AS sessions,
                   count(*) FILTER (WHERE event_type = 'quiz_generated') AS generated,
-                  count(*) FILTER (WHERE event_type LIKE 'download%') AS downloads
+                  count(*) FILTER (WHERE event_type LIKE 'download%' AND session_id IS NOT NULL) AS downloads
            FROM events WHERE created_at >= ${since}
            GROUP BY 1
          )
@@ -165,6 +172,7 @@ export async function GET(request: NextRequest) {
         answerSheet: n(t?.dl_sheet),
         cheatSheet: n(t?.dl_cheat),
         categoryPdf: n(t?.dl_category),
+        unverified: n(t?.dl_unverified),
       },
     },
     daily: daily.map((d) => ({

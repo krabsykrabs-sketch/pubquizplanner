@@ -1,7 +1,18 @@
 import type { NextRequest } from 'next/server';
 import { getTokenFromCookies, verifyToken, NOTRACK_COOKIE } from './admin-auth';
 
-export const BOT_UA_RE = /bot|crawl|spider|slurp|preview|scrape|fetch|monitor|headless/i;
+// Crawlers announce themselves with these words. The second line catches
+// HTTP libraries and headless browsers that don't (Lightpanda, RootEvidence
+// were counted as humans on krabsy.com, Nov 2026). Scrapers that fake a full
+// browser UA still get through — downloads are additionally gated on a
+// visit id in the analytics (see api/admin/analytics).
+export const BOT_UA_RE = new RegExp(
+  [
+    'bot|crawl|spider|slurp|preview|scrape|fetch|monitor|headless',
+    'lightpanda|rootevidence|phantomjs|lighthouse|scrapy|python|curl|wget|go-http|java/|okhttp|axios|httpx|libwww|aiohttp',
+  ].join('|'),
+  'i'
+);
 
 /**
  * True when an analytics event from this request should be recorded:
