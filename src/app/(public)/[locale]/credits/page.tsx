@@ -95,8 +95,19 @@ export default function CreditsPage({
 
         {/* Note */}
         <p className="text-sm leading-relaxed text-[var(--text-body)]">
-          Alle Fragen wurden ins Deutsche übersetzt, redaktionell bearbeitet und auf Richtigkeit geprüft.
+          Fragen aus diesen Quellen wurden ins Deutsche übersetzt, redaktionell bearbeitet und auf Richtigkeit geprüft.
         </p>
+
+        {/* AI disclosure — required by e.g. Deutscher Bildungsserver; also
+            states the human-approval promise that is part of the brand. */}
+        <Card padding="lg" className="space-y-3">
+          <h2 className="font-display text-xl font-bold text-[var(--text-strong)]">Einsatz von KI</h2>
+          <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+            Ein Teil der Fragen wurde mit Unterstützung von KI entworfen oder übersetzt. Jede Frage
+            wird vor der Veröffentlichung von einem Menschen gelesen, auf Richtigkeit geprüft und
+            erst dann freigegeben.
+          </p>
+        </Card>
 
         {/* License summary */}
         <div className="rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--bg-sunken)] p-5 font-mono text-xs leading-relaxed text-[var(--text-muted)]">
