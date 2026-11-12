@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import Button from '@/components/ds/Button';
 import CategoryTile from '@/components/ds/CategoryTile';
 import Tag from '@/components/ds/Tag';
-import { categoryVisual } from '@/lib/category-visuals';
+import { categoryIcon, categoryLook, categoryVisual } from '@/lib/category-visuals';
 import type { Locale } from '@/config/locales';
 import { categoryPath, questionsIndexPath } from '@/config/slugs';
 import type { CategoryChip } from './types';
@@ -48,7 +48,7 @@ export default function CategorySection({
   return (
     <section
       id="kategorien"
-      className="border-y border-[var(--border-subtle)] bg-[var(--bg-sunken)] py-[60px] nav:py-[92px]"
+      className="border-y-2 border-[var(--edge)] bg-[var(--bg-sunken)] py-[60px] nav:py-[92px]"
     >
       <div className="mx-auto max-w-container px-6">
         <span className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[var(--accent-text)]">
@@ -62,7 +62,7 @@ export default function CategorySection({
                 questions: displayCount.toLocaleString(locale),
                 categoryCount: categories.length,
                 n: (chunks) => (
-                  <span className="font-mono text-[var(--accent-text)]">{chunks}</span>
+                  <span className="text-[var(--accent-text)]">{chunks}</span>
                 ),
               })}
             </h2>
@@ -82,18 +82,25 @@ export default function CategorySection({
               ))}
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 nav:grid-cols-3">
-              {featured.map((c) => (
-                <CategoryTile
-                  key={c.slug}
-                  title={c.name_de}
-                  subtitle={t('questionsCount', { count: c.question_count })}
-                  image={categoryVisual(c.slug)?.background}
-                  selected={c.slug === activeCat}
-                  href={categoryPath(locale as Locale, c.slug)}
-                  ratio="4 / 3"
-                />
-              ))}
+            <div className="grid grid-cols-2 gap-3.5 sm:gap-5 nav:grid-cols-3">
+              {featured.map((c) => {
+                const Icon = categoryIcon(c.slug);
+                const look = categoryLook(c.slug);
+                return (
+                  <CategoryTile
+                    key={c.slug}
+                    title={c.name_de}
+                    subtitle={t('questionsCount', { count: c.question_count })}
+                    image={categoryVisual(c.slug)?.iconArt}
+                    icon={<Icon className="h-20 w-20" strokeWidth={1.4} />}
+                    tint={look.tint}
+                    onDark={look.onDark}
+                    selected={c.slug === activeCat}
+                    href={categoryPath(locale as Locale, c.slug)}
+                    ratio="16 / 10"
+                  />
+                );
+              })}
             </div>
 
             <div className="mt-7">

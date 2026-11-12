@@ -37,7 +37,7 @@ export default function Dialog({
       onClick={onClose}
       className="fixed inset-0 z-[1000] flex items-center justify-center p-6"
       style={{
-        background: 'rgba(22, 17, 13, 0.55)',
+        background: 'rgba(20, 27, 46, 0.6)',
         backdropFilter: 'blur(3px)',
         animation: 'pqp-fade var(--dur) var(--ease-out)',
       }}

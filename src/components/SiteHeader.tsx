@@ -87,8 +87,8 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
 
   return (
     <header
-      className="sticky top-0 z-50 border-b border-[var(--border-subtle)]"
-      style={{ background: 'rgba(251,247,240,0.82)', backdropFilter: 'blur(12px)' }}
+      className="sticky top-0 z-50 border-b-2 border-[var(--edge)]"
+      style={{ background: 'rgba(251,246,234,0.88)', backdropFilter: 'blur(12px)' }}
     >
       <div className="mx-auto flex h-[70px] max-w-container items-center justify-between px-6">
         <Link href={`/${locale}`} className="no-underline">

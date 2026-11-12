@@ -1,18 +1,19 @@
-import Image from 'next/image';
+/* eslint-disable @next/next/no-img-element */
 import type { CSSProperties, ReactNode } from 'react';
 
 /**
- * CategoryTile — the brand's signature image frame.
- * A big, stylized image owns the tile; a consistent vignette + amber grade
- * + type lockup ties every category image (generic or specific) into one
- * family. Falls back to a warm gradient wash + icon watermark when no image
- * is set.
+ * CategoryTile — a game card for a quiz subject.
+ * The subject illustration (or, when there is no art, a large icon) sits on a
+ * tinted panel; name and count sit below on paper. Ink outline + hard shadow.
+ * Get `image`, `tint` and `onDark` from categoryVisual()/categoryLook().
  */
 export default function CategoryTile({
   title,
   subtitle,
   image,
   icon,
+  tint = 'var(--yellow-soft)',
+  onDark = false,
   ratio = '4 / 3',
   size = 'md',
   selected = false,
@@ -24,8 +25,15 @@ export default function CategoryTile({
 }: {
   title?: ReactNode;
   subtitle?: ReactNode;
+  /** Square illustration with a transparent ground (icon.svg). */
   image?: string | null;
+  /** Fallback glyph when there is no illustration. */
   icon?: ReactNode;
+  /** CSS background of the art panel. */
+  tint?: string;
+  /** The tint is dark: the fallback glyph turns light. */
+  onDark?: boolean;
+  /** Aspect ratio of the art panel. */
   ratio?: string;
   size?: 'sm' | 'md' | 'lg';
   selected?: boolean;
@@ -36,48 +44,46 @@ export default function CategoryTile({
   children?: ReactNode;
 }) {
   const interactive = !!onClick || !!href;
-  const titleSize = { sm: 'text-[1.125rem]', md: 'text-2xl', lg: 'text-[2rem]' }[size];
+  const titleSize = {
+    sm: 'text-[1.05rem]',
+    md: 'text-[1.05rem] sm:text-[1.25rem]',
+    lg: 'text-[1.5rem]',
+  }[size];
 
   const inner = (
     <>
-      {image ? (
-        <Image
-          src={image}
-          alt=""
-          fill
-          sizes="(max-width: 860px) 100vw, 400px"
-          className={`object-cover transition-transform duration-[340ms] [transition-timing-function:var(--ease-out)] ${
-            interactive ? 'group-hover:scale-[1.04]' : ''
-          }`}
-        />
-      ) : (
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(120% 120% at 30% 20%, var(--amber-500), var(--amber-700) 70%, var(--night-900))',
-          }}
-        />
-      )}
-      <div aria-hidden className="absolute inset-0" style={{ background: 'var(--image-grade)' }} />
-      <div aria-hidden className="absolute inset-0" style={{ background: 'var(--image-vignette)' }} />
-      {!image && icon && (
-        <div aria-hidden className="absolute right-[18px] top-4 text-white/55">
-          {icon}
-        </div>
-      )}
-      <div className="absolute inset-x-0 bottom-0 flex flex-col gap-[3px] px-5 py-[18px] text-left">
-        {subtitle && (
-          <span className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-[var(--amber-300)]">
-            {subtitle}
-          </span>
+      <div
+        className="relative grid place-items-center border-b-2 border-[var(--edge)]"
+        style={{ aspectRatio: ratio, background: tint }}
+      >
+        {image ? (
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            className={`absolute inset-0 m-auto aspect-square h-[84%] w-auto object-contain transition-transform duration-200 [transition-timing-function:var(--ease-out)] ${
+              interactive ? 'group-hover:scale-[1.06] group-hover:-rotate-2' : ''
+            }`}
+          />
+        ) : (
+          icon && (
+            <div aria-hidden className={onDark ? 'text-[var(--yellow-soft)]' : 'text-[var(--warm-900)]'}>
+              {icon}
+            </div>
+          )
         )}
+      </div>
+      <div className="flex flex-1 flex-col gap-1.5 px-3.5 pb-3.5 pt-3 text-left sm:px-[18px] sm:pb-[18px] sm:pt-4">
         {title && (
           <span
-            className={`font-display font-extrabold leading-[1.05] tracking-[-0.02em] text-white ${titleSize}`}
+            className={`font-display font-extrabold leading-[1.15] tracking-[-0.01em] text-[var(--text-strong)] [hyphens:auto] ${titleSize}`}
           >
             {title}
+          </span>
+        )}
+        {subtitle && (
+          <span className="font-mono text-[0.78rem] font-medium leading-none text-[var(--text-faint)]">
+            {subtitle}
           </span>
         )}
         {children}
@@ -86,35 +92,35 @@ export default function CategoryTile({
   );
 
   const cls = [
-    'group relative block w-full overflow-hidden rounded-ds-xl bg-[var(--night-800)]',
-    selected ? 'border-[2.5px] border-[var(--accent)]' : 'border-[2.5px] border-transparent',
+    'group flex w-full flex-col overflow-hidden rounded-ds-xl border-2 bg-[var(--surface-card)]',
+    selected
+      ? 'border-[var(--edge)] shadow-[4px_4px_0_var(--amber-500)]'
+      : 'border-[var(--edge)] shadow-hard',
     interactive
-      ? 'cursor-pointer shadow-warm-sm hover:-translate-y-[3px] hover:shadow-warm-lg focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]'
-      : 'shadow-warm-sm',
-    'transition-[transform,box-shadow] duration-200 [transition-timing-function:var(--ease-out)]',
+      ? 'cursor-pointer no-underline hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]'
+      : '',
+    'transition-[transform,box-shadow] duration-[120ms] [transition-timing-function:var(--ease-out)]',
     className,
   ]
     .filter(Boolean)
     .join(' ');
 
-  const styles: CSSProperties = { aspectRatio: ratio, ...style };
-
   if (href) {
     return (
-      <a href={href} className={cls} style={styles}>
+      <a href={href} className={cls} style={style}>
         {inner}
       </a>
     );
   }
   if (onClick) {
     return (
-      <button type="button" onClick={onClick} className={cls} style={styles}>
+      <button type="button" onClick={onClick} className={cls} style={style}>
         {inner}
       </button>
     );
   }
   return (
-    <div className={cls} style={styles}>
+    <div className={cls} style={style}>
       {inner}
     </div>
   );

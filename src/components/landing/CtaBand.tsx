@@ -2,7 +2,7 @@ import { Dices } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Button from '@/components/ds/Button';
 
-// Closing dark CTA band: amber glow from the top, two generator entry points.
+// Closing navy CTA band: soft yellow glow from the top, two generator entry points.
 export default async function CtaBand({ locale }: { locale: string }) {
   const t = await getTranslations('landing');
 
@@ -13,7 +13,7 @@ export default async function CtaBand({ locale }: { locale: string }) {
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(60% 120% at 50% 0%, rgba(217,110,42,0.22), transparent 60%)',
+            'radial-gradient(60% 120% at 50% 0%, rgba(255,207,74,0.16), transparent 60%)',
         }}
       />
       <div className="relative mx-auto max-w-container px-6 py-[84px] text-center">

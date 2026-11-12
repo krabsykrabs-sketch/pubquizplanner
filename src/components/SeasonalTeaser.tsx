@@ -36,19 +36,25 @@ export default function SeasonalTeaser({
   return (
     <section
       data-theme="dark"
-      className={`relative overflow-hidden rounded-ds-xl bg-[var(--night-800)] p-6 md:p-8 ${className}`}
+      className={`relative overflow-hidden rounded-ds-xl border-2 border-[var(--warm-900)] bg-[var(--pine)] p-6 shadow-hard md:p-8 ${className}`}
+      style={{ ['--edge-shadow' as string]: 'var(--warm-900)' }}
     >
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
-          background:
-            'radial-gradient(70% 140% at 85% 0%, rgba(217,110,42,0.28), transparent 60%)',
+          background: [
+            'radial-gradient(circle at 6% 18%, var(--yellow) 0 3px, transparent 4px)',
+            'radial-gradient(circle at 38% 88%, #fff 0 2px, transparent 3px)',
+            'radial-gradient(circle at 58% 12%, #fff 0 2px, transparent 3px)',
+            'radial-gradient(circle at 72% 78%, var(--yellow) 0 3px, transparent 4px)',
+            'radial-gradient(circle at 96% 30%, var(--amber-500) 0 3px, transparent 4px)',
+          ].join(', '),
         }}
       />
       <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex items-start gap-4">
-          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-ds bg-[var(--accent-soft)] text-[var(--accent-text)]">
+          <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-ds-lg bg-[var(--yellow)] text-[var(--warm-900)]">
             <TreePine className="h-6 w-6" aria-hidden />
           </span>
           <div>

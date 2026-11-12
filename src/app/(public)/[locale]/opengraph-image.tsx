@@ -5,57 +5,49 @@ export const alt = 'PubQuizPlanner – Dein Pub Quiz Generator';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-// "The Marquee" brand: warm night backdrop, burnt-amber accent.
-const NIGHT = '#16110D';
-const AMBER = '#E88A45';
-const PAPER = '#FBF7F0';
-const MUTED = '#B4A488';
+// "Tageslicht" brand: cream paper, navy ink, orange accent, yellow marker.
+const PAPER = '#FBF6EA';
+const INK = '#1A2238';
+const MUTED = '#4B5368';
+const ORANGE = '#F26B2A';
+const ORANGE_TEXT = '#B5430F';
+const YELLOW = '#FFCF4A';
 
+// The homepage headline, per locale (landing.heroTitle without its markup).
 const TAGLINES: Partial<Record<Locale, string>> = {
-  de: 'Der ganze Quizabend. Nicht nur die Fragen.',
-  nl: 'De hele quizavond. Niet alleen de vragen.',
-  pl: 'Cały wieczór quizowy. Nie tylko pytania.',
-  sv: 'Hela quizkvällen. Inte bara frågorna.',
-  fr: 'Toute la soirée quiz. Pas seulement les questions.',
-  es: 'Toda la noche de quiz. No solo las preguntas.',
-  pt: 'Toda a noite de quiz. Não só as perguntas.',
+  de: 'Dein Quiz für Klassenzimmer, Konferenzraum und Kneipe.',
+  nl: 'Jouw quiz voor klaslokaal, kantoor en kroeg.',
+  pl: 'Twój quiz do szkoły, biura i pubu.',
+  sv: 'Ditt quiz för klassrummet, kontoret och puben.',
+  fr: 'Ton quiz pour la classe, le bureau et le bar.',
+  es: 'Tu quiz para el aula, la oficina y el bar.',
+  pt: 'O teu quiz para a sala de aula, o escritório e o bar.',
 };
 
-// Satori (next/og) does not support SVG <text>, so the "?" is HTML overlaid
-// on the ring SVG.
-function Roundel({ size: s }: { size: number }) {
+function Mark({ size: s }: { size: number }) {
   return (
-    <div style={{ position: 'relative', width: s, height: s, display: 'flex' }}>
-      <svg width={s} height={s} viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r="21" fill="none" stroke={AMBER} strokeWidth="2.5" />
-        <circle
-          cx="24"
-          cy="24"
-          r="16.5"
+    <div
+      style={{
+        width: s,
+        height: s,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: INK,
+        borderRadius: s * 0.28,
+        transform: 'rotate(-6deg)',
+      }}
+    >
+      <svg width={s * 0.62} height={s * 0.62} viewBox="0 0 24 24">
+        <path
+          d="M20 6 9 17l-5-5"
           fill="none"
-          stroke={AMBER}
-          strokeWidth="1.6"
-          strokeDasharray="0.5 3.4"
+          stroke={YELLOW}
+          strokeWidth="3.4"
           strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: s,
-          height: s,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: s * 0.5,
-          fontWeight: 800,
-          color: AMBER,
-        }}
-      >
-        ?
-      </div>
     </div>
   );
 }
@@ -70,41 +62,56 @@ export default function OpengraphImage({ params }: { params: { locale: string } 
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: NIGHT,
-          backgroundImage:
-            'radial-gradient(circle at 82% 8%, rgba(217,110,42,0.30), rgba(22,17,13,0) 55%)',
+          justifyContent: 'space-between',
+          padding: '64px 72px 78px',
+          background: PAPER,
           position: 'relative',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-          <Roundel size={110} />
-          <div
-            style={{
-              fontSize: 88,
-              fontWeight: 800,
-              color: PAPER,
-              display: 'flex',
-              letterSpacing: '-0.03em',
-            }}
-          >
-            PubQuizPlanner
-          </div>
-        </div>
+        {/* yellow sun, top right */}
         <div
           style={{
-            fontSize: 42,
-            color: AMBER,
-            marginTop: 34,
+            position: 'absolute',
+            top: -200,
+            right: -170,
+            width: 460,
+            height: 460,
+            borderRadius: 460,
+            background: YELLOW,
             display: 'flex',
-            fontWeight: 600,
           }}
-        >
-          {tagline}
+        />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+          <Mark size={76} />
+          <div
+            style={{
+              display: 'flex',
+              fontSize: 52,
+              fontWeight: 800,
+              color: INK,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            PubQuiz<span style={{ color: ORANGE_TEXT }}>Planner</span>
+          </div>
         </div>
-        <div style={{ fontSize: 27, color: MUTED, marginTop: 34, display: 'flex' }}>
-          Quizfragen · Präsentation · Antwortbogen · Spickzettel
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              display: 'flex',
+              maxWidth: 980,
+              fontSize: 78,
+              fontWeight: 800,
+              lineHeight: 1.04,
+              letterSpacing: '-0.03em',
+              color: INK,
+            }}
+          >
+            {tagline}
+          </div>
+          <div style={{ display: 'flex', fontSize: 30, color: MUTED, marginTop: 30 }}>
+            Quizfragen · Präsentation · Antwortbogen · Spickzettel
+          </div>
         </div>
         <div
           style={{
@@ -112,8 +119,8 @@ export default function OpengraphImage({ params }: { params: { locale: string } 
             bottom: 0,
             left: 0,
             width: '100%',
-            height: 10,
-            background: '#D96E2A',
+            height: 14,
+            background: ORANGE,
             display: 'flex',
           }}
         />

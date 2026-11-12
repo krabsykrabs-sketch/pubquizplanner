@@ -1,56 +1,44 @@
-/** Brand wordmark: amber "?" roundel + "PubQuizPlanner" set in Archivo.
- * No logo file exists yet — the brand is set in type per the design system. */
-export function QuestionRoundel({ size = 30, className = '' }: { size?: number; className?: string }) {
+/** Brand mark: a ticked answer box, tilted like a sticker. Ink square with a
+ * yellow tick on paper; the colours invert inside [data-theme="dark"]
+ * (see --mark-bg / --mark-fg in globals.css). */
+export function BrandMark({ size = 30, className = '' }: { size?: number; className?: string }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 48 48"
-      className={`flex-none ${className}`}
+    <span
       aria-hidden
+      className={`inline-grid flex-none -rotate-6 place-items-center rounded-[28%] bg-[var(--mark-bg)] text-[var(--mark-fg)] ${className}`}
+      style={{ width: size, height: size }}
     >
-      <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <circle
-        cx="24"
-        cy="24"
-        r="16.5"
+      <svg
+        viewBox="0 0 24 24"
+        width={size * 0.6}
+        height={size * 0.6}
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.6"
-        strokeDasharray="0.5 3.4"
+        strokeWidth="3.4"
         strokeLinecap="round"
-      />
-      <text
-        x="24"
-        y="33"
-        fontFamily="var(--font-display), Archivo, sans-serif"
-        fontWeight="800"
-        fontSize="24"
-        textAnchor="middle"
-        fill="currentColor"
+        strokeLinejoin="round"
       >
-        ?
-      </text>
-    </svg>
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+    </span>
   );
 }
 
+/** Wordmark: tick box + "PubQuizPlanner" in the display face, "Planner" in the accent. */
 export default function Wordmark({
   size = 30,
   textClassName = 'text-[1.28rem]',
-  roundelClassName = 'text-[var(--accent)]',
 }: {
   size?: number;
   textClassName?: string;
-  roundelClassName?: string;
 }) {
   return (
     <span className="inline-flex items-center gap-2.5">
-      <QuestionRoundel size={size} className={roundelClassName} />
+      <BrandMark size={size} />
       <span
-        className={`font-display font-extrabold tracking-[-0.03em] text-[var(--text-strong)] ${textClassName}`}
+        className={`font-display font-extrabold tracking-[-0.02em] text-[var(--text-strong)] ${textClassName}`}
       >
-        PubQuizPlanner
+        PubQuiz<span className="text-[var(--accent-text)]">Planner</span>
       </span>
     </span>
   );

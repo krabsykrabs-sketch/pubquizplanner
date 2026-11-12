@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { QuestionRoundel } from '@/components/ds/Wordmark';
+import { BrandMark } from '@/components/ds/Wordmark';
 import { LOCALE_LABELS, LOCALES, type Locale } from '@/config/locales';
 import { questionsIndexPath } from '@/config/slugs';
 
@@ -17,9 +17,11 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
     <footer data-theme="dark" className="bg-[var(--night-900)] text-[var(--text-faint)]">
       <div className="mx-auto flex max-w-container flex-wrap items-start justify-between gap-8 px-6 py-12">
         <div className="max-w-[30ch]">
-          <span className="mb-2.5 inline-flex items-center gap-2.5 font-display text-[1.15rem] font-extrabold tracking-[-0.03em] text-white">
-            <QuestionRoundel size={27} className="text-[var(--amber-400)]" />
-            PubQuizPlanner
+          <span className="mb-2.5 inline-flex items-center gap-2.5 font-display text-[1.15rem] font-extrabold tracking-[-0.02em] text-white">
+            <BrandMark size={27} />
+            <span>
+              PubQuiz<span className="text-[var(--accent-text)]">Planner</span>
+            </span>
           </span>
           <p className="m-0 text-[0.85rem] leading-normal">{t('description')}</p>
         </div>

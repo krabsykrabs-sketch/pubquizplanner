@@ -13,7 +13,7 @@ const config: Config = {
         nav: "860px",
       },
       colors: {
-        /* Design-system ramps ("The Marquee"). Semantic aliases
+        /* Design-system ramps ("Tageslicht"). Semantic aliases
            (--bg-page, --text-strong, …) are used via arbitrary values
            so they re-point automatically inside [data-theme="dark"]. */
         warm: {
@@ -42,6 +42,16 @@ const config: Config = {
           900: "var(--night-900)",
         },
 
+        ink: "var(--warm-900)",
+        paper: "var(--warm-50)",
+        yellow: { DEFAULT: "var(--yellow)", soft: "var(--yellow-soft)" },
+        blue: { DEFAULT: "var(--blue)", soft: "var(--blue-soft)" },
+        green: { DEFAULT: "var(--green)", soft: "var(--green-soft)" },
+        pink: { DEFAULT: "var(--pink)", soft: "var(--pink-soft)" },
+        peach: { soft: "var(--peach-soft)" },
+        pine: "var(--pine)",
+        edge: "var(--edge)",
+
         /* Legacy palette (admin area only). */
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -52,9 +62,10 @@ const config: Config = {
         "dark-border": "var(--dark-border)",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Archivo", "system-ui", "sans-serif"],
-        sans: ["var(--font-body)", "Hanken Grotesk", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "Spline Sans Mono", "ui-monospace", "monospace"],
+        display: ["var(--font-display)", "Bricolage Grotesque", "system-ui", "sans-serif"],
+        sans: ["var(--font-body)", "Instrument Sans", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "DM Mono", "ui-monospace", "monospace"],
+        hand: ["var(--font-hand)", "Caveat", "cursive"],
       },
       maxWidth: {
         container: "var(--container)",
@@ -65,6 +76,9 @@ const config: Config = {
         "warm-md": "var(--shadow-md)",
         "warm-lg": "var(--shadow-lg)",
         "warm-xl": "var(--shadow-xl)",
+        "hard-sm": "var(--shadow-hard-sm)",
+        hard: "var(--shadow-hard)",
+        "hard-lg": "var(--shadow-hard-lg)",
       },
       borderRadius: {
         ds: "var(--radius-md)",

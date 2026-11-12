@@ -278,7 +278,7 @@ export default async function CategoryQuestionsPage({
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(60% 120% at 50% 0%, rgba(217,110,42,0.22), transparent 60%)',
+              'radial-gradient(60% 120% at 50% 0%, rgba(255,207,74,0.16), transparent 60%)',
           }}
         />
         <div className="relative">

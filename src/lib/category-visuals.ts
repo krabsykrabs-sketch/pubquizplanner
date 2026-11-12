@@ -20,10 +20,12 @@ import {
 
 /* Category visuals — single source of truth for the quiz subjects' art.
  * Art lives in public/categories/<slug>/ :
- *   background.png — app/marketing composition (subject right-of-center on a
- *                    night backdrop with warm glow; left kept clear for text)
- *   projector.png  — brighter variant for projected slides
- *   icon.svg       — square standalone subject illustration (hero tiles, pickers)
+ *   icon.svg       — square standalone subject illustration on a transparent
+ *                    ground; the art used across the site, set on a tinted
+ *                    panel (see categoryLook)
+ *   projector.png  — dark full-bleed composition for projected slides
+ *   background.png — dark app composition from the previous design; no
+ *                    longer used on the site
  * Slugs match the DB `categories.slug` column.
  */
 
@@ -55,8 +57,8 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 // Slugs that have the full art set in public/categories/<slug>/. A category
-// with only an icon falls back to CategoryTile's gradient wash instead of
-// pointing at image files that don't exist.
+// without it falls back to CategoryTile's large Lucide glyph on its tint
+// instead of pointing at image files that don't exist.
 const NO_ART = new Set(['weihnachten']);
 
 export const CATEGORY_SLUGS = Object.keys(ICONS);
@@ -79,4 +81,46 @@ export function categoryVisual(slug: string): CategoryVisual | null {
 /** Lucide glyph for a category slug; Dices for the mixed pseudo-category / unknowns. */
 export function categoryIcon(slug: string | null | undefined): LucideIcon {
   return (slug && ICONS[slug]) || Dices;
+}
+
+/* The tinted panel a category's art sits on. Tints rotate through the marker
+ * colours in registry order, so neighbouring tiles differ and a category keeps
+ * its colour everywhere. Seasonal categories can override with a full CSS
+ * background (and `onDark` when the glyph has to turn light). */
+export interface CategoryLook {
+  /** Any CSS `background` value. */
+  tint: string;
+  onDark: boolean;
+}
+
+const TINTS = [
+  'var(--yellow-soft)',
+  'var(--blue-soft)',
+  'var(--green-soft)',
+  'var(--pink-soft)',
+  'var(--peach-soft)',
+];
+
+const dot = (x: number, y: number, color: string, r = 3) =>
+  `radial-gradient(circle at ${x}% ${y}%, ${color} 0 ${r}px, transparent ${r + 1}px)`;
+
+const LOOK_OVERRIDES: Record<string, CategoryLook> = {
+  // Pine green with a scatter of lights.
+  weihnachten: {
+    tint: [
+      dot(18, 24, 'var(--yellow)'),
+      dot(80, 18, '#fff', 2),
+      dot(86, 62, 'var(--yellow)'),
+      dot(12, 74, '#fff', 2),
+      dot(62, 86, 'var(--amber-500)'),
+      'var(--pine)',
+    ].join(', '),
+    onDark: true,
+  },
+};
+
+export function categoryLook(slug: string | null | undefined): CategoryLook {
+  if (slug && LOOK_OVERRIDES[slug]) return LOOK_OVERRIDES[slug];
+  const i = slug ? CATEGORY_SLUGS.indexOf(slug) : -1;
+  return { tint: TINTS[(i < 0 ? 0 : i) % TINTS.length], onDark: false };
 }

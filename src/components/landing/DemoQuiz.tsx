@@ -25,9 +25,9 @@ function SlidePreviewCard({ onOpen, label }: { onOpen: () => void; label: string
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') onOpen();
       }}
-      className="group relative mx-auto mt-10 max-w-[880px] cursor-pointer overflow-hidden rounded-ds-xl border border-[var(--border-subtle)] shadow-warm-lg transition-shadow hover:shadow-warm-xl focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]"
+      className="group relative mx-auto mt-10 max-w-[880px] cursor-pointer overflow-hidden rounded-ds-xl border-2 border-[var(--edge)] shadow-hard-lg transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]"
     >
-      <div data-theme="dark" className="relative aspect-video overflow-hidden bg-[var(--night-800)]">
+      <div data-theme="dark" className="relative aspect-video overflow-hidden bg-[#16110D]">
         <Image
           src="/categories/kunst-kultur/projector.png"
           alt=""
@@ -64,7 +64,7 @@ function SlidePreviewCard({ onOpen, label }: { onOpen: () => void; label: string
               07
             </span>
             <span
-              className="rounded-full bg-[#F7E4D2] px-[13px] py-[7px] font-mono uppercase tracking-[0.14em] text-[var(--amber-700)]"
+              className="rounded-full bg-[var(--peach-soft)] px-[13px] py-[7px] font-mono uppercase tracking-[0.14em] text-[var(--amber-700)]"
               style={{ fontSize: 'clamp(0.58rem, 1.05vw, 0.82rem)' }}
             >
               {t('demoSampleCategory')}
@@ -89,7 +89,7 @@ function SlidePreviewCard({ onOpen, label }: { onOpen: () => void; label: string
             <b className="text-[var(--amber-700)]">{t('demoPoints', { points: 10 })}</b>
           </div>
         </div>
-        <div className="absolute right-[5%] top-[8%] inline-flex h-[54px] w-[54px] items-center justify-center rounded-full bg-[var(--accent)] text-[var(--text-on-accent)] shadow-warm-xl transition-transform group-hover:scale-105">
+        <div className="absolute right-[5%] top-[8%] inline-flex h-[54px] w-[54px] items-center justify-center rounded-full border-2 border-[var(--warm-900)] bg-[var(--yellow)] text-[var(--warm-900)] transition-transform group-hover:scale-105">
           <Play className="h-6 w-6 fill-current" aria-hidden />
         </div>
       </div>

@@ -6,7 +6,7 @@ import { query } from '@/lib/db';
 import Button from '@/components/ds/Button';
 import CategoryTile from '@/components/ds/CategoryTile';
 import SeasonalTeaser from '@/components/SeasonalTeaser';
-import { categoryIcon, categoryVisual } from '@/lib/category-visuals';
+import { categoryIcon, categoryLook, categoryVisual } from '@/lib/category-visuals';
 import {
   SOURCE_LOCALE,
   localeAlternates,
@@ -227,17 +227,24 @@ export default async function FragenIndexPage({
       <h2 className="mb-6 font-display text-2xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-3xl">
         {t('gridHeading')}
       </h2>
-      <div className="mb-16 grid gap-4 sm:grid-cols-2">
-        {categories.map((cat) => (
-          <CategoryTile
-            key={cat.slug}
-            title={cat.name_de}
-            subtitle={t('questionsLabel', { count: cat.count })}
-            image={categoryVisual(cat.slug)?.background}
-            href={categoryPath(locale as Locale, cat.slug)}
-            ratio="4 / 3"
-          />
-        ))}
+      <div className="mb-16 grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-3">
+        {categories.map((cat) => {
+          const TileIcon = categoryIcon(cat.slug);
+          const look = categoryLook(cat.slug);
+          return (
+            <CategoryTile
+              key={cat.slug}
+              title={cat.name_de}
+              subtitle={t('questionsLabel', { count: cat.count })}
+              image={categoryVisual(cat.slug)?.iconArt}
+              icon={<TileIcon className="h-16 w-16" strokeWidth={1.4} />}
+              tint={look.tint}
+              onDark={look.onDark}
+              href={categoryPath(locale as Locale, cat.slug)}
+              ratio="4 / 3"
+            />
+          );
+        })}
       </div>
 
       {/* Sample questions per category */}
@@ -301,7 +308,7 @@ export default async function FragenIndexPage({
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(60% 120% at 50% 0%, rgba(217,110,42,0.22), transparent 60%)',
+              'radial-gradient(60% 120% at 50% 0%, rgba(255,207,74,0.16), transparent 60%)',
           }}
         />
         <div className="relative">

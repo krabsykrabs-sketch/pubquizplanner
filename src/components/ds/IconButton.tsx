@@ -17,7 +17,7 @@ const VARIANTS: Record<Variant, string> = {
   outline:
     'bg-[var(--surface-card)] text-[var(--text-body)] border-[var(--border-strong)] hover:bg-[var(--surface-inset)]',
   solid:
-    'bg-[var(--accent)] text-[var(--text-on-accent)] border-transparent hover:bg-[var(--accent-hover)]',
+    'bg-[var(--accent)] text-[var(--text-on-accent)] border-[var(--edge)] hover:bg-[var(--accent-hover)]',
 };
 
 export default function IconButton({

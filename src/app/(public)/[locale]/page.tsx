@@ -9,6 +9,7 @@ import {
   type Locale,
 } from '@/config/locales';
 import LandingHero from '@/components/landing/LandingHero';
+import AudienceStrip from '@/components/landing/AudienceStrip';
 import CategorySection from '@/components/landing/CategorySection';
 import SampleQuestions from '@/components/landing/SampleQuestions';
 import HowItWorks from '@/components/landing/HowItWorks';
@@ -116,13 +117,13 @@ export default async function LandingPage({
 }: {
   params: { locale: string };
 }) {
-  let displayCount = 950;
+  let displayCount = 1250;
   let categories: CategoryChip[] = [];
   let sampleQuestions: SampleQuestion[] = [];
 
   try {
     const data = await getLandingData(locale);
-    displayCount = data.displayCount || 950;
+    displayCount = data.displayCount || 1250;
     categories = data.categories;
     sampleQuestions = data.sampleQuestions;
   } catch {
@@ -135,9 +136,10 @@ export default async function LandingPage({
 
   return (
     <main className="min-h-screen">
-      <LandingHero locale={locale} categories={categories} />
+      <LandingHero locale={locale} displayCount={displayCount} />
+      <AudienceStrip locale={locale} />
       {/* Renders only for de, in season, once the category is live */}
-      <div className="mx-auto max-w-container px-6 pt-10 empty:hidden">
+      <div className="mx-auto max-w-container px-5 pb-[60px] empty:hidden sm:px-6 nav:pb-[84px]">
         <SeasonalTeaser locale={locale} categories={categories} />
       </div>
       <DemoQuiz locale={locale} demoReady={demoReady} />

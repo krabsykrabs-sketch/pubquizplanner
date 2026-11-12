@@ -25,7 +25,7 @@ export default function Switch({
       className={[
         'relative inline-flex h-6 w-11 flex-none items-center rounded-full border-[1.5px] transition-colors duration-200',
         checked
-          ? 'border-transparent bg-[var(--accent)]'
+          ? 'border-[var(--edge)] bg-[var(--accent)]'
           : 'border-[var(--border-strong)] bg-[var(--surface-inset)]',
         disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
         'focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]',

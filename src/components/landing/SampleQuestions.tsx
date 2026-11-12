@@ -10,20 +10,22 @@ const TILTS = ['rotate(-1deg)', 'rotate(0.6deg)', 'rotate(-0.8deg)'];
 function AnswerCoaster({ answer, label }: { answer: string; label: string }) {
   // Long answers step down so the stamp keeps reading cleanly.
   const size =
-    answer.length <= 12
+    answer.length <= 8
       ? 'text-[1.05rem]'
-      : answer.length <= 20
-        ? 'text-[0.85rem]'
-        : 'text-[0.7rem]';
+      : answer.length <= 12
+        ? 'text-[0.82rem]'
+        : answer.length <= 20
+          ? 'text-[0.7rem]'
+          : 'text-[0.6rem]';
   return (
     <div className="relative h-[92px] w-[92px] flex-none" style={{ transform: 'rotate(-3deg)' }}>
       <div
         className="absolute inset-0 rounded-full border-[2.5px] border-[var(--amber-500)] bg-[var(--warm-50)]"
-        style={{ boxShadow: '0 4px 12px rgba(74,42,22,0.22)' }}
+        style={{ boxShadow: '3px 3px 0 rgba(26,34,56,0.14)' }}
       />
       <div
         className="absolute inset-[7px] rounded-full border-[1.5px] border-dashed"
-        style={{ borderColor: 'rgba(217,110,42,0.5)' }}
+        style={{ borderColor: 'rgba(242,107,42,0.55)' }}
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-px p-2">
         <span className="font-mono text-[0.48rem] uppercase tracking-[0.16em] text-[var(--amber-700)]">

@@ -11,12 +11,13 @@ const PADDINGS: Record<Padding, string> = {
 };
 
 const ELEVATIONS: Record<Elevation, string> = {
-  flat: 'shadow-none',
-  raised: 'shadow-warm-md',
-  floating: 'shadow-warm-lg',
+  flat: 'border-[1.5px] border-[var(--border-strong)] shadow-none',
+  raised: 'border-2 border-[var(--edge)] shadow-hard',
+  floating: 'border-2 border-[var(--edge)] shadow-hard-lg',
 };
 
-/** Content container. Restraint: hairline border by default, shadow only when raised. */
+/** Content container. Quiet hairline by default; raised cards get the ink
+ * outline + hard shadow of a game card. */
 export default function Card({
   elevation = 'flat',
   padding = 'md',
@@ -34,11 +35,11 @@ export default function Card({
   return (
     <div
       className={[
-        'rounded-ds-lg border border-[var(--border-subtle)] bg-[var(--surface-card)]',
+        'rounded-ds-xl bg-[var(--surface-card)]',
         PADDINGS[padding],
         ELEVATIONS[elevation],
         'transition-[box-shadow,transform] duration-200 [transition-timing-function:var(--ease-out)]',
-        interactive ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-warm-lg' : '',
+        interactive ? 'cursor-pointer hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-hard-lg' : '',
         className,
       ]
         .filter(Boolean)

@@ -27,7 +27,7 @@ export default function Tag({
         'inline-flex items-center gap-1.5 rounded-full border-[1.5px] px-3 py-[5px] font-sans text-[0.8125rem] font-medium leading-[1.4]',
         'transition-all duration-200 [transition-timing-function:var(--ease-out)]',
         selected
-          ? 'border-transparent bg-[var(--accent)] text-[var(--text-on-accent)]'
+          ? 'border-[var(--edge)] bg-[var(--accent)] text-[var(--text-on-accent)] shadow-hard-sm'
           : 'border-[var(--border-strong)] bg-[var(--surface-card)] text-[var(--text-body)]',
         interactive && !selected ? 'cursor-pointer hover:bg-[var(--surface-inset)]' : '',
         interactive ? 'focus-visible:outline-none focus-visible:[box-shadow:var(--ring)]' : '',
