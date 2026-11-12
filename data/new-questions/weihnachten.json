@@ -55,16 +55,6 @@
     ]
   },
   {
-    "text_de": "In welchem asiatischen Land beginnt die Weihnachtszeit schon im September?",
-    "answer_de": "Philippinen",
-    "fun_fact_de": "Sobald die „Ber-Monate“ anfangen – September, Oktober, November, Dezember –, laufen dort Weihnachtslieder in Einkaufszentren und Radios.",
-    "difficulty": 2,
-    "tags": [
-      "traditionen-weltweit",
-      "philippinen"
-    ]
-  },
-  {
     "text_de": "Wer bringt in Italien den Kindern traditionell in der Nacht zum 6. Januar Geschenke – den braven Süßes, den unartigen Kohle?",
     "answer_de": "Die Befana",
     "fun_fact_de": "Die Befana fliegt auf einem Besen durch den Kamin. Die „Kohle“ für unartige Kinder ist heute meist schwarz gefärbter Zucker.",
@@ -149,50 +139,6 @@
       "traditionen-weltweit",
       "weihnachtsmann",
       "schätzfrage"
-    ]
-  },
-  {
-    "text_de": "Welchen Christbaumschmuck halten viele Amerikaner für einen alten deutschen Brauch, obwohl ihn in Deutschland kaum jemand kennt?",
-    "answer_de": "Die Weihnachtsgurke",
-    "fun_fact_de": "Die gläserne Gurke wird im Baum versteckt; wer sie am Weihnachtsmorgen zuerst findet, bekommt ein Extrageschenk. Woher die Legende vom „German Christmas Pickle“ stammt, ist ungeklärt.",
-    "difficulty": 3,
-    "tags": [
-      "dach",
-      "christbaumschmuck",
-      "usa"
-    ]
-  },
-  {
-    "text_de": "Warum hatte der erste Adventskranz, den Johann Hinrich Wichern 1839 in Hamburg aufhängte, viel mehr als vier Kerzen?",
-    "answer_de": "Eine Kerze für jeden Tag",
-    "fun_fact_de": "Wichern wollte den Kindern in seinem Hamburger Kinderheim zeigen, wie lange es noch bis Weihnachten ist. Sein Kranz war ein altes Wagenrad – und die Zahl der Kerzen änderte sich je nach Länge der Adventszeit.",
-    "difficulty": 2,
-    "tags": [
-      "dach",
-      "advent",
-      "adventskranz"
-    ]
-  },
-  {
-    "text_de": "Der Reformator Martin Luther wollte die Heiligenverehrung zurückdrängen. Welchen Gabenbringer machte er deshalb anstelle des Nikolaus populär?",
-    "answer_de": "Das Christkind",
-    "fun_fact_de": "Ironie der Geschichte: Heute bringt das Christkind vor allem im katholisch geprägten Süden und Westen die Geschenke, während im evangelischen Norden und Osten eher der Weihnachtsmann kommt.",
-    "difficulty": 3,
-    "tags": [
-      "dach",
-      "christkind",
-      "gabenbringer"
-    ]
-  },
-  {
-    "text_de": "Nach welchem Gebäck ist der Dresdner Striezelmarkt benannt, einer der ältesten Weihnachtsmärkte Deutschlands?",
-    "answer_de": "Nach dem Stollen",
-    "fun_fact_de": "„Striezel“ ist ein alter Name für den Stollen. Der Markt wurde schon 1434 erstmals abgehalten.",
-    "difficulty": 2,
-    "tags": [
-      "dach",
-      "weihnachtsmarkt",
-      "stollen"
     ]
   },
   {
@@ -407,17 +353,6 @@
     ]
   },
   {
-    "text_de": "Worum ging es in der Fassung von „O Tannenbaum“ aus dem Jahr 1819 – bevor das Lied zum Weihnachtslied wurde?",
-    "answer_de": "Um eine untreue Geliebte",
-    "fun_fact_de": "August Zarnack stellte die immergrüne, „treue“ Tanne einer treulosen Liebe gegenüber. Erst der Leipziger Lehrer Ernst Anschütz machte 1824 daraus ein Weihnachtslied.",
-    "difficulty": 3,
-    "tags": [
-      "weihnachtsmusik",
-      "dach",
-      "weihnachtslieder"
-    ]
-  },
-  {
     "text_de": "Welcher Song gilt als meistverkaufte Single aller Zeiten?",
     "answer_de": "White Christmas",
     "fun_fact_de": "Bing Crosbys Aufnahme verkaufte sich nach Schätzungen rund 50 Millionen Mal. Geschrieben hat das Lied Irving Berlin.",
@@ -467,17 +402,6 @@
       "essen-trinken",
       "dach",
       "heiligabend"
-    ]
-  },
-  {
-    "text_de": "Was erlaubte der „Butterbrief“, den die sächsischen Herrscher Ende des 15. Jahrhunderts vom Papst erhielten?",
-    "answer_de": "Butter im Stollen",
-    "fun_fact_de": "Die Adventszeit war damals Fastenzeit, Butter war verboten – der Stollen bestand nur aus Mehl, Hefe, Öl und Wasser. Gegen eine Abgabe an die Kirche durfte er endlich gut schmecken.",
-    "difficulty": 3,
-    "tags": [
-      "essen-trinken",
-      "dach",
-      "stollen"
     ]
   },
   {
