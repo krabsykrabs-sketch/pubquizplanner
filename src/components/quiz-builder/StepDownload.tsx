@@ -19,6 +19,7 @@ import { getSessionId } from '@/lib/session-id';
 import { getQuizMode, DEFAULT_QUIZ_MODE } from '@/lib/quiz-modes';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
 import ModeSelector from './ModeSelector';
+import PurposePoll from './PurposePoll';
 import TimerSelector from './TimerSelector';
 
 interface RoundQuestions {
@@ -238,6 +239,8 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
           </Button>
         )}
       </div>
+
+      <PurposePoll />
 
       <Button
         variant="ghost"

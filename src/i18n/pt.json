@@ -108,7 +108,14 @@
     "timerLabel": "Temporizador por pergunta",
     "timerHelp": "Opcional. Mostra em cada slide de pergunta uma contagem decrescente que tu próprio inicias, pausas e reinicias.",
     "timerOff": "Desligado",
-    "timerSoundLabel": "Som nos últimos 5 segundos"
+    "timerSoundLabel": "Som nos últimos 5 segundos",
+    "purposeQuestion": "Para que é o teu quiz?",
+    "purposeNote": "Opcional · um clique · anónimo – ajuda-nos a melhorar o PubQuizPlanner.",
+    "purpose_school": "Escola / aula",
+    "purpose_work": "Empresa / equipa",
+    "purpose_pub": "Bar / associação",
+    "purpose_private": "Privado / família",
+    "purposeThanks": "Obrigado pela tua resposta!"
   },
   "fragen": {
     "indexTitle": "Perguntas de quiz com respostas e soluções – grátis",

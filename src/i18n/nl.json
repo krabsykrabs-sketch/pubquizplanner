@@ -108,7 +108,14 @@
     "timerLabel": "Timer per vraag",
     "timerHelp": "Optioneel. Toont op elke vraagslide een afteltimer die je zelf start, pauzeert en reset.",
     "timerOff": "Uit",
-    "timerSoundLabel": "Geluid in de laatste 5 seconden"
+    "timerSoundLabel": "Geluid in de laatste 5 seconden",
+    "purposeQuestion": "Waarvoor is je quiz?",
+    "purposeNote": "Optioneel · één klik · anoniem – helpt ons PubQuizPlanner te verbeteren.",
+    "purpose_school": "School / les",
+    "purpose_work": "Bedrijf / team",
+    "purpose_pub": "Café / vereniging",
+    "purpose_private": "Privé / familie",
+    "purposeThanks": "Bedankt voor je antwoord!"
   },
   "fragen": {
     "indexTitle": "Pubquiz vragen en antwoorden – gratis",

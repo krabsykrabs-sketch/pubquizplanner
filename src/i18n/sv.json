@@ -108,7 +108,14 @@
     "timerLabel": "Timer per fråga",
     "timerHelp": "Valfritt. Visar en nedräkning på varje frågebild som du själv startar, pausar och återställer.",
     "timerOff": "Av",
-    "timerSoundLabel": "Ljud de sista 5 sekunderna"
+    "timerSoundLabel": "Ljud de sista 5 sekunderna",
+    "purposeQuestion": "Vad är ditt quiz till för?",
+    "purposeNote": "Valfritt · ett klick · anonymt – hjälper oss att förbättra PubQuizPlanner.",
+    "purpose_school": "Skola / lektion",
+    "purpose_work": "Företag / team",
+    "purpose_pub": "Pub / förening",
+    "purpose_private": "Privat / familj",
+    "purposeThanks": "Tack för ditt svar!"
   },
   "fragen": {
     "indexTitle": "Pubquizfrågor och svar – gratis",

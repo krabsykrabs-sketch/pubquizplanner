@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { QUIZ_PURPOSES, QUIZ_PURPOSE_LABELS_DE } from '@/lib/quiz-purpose';
 
 interface Analytics {
   totals: {
@@ -30,6 +31,8 @@ interface Analytics {
     generatedSessions: number;
     downloadSessions: number;
   };
+  /** Answers to the generator's "Wofür ist dein Quiz?" poll. */
+  purposes?: { purpose: string; count: number }[];
   reportedQuestions: {
     questionId: number;
     reports: number;
@@ -102,6 +105,9 @@ function buildCsv(data: Analytics, rangeLabel: string): string {
       (data.locales ?? []).map((l) => [l.locale, l.views, l.sessions])),
     csvBlock('Seitenfluss', ['from', 'to', 'count'],
       data.transitions.map((t) => [t.from, t.to, t.count])),
+    csvBlock('Einsatzzweck (Umfrage)', ['purpose', 'answers'],
+      (data.purposes ?? []).map((p) => [p.purpose, p.count])
+    ),
     csvBlock('Gemeldete Fragen', ['question_id', 'reports', 'last_report', 'text', 'answer'],
       (data.reportedQuestions ?? []).map((r) => [
         r.questionId, r.reports, r.lastReport, r.text ?? '', r.answer ?? '',
@@ -218,6 +224,32 @@ export default function AnalyticsPage() {
             <FunnelBar label="Generator geöffnet" value={data.funnel.generatorSessions} max={data.funnel.sessions} />
             <FunnelBar label="Quiz erstellt" value={data.funnel.generatedSessions} max={data.funnel.sessions} />
             <FunnelBar label="Download" value={data.funnel.downloadSessions} max={data.funnel.sessions} />
+          </Section>
+
+          {/* "Wofür ist dein Quiz?" poll */}
+          <Section title="Einsatzzweck (Umfrage im Generator)">
+            {(() => {
+              const answers = data.purposes ?? [];
+              const total = answers.reduce((sum, p) => sum + p.count, 0);
+              if (total === 0) {
+                return <p className="text-sm text-[var(--muted)]">Noch keine Antworten im Zeitraum.</p>;
+              }
+              return (
+                <>
+                  {QUIZ_PURPOSES.map((key) => (
+                    <FunnelBar
+                      key={key}
+                      label={QUIZ_PURPOSE_LABELS_DE[key]}
+                      value={answers.find((p) => p.purpose === key)?.count ?? 0}
+                      max={total}
+                    />
+                  ))}
+                  <p className="text-xs text-[var(--muted)]">
+                    {total} Antworten · eine pro Besuch · Anteil an allen Antworten
+                  </p>
+                </>
+              );
+            })()}
           </Section>
 
           {/* Downloads by format */}

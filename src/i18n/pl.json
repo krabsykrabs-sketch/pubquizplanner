@@ -108,7 +108,14 @@
     "timerLabel": "Timer na pytanie",
     "timerHelp": "Opcjonalnie. Na każdym slajdzie z pytaniem pokazuje odliczanie, które sam uruchamiasz, wstrzymujesz i resetujesz.",
     "timerOff": "Wył.",
-    "timerSoundLabel": "Dźwięk w ostatnich 5 sekundach"
+    "timerSoundLabel": "Dźwięk w ostatnich 5 sekundach",
+    "purposeQuestion": "Do czego jest twój quiz?",
+    "purposeNote": "Opcjonalnie · jedno kliknięcie · anonimowo – pomaga nam ulepszać PubQuizPlanner.",
+    "purpose_school": "Szkoła / lekcja",
+    "purpose_work": "Firma / zespół",
+    "purpose_pub": "Pub / klub",
+    "purpose_private": "Prywatnie / rodzina",
+    "purposeThanks": "Dziękujemy za odpowiedź!"
   },
   "fragen": {
     "indexTitle": "Pytania i odpowiedzi do pub quizu – za darmo",

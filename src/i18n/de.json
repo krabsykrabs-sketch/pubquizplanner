@@ -108,7 +108,14 @@
     "timerLabel": "Timer pro Frage",
     "timerHelp": "Optional. Zeigt auf jeder Fragefolie einen Countdown, den du selbst startest, pausierst und zurücksetzt.",
     "timerOff": "Aus",
-    "timerSoundLabel": "Ton in den letzten 5 Sekunden"
+    "timerSoundLabel": "Ton in den letzten 5 Sekunden",
+    "purposeQuestion": "Wofür ist dein Quiz?",
+    "purposeNote": "Optional · ein Klick · anonym – hilft uns, PubQuizPlanner zu verbessern.",
+    "purpose_school": "Schule / Unterricht",
+    "purpose_work": "Firma / Team",
+    "purpose_pub": "Kneipe / Verein",
+    "purpose_private": "Privat / Familie",
+    "purposeThanks": "Danke für deine Antwort!"
   },
   "fragen": {
     "indexTitle": "Quizfragen mit Antworten & Lösungen – kostenlos",

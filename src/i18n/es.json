@@ -108,7 +108,14 @@
     "timerLabel": "Temporizador por pregunta",
     "timerHelp": "Opcional. Muestra en cada diapositiva de pregunta una cuenta atrás que tú mismo inicias, pausas y reinicias.",
     "timerOff": "Apagado",
-    "timerSoundLabel": "Sonido en los últimos 5 segundos"
+    "timerSoundLabel": "Sonido en los últimos 5 segundos",
+    "purposeQuestion": "¿Para qué es tu quiz?",
+    "purposeNote": "Opcional · un clic · anónimo – nos ayuda a mejorar PubQuizPlanner.",
+    "purpose_school": "Colegio / clase",
+    "purpose_work": "Empresa / equipo",
+    "purpose_pub": "Bar / asociación",
+    "purpose_private": "Privado / familia",
+    "purposeThanks": "¡Gracias por tu respuesta!"
   },
   "fragen": {
     "indexTitle": "Preguntas de quiz con respuestas y soluciones – gratis",

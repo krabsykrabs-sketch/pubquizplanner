@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       ? `date_trunc('day', ${since})`
       : `date_trunc('day', (SELECT coalesce(min(created_at), now()) FROM events))`;
 
-  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports] =
+  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports, purposes] =
     await Promise.all([
       query<{
         pageviews: string;
@@ -156,6 +156,13 @@ export async function GET(request: NextRequest) {
          ORDER BY count(*) DESC, max(e.created_at) DESC
          LIMIT 100`
       ),
+      // "Wofür ist dein Quiz?" poll — one answer per visit (deduped on insert).
+      query<{ purpose: string; count: string }>(
+        `SELECT meta->>'purpose' AS purpose, count(*) AS count
+         FROM events
+         WHERE event_type = 'quiz_purpose' AND created_at >= ${since}
+         GROUP BY 1 ORDER BY count(*) DESC`
+      ),
     ]);
 
   const n = (v: string | undefined) => parseInt(v ?? '0');
@@ -199,6 +206,7 @@ export async function GET(request: NextRequest) {
       generatedSessions: n(f?.generated_sessions),
       downloadSessions: n(f?.download_sessions),
     },
+    purposes: purposes.map((p) => ({ purpose: p.purpose, count: n(p.count) })),
     reportedQuestions: reports.map((r) => ({
       questionId: n(r.question_id),
       reports: n(r.reports),
