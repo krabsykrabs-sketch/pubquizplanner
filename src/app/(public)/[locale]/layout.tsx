@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import SiteFooter from '@/components/SiteFooter';
 import SiteHeader from '@/components/SiteHeader';
 import TrackPageview from '@/components/TrackPageview';
-import { isLocale } from '@/config/locales';
+import { isGoogleIndexed, isLocale } from '@/config/locales';
 import { fontVariables } from '@/lib/fonts';
 import { JsonLd, organizationSchema, websiteSchema } from '@/lib/structured-data';
 
@@ -20,6 +20,11 @@ export async function generateMetadata({
     metadataBase: new URL('https://pubquizplanner.com'),
     title: t('title'),
     description: t('description'),
+    // Inherited by every page in this locale (none override `robots`).
+    // Google-only noindex — see GOOGLE_INDEXED_LOCALES for why.
+    ...(!isGoogleIndexed(locale) && {
+      robots: { index: true, follow: true, googleBot: { index: false, follow: true } },
+    }),
   };
 }
 

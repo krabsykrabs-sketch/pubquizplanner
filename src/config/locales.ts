@@ -33,6 +33,22 @@ export function isLocale(value: unknown): value is Locale {
   return typeof value === 'string' && (LOCALES as readonly string[]).includes(value);
 }
 
+// Locales Google may index. Every other locale gets `<meta name="googlebot"
+// content="noindex, follow">` (Google-only — Bing/DuckDuckGo/Ecosia ignore it
+// and keep ranking those pages) and is dropped from hreflang.
+//
+// Why (Nov 2026): after 5 machine-translated locales went live in July 2026,
+// Google's indexed pages fell 164 → 75 and impressions ~100/day → ~2/day,
+// while Bing kept growing. 96 of 116 sitemap URLs were translations of the
+// German pages, so Google likely rated the whole site as scaled/thin content.
+// Re-add a locale here only once its content is genuinely its own (reviewed,
+// locally relevant questions), not a 1:1 translation.
+export const GOOGLE_INDEXED_LOCALES: readonly Locale[] = [SOURCE_LOCALE];
+
+export function isGoogleIndexed(locale: string): boolean {
+  return (GOOGLE_INDEXED_LOCALES as readonly string[]).includes(locale);
+}
+
 // og:locale tag per locale. Extend when adding a language.
 export const OG_LOCALE: Partial<Record<Locale, string>> = {
   de: 'de_DE',
@@ -64,14 +80,16 @@ export const LOCALE_LABELS: Partial<Record<Locale, string>> = {
 // `availableLocales` when a page does not exist in every locale (e.g. a category
 // that clears the threshold only in some languages) so we never advertise a URL
 // that 404s. x-default points at the source locale when available, otherwise the
-// first available locale.
+// first available locale. Only GOOGLE_INDEXED_LOCALES are advertised: hreflang
+// is a Google signal, and pointing it at googlebot-noindexed pages is
+// contradictory (Bing barely uses hreflang, so nothing is lost there).
 export function localeAlternates(
   pathSuffix: string | ((locale: Locale) => string),
   availableLocales: readonly Locale[] = LOCALES
 ): Record<string, string> {
   const suffixFor = typeof pathSuffix === 'function' ? pathSuffix : () => pathSuffix;
   const languages: Record<string, string> = {};
-  for (const locale of availableLocales) {
+  for (const locale of availableLocales.filter(isGoogleIndexed)) {
     languages[locale] = `/${locale}${suffixFor(locale)}`;
   }
   const xDefault = availableLocales.includes(SOURCE_LOCALE)
