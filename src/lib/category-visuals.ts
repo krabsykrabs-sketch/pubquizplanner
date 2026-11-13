@@ -21,8 +21,10 @@ import {
 /* Category visuals — single source of truth for the quiz subjects' art.
  * Art lives in public/categories/<slug>/ :
  *   icon.svg       — square standalone subject illustration on a transparent
- *                    ground; the art used across the site, set on a tinted
- *                    panel (see categoryLook)
+ *                    ground; the art used across the site (on a tinted panel,
+ *                    see categoryLook) and on the slides. The whole set is
+ *                    drawn by scripts/build-category-icons.py — edit the
+ *                    drawing there and re-run it, don't hand-edit the SVGs.
  *   projector.png / background.png — the previous design's pre-composed dark
  *                    backgrounds. Unused by the app now, but decks downloaded
  *                    before the redesign still load projector.png from the
