@@ -3,8 +3,8 @@ import Button from '@/components/ds/Button';
 import { SOURCE_LOCALE } from '@/config/locales';
 import { categoryPath } from '@/config/slugs';
 
-// Seasonal call-out for the Weihnachten category on the German home and
-// /fragen hub. German-only (the category has no translations), so the copy
+// Seasonal call-out for the Weihnachten category on the German home,
+// /fragen hub (full) and every other German category page (compact). German-only (the category has no translations), so the copy
 // lives here rather than in the message files.
 //
 // Shows only while it's relevant (1 Nov – 26 Dec: office parties, school
@@ -23,15 +23,50 @@ export default function SeasonalTeaser({
   locale,
   categories,
   className = '',
+  variant = 'full',
 }: {
   locale: string;
   categories: { slug: string; count?: number; question_count?: number }[];
   className?: string;
+  /** 'compact': slim one-row strip for category pages, where the question
+   *  list is what visitors came for and must stay near the top. */
+  variant?: 'full' | 'compact';
 }) {
   if (locale !== SOURCE_LOCALE || !inSeason(new Date())) return null;
   const cat = categories.find((c) => c.slug === SLUG);
   if (!cat) return null;
   const count = cat.count ?? cat.question_count;
+
+  if (variant === 'compact') {
+    return (
+      <a
+        href={categoryPath(SOURCE_LOCALE, SLUG)}
+        data-theme="dark"
+        className={`group flex items-center gap-3 rounded-ds-lg border-2 border-[var(--warm-900)] bg-[var(--pine)] px-4 py-3 no-underline shadow-hard-sm transition-transform hover:-translate-y-px ${className}`}
+        style={{ ['--edge-shadow' as string]: 'var(--warm-900)' }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/categories/${SLUG}/icon.svg`}
+          alt=""
+          className="h-11 w-11 shrink-0 -rotate-3 object-contain"
+        />
+        <span className="min-w-0 flex-1 text-sm leading-snug text-[var(--text-body)]">
+          <strong className="font-display text-base font-extrabold text-white">
+            Weihnachtsquiz {new Date().getFullYear()}
+          </strong>
+          <span className="block sm:inline">
+            <span className="hidden sm:inline"> · </span>
+            {count ? `${count} ` : ''}Fragen mit Antworten, als PDF oder fertige Präsentation
+          </span>
+        </span>
+        <ArrowRight
+          className="h-5 w-5 shrink-0 text-[var(--yellow)] transition-transform group-hover:translate-x-0.5"
+          aria-hidden
+        />
+      </a>
+    );
+  }
 
   return (
     <section

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import SeasonalTeaser from '@/components/SeasonalTeaser';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
@@ -243,6 +244,16 @@ export default async function CategoryQuestionsPage({
       <p className="mb-6 text-lg leading-relaxed text-[var(--text-body)]">
         {intro}
       </p>
+
+      {/* Seasonal: most visitors enter on a category page, not the hub. */}
+      {slug !== 'weihnachten' && (
+        <SeasonalTeaser
+          locale={locale}
+          categories={allCategories}
+          variant="compact"
+          className="mb-6"
+        />
+      )}
 
       {/* Category navigation */}
       <nav
