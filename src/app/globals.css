@@ -52,6 +52,7 @@
   --pink-soft:   #FFDDE9;
   --peach-soft:  #FFE1CE;
   --pine:        #12473B;  /* festive / seasonal surface */
+  --berry:       #C9372C;  /* festive red: the logo's hat */
 
   /* --- Semantic accents (never the only signal) --- */
   --green-500: #1F8F6B;
@@ -207,6 +208,42 @@ body.admin-legacy {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* ============ Festive layer (seasonal, see src/lib/festive.ts) ============ */
+.festive-lights {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 30px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.festive-lights > span {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat-x;
+  background-size: 350px 30px;
+  background-position: center top;
+}
+@keyframes pqp-twinkle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+.festive-twinkle-a { animation: pqp-twinkle 2.6s ease-in-out infinite; }
+.festive-twinkle-b { animation: pqp-twinkle 2.6s ease-in-out -1.3s infinite; }
+/* Falling-snow speckle for dark festive surfaces. */
+.festive-snow {
+  /* Big and soft on purpose: small crisp dots read as stray full stops next to text. */
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.26) 0 4px, transparent 7px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.2) 0 2.5px, transparent 5px),
+    radial-gradient(circle, rgba(255, 207, 74, 0.3) 0 3px, transparent 6px);
+  background-size: 230px 190px, 150px 170px, 330px 290px;
+  background-position: 20px 30px, 90px 100px, 150px 60px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .festive-twinkle-a, .festive-twinkle-b { animation: none; }
 }
 
 /* Quiet motion for dialogs — fades + short slides, no bounce. */

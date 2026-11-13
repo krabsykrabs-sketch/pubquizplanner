@@ -3,11 +3,13 @@ import SeasonalTeaser from '@/components/SeasonalTeaser';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Zap } from 'lucide-react';
 import { query, queryOne } from '@/lib/db';
 import { getCategoryIntro } from '@/lib/category-intros';
 import { getCategorySeoName } from '@/lib/category-seo';
 import Button from '@/components/ds/Button';
+import FestiveLights from '@/components/FestiveLights';
+import { FESTIVE_SLUG } from '@/lib/festive';
 import { categoryIcon, categoryLook, categoryVisual } from '@/lib/category-visuals';
 import {
   SOURCE_LOCALE,
@@ -220,33 +222,81 @@ export default async function CategoryQuestionsPage({
 
   const heroLook = categoryLook(category.slug);
   const heroArt = categoryVisual(category.slug)?.iconArt;
+  // One click to a short quiz made only of this category's questions.
+  const quickQuizHref = `/${locale}/generator?quick=1&cat=${slug}`;
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-16">
       <JsonLd data={[breadcrumb, questionItemList, faqPage]} />
-      <h1 className="mb-6 flex items-center gap-3.5 font-display text-4xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-5xl">
-        <span
-          className={`inline-flex h-16 w-16 shrink-0 -rotate-3 items-center justify-center rounded-ds-lg border-2 border-[var(--edge)] shadow-hard-sm ${
-            heroLook.onDark ? 'text-[var(--yellow-soft)]' : 'text-[var(--warm-900)]'
-          }`}
-          style={{ background: heroLook.tint }}
+      {slug === FESTIVE_SLUG ? (
+        // The seasonal category gets a festive header of its own (all year:
+        // this page is about Christmas whenever someone lands on it).
+        <section
+          data-theme="dark"
+          className="relative mb-8 overflow-hidden rounded-ds-xl border-2 border-[var(--warm-900)] bg-[var(--pine)] px-6 pb-7 pt-12 shadow-hard md:px-9 md:pb-9"
+          style={{ ['--edge-shadow' as string]: 'var(--warm-900)' }}
         >
-          {heroArt ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={heroArt} alt="" className="h-[84%] w-[84%] object-contain" />
-          ) : (
-            <HeroIcon className="h-7 w-7" aria-hidden />
-          )}
-        </span>
-        {t('categoryTitle', { name: category.name_de })}
-      </h1>
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background: [
+                'radial-gradient(circle at 4% 30%, var(--yellow) 0 3px, transparent 4px)',
+                'radial-gradient(circle at 30% 94%, #fff 0 2px, transparent 3px)',
+                'radial-gradient(circle at 97% 22%, #fff 0 2px, transparent 3px)',
+                'radial-gradient(circle at 93% 84%, var(--yellow) 0 3px, transparent 4px)',
+                'radial-gradient(circle at 62% 96%, var(--amber-500) 0 3px, transparent 4px)',
+              ].join(', '),
+            }}
+          />
+          <FestiveLights onDark />
+          <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:gap-8">
+            {heroArt && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={heroArt} alt="" className="h-32 w-32 shrink-0 -rotate-3 md:h-44 md:w-44" />
+            )}
+            <div>
+              <h1 className="mb-3 font-display text-4xl font-extrabold tracking-[-0.02em] text-white md:text-5xl">
+                {t('categoryTitle', { name: category.name_de })}
+              </h1>
+              <p className="mb-5 text-lg leading-relaxed text-[var(--text-body)]">{intro}</p>
+              <Button
+                size="lg"
+                href={quickQuizHref}
+                iconLeft={<Zap className="h-5 w-5" aria-hidden />}
+              >
+                {locale === SOURCE_LOCALE ? 'Sofort-Weihnachtsquiz' : t('ctaButton')}
+              </Button>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <>
+        <h1 className="mb-6 flex items-center gap-3.5 font-display text-4xl font-extrabold tracking-[-0.02em] text-[var(--text-strong)] md:text-5xl">
+          <span
+            className={`inline-flex h-16 w-16 shrink-0 -rotate-3 items-center justify-center rounded-ds-lg border-2 border-[var(--edge)] shadow-hard-sm ${
+              heroLook.onDark ? 'text-[var(--yellow-soft)]' : 'text-[var(--warm-900)]'
+            }`}
+            style={{ background: heroLook.tint }}
+          >
+            {heroArt ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={heroArt} alt="" className="h-[84%] w-[84%] object-contain" />
+            ) : (
+              <HeroIcon className="h-7 w-7" aria-hidden />
+            )}
+          </span>
+          {t('categoryTitle', { name: category.name_de })}
+        </h1>
 
-      <p className="mb-6 text-lg leading-relaxed text-[var(--text-body)]">
-        {intro}
-      </p>
+        <p className="mb-6 text-lg leading-relaxed text-[var(--text-body)]">
+          {intro}
+        </p>
+        </>
+      )}
 
       {/* Seasonal: most visitors enter on a category page, not the hub. */}
-      {slug !== 'weihnachten' && (
+      {slug !== FESTIVE_SLUG && (
         <SeasonalTeaser
           locale={locale}
           categories={allCategories}
@@ -314,7 +364,7 @@ export default async function CategoryQuestionsPage({
           </p>
           <Button
             size="lg"
-            href={`/${locale}/generator`}
+            href={quickQuizHref}
             iconRight={<ArrowRight className="h-5 w-5" aria-hidden />}
           >
             {t('ctaButton')}

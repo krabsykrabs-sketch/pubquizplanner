@@ -26,16 +26,21 @@ export default function CategorySection({
   locale,
   categories,
   displayCount,
+  leadSlug,
 }: {
   locale: string;
   categories: CategoryChip[];
   displayCount: number;
+  /** Seasonal: a category to show first and pre-select (if it is live). */
+  leadSlug?: string;
 }) {
   const t = useTranslations('landing');
-  const [activeCat, setActiveCat] = useState<string>('kunst-kultur');
-
   const bySlug = new Map(categories.map((c) => [c.slug, c]));
-  const featured = FEATURED_PICKS.map((slug) => bySlug.get(slug)).filter(
+  const lead = leadSlug && bySlug.has(leadSlug) ? leadSlug : undefined;
+  const [activeCat, setActiveCat] = useState<string>(lead ?? 'kunst-kultur');
+
+  const picks = lead ? [lead, ...FEATURED_PICKS] : FEATURED_PICKS;
+  const featured = picks.slice(0, 6).map((slug) => bySlug.get(slug)).filter(
     (c): c is CategoryChip => !!c
   );
   for (const c of categories) {

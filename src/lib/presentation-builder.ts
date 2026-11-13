@@ -3,6 +3,7 @@ import { getQuizMode } from './quiz-modes';
 import { SOURCE_LOCALE } from '@/config/locales';
 import { defaultSlideTheme, renderThemeCss, type SlideTheme } from './slide-theme';
 import { CATEGORY_BACKGROUNDS } from './category-backgrounds';
+import { FESTIVE_SLUG, fairyLights } from './festive';
 import type { AssembledQuiz } from '@/types/quiz';
 
 // The generated deck is a standalone HTML file that may be opened offline or
@@ -40,6 +41,13 @@ export function buildPresentation(
     : 0;
   const timerEnabled = timerSeconds > 0;
   const timerSoundDefault = config.timerSound !== false;
+  // A quiz made only of Christmas rounds is a Christmas quiz: its title,
+  // interlude and final slides go festive too. In a mixed quiz only the
+  // Christmas round itself does (via its cat-<slug> class).
+  const plain =
+    rounds.length > 0 && rounds.every((r) => r.config.categorySlug === FESTIVE_SLUG)
+      ? 'glow festive'
+      : 'glow';
   const keysHint = timerEnabled
     ? `${s.keysHint} &nbsp;·&nbsp; ${s.timerKeyHint}`
     : s.keysHint;
@@ -67,7 +75,7 @@ export function buildPresentation(
       <p class="subtitle">${s.goodLuck}</p>
       <p class="keys-hint">${keysHint}</p>
     </div>
-  `, 'glow'));
+  `, plain));
 
   const halfwayRound = Math.ceil(rounds.length / 2);
   const allAnswersAtEnd = getQuizMode(config.mode).answerPlacement === 'all_at_end';
@@ -116,7 +124,7 @@ export function buildPresentation(
           <h2>${s.halftime}</h2>
           <p>${s.halftimeSub}</p>
         </div>
-      `, 'glow'));
+      `, plain));
     }
   });
 
@@ -127,7 +135,7 @@ export function buildPresentation(
         <h2>${s.resolution}</h2>
         <p>${s.resolutionSub}</p>
       </div>
-    `, 'glow'));
+    `, plain));
 
     rounds.forEach((round, roundIndex) => {
       const roundNum = roundIndex + 1;
@@ -155,7 +163,7 @@ export function buildPresentation(
       <p>${s.finalSub}</p>
       <p class="branding">${s.madeWith}</p>
     </div>
-  `, 'glow'));
+  `, plain));
 
   return `<!DOCTYPE html>
 <html lang="${config.locale || SOURCE_LOCALE}">
@@ -197,6 +205,10 @@ body {
 
 /* Category background artwork (see src/lib/category-backgrounds.ts) */
 ${renderCategoryBackgroundCss()}
+
+/* Festive slides (see src/lib/festive.ts): pine green, a speckle of snow and
+   a string of fairy lights along the top. Both layers sit behind the content. */
+${renderFestiveCss()}
 
 h1, h2 {
   font-family: var(--slide-font-display);
@@ -693,6 +705,29 @@ function buildSlide(type: string, content: string, extraClass?: string): string 
   return `<div class="slide ${cls}">${content}</div>`;
 }
 
+function renderFestiveCss(): string {
+  const sel = (suffix = '') => `.slide.cat-${FESTIVE_SLUG}${suffix}, .slide.festive${suffix}`;
+  const l = fairyLights(true);
+  return `${sel()} { background-color: #12473B; isolation: isolate; }
+${sel('::before')}, ${sel('::after')} { content: ''; position: absolute; left: 0; right: 0; top: 0; z-index: -1; pointer-events: none; }
+${sel('::before')} {
+  bottom: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.24) 0 0.42vw, transparent 0.72vw),
+    radial-gradient(circle, rgba(255,255,255,0.18) 0 0.26vw, transparent 0.5vw),
+    radial-gradient(circle, rgba(255,207,74,0.28) 0 0.32vw, transparent 0.6vw);
+  background-size: 19vw 16vw, 12vw 14vw, 28vw 24vw;
+  background-position: 2vw 3vw, 8vw 9vw, 13vw 5vw;
+}
+${sel('::after')} {
+  height: 5.6vh;
+  background-image: ${l.wire}, ${l.bulbsA}, ${l.bulbsB};
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+  background-position: center top;
+}`;
+}
+
 // Returns a 'cat-<slug>' class for round-scoped slides. The class is always
 // applied (cheap, harmless); only slugs present in CATEGORY_BACKGROUNDS get a
 // matching CSS rule, so this is a no-op until artwork exists for that category.
@@ -709,9 +744,11 @@ function categoryClass(slug: string): string {
 function renderCategoryBackgroundCss(): string {
   return Object.entries(CATEGORY_BACKGROUNDS)
     .filter((entry): entry is [string, string] => Boolean(entry[1]))
-    .map(
-      ([slug, path]) => `.slide.round-title.cat-${slug} {
-  background-image: linear-gradient(180deg, rgba(20,27,46,0) 62%, rgba(20,27,46,0.55) 100%), url('${BASE_URL}${path}'), radial-gradient(circle at 76% 40%, rgba(255,207,74,0.22), transparent 40%);
+    .map(([slug, path]) => {
+      // The bottom veil takes the slide's own colour (pine on festive slides).
+      const veil = slug === FESTIVE_SLUG ? '10,46,38' : '20,27,46';
+      return `.slide.round-title.cat-${slug} {
+  background-image: linear-gradient(180deg, rgba(${veil},0) 62%, rgba(${veil},0.55) 100%), url('${BASE_URL}${path}'), radial-gradient(circle at 76% 40%, rgba(255,207,74,0.22), transparent 40%);
   background-size: cover, auto 70%, cover;
   background-position: center, 92% 30%, center;
   background-repeat: no-repeat;
@@ -721,8 +758,8 @@ function renderCategoryBackgroundCss(): string {
   background-size: auto 58%, cover;
   background-position: 96% 60%, center;
   background-repeat: no-repeat;
-}`
-    )
+}`;
+    })
     .join('\n');
 }
 

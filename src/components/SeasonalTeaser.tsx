@@ -1,5 +1,7 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 import Button from '@/components/ds/Button';
+import FestiveLights from '@/components/FestiveLights';
+import { FESTIVE_SLUG, isFestiveSeason } from '@/lib/festive';
 import { SOURCE_LOCALE } from '@/config/locales';
 import { categoryPath } from '@/config/slugs';
 
@@ -12,12 +14,7 @@ import { categoryPath } from '@/config/slugs';
 // listed among the caller's active categories (>= MIN_QUESTIONS_PER_CATEGORY
 // approved questions). Before that it renders nothing, so it is safe to ship
 // ahead of the content.
-const SLUG = 'weihnachten';
-
-function inSeason(now: Date): boolean {
-  const m = now.getMonth(); // 0-based: 10 = Nov, 11 = Dec
-  return m === 10 || (m === 11 && now.getDate() <= 26);
-}
+const SLUG = FESTIVE_SLUG;
 
 export default function SeasonalTeaser({
   locale,
@@ -32,7 +29,7 @@ export default function SeasonalTeaser({
    *  list is what visitors came for and must stay near the top. */
   variant?: 'full' | 'compact';
 }) {
-  if (locale !== SOURCE_LOCALE || !inSeason(new Date())) return null;
+  if (locale !== SOURCE_LOCALE || !isFestiveSeason()) return null;
   const cat = categories.find((c) => c.slug === SLUG);
   if (!cat) return null;
   const count = cat.count ?? cat.question_count;
@@ -71,7 +68,7 @@ export default function SeasonalTeaser({
   return (
     <section
       data-theme="dark"
-      className={`relative overflow-hidden rounded-ds-xl border-2 border-[var(--warm-900)] bg-[var(--pine)] p-6 shadow-hard md:p-8 ${className}`}
+      className={`relative overflow-hidden rounded-ds-xl border-2 border-[var(--warm-900)] bg-[var(--pine)] px-6 pb-6 pt-11 shadow-hard md:px-8 md:pb-8 md:pt-12 ${className}`}
       style={{ ['--edge-shadow' as string]: 'var(--warm-900)' }}
     >
       <div
@@ -87,13 +84,14 @@ export default function SeasonalTeaser({
           ].join(', '),
         }}
       />
+      <FestiveLights onDark />
       <div className="relative flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-start gap-4">
+        <div className="flex items-start gap-4 md:items-center md:gap-5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/categories/${SLUG}/icon.svg`}
             alt=""
-            className="-my-2 h-[84px] w-[84px] shrink-0 -rotate-3 object-contain"
+            className="h-16 w-16 shrink-0 -rotate-3 object-contain md:-my-3 md:h-[124px] md:w-[124px]"
           />
           <div>
             <h2 className="mb-1 font-display text-2xl font-extrabold tracking-[-0.02em] text-white">
@@ -106,14 +104,24 @@ export default function SeasonalTeaser({
             </p>
           </div>
         </div>
-        <Button
-          size="lg"
-          href={categoryPath(SOURCE_LOCALE, SLUG)}
-          iconRight={<ArrowRight className="h-5 w-5" aria-hidden />}
-          className="shrink-0"
-        >
-          Zum Weihnachtsquiz
-        </Button>
+        <div className="flex shrink-0 flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+          <Button
+            size="lg"
+            href={`/${SOURCE_LOCALE}/generator?quick=1&cat=${SLUG}`}
+            iconLeft={<Zap className="h-5 w-5" aria-hidden />}
+          >
+            Sofort-Weihnachtsquiz
+          </Button>
+          <Button
+            size="lg"
+            variant="secondary"
+            className="!bg-[#FFFDF7] !text-[var(--warm-900)]"
+            href={categoryPath(SOURCE_LOCALE, SLUG)}
+            iconRight={<ArrowRight className="h-5 w-5" aria-hidden />}
+          >
+            Fragen ansehen
+          </Button>
+        </div>
       </div>
     </section>
   );

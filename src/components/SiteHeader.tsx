@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import Button from '@/components/ds/Button';
+import FestiveLights from '@/components/FestiveLights';
 import Wordmark from '@/components/ds/Wordmark';
 import { LOCALES, LOCALE_LABELS, type Locale } from '@/config/locales';
 import { questionsIndexPath, switchLocalePath } from '@/config/slugs';
@@ -69,7 +70,14 @@ function LanguageSwitcher({ locale }: { locale: Locale }) {
   );
 }
 
-export default function SiteHeader({ locale }: { locale: Locale }) {
+export default function SiteHeader({
+  locale,
+  festive = false,
+}: {
+  locale: Locale;
+  /** Seasonal: fairy lights under the header, hat on the logo. */
+  festive?: boolean;
+}) {
   const t = useTranslations('nav');
   const pathname = usePathname() || `/${locale}`;
   const [menuOpen, setMenuOpen] = useState(false);
@@ -92,7 +100,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
     >
       <div className="mx-auto flex h-[70px] max-w-container items-center justify-between px-6">
         <Link href={`/${locale}`} className="no-underline">
-          <Wordmark />
+          <Wordmark festive={festive} />
         </Link>
 
         {/* Desktop nav */}
@@ -149,6 +157,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
           </div>
         </nav>
       )}
+      {festive && <FestiveLights hang />}
     </header>
   );
 }

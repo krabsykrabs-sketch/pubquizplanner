@@ -1,9 +1,17 @@
 import { Dices } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Button from '@/components/ds/Button';
+import FestiveLights from '@/components/FestiveLights';
 
 // Closing navy CTA band: soft yellow glow from the top, two generator entry points.
-export default async function CtaBand({ locale }: { locale: string }) {
+export default async function CtaBand({
+  locale,
+  festive = false,
+}: {
+  locale: string;
+  /** Seasonal: fairy lights along the top and a speckle of snow. */
+  festive?: boolean;
+}) {
   const t = await getTranslations('landing');
 
   return (
@@ -16,6 +24,8 @@ export default async function CtaBand({ locale }: { locale: string }) {
             'radial-gradient(60% 120% at 50% 0%, rgba(255,207,74,0.16), transparent 60%)',
         }}
       />
+      {festive && <div aria-hidden className="festive-snow absolute inset-0" />}
+      {festive && <FestiveLights onDark />}
       <div className="relative mx-auto max-w-container px-6 py-[84px] text-center">
         <h2 className="mx-auto max-w-[18ch] font-display text-[clamp(2.5rem,4vw+1rem,3.5rem)] font-extrabold tracking-[-0.02em] text-white">
           {t('ctaBandTitle')}

@@ -37,7 +37,11 @@ function makeConfig(locale: string): QuizConfig {
 function GeneratorFlow() {
   const t = useTranslations('generator');
   const locale = useLocale();
-  const quick = useSearchParams().get('quick') === '1';
+  const params = useSearchParams();
+  const quick = params.get('quick') === '1';
+  // Optional themed quick quiz, e.g. ?quick=1&cat=weihnachten: every round
+  // comes from that one category (questions never repeat across rounds).
+  const quickCat = params.get('cat');
   const [step, setStep] = useState(1);
   const [quickReady, setQuickReady] = useState(!quick);
   const [config, setConfig] = useState<QuizConfig>(() => makeConfig(locale));
@@ -48,7 +52,10 @@ function GeneratorFlow() {
     fetch(`/api/questions/categories?locale=${locale}`)
       .then((res) => res.json())
       .then((cats: Category[]) => {
-        const picked = [...cats].sort(() => Math.random() - 0.5).slice(0, QUICK_ROUNDS);
+        const themed = quickCat ? cats.find((c) => c.slug === quickCat) : undefined;
+        const picked = themed
+          ? Array.from({ length: QUICK_ROUNDS }, () => themed)
+          : [...cats].sort(() => Math.random() - 0.5).slice(0, QUICK_ROUNDS);
         if (picked.length === 0) throw new Error('no categories');
         setConfig((c) => ({
           ...c,

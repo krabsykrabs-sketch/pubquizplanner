@@ -17,6 +17,7 @@ import DemoQuiz from '@/components/landing/DemoQuiz';
 import CtaBand from '@/components/landing/CtaBand';
 import SeasonalTeaser from '@/components/SeasonalTeaser';
 import { isDemoStorageReady } from '@/lib/demo-deck';
+import { FESTIVE_SLUG, isFestiveSeason } from '@/lib/festive';
 import type { CategoryChip, SampleQuestion } from '@/components/landing/types';
 
 export async function generateMetadata({
@@ -134,23 +135,34 @@ export default async function LandingPage({
   // the homepage unbroken before then. Never throws.
   const demoReady = await isDemoStorageReady().catch(() => false);
 
+  // Seasonal festive layer (see src/lib/festive.ts).
+  const festive = isFestiveSeason();
+  const xmasLive =
+    locale === SOURCE_LOCALE && categories.some((c) => c.slug === FESTIVE_SLUG);
+
   return (
     <main className="min-h-screen">
-      <LandingHero locale={locale} displayCount={displayCount} />
-      <AudienceStrip locale={locale} />
+      <LandingHero
+        locale={locale}
+        displayCount={displayCount}
+        festive={festive}
+        xmasLive={xmasLive}
+      />
       {/* Renders only for de, in season, once the category is live */}
-      <div className="mx-auto max-w-container px-5 pb-[60px] empty:hidden sm:px-6 nav:pb-[84px]">
+      <div className="mx-auto max-w-container px-5 pb-[60px] empty:hidden sm:px-6 nav:pb-[72px]">
         <SeasonalTeaser locale={locale} categories={categories} />
       </div>
+      <AudienceStrip locale={locale} />
       <DemoQuiz locale={locale} demoReady={demoReady} />
       <CategorySection
         locale={locale}
         categories={categories}
         displayCount={displayCount}
+        leadSlug={festive ? FESTIVE_SLUG : undefined}
       />
       <SampleQuestions questions={sampleQuestions} />
       <HowItWorks />
-      <CtaBand locale={locale} />
+      <CtaBand locale={locale} festive={festive} />
     </main>
   );
 }

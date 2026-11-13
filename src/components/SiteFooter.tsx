@@ -3,7 +3,13 @@ import { BrandMark } from '@/components/ds/Wordmark';
 import { LOCALE_LABELS, LOCALES, type Locale } from '@/config/locales';
 import { questionsIndexPath } from '@/config/slugs';
 
-export default async function SiteFooter({ locale }: { locale: Locale }) {
+export default async function SiteFooter({
+  locale,
+  festive = false,
+}: {
+  locale: Locale;
+  festive?: boolean;
+}) {
   const t = await getTranslations({ locale, namespace: 'footer' });
 
   const links = [
@@ -18,7 +24,7 @@ export default async function SiteFooter({ locale }: { locale: Locale }) {
       <div className="mx-auto flex max-w-container flex-wrap items-start justify-between gap-8 px-6 py-12">
         <div className="max-w-[30ch]">
           <span className="mb-2.5 inline-flex items-center gap-2.5 font-display text-[1.15rem] font-extrabold tracking-[-0.02em] text-white">
-            <BrandMark size={27} />
+            <BrandMark size={27} festive={festive} />
             <span>
               PubQuiz<span className="text-[var(--accent-text)]">Planner</span>
             </span>

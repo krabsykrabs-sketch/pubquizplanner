@@ -7,6 +7,7 @@ import SiteFooter from '@/components/SiteFooter';
 import SiteHeader from '@/components/SiteHeader';
 import TrackPageview from '@/components/TrackPageview';
 import { isGoogleIndexed, isLocale } from '@/config/locales';
+import { isFestiveSeason } from '@/lib/festive';
 import { fontVariables } from '@/lib/fonts';
 import { JsonLd, organizationSchema, websiteSchema } from '@/lib/structured-data';
 
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
 
   const messages = await getMessages();
+  const festive = isFestiveSeason();
 
   return (
     <html lang={locale} className={fontVariables}>
@@ -46,9 +48,9 @@ export default async function LocaleLayout({
         <JsonLd data={[organizationSchema(), websiteSchema(locale)]} />
         <NextIntlClientProvider messages={messages}>
           <TrackPageview />
-          <SiteHeader locale={locale} />
+          <SiteHeader locale={locale} festive={festive} />
           <div className="flex-1">{children}</div>
-          <SiteFooter locale={locale} />
+          <SiteFooter locale={locale} festive={festive} />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -50,6 +50,7 @@ const config: Config = {
         pink: { DEFAULT: "var(--pink)", soft: "var(--pink-soft)" },
         peach: { soft: "var(--peach-soft)" },
         pine: "var(--pine)",
+        berry: "var(--berry)",
         edge: "var(--edge)",
 
         /* Legacy palette (admin area only). */
