@@ -67,8 +67,9 @@ export default function DatenschutzPage({
           <p className="mt-2">
             Zur Verbesserung des Angebots erheben wir selbst gehostete, anonyme
             Nutzungsstatistiken (aufgerufene Seiten, Referrer, Anzahl erstellter Quizze und
-            Downloads sowie – nur wenn Sie sie im Generator freiwillig beantworten – die Angabe,
-            wofür das Quiz gedacht ist). Dabei werden weder IP-Adressen noch sonstige personenbezogene Daten
+            Downloads, die Nutzung des Quiz-Generators – z. B. welcher Schritt erreicht wurde und
+            wie lange die Seite geöffnet war – sowie, nur wenn Sie sie im Generator freiwillig
+            beantworten, die Angabe, wofür das Quiz gedacht ist). Dabei werden weder IP-Adressen noch sonstige personenbezogene Daten
             gespeichert; eine Wiedererkennung über den einzelnen Besuch hinaus findet nicht
             statt.
           </p>

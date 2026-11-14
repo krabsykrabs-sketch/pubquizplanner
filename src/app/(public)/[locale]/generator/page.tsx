@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Dices } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
@@ -8,6 +8,7 @@ import type { Category, QuizConfig, QuizQuestion } from '@/types/quiz';
 import { DEFAULT_QUIZ_MODE } from '@/lib/quiz-modes';
 import StepBuild, { makeRound } from '@/components/quiz-builder/StepBuild';
 import StepDownload from '@/components/quiz-builder/StepDownload';
+import { trackGenerator } from '@/lib/generator-track';
 
 interface RoundQuestions {
   questions: QuizQuestion[];
@@ -47,6 +48,40 @@ function GeneratorFlow() {
   const [config, setConfig] = useState<QuizConfig>(() => makeConfig(locale));
   const [roundsData, setRoundsData] = useState<RoundQuestions[]>([]);
 
+  // Funnel instrumentation (see lib/generator-events.ts): reaching step 2,
+  // copying text, and leaving (last step + seconds on the page). 'exit' can
+  // fire more than once (tab hidden, page closed, in-app navigation); the
+  // dashboard takes the latest step and the longest duration per visit.
+  const startedAt = useRef(Date.now());
+  const stepRef = useRef(step);
+  const copiedSteps = useRef(new Set<number>());
+  useEffect(() => {
+    if (step === 2 && stepRef.current !== 2) trackGenerator('to_download');
+    stepRef.current = step;
+  }, [step]);
+  useEffect(() => {
+    const sendExit = () =>
+      trackGenerator('exit', {
+        step: stepRef.current,
+        seconds: Math.round((Date.now() - startedAt.current) / 1000),
+      });
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') sendExit();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pagehide', sendExit);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', sendExit);
+      sendExit(); // in-app navigation away from the generator
+    };
+  }, []);
+  const onCopy = () => {
+    if (copiedSteps.current.has(step)) return;
+    copiedSteps.current.add(step);
+    trackGenerator('copy', { step });
+  };
+
   useEffect(() => {
     if (!quick) return;
     fetch(`/api/questions/categories?locale=${locale}`)
@@ -78,7 +113,7 @@ function GeneratorFlow() {
   const hasQuiz = roundsData.length > 0 && roundsData.some((r) => r.questions.length > 0);
 
   return (
-    <main className="min-h-screen bg-[var(--bg-page)] px-4 py-8 nav:py-12">
+    <main className="min-h-screen bg-[var(--bg-page)] px-4 py-8 nav:py-12" onCopy={onCopy}>
       {/* Header */}
       <div className="mx-auto mb-8 max-w-3xl">
         <h1 className="mb-6 text-center font-display text-[1.75rem] font-extrabold tracking-[-0.02em] text-[var(--text-strong)]">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Brain, Dices, Plus, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { Category, QuizConfig, QuizQuestion, RoundConfig } from '@/types/quiz';
@@ -11,6 +11,7 @@ import IconButton from '@/components/ds/IconButton';
 import Select from '@/components/ds/Select';
 import { categoryIcon } from '@/lib/category-visuals';
 import { getSessionId } from '@/lib/session-id';
+import { trackGenerator } from '@/lib/generator-track';
 
 const MIN_ROUNDS = 3;
 const MAX_ROUNDS = 8;
@@ -55,6 +56,14 @@ export default function StepBuild({
   const [swapping, setSwapping] = useState<string | null>(null);
   // One round is shown at a time; the switcher above the panel navigates.
   const [activeRound, setActiveRound] = useState(0);
+  // Rounds opened in the preview beyond the first (each logged once).
+  const viewedRounds = useRef(new Set<number>([0]));
+  const viewRound = (i: number) => {
+    setActiveRound(i);
+    if (viewedRounds.current.has(i)) return;
+    viewedRounds.current.add(i);
+    trackGenerator('round_view', { round: i + 1 });
+  };
 
   const fetchQuestions = async (
     round: RoundConfig,
@@ -136,6 +145,7 @@ export default function StepBuild({
 
   // Change category/count for a round and regenerate its questions in place.
   const updateRound = async (i: number, updates: Partial<RoundConfig>) => {
+    trackGenerator('customize', { kind: 'categoryId' in updates ? 'category' : 'count' });
     const rounds = [...config.rounds];
     rounds[i] = { ...rounds[i], ...updates };
     onChange({ ...config, rounds, numberOfRounds: rounds.length });
@@ -156,6 +166,7 @@ export default function StepBuild({
 
   // Fresh questions for the same configuration (exclude the current ones too).
   const rerollRound = async (i: number) => {
+    trackGenerator('customize', { kind: 'reroll' });
     setRoundLoading(i, true);
     try {
       const exclude = [
@@ -180,6 +191,7 @@ export default function StepBuild({
 
   const addRound = async () => {
     if (config.rounds.length >= MAX_ROUNDS) return;
+    trackGenerator('customize', { kind: 'add_round' });
     const usedIds = new Set(config.rounds.map((r) => r.categoryId));
     const unused = categories.filter((c) => !usedIds.has(c.id));
     const pool = unused.length > 0 ? unused : categories;
@@ -216,6 +228,7 @@ export default function StepBuild({
 
   const removeRound = (i: number) => {
     if (config.rounds.length <= MIN_ROUNDS) return;
+    trackGenerator('customize', { kind: 'remove_round' });
     const rounds = config.rounds
       .filter((_, j) => j !== i)
       .map((r, j) => ({ ...r, roundNumber: j + 1 }));
@@ -226,6 +239,7 @@ export default function StepBuild({
 
   const handleSwap = async (roundIndex: number, questionIndex: number) => {
     const swapKey = `${roundIndex}-${questionIndex}`;
+    trackGenerator('customize', { kind: 'swap' });
     setSwapping(swapKey);
     try {
       const res = await fetch('/api/swap', {
@@ -298,7 +312,7 @@ export default function StepBuild({
               <button
                 key={i}
                 type="button"
-                onClick={() => setActiveRound(i)}
+                onClick={() => viewRound(i)}
                 aria-current={on ? 'true' : undefined}
                 className={`flex items-center gap-2.5 rounded-ds-lg border-[1.5px] px-3 py-2 text-left transition-colors ${
                   on

@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import { GENERATOR_TRACKING_SINCE } from '@/lib/generator-events';
 
 // Aggregated analytics for the admin dashboard. Protected by the admin
 // middleware (all /api/admin routes require the auth cookie).
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
       ? `date_trunc('day', ${since})`
       : `date_trunc('day', (SELECT coalesce(min(created_at), now()) FROM events))`;
 
-  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports, purposes] =
+  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports, purposes, genFunnel] =
     await Promise.all([
       query<{
         pageviews: string;
@@ -163,6 +164,66 @@ export async function GET(request: NextRequest) {
          WHERE event_type = 'quiz_purpose' AND created_at >= ${since}
          GROUP BY 1 ORDER BY count(*) DESC`
       ),
+      // Generator journey per visit, only for visits since the funnel
+      // instrumentation shipped (older visits have no 'generator_action').
+      // Base = visits whose preview loaded ('quiz_generated').
+      query<{
+        base: string;
+        customized: string;
+        browsed: string;
+        reached_download: string;
+        clicked_download: string;
+        got_download: string;
+        copied: string;
+        download_errors: string;
+        no_dl_with_exit: string;
+        no_dl_under_30s: string;
+        no_dl_median_s: string | null;
+        dl_median_s: string | null;
+      }>(
+        `WITH win AS (SELECT GREATEST(${since}, '${GENERATOR_TRACKING_SINCE}'::timestamptz) AS t),
+         base AS (
+           SELECT DISTINCT session_id FROM events, win
+           WHERE event_type = 'quiz_generated' AND session_id IS NOT NULL AND created_at >= win.t
+         ),
+         acts AS (
+           SELECT session_id,
+                  bool_or(meta->>'action' = 'customize') AS customized,
+                  bool_or(meta->>'action' = 'round_view') AS browsed,
+                  bool_or(meta->>'action' = 'to_download') AS reached_download,
+                  bool_or(meta->>'action' = 'download_click') AS clicked_download,
+                  bool_or(meta->>'action' = 'copy') AS copied,
+                  count(*) FILTER (WHERE meta->>'action' = 'download_error') AS errors,
+                  max((meta->>'seconds')::int) FILTER (WHERE meta->>'action' = 'exit') AS seconds
+           FROM events, win
+           WHERE event_type = 'generator_action' AND session_id IS NOT NULL AND created_at >= win.t
+           GROUP BY session_id
+         ),
+         dl AS (
+           SELECT DISTINCT session_id FROM events, win
+           WHERE event_type IN ('download_slides', 'download_answer_sheet', 'download_cheat_sheet')
+             AND session_id IS NOT NULL AND created_at >= win.t
+         ),
+         j AS (
+           SELECT b.session_id, a.*, (dl.session_id IS NOT NULL) AS got_download
+           FROM base b
+           LEFT JOIN acts a ON a.session_id = b.session_id
+           LEFT JOIN dl ON dl.session_id = b.session_id
+         )
+         SELECT count(*) AS base,
+                count(*) FILTER (WHERE customized) AS customized,
+                count(*) FILTER (WHERE browsed) AS browsed,
+                count(*) FILTER (WHERE reached_download) AS reached_download,
+                count(*) FILTER (WHERE clicked_download) AS clicked_download,
+                count(*) FILTER (WHERE got_download) AS got_download,
+                count(*) FILTER (WHERE copied) AS copied,
+                coalesce(sum(errors), 0) AS download_errors,
+                count(*) FILTER (WHERE NOT got_download AND seconds IS NOT NULL) AS no_dl_with_exit,
+                count(*) FILTER (WHERE NOT got_download AND seconds < 30) AS no_dl_under_30s,
+                percentile_cont(0.5) WITHIN GROUP (ORDER BY seconds) FILTER (WHERE NOT got_download) AS no_dl_median_s,
+                percentile_cont(0.5) WITHIN GROUP (ORDER BY seconds) FILTER (WHERE got_download) AS dl_median_s
+         FROM j`
+      ),
     ]);
 
   const n = (v: string | undefined) => parseInt(v ?? '0');
@@ -207,6 +268,25 @@ export async function GET(request: NextRequest) {
       downloadSessions: n(f?.download_sessions),
     },
     purposes: purposes.map((p) => ({ purpose: p.purpose, count: n(p.count) })),
+    generatorFunnel: (() => {
+      const g = genFunnel[0];
+      const med = (v: string | null | undefined) => (v == null ? null : Math.round(Number(v)));
+      return {
+        since: GENERATOR_TRACKING_SINCE,
+        base: n(g?.base),
+        customized: n(g?.customized),
+        browsed: n(g?.browsed),
+        reachedDownload: n(g?.reached_download),
+        clickedDownload: n(g?.clicked_download),
+        gotDownload: n(g?.got_download),
+        copied: n(g?.copied),
+        downloadErrors: n(g?.download_errors),
+        noDownloadWithExit: n(g?.no_dl_with_exit),
+        noDownloadUnder30s: n(g?.no_dl_under_30s),
+        noDownloadMedianSeconds: med(g?.no_dl_median_s),
+        downloadMedianSeconds: med(g?.dl_median_s),
+      };
+    })(),
     reportedQuestions: reports.map((r) => ({
       questionId: n(r.question_id),
       reports: n(r.reports),

@@ -31,6 +31,22 @@ interface Analytics {
     generatedSessions: number;
     downloadSessions: number;
   };
+  /** Generator journey per visit (only since the instrumentation shipped). */
+  generatorFunnel?: {
+    since: string;
+    base: number;
+    customized: number;
+    browsed: number;
+    reachedDownload: number;
+    clickedDownload: number;
+    gotDownload: number;
+    copied: number;
+    downloadErrors: number;
+    noDownloadWithExit: number;
+    noDownloadUnder30s: number;
+    noDownloadMedianSeconds: number | null;
+    downloadMedianSeconds: number | null;
+  };
   /** Answers to the generator's "Wofür ist dein Quiz?" poll. */
   purposes?: { purpose: string; count: number }[];
   reportedQuestions: {
@@ -105,6 +121,24 @@ function buildCsv(data: Analytics, rangeLabel: string): string {
       (data.locales ?? []).map((l) => [l.locale, l.views, l.sessions])),
     csvBlock('Seitenfluss', ['from', 'to', 'count'],
       data.transitions.map((t) => [t.from, t.to, t.count])),
+    csvBlock('Generator im Detail (Besuche)', ['metric', 'value'],
+      data.generatorFunnel
+        ? [
+            ['since', data.generatorFunnel.since],
+            ['preview_loaded', data.generatorFunnel.base],
+            ['customized', data.generatorFunnel.customized],
+            ['browsed_rounds', data.generatorFunnel.browsed],
+            ['reached_download_step', data.generatorFunnel.reachedDownload],
+            ['clicked_download', data.generatorFunnel.clickedDownload],
+            ['got_download', data.generatorFunnel.gotDownload],
+            ['copied_text', data.generatorFunnel.copied],
+            ['download_errors', data.generatorFunnel.downloadErrors],
+            ['no_download_left_under_30s', data.generatorFunnel.noDownloadUnder30s],
+            ['no_download_median_seconds', data.generatorFunnel.noDownloadMedianSeconds ?? ''],
+            ['download_median_seconds', data.generatorFunnel.downloadMedianSeconds ?? ''],
+          ]
+        : []
+    ),
     csvBlock('Einsatzzweck (Umfrage)', ['purpose', 'answers'],
       (data.purposes ?? []).map((p) => [p.purpose, p.count])
     ),
@@ -222,9 +256,41 @@ export default function AnalyticsPage() {
           <Section title="Funnel (Sessions)">
             <FunnelBar label="Besuch" value={data.funnel.sessions} max={data.funnel.sessions} />
             <FunnelBar label="Generator geöffnet" value={data.funnel.generatorSessions} max={data.funnel.sessions} />
-            <FunnelBar label="Quiz erstellt" value={data.funnel.generatedSessions} max={data.funnel.sessions} />
+            <FunnelBar label="Vorschau geladen" value={data.funnel.generatedSessions} max={data.funnel.sessions} />
             <FunnelBar label="Download" value={data.funnel.downloadSessions} max={data.funnel.sessions} />
           </Section>
+
+          {/* Generator journey (instrumented since GENERATOR_TRACKING_SINCE) */}
+          {data.generatorFunnel && (
+            <Section title={`Generator im Detail (Besuche seit ${data.generatorFunnel.since})`}>
+              {data.generatorFunnel.base === 0 ? (
+                <p className="text-sm text-[var(--muted)]">Noch keine Generator-Besuche seit Messbeginn.</p>
+              ) : (
+                <>
+                  {(
+                    [
+                      ['Vorschau geladen (Generator geöffnet)', data.generatorFunnel.base],
+                      ['Quiz angepasst', data.generatorFunnel.customized],
+                      ['Weitere Runden angesehen', data.generatorFunnel.browsed],
+                      ['Schritt 2 (Download) erreicht', data.generatorFunnel.reachedDownload],
+                      ['Download geklickt', data.generatorFunnel.clickedDownload],
+                      ['Download erhalten', data.generatorFunnel.gotDownload],
+                    ] as [string, number][]
+                  ).map(([label, value]) => (
+                    <FunnelBar key={label} label={label} value={value} max={data.generatorFunnel!.base} />
+                  ))}
+                  <p className="text-xs text-[var(--muted)]">
+                    Text kopiert: {data.generatorFunnel.copied} · Download-Fehler:{' '}
+                    {data.generatorFunnel.downloadErrors} · Ohne Download nach &lt;30 s gegangen:{' '}
+                    {data.generatorFunnel.noDownloadUnder30s} von {data.generatorFunnel.noDownloadWithExit} ·
+                    Verweildauer (Median) ohne Download:{' '}
+                    {data.generatorFunnel.noDownloadMedianSeconds ?? '–'} s, mit Download:{' '}
+                    {data.generatorFunnel.downloadMedianSeconds ?? '–'} s
+                  </p>
+                </>
+              )}
+            </Section>
+          )}
 
           {/* "Wofür ist dein Quiz?" poll */}
           <Section title="Einsatzzweck (Umfrage im Generator)">

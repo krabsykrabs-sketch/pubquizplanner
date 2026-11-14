@@ -8,7 +8,8 @@ export type EventType =
   | 'download_cheat_sheet'
   | 'download_category_pdf'
   | 'question_report'
-  | 'quiz_purpose';
+  | 'quiz_purpose'
+  | 'generator_action';
 
 export const EVENT_TYPES: EventType[] = [
   'page_view',
@@ -19,6 +20,7 @@ export const EVENT_TYPES: EventType[] = [
   'download_category_pdf',
   'question_report',
   'quiz_purpose',
+  'generator_action',
 ];
 
 const SESSION_ID_RE = /^[a-zA-Z0-9-]{8,40}$/;

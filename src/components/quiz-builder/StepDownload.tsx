@@ -16,6 +16,8 @@ import Card from '@/components/ds/Card';
 import Input from '@/components/ds/Input';
 import { categoryIcon } from '@/lib/category-visuals';
 import { getSessionId } from '@/lib/session-id';
+import { trackGenerator } from '@/lib/generator-track';
+import type { DownloadFormat } from '@/lib/generator-events';
 import { getQuizMode, DEFAULT_QUIZ_MODE } from '@/lib/quiz-modes';
 import type { QuizConfig, QuizQuestion } from '@/types/quiz';
 import ModeSelector from './ModeSelector';
@@ -43,9 +45,11 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
   const download = async (
     endpoint: string,
     fileSuffix: string,
-    setGenerating: (v: boolean) => void
+    setGenerating: (v: boolean) => void,
+    format: DownloadFormat
   ) => {
     setGenerating(true);
+    trackGenerator('download_click', { format });
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -61,6 +65,7 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
           })),
         }),
       });
+      if (!res.ok) trackGenerator('download_error', { format, status: res.status });
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -70,16 +75,17 @@ export default function StepDownload({ config, onChange, roundsData, onBack }: P
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
+      trackGenerator('download_error', { format, status: 0 });
     }
     setGenerating(false);
   };
 
   const handleDownloadPresentation = () =>
-    download('/api/generate-presentation', 'Praesentation.html', setGeneratingPres);
+    download('/api/generate-presentation', 'Praesentation.html', setGeneratingPres, 'slides');
   const handleDownloadAnswerSheet = () =>
-    download('/api/generate-answer-sheet', 'Antwortbogen.pdf', setGeneratingPdf);
+    download('/api/generate-answer-sheet', 'Antwortbogen.pdf', setGeneratingPdf, 'answer_sheet');
   const handleDownloadCheatSheet = () =>
-    download('/api/generate-cheat-sheet', 'Spickzettel.pdf', setGeneratingCheat);
+    download('/api/generate-cheat-sheet', 'Spickzettel.pdf', setGeneratingCheat, 'cheat_sheet');
 
   const totalQuestions = roundsData.reduce(
     (sum, r) => sum + r.questions.length,
