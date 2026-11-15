@@ -16,7 +16,8 @@
     "description": "Der ganze Quizabend — Folien, Antwortbögen und Moderations-Spickzettel aus einer kuratierten Fragendatenbank.",
     "questions": "Quizfragen",
     "impressum": "Impressum",
-    "privacy": "Datenschutz"
+    "privacy": "Datenschutz",
+    "about": "Über uns"
   },
   "landing": {
     "badge": "Kostenlos · ohne Anmeldung",

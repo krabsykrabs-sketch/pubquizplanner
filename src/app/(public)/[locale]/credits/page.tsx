@@ -24,6 +24,17 @@ export default function CreditsPage({
 
       <div className="space-y-8">
         <p className="text-sm leading-relaxed text-[var(--text-body)]">
+          Wie unsere Fragen entstehen und geprüft werden, steht unter{' '}
+          <Link
+            href={`/${locale}/ueber-uns`}
+            className="text-[var(--link)] underline transition-colors hover:text-[var(--link-hover)]"
+          >
+            So entstehen unsere Quizfragen
+          </Link>
+          .
+        </p>
+
+        <p className="text-sm leading-relaxed text-[var(--text-body)]">
           Teile unserer Fragendatenbank basieren auf folgenden Quellen:
         </p>
 

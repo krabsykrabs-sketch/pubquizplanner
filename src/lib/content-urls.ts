@@ -19,6 +19,7 @@ export async function getContentUrls(): Promise<string[]> {
     `${BASE_URL}/${SOURCE_LOCALE}/impressum`,
     `${BASE_URL}/${SOURCE_LOCALE}/datenschutz`,
     `${BASE_URL}/${SOURCE_LOCALE}/credits`,
+    `${BASE_URL}/${SOURCE_LOCALE}/ueber-uns`,
   ];
 
   const deCategories = await query<{ slug: string }>(

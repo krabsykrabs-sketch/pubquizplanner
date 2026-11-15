@@ -16,7 +16,8 @@
     "description": "Hela quizkvällen — slides, svarsblanketter och en fusklapp för quizmastern ur en handplockad frågedatabas.",
     "questions": "Quizfrågor",
     "impressum": "Juridisk information",
-    "privacy": "Integritetspolicy"
+    "privacy": "Integritetspolicy",
+    "about": "Om oss"
   },
   "landing": {
     "badge": "Gratis · ingen registrering",

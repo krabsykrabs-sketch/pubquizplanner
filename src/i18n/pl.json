@@ -16,7 +16,8 @@
     "description": "Cały wieczór quizowy — slajdy, karty odpowiedzi i ściąga dla quizmastera ze starannie dobranej bazy pytań.",
     "questions": "Pytania quizowe",
     "impressum": "Nota prawna",
-    "privacy": "Polityka prywatności"
+    "privacy": "Polityka prywatności",
+    "about": "O nas"
   },
   "landing": {
     "badge": "Za darmo · bez rejestracji",

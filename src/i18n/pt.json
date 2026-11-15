@@ -16,7 +16,8 @@
     "description": "Toda a noite de quiz — slides, folhas de respostas e cábula para o apresentador a partir de uma base de perguntas curada.",
     "questions": "Perguntas de quiz",
     "impressum": "Ficha técnica",
-    "privacy": "Privacidade"
+    "privacy": "Privacidade",
+    "about": "Sobre nós"
   },
   "landing": {
     "badge": "Grátis · sem registo",

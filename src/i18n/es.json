@@ -16,7 +16,8 @@
     "description": "Toda la noche de quiz: diapositivas, hojas de respuestas y chuleta para el presentador, a partir de una base de preguntas seleccionada.",
     "questions": "Preguntas de quiz",
     "impressum": "Aviso legal",
-    "privacy": "Privacidad"
+    "privacy": "Privacidad",
+    "about": "Sobre nosotros"
   },
   "landing": {
     "badge": "Gratis · sin registro",

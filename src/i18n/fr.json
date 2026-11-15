@@ -16,7 +16,8 @@
     "description": "Toute la soirée quiz — diapos, feuilles de réponses et antisèche pour l'animateur, à partir d'une base de questions sélectionnées.",
     "questions": "Questions de quiz",
     "impressum": "Mentions légales",
-    "privacy": "Confidentialité"
+    "privacy": "Confidentialité",
+    "about": "À propos"
   },
   "landing": {
     "badge": "Gratuit · sans inscription",

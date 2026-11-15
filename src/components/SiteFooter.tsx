@@ -16,6 +16,7 @@ export default async function SiteFooter({
     { href: questionsIndexPath(locale), label: t('questions') },
     { href: `/${locale}/impressum`, label: t('impressum') },
     { href: `/${locale}/datenschutz`, label: t('privacy') },
+    { href: `/${locale}/ueber-uns`, label: t('about') },
     { href: `/${locale}/credits`, label: 'Credits' },
   ];
 
