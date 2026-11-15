@@ -174,7 +174,8 @@
     "allCategories": "Wszystkie kategorie",
     "inlineCtaText": "Chcesz te pytania jako gotową prezentację?",
     "breadcrumbHome": "Strona główna",
-    "breadcrumbQuestions": "Pytania quizowe"
+    "breadcrumbQuestions": "Pytania quizowe",
+    "licenseNote": "Te pytania są dostępne na licencji <license>CC BY-SA 4.0</license>: możesz je swobodnie wykorzystywać, zmieniać i udostępniać – z podaniem źródła „pubquizplanner.com”. <credits>Szczegóły</credits>"
   },
   "demo": {
     "badge": "Demo na żywo",

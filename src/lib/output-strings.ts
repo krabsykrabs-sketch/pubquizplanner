@@ -19,6 +19,8 @@ export interface OutputStrings {
   finalTitle: string;
   finalSub: string;
   madeWith: string;
+  /** Licence line for outputs that contain the questions (CC BY-SA 4.0). */
+  questionsLicense: string;
   teamName: string;
   points: string;
   totalScore: string;
@@ -49,6 +51,7 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     finalTitle: "Das war's!",
     finalSub: 'Gebt eure Antwortbögen ab.',
     madeWith: 'Erstellt mit pubquizplanner.com',
+    questionsLicense: 'Fragen unter CC BY-SA 4.0',
     teamName: 'Teamname:',
     points: 'Punkte:',
     totalScore: 'Gesamtpunktzahl:',
@@ -76,6 +79,7 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     finalTitle: 'Dat was het!',
     finalSub: 'Lever jullie antwoordformulieren in.',
     madeWith: 'Gemaakt met pubquizplanner.com',
+    questionsLicense: 'Vragen onder CC BY-SA 4.0',
     teamName: 'Teamnaam:',
     points: 'Punten:',
     totalScore: 'Totaalscore:',
@@ -103,6 +107,7 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     finalTitle: 'To już wszystko!',
     finalSub: 'Oddajcie swoje karty odpowiedzi.',
     madeWith: 'Stworzone za pomocą pubquizplanner.com',
+    questionsLicense: 'Pytania na licencji CC BY-SA 4.0',
     teamName: 'Nazwa drużyny:',
     points: 'Punkty:',
     totalScore: 'Łączna liczba punktów:',
@@ -130,6 +135,7 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     finalTitle: "C'est fini !",
     finalSub: 'Rendez vos feuilles de réponses.',
     madeWith: 'Créé avec pubquizplanner.com',
+    questionsLicense: 'Questions sous licence CC BY-SA 4.0',
     teamName: "Nom de l'équipe :",
     points: 'Points :',
     totalScore: 'Score total :',
@@ -157,6 +163,7 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     finalTitle: '¡Y esto es todo!',
     finalSub: 'Entregad vuestras hojas de respuestas.',
     madeWith: 'Creado con pubquizplanner.com',
+    questionsLicense: 'Preguntas bajo licencia CC BY-SA 4.0',
     teamName: 'Nombre del equipo:',
     points: 'Puntos:',
     totalScore: 'Puntuación total:',
@@ -184,6 +191,7 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     finalTitle: 'Chegámos ao fim!',
     finalSub: 'Entreguem as vossas folhas de respostas.',
     madeWith: 'Criado com pubquizplanner.com',
+    questionsLicense: 'Perguntas sob licença CC BY-SA 4.0',
     teamName: 'Nome da equipa:',
     points: 'Pontos:',
     totalScore: 'Pontuação total:',
@@ -211,6 +219,7 @@ const STRINGS: Partial<Record<Locale, OutputStrings>> = {
     finalTitle: 'Det var allt!',
     finalSub: 'Lämna in era svarsblanketter.',
     madeWith: 'Skapat med pubquizplanner.com',
+    questionsLicense: 'Frågor under CC BY-SA 4.0',
     teamName: 'Lagnamn:',
     points: 'Poäng:',
     totalScore: 'Totalpoäng:',

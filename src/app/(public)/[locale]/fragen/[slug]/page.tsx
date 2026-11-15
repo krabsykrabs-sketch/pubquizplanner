@@ -31,6 +31,7 @@ import {
   breadcrumbSchema,
   itemListSchema,
   faqPageSchema,
+  QUESTIONS_LICENSE_URL,
 } from '@/lib/structured-data';
 import { QuestionList } from './question-list';
 import { CategoryPdfLink } from './pdf-link';
@@ -217,7 +218,8 @@ export default async function CategoryQuestionsPage({
     questions.map((q) => ({ name: q.text_de, url: categoryUrl }))
   );
   const faqPage = faqPageSchema(
-    questions.map((q) => ({ question: q.text_de, answer: q.answer_de }))
+    questions.map((q) => ({ question: q.text_de, answer: q.answer_de })),
+    { license: QUESTIONS_LICENSE_URL }
   );
 
   const heroLook = categoryLook(category.slug);
@@ -341,6 +343,30 @@ export default async function CategoryQuestionsPage({
       </p>
 
       <QuestionList questions={questions} locale={locale} />
+
+      {/* Licence (CC BY-SA 4.0) right where people copy questions. */}
+      <p className="mt-6 text-sm text-[var(--text-muted)]">
+        {t.rich('licenseNote', {
+          license: (chunks) => (
+            <a
+              href={QUESTIONS_LICENSE_URL}
+              target="_blank"
+              rel="license noopener noreferrer"
+              className="text-[var(--link)] underline hover:text-[var(--link-hover)]"
+            >
+              {chunks}
+            </a>
+          ),
+          credits: (chunks) => (
+            <Link
+              href={`/${locale}/credits`}
+              className="text-[var(--link)] underline hover:text-[var(--link-hover)]"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
 
       {/* Bottom CTA */}
       <section

@@ -231,6 +231,14 @@ export default async function UeberUnsPage({
             .
           </p>
           <p className={bodyCls}>
+            Unsere Quizfragen stehen unter der freien Lizenz CC BY-SA 4.0: Du darfst sie verwenden
+            und weitergeben, solange du „pubquizplanner.com“ als Quelle angibst. Details unter{' '}
+            <Link href={`/${locale}/credits`} className={linkCls}>
+              Credits
+            </Link>
+            .
+          </p>
+          <p className={bodyCls}>
             <Link href={questionsIndexPath(SOURCE_LOCALE)} className={linkCls}>
               Alle Quizfragen ansehen
             </Link>{' '}

@@ -174,7 +174,8 @@
     "allCategories": "Alle categorieën",
     "inlineCtaText": "Deze vragen als kant-en-klare presentatie?",
     "breadcrumbHome": "Home",
-    "breadcrumbQuestions": "Quizvragen"
+    "breadcrumbQuestions": "Quizvragen",
+    "licenseNote": "Deze quizvragen vallen onder de licentie <license>CC BY-SA 4.0</license>: je mag ze vrij gebruiken, bewerken en delen – met de bronvermelding „pubquizplanner.com”. <credits>Details</credits>"
   },
   "demo": {
     "badge": "Live-demo",

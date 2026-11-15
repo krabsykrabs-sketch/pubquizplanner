@@ -5,6 +5,9 @@
 
 export const BASE_URL = 'https://pubquizplanner.com';
 
+/** Licence of the question content (text, answers, fun facts) since 2026-11-15. */
+export const QUESTIONS_LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/';
+
 // Stable @ids so nodes can cross-reference (WebSite -> Organization publisher)
 // and search engines can de-dupe the site-wide entities across pages.
 const ORG_ID = `${BASE_URL}/#organization`;
@@ -86,9 +89,10 @@ export function itemListSchema(items: ListItemInput[]): JsonLdNode {
   };
 }
 
-export function faqPageSchema(items: FaqItem[]): JsonLdNode {
+export function faqPageSchema(items: FaqItem[], opts: { license?: string } = {}): JsonLdNode {
   return {
     '@type': 'FAQPage',
+    ...(opts.license && { license: opts.license }),
     mainEntity: items.map((item) => ({
       '@type': 'Question',
       name: item.question,

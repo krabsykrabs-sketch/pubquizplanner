@@ -23,6 +23,37 @@ export default function CreditsPage({
       </h1>
 
       <div className="space-y-8">
+        {/* Licence of our own question content (decided 2026-11-15). */}
+        <Card padding="lg" className="space-y-3">
+          <h2 className="font-display text-xl font-bold text-[var(--text-strong)]">
+            Lizenz unserer Quizfragen
+          </h2>
+          <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+            Die Quizfragen auf pubquizplanner.com – Fragen, Antworten und Fun Facts – stehen unter
+            der Lizenz{' '}
+            <a
+              href="https://creativecommons.org/licenses/by-sa/4.0/deed.de"
+              target="_blank"
+              rel="license noopener noreferrer"
+              className="text-[var(--link)] underline transition-colors hover:text-[var(--link-hover)]"
+            >
+              Creative Commons Namensnennung – Weitergabe unter gleichen Bedingungen 4.0 (CC BY-SA 4.0)
+            </a>
+            . Du darfst sie kopieren, bearbeiten und weitergeben, auch kommerziell, solange du die
+            Quelle angibst und Bearbeitungen unter derselben Lizenz weitergibst.
+          </p>
+          <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+            So geht die Quellenangabe, zum Beispiel auf einem Arbeitsblatt:{' '}
+            <span className="font-mono text-[var(--text-strong)]">
+              Quizfragen: PubQuizPlanner (pubquizplanner.com), CC BY-SA 4.0
+            </span>
+          </p>
+          <p className="text-sm leading-relaxed text-[var(--text-muted)]">
+            Nicht unter dieser Lizenz stehen die Software, das Design, das Logo und die
+            Illustrationen der Website.
+          </p>
+        </Card>
+
         <p className="text-sm leading-relaxed text-[var(--text-body)]">
           Wie unsere Fragen entstehen und geprüft werden, steht unter{' '}
           <Link

@@ -174,7 +174,8 @@
     "allCategories": "Alla kategorier",
     "inlineCtaText": "Vill du ha de här frågorna som färdig presentation?",
     "breadcrumbHome": "Startsida",
-    "breadcrumbQuestions": "Quizfrågor"
+    "breadcrumbQuestions": "Quizfrågor",
+    "licenseNote": "Frågorna är licensierade under <license>CC BY-SA 4.0</license>: du får använda, bearbeta och dela dem fritt – med källangivelsen ”pubquizplanner.com”. <credits>Detaljer</credits>"
   },
   "demo": {
     "badge": "Livedemo",

@@ -215,7 +215,9 @@ export function buildQuestionSheet(opts: {
     doc.setFont(FONT, 'normal');
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text(s.madeWith, pageWidth / 2, pageHeight - 8, { align: 'center' });
+    doc.text(`${s.madeWith} · ${s.questionsLicense}`, pageWidth / 2, pageHeight - 8, {
+      align: 'center',
+    });
     doc.text(`${s.page} ${i}/${pageCount}`, pageWidth - margin, pageHeight - 8, {
       align: 'right',
     });
@@ -350,7 +352,7 @@ export function buildCheatSheet(
     doc.setFont(FONT, 'normal');
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text(s.madeWith, pageWidth / 2, pageHeight - 8, {
+    doc.text(`${s.madeWith} · ${s.questionsLicense}`, pageWidth / 2, pageHeight - 8, {
       align: 'center',
     });
     doc.text(`${s.page} ${i}/${pageCount}`, pageWidth - margin, pageHeight - 8, {

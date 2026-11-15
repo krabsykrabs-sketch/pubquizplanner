@@ -178,7 +178,8 @@
     "allCategories": "Toutes les catégories",
     "inlineCtaText": "Ces questions en présentation prête à l'emploi ?",
     "breadcrumbHome": "Accueil",
-    "breadcrumbQuestions": "Questions de quiz"
+    "breadcrumbQuestions": "Questions de quiz",
+    "licenseNote": "Ces questions sont sous licence <license>CC BY-SA 4.0</license> : tu peux les utiliser, les modifier et les partager librement, en citant la source « pubquizplanner.com ». <credits>Détails</credits>"
   },
   "demo": {
     "badge": "Démo en direct",
