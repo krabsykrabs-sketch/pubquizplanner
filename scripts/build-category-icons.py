@@ -413,6 +413,41 @@ def weihnachten():  # Christmas tree
     return svg(grad('g', 700, 420, 1420, 1700), body)
 
 
+def neunziger():  # cassette tape (90er Jahre)
+    label = 'x="424" y="640" width="1200" height="560" rx="54"'
+    # A cassette is wide and flat: scale it up a little so it carries the same
+    # visual weight as the squarer subjects next to it.
+    body = f'''
+<g transform="translate(1024 1025) scale(1.12) translate(-1024 -1025)">
+<rect x="304" y="520" width="1440" height="1010" rx="96" fill="url(#g)" {OUT}/>
+<path d="M 362 780 C 356 980 360 1200 372 1380 C 376 1420 404 1416 402 1376 C 394 1200 390 980 396 780 C 398 740 364 740 362 780 Z" fill="{WHITE}" opacity="0.85"/>
+<rect {label} fill="{WHITE}"/>
+<rect x="424" y="640" width="1200" height="150" fill="{YEL}" clip-path="url(#lab)"/>
+<path d="M 540 716 Q 590 676 640 716 T 740 716 T 840 716 T 940 716 T 1040 716" {DET}/>
+<rect {label} fill="none" {THIN}/>
+<rect x="680" y="840" width="688" height="290" rx="145" fill="{INK}"/>
+<g clip-path="url(#win)">
+  <circle cx="844" cy="985" r="132" fill="{DEEP}"/>
+  <circle cx="1204" cy="985" r="92" fill="{DEEP}"/>
+</g>
+<path d="{gear(844, 985, 78, 60, 6, 28)}" fill="{WHITE}" fill-rule="evenodd" {out(12)}/>
+<path d="{gear(1204, 985, 78, 60, 6, 28, 0.3)}" fill="{WHITE}" fill-rule="evenodd" {out(12)}/>
+<g {OUT}>
+  <path d="M 660 1530 L 780 1330 L 1268 1330 L 1388 1530 Z" fill="{DEEP}"/>
+</g>
+<g fill="{WHITE}" {THIN}>
+  <circle cx="900" cy="1440" r="34"/><circle cx="1148" cy="1440" r="34"/>
+  <circle cx="404" cy="604" r="30"/><circle cx="1644" cy="604" r="30"/>
+  <circle cx="404" cy="1446" r="30"/><circle cx="1644" cy="1446" r="30"/>
+</g>
+</g>
+{sparkles([(300, 340, 58), (1770, 1720, 50)], [(1700, 340, 16), (330, 1720, 14)])}'''
+    defs = (grad('g', 304, 520, 1744, 1530)
+            + f'<clipPath id="lab"><rect {label}/></clipPath>'
+            + '<clipPath id="win"><rect x="680" y="840" width="688" height="290" rx="145"/></clipPath>')
+    return svg(defs, body)
+
+
 # --------------------------------------------------------------------------
 # "How it works" steps (homepage)
 # --------------------------------------------------------------------------
@@ -485,6 +520,7 @@ ICONS = {
     'sprache': sprache,
     'logik-mathe': logik_mathe,
     'weihnachten': weihnachten,
+    '90er': neunziger,
 }
 
 if __name__ == '__main__':
