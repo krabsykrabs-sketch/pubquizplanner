@@ -14,6 +14,8 @@ export const CATEGORY_SEO_NAMES: Partial<Record<Locale, Record<string, string>>>
     'film-tv': 'Film & Fernsehen',
     // Builds "Weihnachts-Quizfragen" — matches "weihnachtsquiz fragen".
     weihnachten: 'Weihnachts',
+    // Display "90er Jahre" would build "90er Jahre-Quizfragen"; searchers type "90er quiz".
+    '90er': '90er',
   },
 };
 

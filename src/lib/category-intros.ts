@@ -35,6 +35,8 @@ export const CATEGORY_INTROS: Partial<Record<Locale, Record<string, string>>> = 
       'Zahlen, Rätsel und logisches Denken — diese Logik & Mathe Quizfragen sind die ultimative Herausforderung für jedes Kneipenquiz.',
     weihnachten:
       'Bräuche aus aller Welt, Weihnachtsfilme, Lieder und Leckereien — diese Weihnachts-Quizfragen mit Antworten sind ideal für die Weihnachtsfeier im Büro, in der Schule oder mit der Familie. Einfach ausdrucken oder als Präsentation an die Wand werfen.',
+    '90er':
+      'Kassetten, Boygroups, Kultserien und Samstagabend-Shows — diese 90er-Quizfragen mit Antworten holen das Jahrzehnt zurück an den Tisch. Perfekt für die Feier im Büro, das Klassentreffen oder den Quizabend mit allen, die damals dabei waren.',
   },
   fr: {
     wissenschaft:

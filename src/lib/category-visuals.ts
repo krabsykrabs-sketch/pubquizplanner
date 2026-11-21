@@ -3,6 +3,7 @@ import {
   BookOpen,
   Brain,
   Calculator,
+  CassetteTape,
   Clapperboard,
   Cpu,
   Dices,
@@ -56,13 +57,15 @@ const ICONS: Record<string, LucideIcon> = {
   'logik-mathe': Calculator,
   // Seasonal category (Nov 2026).
   weihnachten: TreePine,
+  // Live since 2026-11-21 (30+ approved). No illustration yet -> NO_ART.
+  '90er': CassetteTape,
 };
 
 // Slugs registered here without an icon.svg in public/categories/<slug>/. They
 // fall back to CategoryTile's large Lucide glyph on the category tint instead
 // of pointing at a file that doesn't exist. Add a new category here until its
 // illustration is drawn.
-const NO_ART = new Set<string>([]);
+const NO_ART = new Set<string>(['90er']);
 
 export const CATEGORY_SLUGS = Object.keys(ICONS);
 
