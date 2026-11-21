@@ -63,6 +63,21 @@ export async function fetchQuestionsForRound(
   return rows;
 }
 
+// Quality signal (since 2026-11-21, see scripts/migrate-add-swap-tracking.mjs):
+// shown_count = how often a question appeared in a generator preview,
+// swap_count = how often a visitor swapped it out. Callers only count tracked
+// (non-bot, non-admin) requests. Never throws.
+export async function countShown(ids: number[]): Promise<void> {
+  if (ids.length === 0) return;
+  await query('UPDATE questions SET shown_count = shown_count + 1 WHERE id = ANY($1)', [ids]).catch(
+    () => {}
+  );
+}
+
+export async function countSwap(id: number): Promise<void> {
+  await query('UPDATE questions SET swap_count = swap_count + 1 WHERE id = $1', [id]).catch(() => {});
+}
+
 export async function fetchSwapQuestion(
   categoryId: number,
   excludeIds: number[],

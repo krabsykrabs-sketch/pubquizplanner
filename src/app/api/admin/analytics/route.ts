@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
-import { GENERATOR_TRACKING_SINCE } from '@/lib/generator-events';
+import { GENERATOR_TRACKING_SINCE, SWAP_TRACKING_SINCE } from '@/lib/generator-events';
 
 // Aggregated analytics for the admin dashboard. Protected by the admin
 // middleware (all /api/admin routes require the auth cookie).
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       ? `date_trunc('day', ${since})`
       : `date_trunc('day', (SELECT coalesce(min(created_at), now()) FROM events))`;
 
-  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports, purposes, genFunnel] =
+  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports, purposes, genFunnel, swapByCat, swapByDiff, swapTop] =
     await Promise.all([
       query<{
         pageviews: string;
@@ -224,6 +224,29 @@ export async function GET(request: NextRequest) {
                 percentile_cont(0.5) WITHIN GROUP (ORDER BY seconds) FILTER (WHERE got_download) AS dl_median_s
          FROM j`
       ),
+      // Question quality: swap rate = swapped out / shown in a generator
+      // preview. Cumulative since SWAP_TRACKING_SINCE (not range-filtered),
+      // approved questions only.
+      query<{ name: string; shown: string; swaps: string }>(
+        `SELECT c.name_de AS name, sum(q.shown_count) AS shown, sum(q.swap_count) AS swaps
+         FROM questions q JOIN categories c ON c.id = q.category_id
+         WHERE q.status = 'approved'
+         GROUP BY c.name_de HAVING sum(q.shown_count) > 0
+         ORDER BY sum(q.swap_count)::float / sum(q.shown_count) DESC`
+      ),
+      query<{ difficulty: string; shown: string; swaps: string }>(
+        `SELECT difficulty, sum(shown_count) AS shown, sum(swap_count) AS swaps
+         FROM questions WHERE status = 'approved' AND shown_count > 0
+         GROUP BY difficulty ORDER BY difficulty`
+      ),
+      query<{ id: string; text_de: string; answer_de: string; category: string; difficulty: string; shown: string; swaps: string }>(
+        `SELECT q.id, q.text_de, q.answer_de, c.name_de AS category, q.difficulty,
+                q.shown_count AS shown, q.swap_count AS swaps
+         FROM questions q JOIN categories c ON c.id = q.category_id
+         WHERE q.status = 'approved' AND q.shown_count >= 10 AND q.swap_count >= 2
+         ORDER BY q.swap_count::float / q.shown_count DESC, q.swap_count DESC
+         LIMIT 25`
+      ),
     ]);
 
   const n = (v: string | undefined) => parseInt(v ?? '0');
@@ -268,6 +291,24 @@ export async function GET(request: NextRequest) {
       downloadSessions: n(f?.download_sessions),
     },
     purposes: purposes.map((p) => ({ purpose: p.purpose, count: n(p.count) })),
+    questionSwaps: {
+      since: SWAP_TRACKING_SINCE,
+      byCategory: swapByCat.map((r) => ({ name: r.name, shown: n(r.shown), swaps: n(r.swaps) })),
+      byDifficulty: swapByDiff.map((r) => ({
+        difficulty: n(r.difficulty),
+        shown: n(r.shown),
+        swaps: n(r.swaps),
+      })),
+      top: swapTop.map((r) => ({
+        id: n(r.id),
+        text: r.text_de,
+        answer: r.answer_de,
+        category: r.category,
+        difficulty: n(r.difficulty),
+        shown: n(r.shown),
+        swaps: n(r.swaps),
+      })),
+    },
     generatorFunnel: (() => {
       const g = genFunnel[0];
       const med = (v: string | null | undefined) => (v == null ? null : Math.round(Number(v)));

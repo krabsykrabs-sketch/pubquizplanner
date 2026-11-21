@@ -23,6 +23,9 @@ export type DownloadFormat = (typeof DOWNLOAD_FORMATS)[number];
 /** Only generator sessions from this day on carry the actions above. */
 export const GENERATOR_TRACKING_SINCE = '2026-11-14';
 
+/** questions.shown_count / swap_count start counting from this day. */
+export const SWAP_TRACKING_SINCE = '2026-11-21';
+
 /** Hard cap per visit so a stuck client can't flood the events table. */
 export const MAX_GENERATOR_EVENTS_PER_SESSION = 80;
 

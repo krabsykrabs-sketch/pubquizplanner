@@ -31,6 +31,21 @@ interface Analytics {
     generatedSessions: number;
     downloadSessions: number;
   };
+  /** Question quality: swapped out / shown in the generator (cumulative). */
+  questionSwaps?: {
+    since: string;
+    byCategory: { name: string; shown: number; swaps: number }[];
+    byDifficulty: { difficulty: number; shown: number; swaps: number }[];
+    top: {
+      id: number;
+      text: string;
+      answer: string;
+      category: string;
+      difficulty: number;
+      shown: number;
+      swaps: number;
+    }[];
+  };
   /** Generator journey per visit (only since the instrumentation shipped). */
   generatorFunnel?: {
     since: string;
@@ -138,6 +153,16 @@ function buildCsv(data: Analytics, rangeLabel: string): string {
             ['download_median_seconds', data.generatorFunnel.downloadMedianSeconds ?? ''],
           ]
         : []
+    ),
+    csvBlock('Tausch-Quote je Kategorie (kumuliert)', ['category', 'shown', 'swapped', 'rate_pct'],
+      (data.questionSwaps?.byCategory ?? []).map((c) => [
+        c.name, c.shown, c.swaps, c.shown ? ((c.swaps / c.shown) * 100).toFixed(1) : '0',
+      ])
+    ),
+    csvBlock('Am häufigsten getauschte Fragen', ['question_id', 'category', 'difficulty', 'shown', 'swapped', 'rate_pct', 'text', 'answer'],
+      (data.questionSwaps?.top ?? []).map((q) => [
+        q.id, q.category, q.difficulty, q.shown, q.swaps, ((q.swaps / q.shown) * 100).toFixed(1), q.text, q.answer,
+      ])
     ),
     csvBlock('Einsatzzweck (Umfrage)', ['purpose', 'answers'],
       (data.purposes ?? []).map((p) => [p.purpose, p.count])
@@ -287,6 +312,77 @@ export default function AnalyticsPage() {
                     {data.generatorFunnel.noDownloadMedianSeconds ?? '–'} s, mit Download:{' '}
                     {data.generatorFunnel.downloadMedianSeconds ?? '–'} s
                   </p>
+                </>
+              )}
+            </Section>
+          )}
+
+          {/* Question quality: swap rate */}
+          {data.questionSwaps && (
+            <Section title={`Fragen-Qualität: Tausch-Quote (seit ${data.questionSwaps.since}, kumuliert)`}>
+              {data.questionSwaps.byCategory.length === 0 ? (
+                <p className="text-sm text-[var(--muted)]">Noch keine Daten – gezählt wird ab dem ersten Generator-Besuch nach dem Start.</p>
+              ) : (
+                <>
+                  {(() => {
+                    const all = data.questionSwaps!.byCategory;
+                    const shown = all.reduce((a, c) => a + c.shown, 0);
+                    const swaps = all.reduce((a, c) => a + c.swaps, 0);
+                    return (
+                      <p className="text-sm">
+                        Gesamt: {swaps} von {shown} gezeigten Fragen getauscht ({shown ? ((swaps / shown) * 100).toFixed(1) : '0'} %)
+                      </p>
+                    );
+                  })()}
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div className="space-y-1">
+                      <p className="text-xs uppercase tracking-wide text-[var(--muted)]">Je Kategorie</p>
+                      {data.questionSwaps.byCategory.map((c) => (
+                        <p key={c.name} className="flex justify-between gap-3 text-sm">
+                          <span>{c.name}</span>
+                          <span className="font-mono">
+                            {c.shown ? ((c.swaps / c.shown) * 100).toFixed(1) : '0'} %{' '}
+                            <span className="text-[var(--muted)]">({c.swaps}/{c.shown})</span>
+                          </span>
+                        </p>
+                      ))}
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs uppercase tracking-wide text-[var(--muted)]">Je Schwierigkeit</p>
+                      {data.questionSwaps.byDifficulty.map((d) => (
+                        <p key={d.difficulty} className="flex justify-between gap-3 text-sm">
+                          <span>{['', 'Leicht', 'Mittel', 'Schwer'][d.difficulty] ?? d.difficulty}</span>
+                          <span className="font-mono">
+                            {d.shown ? ((d.swaps / d.shown) * 100).toFixed(1) : '0'} %{' '}
+                            <span className="text-[var(--muted)]">({d.swaps}/{d.shown})</span>
+                          </span>
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-xs uppercase tracking-wide text-[var(--muted)]">
+                      Am häufigsten getauscht (mind. 10× gezeigt, 2× getauscht)
+                    </p>
+                    {data.questionSwaps.top.length === 0 ? (
+                      <p className="text-sm text-[var(--muted)]">Noch keine Frage über der Schwelle.</p>
+                    ) : (
+                      data.questionSwaps.top.map((q) => (
+                        <div key={q.id} className="rounded-lg border border-[var(--dark-border)] p-3 text-sm">
+                          <p className="m-0">
+                            <span className="font-mono text-[var(--gold)]">
+                              {((q.swaps / q.shown) * 100).toFixed(0)} %
+                            </span>{' '}
+                            <span className="text-[var(--muted)]">
+                              ({q.swaps}/{q.shown}) · #{q.id} · {q.category} · Stufe {q.difficulty}
+                            </span>
+                          </p>
+                          <p className="m-0 mt-1">{q.text}</p>
+                          <p className="m-0 text-[var(--muted)]">→ {q.answer}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </>
               )}
             </Section>

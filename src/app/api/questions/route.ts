@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchQuestionsForRound } from '@/lib/quiz-assembler';
+import { countShown, fetchQuestionsForRound } from '@/lib/quiz-assembler';
+import { shouldTrackRequest } from '@/lib/track-guard';
 import { logEvent } from '@/lib/events';
 import { SOURCE_LOCALE } from '@/config/locales';
 
@@ -20,6 +21,10 @@ export async function POST(request: NextRequest) {
     await logEvent('quiz_generated', {
       sessionId: request.headers.get('x-quiz-session'),
     });
+  }
+
+  if (shouldTrackRequest(request)) {
+    await countShown(questions.map((q) => q.id));
   }
 
   return NextResponse.json(questions);
