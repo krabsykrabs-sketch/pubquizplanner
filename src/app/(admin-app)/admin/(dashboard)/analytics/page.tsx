@@ -687,6 +687,9 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
   const PAD_B = 26;
   const svgRef = useRef<SVGSVGElement>(null);
   const [hover, setHover] = useState<number | null>(null);
+  // Trailing moving average over complete days. 7 is the default: traffic
+  // has a strong weekday/weekend rhythm that a 3-day window still shows.
+  const [win, setWin] = useState<0 | 3 | 7>(7);
 
   const max = Math.max(...daily.map((d) => d.pageviews), 1);
   const x = (i: number) => PAD_X + (i / Math.max(daily.length - 1, 1)) * (W - PAD_X * 2);
@@ -699,6 +702,21 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
     daily
       .slice(0, -1)
       .map((d, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(d[key]).toFixed(1)}`)
+      .join(' ');
+  // Average of the `win` complete days ending at i (today excluded); null
+  // until a full window exists, so the curve never shows a partial average.
+  const avgAt = (key: SeriesKey, i: number): number | null => {
+    if (!win || i < win - 1 || i >= todayIdx) return null;
+    let sum = 0;
+    for (let j = i - win + 1; j <= i; j++) sum += daily[j][key];
+    return sum / win;
+  };
+  const smoothLine = (key: SeriesKey) =>
+    daily
+      .map((_, i) => avgAt(key, i))
+      .map((v, i) => (v === null ? null : [x(i), y(v)]))
+      .filter((p): p is number[] => p !== null)
+      .map(([px, py], k) => `${k === 0 ? 'M' : 'L'}${px.toFixed(1)},${py.toFixed(1)}`)
       .join(' ');
 
   // Nearest day under the cursor, in viewBox coordinates.
@@ -724,6 +742,23 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
 
   return (
     <div className="relative">
+      <div className="mb-2 flex items-center justify-end gap-1 text-xs">
+        <span className="mr-1 text-[var(--muted)]">Glättung:</span>
+        {([0, 3, 7] as const).map((w) => (
+          <button
+            key={w}
+            type="button"
+            onClick={() => setWin(w)}
+            className={`rounded-md border px-2 py-0.5 ${
+              win === w
+                ? 'border-[var(--gold)] text-[var(--gold)]'
+                : 'border-[var(--dark-border)] text-[var(--muted)] hover:text-[var(--foreground)]'
+            }`}
+          >
+            {w === 0 ? 'Aus' : `${w} Tage Ø`}
+          </button>
+        ))}
+      </div>
       <svg
         ref={svgRef}
         viewBox={`0 0 ${W} ${H}`}
@@ -763,8 +798,27 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
         ))}
         {/* Series (lines end yesterday; today = dots) */}
         {SERIES.map((s) => (
-          <path key={s.key} d={line(s.key)} fill="none" stroke={s.color} strokeWidth="2" />
+          <path
+            key={s.key}
+            d={line(s.key)}
+            fill="none"
+            stroke={s.color}
+            strokeWidth={win ? 1.25 : 2}
+            opacity={win ? 0.3 : 1}
+          />
         ))}
+        {/* Moving average on top of the faded daily values */}
+        {win > 0 &&
+          SERIES.map((s) => (
+            <path
+              key={`avg-${s.key}`}
+              d={smoothLine(s.key)}
+              fill="none"
+              stroke={s.color}
+              strokeWidth="2.5"
+              strokeLinejoin="round"
+            />
+          ))}
         {SERIES.map((s) => (
           <circle
             key={`today-${s.key}`}
@@ -817,7 +871,15 @@ function DailyChart({ daily }: { daily: Analytics['daily'] }) {
             <p key={s.key} className="flex items-center gap-2 text-[var(--muted)]">
               <span className="inline-block h-2 w-2 rounded-full" style={{ background: s.color }} />
               {s.label}
-              <span className="ml-auto pl-4 font-mono text-[var(--foreground)]">{h[s.key]}</span>
+              <span className="ml-auto pl-4 font-mono text-[var(--foreground)]">
+                {h[s.key]}
+                {(() => {
+                  const a = hover !== null ? avgAt(s.key, hover) : null;
+                  return a === null ? null : (
+                    <span className="text-[var(--muted)]"> · Ø {a.toFixed(a < 20 ? 1 : 0)}</span>
+                  );
+                })()}
+              </span>
             </p>
           ))}
         </div>
