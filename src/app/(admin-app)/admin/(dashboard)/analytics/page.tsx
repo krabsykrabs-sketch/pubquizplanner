@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { QUIZ_PURPOSES, QUIZ_PURPOSE_LABELS_DE } from '@/lib/quiz-purpose';
+import { QR_SOURCES, QR_SOURCE_LABELS_DE, type QrSource } from '@/lib/qr-sources';
 
 interface Analytics {
   totals: {
@@ -64,6 +65,8 @@ interface Analytics {
   };
   /** Answers to the generator's "Wofür ist dein Quiz?" poll. */
   purposes?: { purpose: string; count: number }[];
+  /** Scans of the "Eigenes Quiz erstellen" QR codes, by surface. */
+  qrScans?: { src: string; count: number }[];
   reportedQuestions: {
     questionId: number;
     reports: number;
@@ -166,6 +169,9 @@ function buildCsv(data: Analytics, rangeLabel: string): string {
     ),
     csvBlock('Einsatzzweck (Umfrage)', ['purpose', 'answers'],
       (data.purposes ?? []).map((p) => [p.purpose, p.count])
+    ),
+    csvBlock('QR-Scans', ['source', 'scans'],
+      (data.qrScans ?? []).map((q) => [q.src, q.count])
     ),
     csvBlock('Gemeldete Fragen', ['question_id', 'reports', 'last_report', 'text', 'answer'],
       (data.reportedQuestions ?? []).map((r) => [
@@ -408,6 +414,32 @@ export default function AnalyticsPage() {
                   ))}
                   <p className="text-xs text-[var(--muted)]">
                     {total} Antworten · eine pro Besuch · Anteil an allen Antworten
+                  </p>
+                </>
+              );
+            })()}
+          </Section>
+
+          {/* QR codes on final slide / answer sheet / category PDF */}
+          <Section title="QR-Scans (Eigenes Quiz erstellen)">
+            {(() => {
+              const scans = data.qrScans ?? [];
+              const total = scans.reduce((sum, q) => sum + q.count, 0);
+              if (total === 0) {
+                return <p className="text-sm text-[var(--muted)]">Noch keine Scans im Zeitraum.</p>;
+              }
+              return (
+                <>
+                  {(Object.values(QR_SOURCES) as QrSource[]).map((key) => (
+                    <FunnelBar
+                      key={key}
+                      label={QR_SOURCE_LABELS_DE[key]}
+                      value={scans.find((q) => q.src === key)?.count ?? 0}
+                      max={total}
+                    />
+                  ))}
+                  <p className="text-xs text-[var(--muted)]">
+                    {total} Scans · ohne Bots und eigene Besuche
                   </p>
                 </>
               );

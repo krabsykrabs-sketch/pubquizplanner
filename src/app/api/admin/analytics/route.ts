@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       ? `date_trunc('day', ${since})`
       : `date_trunc('day', (SELECT coalesce(min(created_at), now()) FROM events))`;
 
-  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports, purposes, genFunnel, swapByCat, swapByDiff, swapTop] =
+  const [totals, daily, topPages, entryPages, referrers, countries, devices, locales, transitions, funnel, reports, purposes, qrScans, genFunnel, swapByCat, swapByDiff, swapTop] =
     await Promise.all([
       query<{
         pageviews: string;
@@ -164,6 +164,13 @@ export async function GET(request: NextRequest) {
          WHERE event_type = 'quiz_purpose' AND created_at >= ${since}
          GROUP BY 1 ORDER BY count(*) DESC`
       ),
+      // "Make your own quiz" QR codes on slides/printouts, by surface.
+      query<{ src: string; count: string }>(
+        `SELECT meta->>'src' AS src, count(*) AS count
+         FROM events
+         WHERE event_type = 'qr_scan' AND created_at >= ${since}
+         GROUP BY 1 ORDER BY count(*) DESC`
+      ),
       // Generator journey per visit, only for visits since the funnel
       // instrumentation shipped (older visits have no 'generator_action').
       // Base = visits whose preview loaded ('quiz_generated').
@@ -291,6 +298,7 @@ export async function GET(request: NextRequest) {
       downloadSessions: n(f?.download_sessions),
     },
     purposes: purposes.map((p) => ({ purpose: p.purpose, count: n(p.count) })),
+    qrScans: qrScans.map((q) => ({ src: q.src, count: n(q.count) })),
     questionSwaps: {
       since: SWAP_TRACKING_SINCE,
       byCategory: swapByCat.map((r) => ({ name: r.name, shown: n(r.shown), swaps: n(r.swaps) })),

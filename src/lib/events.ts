@@ -9,7 +9,8 @@ export type EventType =
   | 'download_category_pdf'
   | 'question_report'
   | 'quiz_purpose'
-  | 'generator_action';
+  | 'generator_action'
+  | 'qr_scan';
 
 export const EVENT_TYPES: EventType[] = [
   'page_view',
@@ -21,6 +22,7 @@ export const EVENT_TYPES: EventType[] = [
   'question_report',
   'quiz_purpose',
   'generator_action',
+  'qr_scan',
 ];
 
 const SESSION_ID_RE = /^[a-zA-Z0-9-]{8,40}$/;

@@ -4,6 +4,7 @@ import { SOURCE_LOCALE } from '@/config/locales';
 import { defaultSlideTheme, renderThemeCss, type SlideTheme } from './slide-theme';
 import { CATEGORY_BACKGROUNDS } from './category-backgrounds';
 import { FESTIVE_SLUG, fairyLights } from './festive';
+import { qrSvg, qrTargetUrl, QR_SOURCES } from './qr';
 import type { AssembledQuiz } from '@/types/quiz';
 
 // The generated deck is a standalone HTML file that may be opened offline or
@@ -161,7 +162,13 @@ export function buildPresentation(
       <div class="title-icon">${brandMarkSvg(72)}</div>
       <h2>${s.finalTitle}</h2>
       <p>${s.finalSub}</p>
-      <p class="branding">${s.madeWith}</p>
+      <div class="qr-invite">
+        <div class="qr-box">${qrSvg(qrTargetUrl(config.locale || SOURCE_LOCALE, QR_SOURCES.slides), 180)}</div>
+        <div class="qr-text">
+          <div class="qr-cta">${s.qrCta}</div>
+          <div class="qr-url">pubquizplanner.com</div>
+        </div>
+      </div>
     </div>
   `, plain));
 
@@ -414,11 +421,35 @@ h1, h2 {
   color: var(--slide-muted);
 }
 .final-slide .title-icon { margin-bottom: 28px; }
-.final-slide .branding {
+.final-slide .qr-invite {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
+  text-align: left;
+}
+/* Always black-on-white: many phone scanners can't read inverted codes. */
+.final-slide .qr-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 6px;
+  line-height: 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+}
+.final-slide .qr-box svg {
+  width: clamp(110px, 17vh, 190px);
+  height: auto;
+}
+.final-slide .qr-invite .qr-cta {
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  color: var(--slide-text);
+  font-weight: 600;
+}
+.final-slide .qr-invite .qr-url {
   font-family: var(--slide-font-mono);
-  font-size: 14px;
-  color: var(--slide-faint);
-  margin-top: 44px;
+  font-size: clamp(0.95rem, 1.3vw, 1.2rem);
+  color: var(--slide-accent);
+  margin-top: 6px;
 }
 
 /* Progress bar */

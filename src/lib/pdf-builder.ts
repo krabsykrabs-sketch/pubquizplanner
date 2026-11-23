@@ -1,7 +1,32 @@
 import jsPDF from 'jspdf';
 import { getOutputStrings } from './output-strings';
 import { registerPdfFont } from './pdf-fonts';
+import { drawQrPdf, qrTargetUrl, QR_SOURCES, type QrSource } from './qr';
 import type { AssembledQuiz } from '@/types/quiz';
+
+// Small "make your own quiz" QR block, bottom-left above the footer line.
+// Kept black on white and >= 16 mm so a phone reads it from a table.
+const QR_MM = 17;
+function drawQrInvite(
+  doc: jsPDF,
+  font: string,
+  locale: string,
+  src: QrSource,
+  cta: string,
+  x: number,
+  bottom: number
+): void {
+  const top = bottom - QR_MM;
+  drawQrPdf(doc, qrTargetUrl(locale, src), x, top, QR_MM);
+  doc.setTextColor(60, 60, 60);
+  doc.setFont(font, 'bold');
+  doc.setFontSize(9);
+  doc.text(cta, x + QR_MM + 3, top + QR_MM / 2 - 1);
+  doc.setFont('courier', 'normal');
+  doc.setFontSize(8.5);
+  doc.text('pubquizplanner.com', x + QR_MM + 3, top + QR_MM / 2 + 3.5);
+  doc.setTextColor(0, 0, 0);
+}
 
 export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   const s = getOutputStrings(quiz.config.locale);
@@ -94,8 +119,8 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
     y += 12;
   });
 
-  // Total score
-  if (y + 25 > doc.internal.pageSize.getHeight() - margin) {
+  // Total score (+ room below it for the QR invite)
+  if (y + 25 + QR_MM + 8 > doc.internal.pageSize.getHeight() - margin) {
     doc.addPage();
     y = margin;
   }
@@ -107,6 +132,11 @@ export function buildAnswerSheet(quiz: AssembledQuiz): Buffer {
   doc.setFontSize(16);
   doc.text(s.totalScore, margin, y);
   doc.rect(margin + contentWidth - 35, y - 7, 35, 12);
+
+  drawQrInvite(
+    doc, FONT, quiz.config.locale || 'de', QR_SOURCES.answerSheet, s.qrCta,
+    margin, doc.internal.pageSize.getHeight() - 15
+  );
 
   // Footer
   doc.setFont(FONT, 'normal');
@@ -207,6 +237,10 @@ export function buildQuestionSheet(opts: {
 
     y += 3;
   });
+
+  // "Make your own quiz" QR after the last question
+  ensureSpace(QR_MM + 6);
+  drawQrInvite(doc, FONT, locale, QR_SOURCES.categoryPdf, s.qrCta, margin, y + 3 + QR_MM);
 
   // Footer on every page
   const pageCount = doc.getNumberOfPages();
