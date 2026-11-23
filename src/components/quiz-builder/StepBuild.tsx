@@ -250,6 +250,7 @@ export default function StepBuild({
           excludeIds: roundsData.flatMap((r) => r.questions.map((q) => q.id)),
           locale: config.locale,
           replacedId: roundsData[roundIndex]?.questions[questionIndex]?.id,
+          sessionId: getSessionId(),
         }),
       });
       const newQuestion = await res.json();

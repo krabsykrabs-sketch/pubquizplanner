@@ -23,8 +23,15 @@ export type DownloadFormat = (typeof DOWNLOAD_FORMATS)[number];
 /** Only generator sessions from this day on carry the actions above. */
 export const GENERATOR_TRACKING_SINCE = '2026-11-14';
 
-/** questions.shown_count / swap_count start counting from this day. */
-export const SWAP_TRACKING_SINCE = '2026-11-21';
+/** questions.shown_count / swap_count start counting from this day.
+ *  Reset on 2026-11-24: the first days were dominated by single visits that
+ *  swapped 80+ times, now capped by SWAPS_COUNTED_PER_VISIT. */
+export const SWAP_TRACKING_SINCE = '2026-11-24';
+
+/** Only a visit's first N swaps feed the quality stats — someone flipping
+ *  through dozens of questions (e.g. playing straight off the phone) would
+ *  otherwise drown out everyone else. */
+export const SWAPS_COUNTED_PER_VISIT = 10;
 
 /** Hard cap per visit so a stuck client can't flood the events table. */
 export const MAX_GENERATOR_EVENTS_PER_SESSION = 80;
