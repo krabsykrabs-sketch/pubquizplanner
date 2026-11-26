@@ -48,6 +48,8 @@ const CATEGORY_SLUG_TRANSLATIONS: Partial<Record<Locale, Record<string, string>>
     popkultur: 'popcultuur',
     sprache: 'taal',
     'logik-mathe': 'logica-wiskunde',
+    weihnachten: 'kerst',
+    '90er': 'jaren-90',
   },
   pl: {
     allgemeinwissen: 'wiedza-ogolna',
@@ -64,6 +66,8 @@ const CATEGORY_SLUG_TRANSLATIONS: Partial<Record<Locale, Record<string, string>>
     popkultur: 'popkultura',
     sprache: 'jezyk',
     'logik-mathe': 'logika-matematyka',
+    weihnachten: 'boze-narodzenie',
+    '90er': 'lata-90',
   },
   sv: {
     allgemeinwissen: 'allmanbildning',
@@ -80,6 +84,8 @@ const CATEGORY_SLUG_TRANSLATIONS: Partial<Record<Locale, Record<string, string>>
     popkultur: 'popkultur',
     sprache: 'sprak',
     'logik-mathe': 'logik-matematik',
+    weihnachten: 'jul',
+    '90er': '90-talet',
   },
   fr: {
     allgemeinwissen: 'culture-generale',
@@ -96,6 +102,8 @@ const CATEGORY_SLUG_TRANSLATIONS: Partial<Record<Locale, Record<string, string>>
     popkultur: 'culture-pop',
     sprache: 'langue',
     'logik-mathe': 'logique-maths',
+    weihnachten: 'noel',
+    '90er': 'annees-90',
   },
   es: {
     allgemeinwissen: 'cultura-general',
@@ -112,6 +120,8 @@ const CATEGORY_SLUG_TRANSLATIONS: Partial<Record<Locale, Record<string, string>>
     popkultur: 'cultura-pop',
     sprache: 'lengua',
     'logik-mathe': 'logica-matematicas',
+    weihnachten: 'navidad',
+    '90er': 'anos-90',
   },
   pt: {
     allgemeinwissen: 'cultura-geral',
@@ -128,6 +138,8 @@ const CATEGORY_SLUG_TRANSLATIONS: Partial<Record<Locale, Record<string, string>>
     popkultur: 'cultura-pop',
     sprache: 'lingua',
     'logik-mathe': 'logica-matematica',
+    weihnachten: 'natal',
+    '90er': 'anos-90',
   },
 };
 

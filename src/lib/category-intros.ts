@@ -67,6 +67,10 @@ export const CATEGORY_INTROS: Partial<Record<Locale, Record<string, string>>> = 
       'Étymologie, expressions et curiosités de la langue — ces questions de quiz sur les mots mettent au défi les as du langage de ta soirée quiz.',
     'logik-mathe':
       'Chiffres, énigmes et raisonnement logique — ces questions de quiz sur la logique et les maths sont le défi ultime de toute soirée quiz.',
+    weihnachten:
+      "Traditions, chants, films cultes et gourmandises — ces questions de quiz sur Noël mettent l'ambiance de fête autour de la table. Parfaites pour la soirée quiz de fin d'année, au bureau ou en famille.",
+    '90er':
+      'Cassettes, boys bands, séries cultes et tubes inoubliables — ces questions de quiz sur les années 90 font revivre toute une décennie. Idéales pour une soirée quiz avec tous ceux qui y étaient.',
   },
   es: {
     wissenschaft:
@@ -97,6 +101,10 @@ export const CATEGORY_INTROS: Partial<Record<Locale, Record<string, string>>> = 
       'Etimología, refranes y curiosidades del idioma: estas preguntas de lengua desafían a los malabaristas de las palabras de tu quiz de bar.',
     'logik-mathe':
       'Números, acertijos y pensamiento lógico: estas preguntas de lógica y matemáticas son el reto definitivo para cualquier quiz de bar.',
+    weihnachten:
+      'Tradiciones, villancicos, películas y dulces: estas preguntas de Navidad llenan de ambiente festivo tu quiz de bar. Perfectas para la cena de empresa o la noche de quiz en familia.',
+    '90er':
+      'Casetes, boy bands, series de culto y éxitos inolvidables: estas preguntas sobre los años 90 traen de vuelta toda una década. Ideales para un quiz de bar con quienes lo vivieron.',
   },
   pt: {
     wissenschaft:
@@ -127,6 +135,10 @@ export const CATEGORY_INTROS: Partial<Record<Locale, Record<string, string>>> = 
       'Etimologia, expressões e curiosidades linguísticas — estas perguntas de quiz de língua desafiam os acrobatas das palavras no teu quiz de bar.',
     'logik-mathe':
       'Números, enigmas e raciocínio lógico — estas perguntas de quiz de lógica e matemática são o desafio supremo para qualquer quiz de bar.',
+    weihnachten:
+      'Tradições, canções, filmes e doces — estas perguntas de quiz sobre o Natal trazem o espírito festivo para a mesa. Perfeitas para o jantar de empresa ou o quiz em família.',
+    '90er':
+      'Cassetes, boy bands, séries de culto e êxitos inesquecíveis — estas perguntas de quiz sobre os anos 90 trazem de volta uma década inteira. Ideais para um quiz de bar com quem a viveu.',
   },
   nl: {
     wissenschaft:
@@ -157,6 +169,10 @@ export const CATEGORY_INTROS: Partial<Record<Locale, Record<string, string>>> = 
       'Etymologie, uitdrukkingen en taalkundige curiositeiten — deze taalquizvragen dagen de woordkunstenaars in je pubquiz uit.',
     'logik-mathe':
       'Getallen, raadsels en logisch denken — deze logica & wiskunde-quizvragen zijn de ultieme uitdaging voor elke pubquiz.',
+    weihnachten:
+      'Tradities, kerstliedjes, films en lekkernijen — deze kerstquizvragen brengen de feeststemming naar de cafétafel. Perfect voor de kerstborrel op het werk of de pubquiz met familie.',
+    '90er':
+      'Cassettebandjes, boybands, cultseries en onvergetelijke hits — deze quizvragen over de jaren 90 halen een heel decennium terug. Ideaal voor een pubquiz met iedereen die er toen bij was.',
   },
 };
 
