@@ -10,6 +10,8 @@ survive the review rubric (RUBRIC.md) — write to that bar from the start.
 - Die besten Fragen verbinden zwei unerwartete Bereiche oder enthalten den
   Lösungsweg versteckt in sich (herleitbar statt nur wissbar).
 - Ein guter Fun Fact ist eine zweite Pointe, keine Wikipedia-Zusammenfassung.
+  **Kurz halten:** EIN Punkt, ca. ein Satz, höchstens ~140 Zeichen — keine
+  angehängten „außerdem…“-Fakten (Owner-Feedback, Nov 2026).
 
 ## Die Richtung der Frage (Owner-Feedback, wichtig!)
 
