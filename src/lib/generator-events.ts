@@ -24,9 +24,9 @@ export type DownloadFormat = (typeof DOWNLOAD_FORMATS)[number];
 export const GENERATOR_TRACKING_SINCE = '2026-11-14';
 
 /** questions.shown_count / swap_count start counting from this day.
- *  Reset on 2026-11-24: the first days were dominated by single visits that
+ *  Reset on 2026-11-26 (old counts kept in table questions_swap_backup_20261126): the first days were dominated by single visits that
  *  swapped 80+ times, now capped by SWAPS_COUNTED_PER_VISIT. */
-export const SWAP_TRACKING_SINCE = '2026-11-24';
+export const SWAP_TRACKING_SINCE = '2026-11-26';
 
 /** Only a visit's first N swaps feed the quality stats — someone flipping
  *  through dozens of questions (e.g. playing straight off the phone) would
